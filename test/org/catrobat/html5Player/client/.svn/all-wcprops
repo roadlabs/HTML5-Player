@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/catroidWebPlayer/!svn/ver/149/branches/html5Player/test/org/catrobat/html5Player/client
+END
+AllTestsSuitTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/catroidWebPlayer/!svn/ver/149/branches/html5Player/test/org/catrobat/html5Player/client/AllTestsSuitTest.java
+END
+ImageHandlerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 114
+/svn/catroidWebPlayer/!svn/ver/135/branches/html5Player/test/org/catrobat/html5Player/client/ImageHandlerTest.java
+END
+SpriteManagerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 115
+/svn/catroidWebPlayer/!svn/ver/142/branches/html5Player/test/org/catrobat/html5Player/client/SpriteManagerTest.java
+END
+StageTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/catroidWebPlayer/!svn/ver/135/branches/html5Player/test/org/catrobat/html5Player/client/StageTest.java
+END
+ConstTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/catroidWebPlayer/!svn/ver/125/branches/html5Player/test/org/catrobat/html5Player/client/ConstTest.java
+END
+SpriteTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/catroidWebPlayer/!svn/ver/142/branches/html5Player/test/org/catrobat/html5Player/client/SpriteTest.java
+END
+MessageContainerTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/catroidWebPlayer/!svn/ver/124/branches/html5Player/test/org/catrobat/html5Player/client/MessageContainerTest.java
+END
+ParserTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 108
+/svn/catroidWebPlayer/!svn/ver/143/branches/html5Player/test/org/catrobat/html5Player/client/ParserTest.java
+END
+SceneTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/catroidWebPlayer/!svn/ver/143/branches/html5Player/test/org/catrobat/html5Player/client/SceneTest.java
+END

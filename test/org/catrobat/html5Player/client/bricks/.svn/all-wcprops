@@ -1,0 +1,203 @@
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/catroidWebPlayer/!svn/ver/148/branches/html5Player/test/org/catrobat/html5Player/client/bricks
+END
+BroadcastWaitBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/catroidWebPlayer/!svn/ver/148/branches/html5Player/test/org/catrobat/html5Player/client/bricks/BroadcastWaitBrickTest.java
+END
+SetSizeToBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/catroidWebPlayer/!svn/ver/120/branches/html5Player/test/org/catrobat/html5Player/client/bricks/SetSizeToBrickTest.java
+END
+LoopEndBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/catroidWebPlayer/!svn/ver/142/branches/html5Player/test/org/catrobat/html5Player/client/bricks/LoopEndBrickTest.java
+END
+ClearGraphicEffectBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/catroidWebPlayer/!svn/ver/143/branches/html5Player/test/org/catrobat/html5Player/client/bricks/ClearGraphicEffectBrickTest.java
+END
+ChangeGhostEffectByBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/catroidWebPlayer/!svn/ver/142/branches/html5Player/test/org/catrobat/html5Player/client/bricks/ChangeGhostEffectByBrickTest.java
+END
+MoveNStepsBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/catroidWebPlayer/!svn/ver/146/branches/html5Player/test/org/catrobat/html5Player/client/bricks/MoveNStepsBrickTest.java
+END
+WaitBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/catroidWebPlayer/!svn/ver/126/branches/html5Player/test/org/catrobat/html5Player/client/bricks/WaitBrickTest.java
+END
+NoteBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/catroidWebPlayer/!svn/ver/125/branches/html5Player/test/org/catrobat/html5Player/client/bricks/NoteBrickTest.java
+END
+PlaceAtBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/catroidWebPlayer/!svn/ver/120/branches/html5Player/test/org/catrobat/html5Player/client/bricks/PlaceAtBrickTest.java
+END
+NextCostumeBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/catroidWebPlayer/!svn/ver/142/branches/html5Player/test/org/catrobat/html5Player/client/bricks/NextCostumeBrickTest.java
+END
+ShowBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/catroidWebPlayer/!svn/ver/120/branches/html5Player/test/org/catrobat/html5Player/client/bricks/ShowBrickTest.java
+END
+PointInDirectionBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/catroidWebPlayer/!svn/ver/146/branches/html5Player/test/org/catrobat/html5Player/client/bricks/PointInDirectionBrickTest.java
+END
+SetXBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/catroidWebPlayer/!svn/ver/120/branches/html5Player/test/org/catrobat/html5Player/client/bricks/SetXBrickTest.java
+END
+SetYBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/catroidWebPlayer/!svn/ver/120/branches/html5Player/test/org/catrobat/html5Player/client/bricks/SetYBrickTest.java
+END
+SetBrightnessBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/catroidWebPlayer/!svn/ver/142/branches/html5Player/test/org/catrobat/html5Player/client/bricks/SetBrightnessBrickTest.java
+END
+TurnRightBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/catroidWebPlayer/!svn/ver/119/branches/html5Player/test/org/catrobat/html5Player/client/bricks/TurnRightBrickTest.java
+END
+SetVolumeToBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/catroidWebPlayer/!svn/ver/140/branches/html5Player/test/org/catrobat/html5Player/client/bricks/SetVolumeToBrickTest.java
+END
+ChangeSizeByNBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/catroidWebPlayer/!svn/ver/122/branches/html5Player/test/org/catrobat/html5Player/client/bricks/ChangeSizeByNBrickTest.java
+END
+SetCostumeBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 124
+/svn/catroidWebPlayer/!svn/ver/142/branches/html5Player/test/org/catrobat/html5Player/client/bricks/SetCostumeBrickTest.java
+END
+PointToBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/catroidWebPlayer/!svn/ver/146/branches/html5Player/test/org/catrobat/html5Player/client/bricks/PointToBrickTest.java
+END
+ComeToFrontBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 125
+/svn/catroidWebPlayer/!svn/ver/120/branches/html5Player/test/org/catrobat/html5Player/client/bricks/ComeToFrontBrickTest.java
+END
+BroadcastBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/catroidWebPlayer/!svn/ver/147/branches/html5Player/test/org/catrobat/html5Player/client/bricks/BroadcastBrickTest.java
+END
+TurnLeftBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 122
+/svn/catroidWebPlayer/!svn/ver/119/branches/html5Player/test/org/catrobat/html5Player/client/bricks/TurnLeftBrickTest.java
+END
+ChangeVolumeByBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/catroidWebPlayer/!svn/ver/140/branches/html5Player/test/org/catrobat/html5Player/client/bricks/ChangeVolumeByBrickTest.java
+END
+ChangeXByBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/catroidWebPlayer/!svn/ver/120/branches/html5Player/test/org/catrobat/html5Player/client/bricks/ChangeXByBrickTest.java
+END
+ForeverBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 121
+/svn/catroidWebPlayer/!svn/ver/128/branches/html5Player/test/org/catrobat/html5Player/client/bricks/ForeverBrickTest.java
+END
+ChangeYByBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 123
+/svn/catroidWebPlayer/!svn/ver/142/branches/html5Player/test/org/catrobat/html5Player/client/bricks/ChangeYByBrickTest.java
+END
+HideBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 118
+/svn/catroidWebPlayer/!svn/ver/120/branches/html5Player/test/org/catrobat/html5Player/client/bricks/HideBrickTest.java
+END
+IfOnEdgeBounceBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/catroidWebPlayer/!svn/ver/136/branches/html5Player/test/org/catrobat/html5Player/client/bricks/IfOnEdgeBounceBrickTest.java
+END
+SetGhostEffectBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 128
+/svn/catroidWebPlayer/!svn/ver/128/branches/html5Player/test/org/catrobat/html5Player/client/bricks/SetGhostEffectBrickTest.java
+END
+ChangeBrightnessBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/catroidWebPlayer/!svn/ver/142/branches/html5Player/test/org/catrobat/html5Player/client/bricks/ChangeBrightnessBrickTest.java
+END
+RepeatBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 120
+/svn/catroidWebPlayer/!svn/ver/142/branches/html5Player/test/org/catrobat/html5Player/client/bricks/RepeatBrickTest.java
+END
+GoNStepsBackBrickTest.java
+K 25
+svn:wc:ra_dav:version-url
+V 126
+/svn/catroidWebPlayer/!svn/ver/142/branches/html5Player/test/org/catrobat/html5Player/client/bricks/GoNStepsBackBrickTest.java
+END

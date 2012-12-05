@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 107
+/svn/catroidWebPlayer/!svn/ver/110/branches/html5Player/test-classes/org/catrobat/html5Player/client/bricks
+END
+MoveNStepsBrickTest.class
+K 25
+svn:wc:ra_dav:version-url
+V 133
+/svn/catroidWebPlayer/!svn/ver/110/branches/html5Player/test-classes/org/catrobat/html5Player/client/bricks/MoveNStepsBrickTest.class
+END
+ChangeXByBrickTest.class
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/catroidWebPlayer/!svn/ver/110/branches/html5Player/test-classes/org/catrobat/html5Player/client/bricks/ChangeXByBrickTest.class
+END
+ChangeVolumeByBrickTest.class
+K 25
+svn:wc:ra_dav:version-url
+V 137
+/svn/catroidWebPlayer/!svn/ver/110/branches/html5Player/test-classes/org/catrobat/html5Player/client/bricks/ChangeVolumeByBrickTest.class
+END
+PlaceAtBrickTest.class
+K 25
+svn:wc:ra_dav:version-url
+V 130
+/svn/catroidWebPlayer/!svn/ver/110/branches/html5Player/test-classes/org/catrobat/html5Player/client/bricks/PlaceAtBrickTest.class
+END
+HideBrickTest.class
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/catroidWebPlayer/!svn/ver/110/branches/html5Player/test-classes/org/catrobat/html5Player/client/bricks/HideBrickTest.class
+END
+ChangeYByBrickTest.class
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/catroidWebPlayer/!svn/ver/110/branches/html5Player/test-classes/org/catrobat/html5Player/client/bricks/ChangeYByBrickTest.class
+END
+ShowBrickTest.class
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/catroidWebPlayer/!svn/ver/110/branches/html5Player/test-classes/org/catrobat/html5Player/client/bricks/ShowBrickTest.class
+END
+PointInDirectionBrickTest.class
+K 25
+svn:wc:ra_dav:version-url
+V 139
+/svn/catroidWebPlayer/!svn/ver/110/branches/html5Player/test-classes/org/catrobat/html5Player/client/bricks/PointInDirectionBrickTest.class
+END
+SetXBrickTest.class
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/catroidWebPlayer/!svn/ver/110/branches/html5Player/test-classes/org/catrobat/html5Player/client/bricks/SetXBrickTest.class
+END
+GoNStepsBackBrickTest.class
+K 25
+svn:wc:ra_dav:version-url
+V 135
+/svn/catroidWebPlayer/!svn/ver/110/branches/html5Player/test-classes/org/catrobat/html5Player/client/bricks/GoNStepsBackBrickTest.class
+END
+SetYBrickTest.class
+K 25
+svn:wc:ra_dav:version-url
+V 127
+/svn/catroidWebPlayer/!svn/ver/110/branches/html5Player/test-classes/org/catrobat/html5Player/client/bricks/SetYBrickTest.class
+END
+TurnRightBrickTest.class
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/catroidWebPlayer/!svn/ver/110/branches/html5Player/test-classes/org/catrobat/html5Player/client/bricks/TurnRightBrickTest.class
+END
+SetVolumeToBrickTest.class
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/catroidWebPlayer/!svn/ver/110/branches/html5Player/test-classes/org/catrobat/html5Player/client/bricks/SetVolumeToBrickTest.class
+END
+SetSizeToBrickTest.class
+K 25
+svn:wc:ra_dav:version-url
+V 132
+/svn/catroidWebPlayer/!svn/ver/110/branches/html5Player/test-classes/org/catrobat/html5Player/client/bricks/SetSizeToBrickTest.class
+END
+ComeToFrontBrickTest.class
+K 25
+svn:wc:ra_dav:version-url
+V 134
+/svn/catroidWebPlayer/!svn/ver/110/branches/html5Player/test-classes/org/catrobat/html5Player/client/bricks/ComeToFrontBrickTest.class
+END
