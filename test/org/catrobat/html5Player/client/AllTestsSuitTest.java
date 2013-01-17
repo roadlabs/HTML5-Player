@@ -55,8 +55,8 @@ public class AllTestsSuitTest extends GWTTestSuite{
 	    suite.addTestSuite(RepeatBrickTest.class);
 	    suite.addTestSuite(ForeverBrickTest.class);
 	    suite.addTestSuite(LoopEndBrickTest.class);
-	    suite.addTestSuite(SetCostumeBrickTest.class);
-	    suite.addTestSuite(NextCostumeBrickTest.class);
+	    suite.addTestSuite(SetLookBrickTest.class);
+	    suite.addTestSuite(NextLookBrickTest.class);
 	    suite.addTestSuite(BroadcastBrickTest.class);
 	    suite.addTestSuite(BroadcastWaitBrickTest.class);
 	    suite.addTestSuite(WaitBrickTest.class);

@@ -23,7 +23,7 @@
 package org.catrobat.html5Player.client.bricks;
 
 import org.catrobat.html5Player.client.Sprite;
-import org.catrobat.html5Player.client.common.Costume;
+import org.catrobat.html5Player.client.common.Look;
 
 public class ChangeSizeByNBrick extends Brick {
 
@@ -36,8 +36,8 @@ public class ChangeSizeByNBrick extends Brick {
 
 	@Override
 	public boolean execute(Sprite sprite) {
-		Costume costume = sprite.getCostume();
-		costume.setSize(costume.getSize() + deltaSize / 100) ;
+		Look look = sprite.getLook();
+		look.setSize(look.getSize() + deltaSize / 100) ;
 		return true;
 	}
 

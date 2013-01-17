@@ -48,7 +48,7 @@ public class ComeToFrontBrickTest extends GWTTestCase {
 		Sprite bottomSprite = new Sprite(bottomSpriteName);
 		stage.getSpriteManager().addSprite(bottomSprite);
 		
-		assertEquals("Unexpected initial z position of bottomSprite", 0, bottomSprite.getCostume().getZPosition());
+		assertEquals("Unexpected initial z position of bottomSprite", 0, bottomSprite.getLook().getZPosition());
 
 		canvas.setCoordinateSpaceHeight(100);
 		canvas.setCoordinateSpaceWidth(100);
@@ -56,14 +56,14 @@ public class ComeToFrontBrickTest extends GWTTestCase {
 		String topSpriteName = new String("testComeToFrontSprite2");
 		Sprite topSprite = new Sprite(topSpriteName);
 		stage.getSpriteManager().addSprite(topSprite);
-		assertEquals("Unexpected initial z position of topSprite", 0, topSprite.getCostume().getZPosition());
+		assertEquals("Unexpected initial z position of topSprite", 0, topSprite.getLook().getZPosition());
 
-		topSprite.getCostume().setZPosition(2);
-		assertEquals("topSprite z position should now be 2", 2, topSprite.getCostume().getZPosition());
+		topSprite.getLook().setZPosition(2);
+		assertEquals("topSprite z position should now be 2", 2, topSprite.getLook().getZPosition());
 	
 		ComeToFrontBrick comeToFrontBrick = new ComeToFrontBrick(bottomSpriteName);
 		comeToFrontBrick.execute();
-		assertEquals("bottomSprite z position should now be 3", bottomSprite.getCostume().getZPosition(), 3);
+		assertEquals("bottomSprite z position should now be 3", bottomSprite.getLook().getZPosition(), 3);
 	}
 
 	public void testNullSprite() {
@@ -81,12 +81,12 @@ public class ComeToFrontBrickTest extends GWTTestCase {
 		Sprite sprite = new Sprite(spriteName);
 		stage.getSpriteManager().addSprite(sprite);
 		
-		sprite.getCostume().setZPosition(Integer.MAX_VALUE);
+		sprite.getLook().setZPosition(Integer.MAX_VALUE);
 
 		ComeToFrontBrick brick = new ComeToFrontBrick(spriteName);
 		brick.execute();
 
 		assertEquals("An Integer overflow occured during ComeToFrontBrick Execution", Integer.MAX_VALUE,
-				sprite.getCostume().getZPosition());
+				sprite.getLook().getZPosition());
 	}
 }

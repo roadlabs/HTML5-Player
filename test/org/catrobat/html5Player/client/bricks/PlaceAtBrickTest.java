@@ -51,17 +51,17 @@ public class PlaceAtBrickTest extends GWTTestCase {
 		Sprite sprite = new Sprite(spriteName);
 		stage.getSpriteManager().addSprite(sprite);
 		
-		assertEquals("Unexpected initial sprite x position", 50d, sprite.getCostume().getXPosition());
-		assertEquals("Unexpected initial sprite y position", 50d, sprite.getCostume().getYPosition());
+		assertEquals("Unexpected initial sprite x position", 50d, sprite.getLook().getXPosition());
+		assertEquals("Unexpected initial sprite y position", 50d, sprite.getLook().getYPosition());
 
 		PlaceAtBrick brick = new PlaceAtBrick(spriteName, xPosition, yPosition);
 		brick.execute();
 
 		//TODO: refactor this
 		assertEquals("Incorrect sprite x position after PlaceAtBrick executed", xPosition,
-				(int) sprite.getCostume().getXPosition()-50);
+				(int) sprite.getLook().getXPosition()-50);
 		assertEquals("Incorrect sprite y position after PlaceAtBrick executed", yPosition,
-				(int) -(sprite.getCostume().getYPosition()-50));
+				(int) -(sprite.getLook().getYPosition()-50));
 	}
 
 	public void testNullSprite() {
@@ -83,16 +83,16 @@ public class PlaceAtBrickTest extends GWTTestCase {
 		placeAtBrick.execute();
 
 		assertEquals("PlaceAtBrick failed to place Sprite at maximum x integer value", Integer.MAX_VALUE,
-				(int)sprite.getCostume().getXPosition());
+				(int)sprite.getLook().getXPosition());
 		assertEquals("PlaceAtBrick failed to place Sprite at maximum y integer value", Integer.MAX_VALUE,
-				(int) sprite.getCostume().getYPosition());
+				(int) sprite.getLook().getYPosition());
 
 		placeAtBrick = new PlaceAtBrick(spriteName, Integer.MIN_VALUE, Integer.MIN_VALUE);
 		placeAtBrick.execute();
 
 		assertEquals("PlaceAtBrick failed to place Sprite at minimum x integer value", Integer.MIN_VALUE+50,
-				(int) sprite.getCostume().getXPosition());
+				(int) sprite.getLook().getXPosition());
 		assertEquals("PlaceAtBrick failed to place Sprite at minimum y integer value", Integer.MAX_VALUE,
-				(int) sprite.getCostume().getYPosition());
+				(int) sprite.getLook().getYPosition());
 	}
 }

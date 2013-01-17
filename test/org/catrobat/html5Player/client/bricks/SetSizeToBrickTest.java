@@ -49,12 +49,12 @@ public class SetSizeToBrickTest extends GWTTestCase {
 		Sprite sprite = new Sprite(spriteName);
 		stage.getSpriteManager().addSprite(sprite);
 		
-		assertEquals("Unexpected initial sprite size value", 1d, sprite.getCostume().getSize());
+		assertEquals("Unexpected initial sprite size value", 1d, sprite.getLook().getSize());
 	
 		SetSizeToBrick setSizeToBrick = new SetSizeToBrick(spriteName, size);
 		setSizeToBrick.execute();
 		assertEquals("Incorrect sprite size value after SetSizeToBrick executed", (double) size / 100,
-				sprite.getCostume().getSize());
+				sprite.getLook().getSize());
 	}
 
 	public void testNullSprite() {

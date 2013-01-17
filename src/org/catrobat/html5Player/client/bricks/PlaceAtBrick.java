@@ -24,7 +24,7 @@ package org.catrobat.html5Player.client.bricks;
 
 import org.catrobat.html5Player.client.Sprite;
 import org.catrobat.html5Player.client.Stage;
-import org.catrobat.html5Player.client.common.Costume;
+import org.catrobat.html5Player.client.common.Look;
 
 public class PlaceAtBrick extends Brick {
 
@@ -39,15 +39,15 @@ public class PlaceAtBrick extends Brick {
 
 	@Override
 	public boolean execute(Sprite sprite) {
-		Costume costume = sprite.getCostume();
+		Look look = sprite.getLook();
 		// TODO fix this with the coordinate system, refactor whole program
 		
-		costume.setXPosition(xPosition + Stage.getInstance().getStageMiddleX());
-		costume.setYPosition(-yPosition + Stage.getInstance().getStageMiddleY());
+		look.setXPosition(xPosition + Stage.getInstance().getStageMiddleX());
+		look.setYPosition(-yPosition + Stage.getInstance().getStageMiddleY());
 		
 		
-		costume.setMiddleX(xPosition);
-		costume.setMiddleY(-yPosition);
+		look.setMiddleX(xPosition);
+		look.setMiddleY(-yPosition);
 		
 		return true;
 	}

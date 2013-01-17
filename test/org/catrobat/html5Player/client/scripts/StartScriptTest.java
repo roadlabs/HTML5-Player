@@ -29,11 +29,11 @@ import org.catrobat.html5Player.client.Sprite;
 import org.catrobat.html5Player.client.Stage;
 import org.catrobat.html5Player.client.bricks.Brick;
 import org.catrobat.html5Player.client.bricks.LoopEndBrick;
-import org.catrobat.html5Player.client.bricks.NextCostumeBrick;
+import org.catrobat.html5Player.client.bricks.NextLookBrick;
 import org.catrobat.html5Player.client.bricks.RepeatBrick;
-import org.catrobat.html5Player.client.bricks.SetCostumeBrick;
+import org.catrobat.html5Player.client.bricks.SetLookBrick;
 import org.catrobat.html5Player.client.bricks.WaitBrick;
-import org.catrobat.html5Player.client.common.CostumeData;
+import org.catrobat.html5Player.client.common.LookData;
 import org.catrobat.html5Player.client.threading.CatScheduler;
 import org.catrobat.html5Player.client.threading.CatThread;
 
@@ -76,11 +76,11 @@ public class StartScriptTest extends GWTTestCase {
 	
 	/**
 	 * Helper
-	 * @param name of Costume
-	 * @return CostumeData for costume
+	 * @param name of Look
+	 * @return LookData for costume
 	 */
-	private CostumeData createCostumeData(String name) {
-		CostumeData data = new CostumeData();
+	private LookData createCostumeData(String name) {
+		LookData data = new LookData();
 		data.setName(name);
 		return data;
 	}
@@ -108,8 +108,8 @@ public class StartScriptTest extends GWTTestCase {
 		String spriteName = "Sprite";
 		Sprite sprite = new Sprite(spriteName);
 		
-		SetCostumeBrick setBrick = new SetCostumeBrick(spriteName, "costumeName");
-		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+		SetLookBrick setBrick = new SetLookBrick(spriteName, "costumeName");
+		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 		
 		ArrayList<Brick> brickList = new ArrayList<Brick>();
 		brickList.add(setBrick);
@@ -130,8 +130,8 @@ public class StartScriptTest extends GWTTestCase {
 		String spriteName = "Sprite";
 		Sprite sprite = new Sprite(spriteName);
 		
-		SetCostumeBrick setBrick = new SetCostumeBrick(spriteName, "costumeName");
-		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+		SetLookBrick setBrick = new SetLookBrick(spriteName, "costumeName");
+		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 		
 		String scriptName = "StartScript";
 		StartScript startScript = new StartScript(sprite, scriptName);
@@ -142,15 +142,15 @@ public class StartScriptTest extends GWTTestCase {
 		startScript.addBrick(nextBrick, position);
 		
 		assertEquals(2, startScript.getBrickList().size());
-		assertTrue(startScript.getBrick(position) instanceof NextCostumeBrick);
-		assertTrue(startScript.getBrick(position+1) instanceof SetCostumeBrick);
+		assertTrue(startScript.getBrick(position) instanceof NextLookBrick);
+		assertTrue(startScript.getBrick(position+1) instanceof SetLookBrick);
 		
 		startScript.addBrick(null);
 		assertEquals(2, startScript.getBrickList().size());
 		
 		startScript.addBrick(null, position);
 		assertEquals(2, startScript.getBrickList().size());
-		assertTrue(startScript.getBrick(position) instanceof NextCostumeBrick);
+		assertTrue(startScript.getBrick(position) instanceof NextLookBrick);
 	}
 	
 	/**
@@ -160,8 +160,8 @@ public class StartScriptTest extends GWTTestCase {
 		String spriteName = "Sprite";
 		Sprite sprite = new Sprite(spriteName);
 		
-		SetCostumeBrick setBrick = new SetCostumeBrick(spriteName, "costumeName");
-		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+		SetLookBrick setBrick = new SetLookBrick(spriteName, "costumeName");
+		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 		
 		String scriptName = "StartScript";
 		StartScript startScript = new StartScript(sprite, scriptName);
@@ -171,9 +171,9 @@ public class StartScriptTest extends GWTTestCase {
 		startScript.addBrick(nextBrick);
 		
 		assertEquals(3, startScript.getBrickList().size());
-		assertTrue(startScript.getBrick(0) instanceof SetCostumeBrick);
-		assertTrue(startScript.getBrick(1) instanceof NextCostumeBrick);
-		assertTrue(startScript.getBrick(2) instanceof NextCostumeBrick);
+		assertTrue(startScript.getBrick(0) instanceof SetLookBrick);
+		assertTrue(startScript.getBrick(1) instanceof NextLookBrick);
+		assertTrue(startScript.getBrick(2) instanceof NextLookBrick);
 	}
 	
 	/**
@@ -183,8 +183,8 @@ public class StartScriptTest extends GWTTestCase {
 		String spriteName = "Sprite";
 		Sprite sprite = new Sprite(spriteName);
 		
-		SetCostumeBrick setBrick = new SetCostumeBrick(spriteName, "costumeName");
-		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+		SetLookBrick setBrick = new SetLookBrick(spriteName, "costumeName");
+		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 		
 		String scriptName = "StartScript";
 		StartScript startScript = new StartScript(sprite, scriptName);
@@ -195,12 +195,12 @@ public class StartScriptTest extends GWTTestCase {
 		startScript.addBrick(nextBrick, position);
 		
 		assertEquals(2, startScript.getBrickList().size());
-		assertTrue(startScript.getBrick(position) instanceof NextCostumeBrick);
-		assertTrue(startScript.getBrick(position+1) instanceof SetCostumeBrick);
+		assertTrue(startScript.getBrick(position) instanceof NextLookBrick);
+		assertTrue(startScript.getBrick(position+1) instanceof SetLookBrick);
 		
 		startScript.deleteBrick(position);
 		assertEquals(1, startScript.getBrickList().size());
-		assertTrue(startScript.getBrick(position) instanceof SetCostumeBrick);
+		assertTrue(startScript.getBrick(position) instanceof SetLookBrick);
 		
 		startScript.deleteBrick(position);
 		assertTrue(startScript.getBrickList().isEmpty());
@@ -218,17 +218,17 @@ public class StartScriptTest extends GWTTestCase {
 		
 		Sprite sprite = new Sprite(spriteName);
 		
-		sprite.addCostumeData(createCostumeData(costumeName1));
-		sprite.addCostumeData(createCostumeData(costumeName2));
+		sprite.addLookData(createCostumeData(costumeName1));
+		sprite.addLookData(createCostumeData(costumeName2));
 		
 		//hide costume, so drawSprite() in redrawScreen() does nothing
-		sprite.getCostume().hide();
+		sprite.getLook().hide();
 		//
 
 		stage.getSpriteManager().addSprite(sprite);
 		
-		SetCostumeBrick setBrick = new SetCostumeBrick(spriteName, costumeName1);
-		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+		SetLookBrick setBrick = new SetLookBrick(spriteName, costumeName1);
+		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 		
 		String scriptName = "StartScript";
 		StartScript startScript = new StartScript(sprite, scriptName);
@@ -239,7 +239,7 @@ public class StartScriptTest extends GWTTestCase {
 		startScript.run();
 		startScript.run();
 		
-		assertEquals(costumeName2, sprite.getCostume().getCostumeData().getName());
+		assertEquals(costumeName2, sprite.getLook().getLookData().getName());
 	}
 	
 	/**
@@ -255,7 +255,7 @@ public class StartScriptTest extends GWTTestCase {
 		
 		startScript.run();
 		
-		assertNull(sprite.getCostume().getCostumeData());
+		assertNull(sprite.getLook().getLookData());
 	}
 	
 //	/**
@@ -278,7 +278,7 @@ public class StartScriptTest extends GWTTestCase {
 //		stage.getSpriteManager().addSprite(sprite);
 //		
 //		SetCostumeBrick2 setBrick = new SetCostumeBrick2(spriteName, costumeName1);
-//		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+//		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 //		
 //		String scriptName = "StartScript";
 //		StartScript startScript = new StartScript(sprite, scriptName);
@@ -328,7 +328,7 @@ public class StartScriptTest extends GWTTestCase {
 //		stage.getSpriteManager().addSprite(sprite_);
 //		
 //		SetCostumeBrick2 setBrick = new SetCostumeBrick2(spriteName, costumeName1);
-//		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+//		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 //		
 //		String scriptName = "StartScript";
 //		StartScript startScript = new StartScript(sprite_, scriptName);
@@ -380,18 +380,18 @@ public class StartScriptTest extends GWTTestCase {
 		
 		Sprite sprite = new Sprite(spriteName);
 		
-		sprite.addCostumeData(createCostumeData(costumeName1));
-		sprite.addCostumeData(createCostumeData(costumeName2));
+		sprite.addLookData(createCostumeData(costumeName1));
+		sprite.addLookData(createCostumeData(costumeName2));
 		
 		//hide costume, so drawSprite() in redrawScreen() does nothing
-		sprite.getCostume().hide();
+		sprite.getLook().hide();
 		//
 
 		stage.getSpriteManager().addSprite(sprite);
 		
-		SetCostumeBrick setBrick = new SetCostumeBrick(spriteName, costumeName1);
-		SetCostumeBrick setBrick2 = new SetCostumeBrick(spriteName, costumeName2);
-		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+		SetLookBrick setBrick = new SetLookBrick(spriteName, costumeName1);
+		SetLookBrick setBrick2 = new SetLookBrick(spriteName, costumeName2);
+		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 		
 		String scriptName = "StartScript";
 		StartScript startScript = new StartScript(sprite, scriptName);
@@ -407,7 +407,7 @@ public class StartScriptTest extends GWTTestCase {
 		startScript.run();
 		startScript.run();
 		
-		assertEquals(costumeName1, sprite.getCostume().getCostumeData().getName());
+		assertEquals(costumeName1, sprite.getLook().getLookData().getName());
 	}
 	
 	/**

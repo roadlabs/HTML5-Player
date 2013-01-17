@@ -46,12 +46,12 @@ public class ShowBrickTest extends GWTTestCase {
 		Sprite sprite = new Sprite(spriteName);
 		stage.getSpriteManager().addSprite(sprite);
 		
-		sprite.getCostume().hide();
-		assertFalse("Sprite is still visible after calling hide", sprite.getCostume().isVisible());
+		sprite.getLook().hide();
+		assertFalse("Sprite is still visible after calling hide", sprite.getLook().isVisible());
 
 		ShowBrick showBrick = new ShowBrick(spriteName);
 		showBrick.execute();
-		assertTrue("Sprite is not visible after ShowBrick executed", sprite.getCostume().isVisible());
+		assertTrue("Sprite is not visible after ShowBrick executed", sprite.getLook().isVisible());
 	}
 
 	public void testNullSprite() {

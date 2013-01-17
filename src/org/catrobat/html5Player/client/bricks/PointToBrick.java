@@ -48,11 +48,11 @@ public class PointToBrick extends Brick {
 		CatrobatDebug.on();
 		CatrobatDebug.console("pointedSprite: " + pointedSprite);
 		
-		int spriteXPosition = (int)sprite.getCostume().getXPosition();
-		int spriteYPosition = (int)sprite.getCostume().getYPosition();
+		int spriteXPosition = (int)sprite.getLook().getXPosition();
+		int spriteYPosition = (int)sprite.getLook().getYPosition();
 		
-		int pointedSpriteXPosition = (int)pointedSprite.getCostume().getXPosition();
-		int pointedSpriteYPosition = (int)pointedSprite.getCostume().getYPosition();
+		int pointedSpriteXPosition = (int)pointedSprite.getLook().getXPosition();
+		int pointedSpriteYPosition = (int)pointedSprite.getLook().getYPosition();
 		
 		double base = 0.0;
 		double height = 0.0;
@@ -104,7 +104,7 @@ public class PointToBrick extends Brick {
 		}
 		
 		// the MINUS is important because canvas positive rotation is clockwise
-		sprite.getCostume().setRotation( -(-rotationDegrees + 90.0) );
+		sprite.getLook().setRotation( -(-rotationDegrees + 90.0) );
 		
 		CatrobatDebug.off();
 		

@@ -25,13 +25,13 @@ package org.catrobat.html5Player.client.bricks;
 import org.catrobat.html5Player.client.Sprite;
 import org.catrobat.html5Player.client.SpriteManager;
 import org.catrobat.html5Player.client.Stage;
-import org.catrobat.html5Player.client.common.Costume;
-import org.catrobat.html5Player.client.common.CostumeData;
+import org.catrobat.html5Player.client.common.Look;
+import org.catrobat.html5Player.client.common.LookData;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
 
-public class NextCostumeBrickTest extends GWTTestCase {
+public class NextLookBrickTest extends GWTTestCase {
 
 	private Stage stage;
 	private SpriteManager manager;
@@ -39,7 +39,7 @@ public class NextCostumeBrickTest extends GWTTestCase {
 	/**
 	 * 
 	 */
-	public NextCostumeBrickTest() {
+	public NextLookBrickTest() {
 		stage = Stage.getInstance();
 		manager = stage.getSpriteManager();
 	}
@@ -69,15 +69,15 @@ public class NextCostumeBrickTest extends GWTTestCase {
 		String spriteName = "testSprite";
 		Sprite sprite = manager.getSprite(spriteName, true);
 
-		Costume spriteCostume = sprite.getCostume();
+		Look spriteCostume = sprite.getLook();
 		
-		CostumeData spriteCostumeData = spriteCostume.getCostumeData();
+		LookData spriteCostumeData = spriteCostume.getLookData();
 		assertEquals(null, spriteCostumeData);
 		
-		NextCostumeBrick nextCostumeBrick = new NextCostumeBrick(spriteName);
-		assertTrue(nextCostumeBrick.execute());
+		NextLookBrick nextLookBrick = new NextLookBrick(spriteName);
+		assertTrue(nextLookBrick.execute());
 		
-		spriteCostumeData = spriteCostume.getCostumeData();
+		spriteCostumeData = spriteCostume.getLookData();
 		assertEquals(null, spriteCostumeData);
 	}
 	
@@ -88,28 +88,28 @@ public class NextCostumeBrickTest extends GWTTestCase {
 		
 		String spriteName = "testSprite";
 		Sprite sprite = manager.getSprite(spriteName, true);
-		Costume spriteCostume = sprite.getCostume();
+		Look spriteCostume = sprite.getLook();
 		
 		//add one new costume data to the sprite
-		CostumeData newCostumeData = new CostumeData();
+		LookData newCostumeData = new LookData();
 		String newCostumeDataName = "cdata";
 		newCostumeData.setName(newCostumeDataName);
-		sprite.addCostumeData(newCostumeData);
+		sprite.addLookData(newCostumeData);
 		
 		//no data set
-		CostumeData spriteCostumeData = spriteCostume.getCostumeData();
+		LookData spriteCostumeData = spriteCostume.getLookData();
 		assertEquals(null, spriteCostumeData);
 		
-		SetCostumeBrick setCostumeBrick = new SetCostumeBrick(spriteName, 
+		SetLookBrick setLookBrick = new SetLookBrick(spriteName, 
 															newCostumeDataName);
-		assertTrue(setCostumeBrick.execute());
+		assertTrue(setLookBrick.execute());
 		
-		NextCostumeBrick nextCostumeBrick = new NextCostumeBrick(spriteName);
-		assertTrue(nextCostumeBrick.execute());
+		NextLookBrick nextLookBrick = new NextLookBrick(spriteName);
+		assertTrue(nextLookBrick.execute());
 		
-		spriteCostumeData = spriteCostume.getCostumeData();
+		spriteCostumeData = spriteCostume.getLookData();
 		String message = "'" + newCostumeDataName + "'" + 
-						 "is not the next CostumeData";
+						 "is not the next LookData";
 		assertEquals(message, newCostumeDataName, spriteCostumeData.getName());
 	}
 	
@@ -120,33 +120,33 @@ public class NextCostumeBrickTest extends GWTTestCase {
 		
 		String spriteName = "testSprite";
 		Sprite sprite = manager.getSprite(spriteName, true);
-		Costume spriteCostume = sprite.getCostume();
+		Look spriteCostume = sprite.getLook();
 		
 		//add two new costume data to the sprite
-		CostumeData newCostumeData = new CostumeData();
+		LookData newCostumeData = new LookData();
 		String newCostumeDataName = "cdata";
 		newCostumeData.setName(newCostumeDataName);
-		sprite.addCostumeData(newCostumeData);
+		sprite.addLookData(newCostumeData);
 		
-		CostumeData newCostumeData2 = new CostumeData();
+		LookData newCostumeData2 = new LookData();
 		String newCostumeDataName2 = "cdata2";
 		newCostumeData2.setName(newCostumeDataName2);
-		sprite.addCostumeData(newCostumeData2);
+		sprite.addLookData(newCostumeData2);
 		
 		//no data set
-		CostumeData spriteCostumeData = spriteCostume.getCostumeData();
+		LookData spriteCostumeData = spriteCostume.getLookData();
 		assertEquals(null, spriteCostumeData);
 		
-		SetCostumeBrick setCostumeBrick = new SetCostumeBrick(spriteName, 
+		SetLookBrick setLookBrick = new SetLookBrick(spriteName, 
 															newCostumeDataName);
-		assertTrue(setCostumeBrick.execute());
+		assertTrue(setLookBrick.execute());
 		
-		NextCostumeBrick nextCostumeBrick = new NextCostumeBrick(spriteName);
-		assertTrue(nextCostumeBrick.execute());
+		NextLookBrick nextLookBrick = new NextLookBrick(spriteName);
+		assertTrue(nextLookBrick.execute());
 		
-		spriteCostumeData = spriteCostume.getCostumeData();
+		spriteCostumeData = spriteCostume.getLookData();
 		String message = "'" + newCostumeDataName2 + "'" + 
-						 "is not the next CostumeData";
+						 "is not the next LookData";
 		assertEquals(message, newCostumeDataName2, spriteCostumeData.getName());
 	}
 	
@@ -157,65 +157,65 @@ public class NextCostumeBrickTest extends GWTTestCase {
 		
 		String spriteName = "testSprite";
 		Sprite sprite = manager.getSprite(spriteName, true);
-		Costume spriteCostume = sprite.getCostume();
+		Look spriteCostume = sprite.getLook();
 		
 		//add three costume data to the sprite
-		CostumeData newCostumeData = new CostumeData();
+		LookData newCostumeData = new LookData();
 		String newCostumeDataName = "cdata";
 		newCostumeData.setName(newCostumeDataName);
-		sprite.addCostumeData(newCostumeData);
+		sprite.addLookData(newCostumeData);
 		
-		CostumeData newCostumeData2 = new CostumeData();
+		LookData newCostumeData2 = new LookData();
 		String newCostumeDataName2 = "cdata2";
 		newCostumeData2.setName(newCostumeDataName2);
-		sprite.addCostumeData(newCostumeData2);
+		sprite.addLookData(newCostumeData2);
 		
-		CostumeData newCostumeData3 = new CostumeData();
+		LookData newCostumeData3 = new LookData();
 		String newCostumeDataName3 = "cdata3";
 		newCostumeData3.setName(newCostumeDataName3);
-		sprite.addCostumeData(newCostumeData3);
+		sprite.addLookData(newCostumeData3);
 		
 		//no data set
-		assertEquals(null, spriteCostume.getCostumeData());
+		assertEquals(null, spriteCostume.getLookData());
 		
-		SetCostumeBrick setCostumeBrick = new SetCostumeBrick(spriteName, 
+		SetLookBrick setLookBrick = new SetLookBrick(spriteName, 
 															newCostumeDataName3);
-		assertTrue(setCostumeBrick.execute()); //cdata3
+		assertTrue(setLookBrick.execute()); //cdata3
 		
-		NextCostumeBrick nextCostumeBrick = new NextCostumeBrick(spriteName);
+		NextLookBrick nextLookBrick = new NextLookBrick(spriteName);
 		
-		assertTrue(nextCostumeBrick.execute()); //cdata
+		assertTrue(nextLookBrick.execute()); //cdata
 		
-		assertEquals(newCostumeDataName, spriteCostume.getCostumeData().getName());
+		assertEquals(newCostumeDataName, spriteCostume.getLookData().getName());
 		
-		assertTrue(nextCostumeBrick.execute()); //cdata2
+		assertTrue(nextLookBrick.execute()); //cdata2
 		
-		assertEquals(newCostumeDataName2, spriteCostume.getCostumeData().getName());
+		assertEquals(newCostumeDataName2, spriteCostume.getLookData().getName());
 	}
 	
 	/**
-	 * no costume data got set with SetCostumeBrick
+	 * no costume data got set with SetLookBrick
 	 */
 	public void testCurrentCostumeDataNull() {
 		
 		String spriteName = "testSprite";
 		Sprite sprite = manager.getSprite(spriteName, true);
-		Costume spriteCostume = sprite.getCostume();
+		Look spriteCostume = sprite.getLook();
 		
 		//add one new costume data to the sprite
-		CostumeData newCostumeData = new CostumeData();
+		LookData newCostumeData = new LookData();
 		String newCostumeDataName = "cdata";
 		newCostumeData.setName(newCostumeDataName);
-		sprite.addCostumeData(newCostumeData);
+		sprite.addLookData(newCostumeData);
 		
 		//no data set
-		CostumeData spriteCostumeData = spriteCostume.getCostumeData();
+		LookData spriteCostumeData = spriteCostume.getLookData();
 		assertEquals(null, spriteCostumeData);
 
-		NextCostumeBrick nextCostumeBrick = new NextCostumeBrick(spriteName);
-		assertTrue(nextCostumeBrick.execute());
+		NextLookBrick nextLookBrick = new NextLookBrick(spriteName);
+		assertTrue(nextLookBrick.execute());
 		
-		spriteCostumeData = spriteCostume.getCostumeData();
+		spriteCostumeData = spriteCostume.getLookData();
 		assertEquals(null, spriteCostumeData);
 	}
 

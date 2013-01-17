@@ -23,7 +23,7 @@
 package org.catrobat.html5Player.client.bricks;
 
 import org.catrobat.html5Player.client.Sprite;
-import org.catrobat.html5Player.client.common.Costume;
+import org.catrobat.html5Player.client.common.Look;
 
 public class GoNStepsBackBrick extends Brick {
 
@@ -36,13 +36,13 @@ public class GoNStepsBackBrick extends Brick {
 
 	@Override
 	public boolean execute(Sprite sprite) {
-		Costume costume = sprite.getCostume();
+		Look look = sprite.getLook();
 
 		if(steps < 0)
 			return false;
 		
-		if(costume.getZPosition() != Integer.MIN_VALUE) {
-			costume.setZPosition(costume.getZPosition() - steps);
+		if(look.getZPosition() != Integer.MIN_VALUE) {
+			look.setZPosition(look.getZPosition() - steps);
 		}
 		
 		return true;

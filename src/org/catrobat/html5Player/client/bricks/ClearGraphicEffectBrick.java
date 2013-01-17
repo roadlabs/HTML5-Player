@@ -23,7 +23,7 @@
 package org.catrobat.html5Player.client.bricks;
 
 import org.catrobat.html5Player.client.Sprite;
-import org.catrobat.html5Player.client.common.Costume;
+import org.catrobat.html5Player.client.common.Look;
 
 public class ClearGraphicEffectBrick extends Brick {
 	
@@ -34,10 +34,10 @@ public class ClearGraphicEffectBrick extends Brick {
 	@Override
 	protected boolean execute(Sprite sprite) {
 		
-		Costume costume = sprite.getCostume();
+		Look look = sprite.getLook();
 		
-		costume.setAlphaValue(1.0);
-		costume.setBrightnessValue(1.0);
+		look.setAlphaValue(1.0);
+		look.setBrightnessValue(1.0);
 		
 		return true;
 	}

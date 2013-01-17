@@ -75,13 +75,13 @@ public class SpriteManager {
 
 		Map<Integer, Set<Sprite>> tmp = new TreeMap<Integer, Set<Sprite>>();
 		for (Sprite sprite : sprites) {
-			if (sprite.getCostume() == null)
+			if (sprite.getLook() == null)
 				continue;
 			Integer layer = null;
 			if (sprite.isBackground()) {
 				layer = Integer.MIN_VALUE;
 			} else {
-				layer = new Integer(sprite.getCostume().getZPosition());
+				layer = new Integer(sprite.getLook().getZPosition());
 			}
 		
 			Set<Sprite> spriteList = tmp.get(layer);
@@ -96,7 +96,7 @@ public class SpriteManager {
 				sprite.drawSprite();
 				
 //				CatrobatDebug.on();
-				CatrobatDebug.console("zPos of sprite: " + sprite.getName() + ": " + sprite.getCostume().getZPosition());
+				CatrobatDebug.console("zPos of sprite: " + sprite.getName() + ": " + sprite.getLook().getZPosition());
 				CatrobatDebug.off();
 			}
 		}
@@ -229,7 +229,7 @@ public class SpriteManager {
 	public void debugSpriteCostumes() {
 		for (Sprite sprite : sprites) {
 			CatrobatDebug.on();
-			CatrobatDebug.console(sprite.getCostume().debug());
+			CatrobatDebug.console(sprite.getLook().debug());
 			CatrobatDebug.off();
 		}
 	}

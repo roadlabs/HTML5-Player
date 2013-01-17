@@ -24,7 +24,7 @@ package org.catrobat.html5Player.client;
 
 import org.catrobat.html5Player.client.bricks.*;
 
-import org.catrobat.html5Player.client.common.Costume;
+import org.catrobat.html5Player.client.common.Look;
 import org.catrobat.html5Player.client.scripts.BroadcastScript;
 import org.catrobat.html5Player.client.scripts.StartScript;
 import org.catrobat.html5Player.client.scripts.WhenScript;
@@ -152,14 +152,14 @@ public class ParserTest extends GWTTestCase {
 		
 		Sprite sprite = spriteManager.getSprite(spriteName, false);
 		assertTrue(sprite instanceof Sprite);
-		assertEquals(2, sprite.getCostumes().size());
+		assertEquals(2, sprite.getLooks().size());
 		
-		Costume costume1 = sprite.getCostume(costumeName);
-		Costume costume2 = sprite.getCostume(costumeName2);
+		Look costume1 = sprite.getLook(costumeName);
+		Look costume2 = sprite.getLook(costumeName2);
 		assertNotNull(costume1);
 		assertNotNull(costume2);
-		assertEquals(fileNameCostumeData, costume1.getCostumeData().getFilename());
-		assertEquals(fileNameCostumeData2, costume2.getCostumeData().getFilename());
+		assertEquals(fileNameCostumeData, costume1.getLookData().getFilename());
+		assertEquals(fileNameCostumeData2, costume2.getLookData().getFilename());
 	}
 	
 	//##########################################################################
@@ -208,7 +208,7 @@ public class ParserTest extends GWTTestCase {
 		
 		assertEquals(1, sprite.getScript(0).getBrickList().size());
 		
-		assertTrue(sprite.getScript(0).getBrick(0) instanceof SetCostumeBrick);
+		assertTrue(sprite.getScript(0).getBrick(0) instanceof SetLookBrick);
 	}
 	
 	/**
@@ -266,8 +266,8 @@ public class ParserTest extends GWTTestCase {
 		assertEquals(1, sprite.getScript(0).getBrickList().size());
 		assertEquals(1, sprite.getScript(1).getBrickList().size());
 		
-		assertTrue(sprite.getScript(0).getBrick(0) instanceof SetCostumeBrick);
-		assertTrue(sprite.getScript(1).getBrick(0) instanceof SetCostumeBrick);
+		assertTrue(sprite.getScript(0).getBrick(0) instanceof SetLookBrick);
+		assertTrue(sprite.getScript(1).getBrick(0) instanceof SetLookBrick);
 	}
 	
 	/**
@@ -315,7 +315,7 @@ public class ParserTest extends GWTTestCase {
 		
 		assertEquals(1, sprite.getScript(0).getBrickList().size());
 		
-		assertTrue(sprite.getScript(0).getBrick(0) instanceof SetCostumeBrick);
+		assertTrue(sprite.getScript(0).getBrick(0) instanceof SetLookBrick);
 	}
 	
 	/**
@@ -375,8 +375,8 @@ public class ParserTest extends GWTTestCase {
 		assertEquals(1, sprite.getScript(0).getBrickList().size());
 		assertEquals(1, sprite.getScript(1).getBrickList().size());
 		
-		assertTrue(sprite.getScript(0).getBrick(0) instanceof SetCostumeBrick);
-		assertTrue(sprite.getScript(1).getBrick(0) instanceof SetCostumeBrick);
+		assertTrue(sprite.getScript(0).getBrick(0) instanceof SetLookBrick);
+		assertTrue(sprite.getScript(1).getBrick(0) instanceof SetLookBrick);
 	}
 	
 	/**
@@ -571,8 +571,8 @@ public class ParserTest extends GWTTestCase {
 		assertEquals(1, sprite.getScript(1).getBrickList().size());
 		assertEquals(1, sprite.getScript(2).getBrickList().size());
 		
-		assertTrue(sprite.getScript(0).getBrick(0) instanceof SetCostumeBrick);
-		assertTrue(sprite.getScript(1).getBrick(0) instanceof SetCostumeBrick);
+		assertTrue(sprite.getScript(0).getBrick(0) instanceof SetLookBrick);
+		assertTrue(sprite.getScript(1).getBrick(0) instanceof SetLookBrick);
 		assertTrue(sprite.getScript(2).getBrick(0) instanceof HideBrick);
 	}
 	
@@ -662,7 +662,7 @@ public class ParserTest extends GWTTestCase {
 		
 		Sprite sprite = spriteManager.getSprite(spriteName, false);
 		
-		assertTrue(sprite.getScript(0).getBrick(0) instanceof SetCostumeBrick);
+		assertTrue(sprite.getScript(0).getBrick(0) instanceof SetLookBrick);
 	}
 	
 	/**
@@ -1459,7 +1459,7 @@ public class ParserTest extends GWTTestCase {
 		
 		Sprite sprite = spriteManager.getSprite(spriteName, false);
 		
-		assertTrue(sprite.getScript(0).getBrick(0) instanceof NextCostumeBrick);
+		assertTrue(sprite.getScript(0).getBrick(0) instanceof NextLookBrick);
 	}
 	
 	/**

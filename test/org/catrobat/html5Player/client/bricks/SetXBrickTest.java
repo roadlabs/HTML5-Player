@@ -48,14 +48,14 @@ public class SetXBrickTest extends GWTTestCase {
 		Sprite sprite = new Sprite(spriteName);
 		stage.getSpriteManager().addSprite(sprite);
 		
-		assertEquals("Unexpected initial sprite x position", 50d, sprite.getCostume().getXPosition());
-		assertEquals("Unexpected initial sprite y position", 50d, sprite.getCostume().getYPosition());
+		assertEquals("Unexpected initial sprite x position", 50d, sprite.getLook().getXPosition());
+		assertEquals("Unexpected initial sprite y position", 50d, sprite.getLook().getYPosition());
 
 		SetXBrick setXBrick = new SetXBrick(spriteName, xPosition);
 		setXBrick.execute();
 
 		assertEquals("Incorrect sprite x position after SetXBrick executed", (double) xPosition,
-				sprite.getCostume().getXPosition()-50);
+				sprite.getLook().getXPosition()-50);
 	}
 
 	public void testNullSprite() {
@@ -77,12 +77,12 @@ public class SetXBrickTest extends GWTTestCase {
 		setXBrick.execute();
 
 		assertEquals("SetXBrick failed to place Sprite at maximum x integer value", Integer.MAX_VALUE,
-				(int) sprite.getCostume().getXPosition());
+				(int) sprite.getLook().getXPosition());
 
 		setXBrick = new SetXBrick(spriteName, Integer.MIN_VALUE);
 		setXBrick.execute();
 
 		assertEquals("SetXBrick failed to place Sprite at minimum x integer value", -(Integer.MIN_VALUE-50),
-				(int) sprite.getCostume().getXPosition());
+				(int) sprite.getLook().getXPosition());
 	}
 }

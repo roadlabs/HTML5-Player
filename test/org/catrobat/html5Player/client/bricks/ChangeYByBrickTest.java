@@ -72,9 +72,9 @@ public class ChangeYByBrickTest extends GWTTestCase {
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
 		
 		double setYPosition = -250.0;
-		sprite.getCostume().setYPosition(setYPosition);
+		sprite.getLook().setYPosition(setYPosition);
 		
-		double costumeXPosition = sprite.getCostume().getXPosition();
+		double costumeXPosition = sprite.getLook().getXPosition();
 		
 		int deltaY = -5;
 		
@@ -83,8 +83,8 @@ public class ChangeYByBrickTest extends GWTTestCase {
 		changeYBrick.execute();
 		
 		double expected = setYPosition - (double)deltaY;
-		assertEquals(expected, sprite.getCostume().getYPosition());
-		assertEquals(costumeXPosition, sprite.getCostume().getXPosition());
+		assertEquals(expected, sprite.getLook().getYPosition());
+		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 	}
 	
 	/**
@@ -95,33 +95,33 @@ public class ChangeYByBrickTest extends GWTTestCase {
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
 		
 		double setYPosition = -250.0;
-		sprite.getCostume().setYPosition(setYPosition);
+		sprite.getLook().setYPosition(setYPosition);
 		
-		double costumeXPosition = sprite.getCostume().getXPosition();
+		double costumeXPosition = sprite.getLook().getXPosition();
 		
 		int deltaY = -5;
 		
 		ChangeYByBrick changeYBrick = new ChangeYByBrick(spriteName, deltaY);
 		
-		double expected = sprite.getCostume().getYPosition() - (double)deltaY;
+		double expected = sprite.getLook().getYPosition() - (double)deltaY;
 		changeYBrick.execute();
-		assertEquals(expected, sprite.getCostume().getYPosition());
-		assertEquals(costumeXPosition, sprite.getCostume().getXPosition());
+		assertEquals(expected, sprite.getLook().getYPosition());
+		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 		
-		expected = sprite.getCostume().getYPosition() - (double)deltaY;
+		expected = sprite.getLook().getYPosition() - (double)deltaY;
 		changeYBrick.execute();
-		assertEquals(expected, sprite.getCostume().getYPosition());
-		assertEquals(costumeXPosition, sprite.getCostume().getXPosition());
+		assertEquals(expected, sprite.getLook().getYPosition());
+		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 		
-		expected = sprite.getCostume().getYPosition() - (double)deltaY;
+		expected = sprite.getLook().getYPosition() - (double)deltaY;
 		changeYBrick.execute();
-		assertEquals(expected, sprite.getCostume().getYPosition());
-		assertEquals(costumeXPosition, sprite.getCostume().getXPosition());
+		assertEquals(expected, sprite.getLook().getYPosition());
+		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 		
-		expected = sprite.getCostume().getYPosition() - (double)deltaY;
+		expected = sprite.getLook().getYPosition() - (double)deltaY;
 		changeYBrick.execute();
-		assertEquals(expected, sprite.getCostume().getYPosition());
-		assertEquals(costumeXPosition, sprite.getCostume().getXPosition());
+		assertEquals(expected, sprite.getLook().getYPosition());
+		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 	}
 	
 	/**
@@ -132,9 +132,9 @@ public class ChangeYByBrickTest extends GWTTestCase {
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
 		
 		double setYPosition = -250.0;
-		sprite.getCostume().setYPosition(setYPosition);
+		sprite.getLook().setYPosition(setYPosition);
 		
-		double costumeXPosition = sprite.getCostume().getXPosition();
+		double costumeXPosition = sprite.getLook().getXPosition();
 		
 		int deltaY = 5;
 		
@@ -143,8 +143,8 @@ public class ChangeYByBrickTest extends GWTTestCase {
 		changeYBrick.execute();
 		
 		double expected = setYPosition - (double)deltaY;
-		assertEquals(expected, sprite.getCostume().getYPosition());
-		assertEquals(costumeXPosition, sprite.getCostume().getXPosition());
+		assertEquals(expected, sprite.getLook().getYPosition());
+		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 	}
 	
 	/**
@@ -155,33 +155,33 @@ public class ChangeYByBrickTest extends GWTTestCase {
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
 		
 		double setYPosition = -250.0;
-		sprite.getCostume().setYPosition(setYPosition);
+		sprite.getLook().setYPosition(setYPosition);
 		
-		double costumeXPosition = sprite.getCostume().getXPosition();
+		double costumeXPosition = sprite.getLook().getXPosition();
 		
 		int deltaY = 5;
 		
 		ChangeYByBrick changeYBrick = new ChangeYByBrick(spriteName, deltaY);
 		
-		double expected = sprite.getCostume().getYPosition() - (double)deltaY;
+		double expected = sprite.getLook().getYPosition() - (double)deltaY;
 		changeYBrick.execute();
-		assertEquals(expected, sprite.getCostume().getYPosition());
-		assertEquals(costumeXPosition, sprite.getCostume().getXPosition());
+		assertEquals(expected, sprite.getLook().getYPosition());
+		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 		
-		expected = sprite.getCostume().getYPosition() - (double)deltaY;
+		expected = sprite.getLook().getYPosition() - (double)deltaY;
 		changeYBrick.execute();
-		assertEquals(expected, sprite.getCostume().getYPosition());
-		assertEquals(costumeXPosition, sprite.getCostume().getXPosition());
+		assertEquals(expected, sprite.getLook().getYPosition());
+		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 		
-		expected = sprite.getCostume().getYPosition() - (double)deltaY;
+		expected = sprite.getLook().getYPosition() - (double)deltaY;
 		changeYBrick.execute();
-		assertEquals(expected, sprite.getCostume().getYPosition());
-		assertEquals(costumeXPosition, sprite.getCostume().getXPosition());
+		assertEquals(expected, sprite.getLook().getYPosition());
+		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 		
-		expected = sprite.getCostume().getYPosition() - (double)deltaY;
+		expected = sprite.getLook().getYPosition() - (double)deltaY;
 		changeYBrick.execute();
-		assertEquals(expected, sprite.getCostume().getYPosition());
-		assertEquals(costumeXPosition, sprite.getCostume().getXPosition());
+		assertEquals(expected, sprite.getLook().getYPosition());
+		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 	}
 
 }

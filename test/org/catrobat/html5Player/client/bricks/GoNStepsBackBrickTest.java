@@ -69,7 +69,7 @@ public class GoNStepsBackBrickTest extends GWTTestCase {
 		String spriteName = "spriteName";
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
 		
-		int startingZPosition = sprite.getCostume().getZPosition();
+		int startingZPosition = sprite.getLook().getZPosition();
 		
 		int steps = 1;
 		
@@ -78,7 +78,7 @@ public class GoNStepsBackBrickTest extends GWTTestCase {
 		goNStepsBack.execute();
 		
 		int newZPosition = startingZPosition - steps;
-		assertEquals(newZPosition, sprite.getCostume().getZPosition());
+		assertEquals(newZPosition, sprite.getLook().getZPosition());
 	}
 	
 	/**
@@ -88,7 +88,7 @@ public class GoNStepsBackBrickTest extends GWTTestCase {
 		String spriteName = "spriteName";
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
 		
-		sprite.getCostume().setZPosition(Integer.MIN_VALUE);
+		sprite.getLook().setZPosition(Integer.MIN_VALUE);
 		
 		int steps = 1;
 		
@@ -96,7 +96,7 @@ public class GoNStepsBackBrickTest extends GWTTestCase {
 		
 		goNStepsBack.execute();
 		
-		assertEquals(Integer.MIN_VALUE, sprite.getCostume().getZPosition());
+		assertEquals(Integer.MIN_VALUE, sprite.getLook().getZPosition());
 	}
 	
 	/**
@@ -106,7 +106,7 @@ public class GoNStepsBackBrickTest extends GWTTestCase {
 		String spriteName = "spriteName";
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
 		
-		int startingZPosition = sprite.getCostume().getZPosition();
+		int startingZPosition = sprite.getLook().getZPosition();
 		
 		int steps = -2;
 		
@@ -114,7 +114,7 @@ public class GoNStepsBackBrickTest extends GWTTestCase {
 		
 		assertFalse(goNStepsBack.execute());
 		
-		assertEquals(startingZPosition, sprite.getCostume().getZPosition());
+		assertEquals(startingZPosition, sprite.getLook().getZPosition());
 	}
 
 }

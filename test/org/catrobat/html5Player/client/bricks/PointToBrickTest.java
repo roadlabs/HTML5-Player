@@ -26,7 +26,7 @@ import org.catrobat.html5Player.client.Scene;
 import org.catrobat.html5Player.client.Sprite;
 import org.catrobat.html5Player.client.SpriteManager;
 import org.catrobat.html5Player.client.Stage;
-import org.catrobat.html5Player.client.common.Costume;
+import org.catrobat.html5Player.client.common.Look;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -73,7 +73,7 @@ public class PointToBrickTest extends GWTTestCase {
 	public void testExecutePointedSpriteIsNull() {
 		String spriteName = "sprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
-		Costume spriteCostume = sprite.getCostume();
+		Look spriteCostume = sprite.getLook();
 		
 		double spriteX = 10.0;
 		double spriteY = 10.0;
@@ -96,7 +96,7 @@ public class PointToBrickTest extends GWTTestCase {
 	public void testExecuteEqualCoordinates() {
 		String spriteName = "sprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
-		Costume spriteCostume = sprite.getCostume();
+		Look spriteCostume = sprite.getLook();
 		
 		double spriteX = 10.0;
 		double spriteY = 10.0;
@@ -106,7 +106,7 @@ public class PointToBrickTest extends GWTTestCase {
 		
 		String pointedSpriteName = "pointedSprite";
 		Sprite pointedSprite = spriteManager.getSprite(pointedSpriteName, true);
-		Costume pointedSpriteCostume = pointedSprite.getCostume();
+		Look pointedSpriteCostume = pointedSprite.getLook();
 		
 		double pointedSpriteX = 10.0;
 		double pointedSpriteY = 10.0;
@@ -126,7 +126,7 @@ public class PointToBrickTest extends GWTTestCase {
 	public void testExecuteEqualXCoordinatesGreaterYCoordinateOfSprite() {
 		String spriteName = "sprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
-		Costume spriteCostume = sprite.getCostume();
+		Look spriteCostume = sprite.getLook();
 		
 		double spriteX = 10.0;
 		double spriteY = 100.0;
@@ -136,7 +136,7 @@ public class PointToBrickTest extends GWTTestCase {
 		
 		String pointedSpriteName = "pointedSprite";
 		Sprite pointedSprite = spriteManager.getSprite(pointedSpriteName, true);
-		Costume pointedSpriteCostume = pointedSprite.getCostume();
+		Look pointedSpriteCostume = pointedSprite.getLook();
 		
 		double pointedSpriteX = 10.0;
 		double pointedSpriteY = 50.0;
@@ -156,7 +156,7 @@ public class PointToBrickTest extends GWTTestCase {
 	public void testExecuteEqualXCoordinatesLesserYCoordinateOfSprite() {
 		String spriteName = "sprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
-		Costume spriteCostume = sprite.getCostume();
+		Look spriteCostume = sprite.getLook();
 		
 		double spriteX = 10.0;
 		double spriteY = 50.0;
@@ -166,7 +166,7 @@ public class PointToBrickTest extends GWTTestCase {
 		
 		String pointedSpriteName = "pointedSprite";
 		Sprite pointedSprite = spriteManager.getSprite(pointedSpriteName, true);
-		Costume pointedSpriteCostume = pointedSprite.getCostume();
+		Look pointedSpriteCostume = pointedSprite.getLook();
 		
 		double pointedSpriteX = 10.0;
 		double pointedSpriteY = 100.0;
@@ -186,7 +186,7 @@ public class PointToBrickTest extends GWTTestCase {
 	public void testExecuteEqualYCoordinatesGreaterXCoordinateOfSprite() {
 		String spriteName = "sprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
-		Costume spriteCostume = sprite.getCostume();
+		Look spriteCostume = sprite.getLook();
 		
 		double spriteX = 10.0;
 		double spriteY = 100.0;
@@ -196,7 +196,7 @@ public class PointToBrickTest extends GWTTestCase {
 		
 		String pointedSpriteName = "pointedSprite";
 		Sprite pointedSprite = spriteManager.getSprite(pointedSpriteName, true);
-		Costume pointedSpriteCostume = pointedSprite.getCostume();
+		Look pointedSpriteCostume = pointedSprite.getLook();
 		
 		double pointedSpriteX = -10.0;
 		double pointedSpriteY = 100.0;
@@ -216,7 +216,7 @@ public class PointToBrickTest extends GWTTestCase {
 	public void testExecuteEqualYCoordinatesLesserXCoordinateOfSprite() {
 		String spriteName = "sprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
-		Costume spriteCostume = sprite.getCostume();
+		Look spriteCostume = sprite.getLook();
 		
 		double spriteX = 100.0;
 		double spriteY = 100.0;
@@ -226,7 +226,7 @@ public class PointToBrickTest extends GWTTestCase {
 		
 		String pointedSpriteName = "pointedSprite";
 		Sprite pointedSprite = spriteManager.getSprite(pointedSpriteName, true);
-		Costume pointedSpriteCostume = pointedSprite.getCostume();
+		Look pointedSpriteCostume = pointedSprite.getLook();
 		
 		double pointedSpriteX = 200.0;
 		double pointedSpriteY = 100.0;
@@ -246,7 +246,7 @@ public class PointToBrickTest extends GWTTestCase {
 	public void testExecuteDifferentCoordinates() {
 		String spriteName = "sprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
-		Costume spriteCostume = sprite.getCostume();
+		Look spriteCostume = sprite.getLook();
 		
 		double spriteX = 100.0;
 		double spriteY = 100.0;
@@ -256,7 +256,7 @@ public class PointToBrickTest extends GWTTestCase {
 		
 		String pointedSpriteName = "pointedSprite";
 		Sprite pointedSprite = spriteManager.getSprite(pointedSpriteName, true);
-		Costume pointedSpriteCostume = pointedSprite.getCostume();
+		Look pointedSpriteCostume = pointedSprite.getLook();
 		
 		double pointedSpriteX = 200.0;
 		double pointedSpriteY = 100.0;

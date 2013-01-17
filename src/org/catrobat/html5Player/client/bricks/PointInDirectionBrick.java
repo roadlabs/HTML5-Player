@@ -23,7 +23,7 @@
 package org.catrobat.html5Player.client.bricks;
 
 import org.catrobat.html5Player.client.Sprite;
-import org.catrobat.html5Player.client.common.Costume;
+import org.catrobat.html5Player.client.common.Look;
 
 public class PointInDirectionBrick extends Brick {
 
@@ -49,10 +49,10 @@ public class PointInDirectionBrick extends Brick {
 
 	@Override
 	public boolean execute(Sprite sprite) {
-		Costume costume = sprite.getCostume();
+		Look look = sprite.getLook();
 		
 		double rotation = -degrees + 90.0;
-		costume.setRotation(rotation);
+		look.setRotation(rotation);
 		
 		return true;
 	}

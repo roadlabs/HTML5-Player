@@ -22,9 +22,9 @@
  */
 package org.catrobat.html5Player.client;
 
-import org.catrobat.html5Player.client.bricks.NextCostumeBrick;
-import org.catrobat.html5Player.client.bricks.SetCostumeBrick;
-import org.catrobat.html5Player.client.common.CostumeData;
+import org.catrobat.html5Player.client.bricks.NextLookBrick;
+import org.catrobat.html5Player.client.bricks.SetLookBrick;
+import org.catrobat.html5Player.client.common.LookData;
 import org.catrobat.html5Player.client.scripts.BroadcastScript;
 import org.catrobat.html5Player.client.scripts.StartScript;
 import org.catrobat.html5Player.client.scripts.WhenScript;
@@ -71,11 +71,11 @@ public class SpriteManagerTest extends GWTTestCase {
 	
 	/**
 	 * Helper
-	 * @param name of Costume
-	 * @return CostumeData for costume
+	 * @param name of Look
+	 * @return LookData for costume
 	 */
-	private CostumeData createCostumeData(String name) {
-		CostumeData data = new CostumeData();
+	private LookData createCostumeData(String name) {
+		LookData data = new LookData();
 		data.setName(name);
 		return data;
 	}
@@ -176,22 +176,22 @@ public class SpriteManagerTest extends GWTTestCase {
 		String costume1Name = "custome1";
 		String costume2Name = "custome2";
 		String costume3Name = "custome3";
-		CostumeData costumeData1 = createCostumeData(costume1Name);
-		CostumeData costumeData2 = createCostumeData(costume2Name);
-		CostumeData costumeData3 = createCostumeData(costume3Name);
+		LookData costumeData1 = createCostumeData(costume1Name);
+		LookData costumeData2 = createCostumeData(costume2Name);
+		LookData costumeData3 = createCostumeData(costume3Name);
 		
 		// Add Costumes
-		newSprite1.addCostumeData(costumeData1);
-		newSprite1.addCostumeData(costumeData2);
-		newSprite1.addCostumeData(costumeData3);
+		newSprite1.addLookData(costumeData1);
+		newSprite1.addLookData(costumeData2);
+		newSprite1.addLookData(costumeData3);
 		
-		newSprite2.addCostumeData(costumeData1);
-		newSprite2.addCostumeData(costumeData2);
-		newSprite2.addCostumeData(costumeData3);
+		newSprite2.addLookData(costumeData1);
+		newSprite2.addLookData(costumeData2);
+		newSprite2.addLookData(costumeData3);
 		
-		newSprite3.addCostumeData(costumeData1);
-		newSprite3.addCostumeData(costumeData2);
-		newSprite3.addCostumeData(costumeData3);
+		newSprite3.addLookData(costumeData1);
+		newSprite3.addLookData(costumeData2);
+		newSprite3.addLookData(costumeData3);
 		
 		// Scripts
 		String script1Name = "scriptForSprite1";
@@ -202,12 +202,12 @@ public class SpriteManagerTest extends GWTTestCase {
 		WhenScript  scriptSprite3 = new WhenScript(newSprite3, script3Name);
 		
 		// Bricks
-		SetCostumeBrick setCostumeBrickSprite1 = new SetCostumeBrick(newSprite1Name, costume1Name);
-		SetCostumeBrick setCostumeBrickSprite2 = new SetCostumeBrick(newSprite2Name, costume1Name);
+		SetLookBrick setCostumeBrickSprite1 = new SetLookBrick(newSprite1Name, costume1Name);
+		SetLookBrick setCostumeBrickSprite2 = new SetLookBrick(newSprite2Name, costume1Name);
 		
-		NextCostumeBrick nextCostumeBrickSprite1 = new NextCostumeBrick(newSprite1Name);
-		NextCostumeBrick nextCostumeBrickSprite2 = new NextCostumeBrick(newSprite2Name);
-		NextCostumeBrick nextCostumeBrickSprite3 = new NextCostumeBrick(newSprite3Name);
+		NextLookBrick nextCostumeBrickSprite1 = new NextLookBrick(newSprite1Name);
+		NextLookBrick nextCostumeBrickSprite2 = new NextLookBrick(newSprite2Name);
+		NextLookBrick nextCostumeBrickSprite3 = new NextLookBrick(newSprite3Name);
 		
 		// Add Bricks
 		scriptSprite1.addBrick(setCostumeBrickSprite1);
@@ -234,9 +234,9 @@ public class SpriteManagerTest extends GWTTestCase {
 		CatScheduler.get().execute();
 		CatScheduler.get().execute();
 		
-		assertEquals(costume2Name, newSprite1.getCostume().getCostumeData().getName());
-		assertEquals(costume3Name, newSprite2.getCostume().getCostumeData().getName());
-		assertNull(newSprite3.getCostume().getCostumeData());
+		assertEquals(costume2Name, newSprite1.getLook().getLookData().getName());
+		assertEquals(costume3Name, newSprite2.getLook().getLookData().getName());
+		assertNull(newSprite3.getLook().getLookData());
 	}
 	
 	//TODO: tests for redrawScreen(), handleScreenClick()

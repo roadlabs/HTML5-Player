@@ -25,13 +25,13 @@ package org.catrobat.html5Player.client.bricks;
 import org.catrobat.html5Player.client.Sprite;
 import org.catrobat.html5Player.client.SpriteManager;
 import org.catrobat.html5Player.client.Stage;
-import org.catrobat.html5Player.client.common.Costume;
-import org.catrobat.html5Player.client.common.CostumeData;
+import org.catrobat.html5Player.client.common.Look;
+import org.catrobat.html5Player.client.common.LookData;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
 
-public class SetCostumeBrickTest extends GWTTestCase {
+public class SetLookBrickTest extends GWTTestCase {
 
 	private Stage stage;
 	private SpriteManager manager;
@@ -39,7 +39,7 @@ public class SetCostumeBrickTest extends GWTTestCase {
 	/**
 	 * 
 	 */
-	public SetCostumeBrickTest() {
+	public SetLookBrickTest() {
 		stage = Stage.getInstance();
 		manager = stage.getSpriteManager();
 	}
@@ -69,15 +69,15 @@ public class SetCostumeBrickTest extends GWTTestCase {
 		String costumeDataName = "testCostumeData";
 		Sprite sprite = manager.getSprite(spriteName, true);
 
-		Costume spriteCostume = sprite.getCostume();
+		Look spriteCostume = sprite.getLook();
 		
-		CostumeData spriteCostumeData = spriteCostume.getCostumeData();
+		LookData spriteCostumeData = spriteCostume.getLookData();
 		assertEquals(null, spriteCostumeData);
 		
-		SetCostumeBrick setCostumeBrick = new SetCostumeBrick(spriteName, costumeDataName);
-		assertTrue(setCostumeBrick.execute());
+		SetLookBrick setLookBrick = new SetLookBrick(spriteName, costumeDataName);
+		assertTrue(setLookBrick.execute());
 		
-		spriteCostumeData = spriteCostume.getCostumeData();
+		spriteCostumeData = spriteCostume.getLookData();
 		assertEquals(null, spriteCostumeData);
 	}
 	
@@ -89,19 +89,19 @@ public class SetCostumeBrickTest extends GWTTestCase {
 		String costumeDataName = "testCostumeData";
 		Sprite sprite = manager.getSprite(spriteName, true);
 
-		CostumeData newCostumeData = new CostumeData();
+		LookData newCostumeData = new LookData();
 		newCostumeData.setName(costumeDataName);
-		sprite.addCostumeData(newCostumeData);
+		sprite.addLookData(newCostumeData);
 		
-		Costume spriteCostume = sprite.getCostume();
+		Look spriteCostume = sprite.getLook();
 		
-		CostumeData spriteCostumeData = spriteCostume.getCostumeData();
+		LookData spriteCostumeData = spriteCostume.getLookData();
 		assertEquals(null, spriteCostumeData);
 		
-		SetCostumeBrick setCostumeBrick = new SetCostumeBrick(spriteName, costumeDataName);
-		assertTrue(setCostumeBrick.execute());
+		SetLookBrick setLookBrick = new SetLookBrick(spriteName, costumeDataName);
+		assertTrue(setLookBrick.execute());
 		
-		spriteCostumeData = spriteCostume.getCostumeData();
+		spriteCostumeData = spriteCostume.getLookData();
 		assertEquals(costumeDataName, spriteCostumeData.getName());
 	}
 

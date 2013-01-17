@@ -78,12 +78,12 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, 10);
 
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 60d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 50d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 60d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 50d, sprite.getLook().getYPosition());
 
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 70d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 50d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 70d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 50d, sprite.getLook().getYPosition());
 	}
 
 	/**
@@ -97,12 +97,12 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, -10);
 
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 40d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 50d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 40d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 50d, sprite.getLook().getYPosition());
 
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 30d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 50d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 30d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 50d, sprite.getLook().getYPosition());
 	}
 
 	/**
@@ -115,15 +115,15 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		
 		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, 10);
 
-		sprite.getCostume().setRotation(90);
+		sprite.getLook().setRotation(90);
 
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 50d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 40d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 50d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 40d, sprite.getLook().getYPosition());
 
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 50d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 30d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 50d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 30d, sprite.getLook().getYPosition());
 	}
 
 	/**
@@ -136,15 +136,15 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		
 		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, 10);
 
-		sprite.getCostume().setRotation(-90);
+		sprite.getLook().setRotation(-90);
 
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 50d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 60d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 50d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 60d, sprite.getLook().getYPosition());
 
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 50d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 70d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 50d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 70d, sprite.getLook().getYPosition());
 	}
 
 	/**
@@ -157,15 +157,15 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		
 		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, 10);
 
-		sprite.getCostume().setRotation(45);
+		sprite.getLook().setRotation(45);
 
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 57d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 43d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 57d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 43d, sprite.getLook().getYPosition());
 
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 64d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 36d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 64d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 36d, sprite.getLook().getYPosition());
 	}
 
 	/**
@@ -178,15 +178,15 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		
 		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, 10);
 
-		sprite.getCostume().setRotation(135);
+		sprite.getLook().setRotation(135);
 
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 43d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 43d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 43d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 43d, sprite.getLook().getYPosition());
 
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 36d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 36d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 36d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 36d, sprite.getLook().getYPosition());
 	}
 
 	/**
@@ -199,15 +199,15 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		
 		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, 10);
 
-		sprite.getCostume().setRotation(-45);
+		sprite.getLook().setRotation(-45);
 
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 57d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 57d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 57d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 57d, sprite.getLook().getYPosition());
 
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 64d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 64d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 64d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 64d, sprite.getLook().getYPosition());
 	}
 
 	/**
@@ -220,14 +220,14 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		
 		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, 10);
 
-		sprite.getCostume().setRotation(-135);
+		sprite.getLook().setRotation(-135);
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 43d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 57d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 43d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 57d, sprite.getLook().getYPosition());
 
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 36d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 64d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 36d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 64d, sprite.getLook().getYPosition());
 	}
 
 	/**
@@ -239,15 +239,15 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		
 		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, 10);
 
-		sprite.getCostume().setRotation(10);
+		sprite.getLook().setRotation(10);
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 60d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 48d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 60d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 48d, sprite.getLook().getYPosition());
 
-		sprite.getCostume().setRotation(50);
+		sprite.getLook().setRotation(50);
 		moveNStepsBrick.execute();
-		assertEquals("Wrong x-position", 66d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong y-position", 40d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong x-position", 66d, sprite.getLook().getXPosition());
+		assertEquals("Wrong y-position", 40d, sprite.getLook().getYPosition());
 
 	}
 

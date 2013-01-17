@@ -26,8 +26,8 @@ import org.catrobat.html5Player.client.Scene;
 import org.catrobat.html5Player.client.Sprite;
 import org.catrobat.html5Player.client.SpriteManager;
 import org.catrobat.html5Player.client.Stage;
-import org.catrobat.html5Player.client.common.Costume;
-import org.catrobat.html5Player.client.common.CostumeData;
+import org.catrobat.html5Player.client.common.Look;
+import org.catrobat.html5Player.client.common.LookData;
 import org.catrobat.html5Player.client.scripts.BroadcastScript;
 import org.catrobat.html5Player.client.scripts.StartScript;
 import org.catrobat.html5Player.client.scripts.WhenScript;
@@ -98,11 +98,11 @@ public class BroadcastWaitBrickTest extends GWTTestCase{
 	
 	/**
 	 * Helper
-	 * @param name of Costume
-	 * @return CostumeData for costume
+	 * @param name of Look
+	 * @return LookData for costume
 	 */
-	private CostumeData createCostumeData(String name) {
-		CostumeData data = new CostumeData();
+	private LookData createCostumeData(String name) {
+		LookData data = new LookData();
 		data.setName(name);
 		return data;
 	}
@@ -116,27 +116,27 @@ public class BroadcastWaitBrickTest extends GWTTestCase{
 		
 		//sprite which script gets started via broadcast---------------------
 		String costumeName1 = "costume1";
-		CostumeData costumeData1 = createCostumeData(costumeName1);
+		LookData costumeData1 = createCostumeData(costumeName1);
 		
 		String costumeName2 = "costume2";
-		CostumeData costumeData2 = createCostumeData(costumeName2);
+		LookData costumeData2 = createCostumeData(costumeName2);
 		
 		String spriteName = "sprite1";
 		sprite = spriteManager.getSprite(spriteName, true);
 		
-		sprite.addCostumeData(costumeData1);
-		sprite.addCostumeData(costumeData2);
+		sprite.addLookData(costumeData1);
+		sprite.addLookData(costumeData2);
 		
-		//simulate SetCostumeBrick
-		sprite.getCostume().setCostumeData(costumeData1);
+		//simulate SetLookBrick
+		sprite.getLook().setLookData(costumeData1);
 		
-		//create BroadcastScript which executes one NextCostumeBrick
+		//create BroadcastScript which executes one NextLookBrick
 		String broadcastScriptName = "broadcastScript";
 		String message = "NextCostume";
 		BroadcastScript broadcastScript = new BroadcastScript(sprite, broadcastScriptName, message);
 		
-		NextCostumeBrick nextCostumeBrick = new NextCostumeBrick(spriteName);
-		broadcastScript.addBrick(nextCostumeBrick);
+		NextLookBrick nextLookBrick = new NextLookBrick(spriteName);
+		broadcastScript.addBrick(nextLookBrick);
 		
 		sprite.addScript(broadcastScript);
 		//-------------------------------------------------------------------
@@ -169,11 +169,11 @@ public class BroadcastWaitBrickTest extends GWTTestCase{
 		assertNotNull("thread is null", CatScheduler.get().getThread(broadcastScript.getExecutor()));
 		assertEquals(CatThread.READY, CatScheduler.get().getThread(broadcastScript.getExecutor()).getStatus());
 		
-		scheduler.execute(); //NextCostumeBrick
+		scheduler.execute(); //NextLookBrick
 		
-		assertEquals(costumeName2, sprite.getCostume().getCostumeData().getName());
+		assertEquals(costumeName2, sprite.getLook().getLookData().getName());
 		assertEquals(1, CatScheduler.get().getThreadCount());
-		assertTrue(spriteBroadcaster.getCostume().isVisible());
+		assertTrue(spriteBroadcaster.getLook().isVisible());
 		
 		Timer timer = new Timer() {
 			
@@ -181,7 +181,7 @@ public class BroadcastWaitBrickTest extends GWTTestCase{
 			public void run() {
 				scheduler.execute();
 				
-				assertFalse(spriteBroadcaster.getCostume().isVisible());
+				assertFalse(spriteBroadcaster.getLook().isVisible());
 				
 				finishTest();
 			}
@@ -199,27 +199,27 @@ public class BroadcastWaitBrickTest extends GWTTestCase{
 		
 		//sprite which script gets started via broadcast---------------------
 		String costumeName1 = "costume1";
-		CostumeData costumeData1 = createCostumeData(costumeName1);
+		LookData costumeData1 = createCostumeData(costumeName1);
 		
 		String costumeName2 = "costume2";
-		CostumeData costumeData2 = createCostumeData(costumeName2);
+		LookData costumeData2 = createCostumeData(costumeName2);
 		
 		String spriteName = "sprite1";
 		sprite = spriteManager.getSprite(spriteName, true);
 		
-		sprite.addCostumeData(costumeData1);
-		sprite.addCostumeData(costumeData2);
+		sprite.addLookData(costumeData1);
+		sprite.addLookData(costumeData2);
 		
-		//simulate SetCostumeBrick
-		sprite.getCostume().setCostumeData(costumeData1);
+		//simulate SetLookBrick
+		sprite.getLook().setLookData(costumeData1);
 		
-		//create BroadcastScript which executes one NextCostumeBrick
+		//create BroadcastScript which executes one NextLookBrick
 		String broadcastScriptName = "broadcastScript";
 		String message = "NextCostume";
 		BroadcastScript broadcastScript = new BroadcastScript(sprite, broadcastScriptName, message);
 		
-		NextCostumeBrick nextCostumeBrick = new NextCostumeBrick(spriteName);
-		broadcastScript.addBrick(nextCostumeBrick);
+		NextLookBrick nextLookBrick = new NextLookBrick(spriteName);
+		broadcastScript.addBrick(nextLookBrick);
 		
 		sprite.addScript(broadcastScript);
 		//-------------------------------------------------------------------
@@ -228,17 +228,17 @@ public class BroadcastWaitBrickTest extends GWTTestCase{
 		String spriteName2 = "sprite2";
 		sprite2 = spriteManager.getSprite(spriteName2, true);
 		
-		sprite2.addCostumeData(costumeData1);
-		sprite2.addCostumeData(costumeData2);
+		sprite2.addLookData(costumeData1);
+		sprite2.addLookData(costumeData2);
 		
-		//simulate SetCostumeBrick
-		sprite2.getCostume().setCostumeData(costumeData2);
+		//simulate SetLookBrick
+		sprite2.getLook().setLookData(costumeData2);
 		
-		//create BroadcastScript which executes one NextCostumeBrick
+		//create BroadcastScript which executes one NextLookBrick
 		String broadcastScriptName2 = "broadcastScript2";
 		BroadcastScript broadcastScript2 = new BroadcastScript(sprite2, broadcastScriptName2, message);
 		
-		NextCostumeBrick nextCostumeBrick2 = new NextCostumeBrick(spriteName2);
+		NextLookBrick nextCostumeBrick2 = new NextLookBrick(spriteName2);
 		broadcastScript2.addBrick(nextCostumeBrick2);
 		
 		sprite2.addScript(broadcastScript2);
@@ -269,14 +269,14 @@ public class BroadcastWaitBrickTest extends GWTTestCase{
 		assertEquals(CatThread.SLEEPING, broadCasterThread.getStatus());
 		assertEquals(3, CatScheduler.get().getThreadCount());
 		
-		scheduler.execute(); //NextCostumeBrick sprite
+		scheduler.execute(); //NextLookBrick sprite
 		scheduler.execute();
-		scheduler.execute(); //NextCostumeBrick sprite2
+		scheduler.execute(); //NextLookBrick sprite2
 		
-		assertEquals(costumeName2, sprite.getCostume().getCostumeData().getName());
-		assertEquals(costumeName1, sprite2.getCostume().getCostumeData().getName());
+		assertEquals(costumeName2, sprite.getLook().getLookData().getName());
+		assertEquals(costumeName1, sprite2.getLook().getLookData().getName());
 		assertEquals(1, CatScheduler.get().getThreadCount());
-		assertTrue(spriteBroadcaster.getCostume().isVisible());
+		assertTrue(spriteBroadcaster.getLook().isVisible());
 		
 		Timer timer = new Timer() {
 			
@@ -284,7 +284,7 @@ public class BroadcastWaitBrickTest extends GWTTestCase{
 			public void run() {
 				scheduler.execute();
 				
-				assertFalse(spriteBroadcaster.getCostume().isVisible());
+				assertFalse(spriteBroadcaster.getLook().isVisible());
 				
 				finishTest();
 			}
@@ -301,27 +301,27 @@ public class BroadcastWaitBrickTest extends GWTTestCase{
 	public void testMultipleExecution() {
 		//sprite which script gets started via broadcast---------------------
 		String costumeName1 = "costume1";
-		CostumeData costumeData1 = createCostumeData(costumeName1);
+		LookData costumeData1 = createCostumeData(costumeName1);
 		
 		String costumeName2 = "costume2";
-		CostumeData costumeData2 = createCostumeData(costumeName2);
+		LookData costumeData2 = createCostumeData(costumeName2);
 		
 		String spriteName = "sprite1";
 		sprite = spriteManager.getSprite(spriteName, true);
 		
-		sprite.addCostumeData(costumeData1);
-		sprite.addCostumeData(costumeData2);
+		sprite.addLookData(costumeData1);
+		sprite.addLookData(costumeData2);
 		
-		//simulate SetCostumeBrick
-		sprite.getCostume().setCostumeData(costumeData1);
+		//simulate SetLookBrick
+		sprite.getLook().setLookData(costumeData1);
 		
-		//create BroadcastScript which executes one NextCostumeBrick
+		//create BroadcastScript which executes one NextLookBrick
 		String broadcastScriptName = "broadcastScript";
 		String message = "NextCostume";
 		BroadcastScript broadcastScript = new BroadcastScript(sprite, broadcastScriptName, message);
 		
-		NextCostumeBrick nextCostumeBrick = new NextCostumeBrick(spriteName);
-		broadcastScript.addBrick(nextCostumeBrick);
+		NextLookBrick nextLookBrick = new NextLookBrick(spriteName);
+		broadcastScript.addBrick(nextLookBrick);
 		
 		sprite.addScript(broadcastScript);
 		//-------------------------------------------------------------------
@@ -330,17 +330,17 @@ public class BroadcastWaitBrickTest extends GWTTestCase{
 		String spriteName2 = "sprite2";
 		sprite2 = spriteManager.getSprite(spriteName2, true);
 		
-		sprite2.addCostumeData(costumeData1);
-		sprite2.addCostumeData(costumeData2);
+		sprite2.addLookData(costumeData1);
+		sprite2.addLookData(costumeData2);
 		
-		//simulate SetCostumeBrick
-		sprite2.getCostume().setCostumeData(costumeData2);
+		//simulate SetLookBrick
+		sprite2.getLook().setLookData(costumeData2);
 		
-		//create BroadcastScript which executes one NextCostumeBrick
+		//create BroadcastScript which executes one NextLookBrick
 		String broadcastScriptName2 = "broadcastScript2";
 		BroadcastScript broadcastScript2 = new BroadcastScript(sprite2, broadcastScriptName2, message);
 		
-		NextCostumeBrick nextCostumeBrick2 = new NextCostumeBrick(spriteName2);
+		NextLookBrick nextCostumeBrick2 = new NextLookBrick(spriteName2);
 		broadcastScript2.addBrick(nextCostumeBrick2);
 		
 		sprite2.addScript(broadcastScript2);
@@ -371,14 +371,14 @@ public class BroadcastWaitBrickTest extends GWTTestCase{
 		assertEquals(CatThread.SLEEPING, broadCasterThread.getStatus());
 		assertEquals(3, CatScheduler.get().getThreadCount());
 		
-		scheduler.execute(); //NextCostumeBrick
+		scheduler.execute(); //NextLookBrick
 		scheduler.execute();
-		scheduler.execute(); //NextCostumeBrick
+		scheduler.execute(); //NextLookBrick
 		
-		assertEquals(costumeName2, sprite.getCostume().getCostumeData().getName());
-		assertEquals(costumeName1, sprite2.getCostume().getCostumeData().getName());
+		assertEquals(costumeName2, sprite.getLook().getLookData().getName());
+		assertEquals(costumeName1, sprite2.getLook().getLookData().getName());
 		assertEquals(1, CatScheduler.get().getThreadCount());
-		assertTrue(spriteBroadcaster.getCostume().isVisible());
+		assertTrue(spriteBroadcaster.getLook().isVisible());
 		
 		Timer timer = new Timer() {
 			
@@ -386,11 +386,11 @@ public class BroadcastWaitBrickTest extends GWTTestCase{
 			public void run() {
 				scheduler.execute();
 				
-				assertFalse(spriteBroadcaster.getCostume().isVisible());
+				assertFalse(spriteBroadcaster.getLook().isVisible());
 				
 				((WhenScript)spriteBroadcaster.getScript(0)).resetWhenScript();
 				
-				spriteBroadcaster.getCostume().show();
+				spriteBroadcaster.getLook().show();
 				
 				CatThread broadCasterThread2 = new CatThread(spriteBroadcaster.getName() + spriteBroadcaster.getScript(0).getName(), spriteBroadcaster.getScript(0));
 				CatScheduler.get().schedule(broadCasterThread2);
@@ -400,14 +400,14 @@ public class BroadcastWaitBrickTest extends GWTTestCase{
 				assertEquals(CatThread.SLEEPING, broadCasterThread2.getStatus());
 				assertEquals(3, CatScheduler.get().getThreadCount());
 				
-				scheduler.execute(); //NextCostumeBrick
+				scheduler.execute(); //NextLookBrick
 				scheduler.execute();
-				scheduler.execute(); //NextCostumeBrick
+				scheduler.execute(); //NextLookBrick
 				
-				assertEquals("costume1", sprite.getCostume().getCostumeData().getName());
-				assertEquals("costume2", sprite2.getCostume().getCostumeData().getName());
+				assertEquals("costume1", sprite.getLook().getLookData().getName());
+				assertEquals("costume2", sprite2.getLook().getLookData().getName());
 				assertEquals(1, CatScheduler.get().getThreadCount());
-				assertTrue(spriteBroadcaster.getCostume().isVisible());
+				assertTrue(spriteBroadcaster.getLook().isVisible());
 				
 				Timer timer2 = new Timer() {
 					
@@ -415,7 +415,7 @@ public class BroadcastWaitBrickTest extends GWTTestCase{
 					public void run() {
 						scheduler.execute();
 						
-						assertFalse(spriteBroadcaster.getCostume().isVisible());
+						assertFalse(spriteBroadcaster.getLook().isVisible());
 						
 						finishTest();
 					}

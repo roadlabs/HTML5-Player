@@ -72,7 +72,7 @@ public class SetBrightnessBrickTest extends GWTTestCase{
 		
 		setBrightnessBrick.execute();
 		
-		assertEquals(brightness / 100.0, sprite.getCostume().getBrightnessValue());
+		assertEquals(brightness / 100.0, sprite.getLook().getBrightnessValue());
 	}
 
 }

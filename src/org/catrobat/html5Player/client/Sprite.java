@@ -30,8 +30,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.catrobat.html5Player.client.common.Costume;
-import org.catrobat.html5Player.client.common.CostumeData;
+import org.catrobat.html5Player.client.common.Look;
+import org.catrobat.html5Player.client.common.LookData;
 import org.catrobat.html5Player.client.common.Sound;
 import org.catrobat.html5Player.client.common.SoundInfo;
 import org.catrobat.html5Player.client.scripts.BroadcastScript;
@@ -53,10 +53,10 @@ public class Sprite {
 	
 	private double volume;
 
-	private Costume costume;
-	private Image currentCostume = null;
+	private Look look;
+	private Image currentLook = null;
 
-	private Map<String, Costume> costumes;
+	private Map<String, Look> looks;
 	private Map<String, Sound> sounds;
 	private Set<Script> scripts;
 
@@ -65,11 +65,11 @@ public class Sprite {
 		this.isBackground = false;
 		this.volume = 70;
 
-		this.costumes = new LinkedHashMap<String, Costume>();
+		this.looks = new LinkedHashMap<String, Look>();
 		this.sounds = new LinkedHashMap<String, Sound>();
 		this.scripts = new LinkedHashSet<Script>();
 
-		costume = new Costume(Stage.getInstance().getStageMiddleX(), Stage.getInstance().getStageMiddleY(), true);
+		look = new Look(Stage.getInstance().getStageMiddleX(), Stage.getInstance().getStageMiddleY(), true);
 	}
 
 	public String getName() {
@@ -84,58 +84,58 @@ public class Sprite {
 		isBackground = background;
 	}
 	
-	public Costume getCostume() {
-		return costume;
+	public Look getLook() {
+		return look;
 	}
 
-	public void addCostumeData(CostumeData costumeData) {
-		if (costumeData != null && !costumes.containsKey(costumeData.getName())) {
-			Costume costume = new Costume(0.0f, 0.0f, true);
-			costume.setCostumeData(costumeData);
-			costumes.put(costumeData.getName(), costume);
+	public void addLookData(LookData lookData) {
+		if (lookData != null && !looks.containsKey(lookData.getName())) {
+			Look look = new Look(0.0f, 0.0f, true);
+			look.setLookData(lookData);
+			looks.put(lookData.getName(), look);
 		}
 
 	}
 
-	public Costume getCostume(String name) {
-		return costumes.get(name);
+	public Look getLook(String name) {
+		return looks.get(name);
 	}
 
-	public List<Costume> getCostumes() {
-		List<Costume> costumes = new ArrayList<Costume>();
-		costumes.addAll(this.costumes.values());
-		return costumes;
+	public List<Look> getLooks() {
+		List<Look> looks = new ArrayList<Look>();
+		looks.addAll(this.looks.values());
+		return looks;
 	}
 	
 	/**
 	 * 
 	 */
-	public ArrayList<String> getCostumeDataNames() {
-		return new ArrayList<String>(costumes.keySet());
+	public ArrayList<String> getLookDataNames() {
+		return new ArrayList<String>(looks.keySet());
 	}
 	
 	/**
 	 * 
 	 */
-	public ArrayList<CostumeData> getCostumeData() {
-		ArrayList <Costume> costumesList = new ArrayList<Costume>(costumes.values());
-		ArrayList<CostumeData> costumeDataList = new ArrayList<CostumeData>();
+	public ArrayList<LookData> getLookData() {
+		ArrayList <Look> looksList = new ArrayList<Look>(looks.values());
+		ArrayList<LookData> lookDataList = new ArrayList<LookData>();
 		
-		for(Costume costume : costumesList) {
-			CostumeData costumeData = costume.getCostumeData(); 
-			costumeDataList.add(costumeData);
+		for(Look look : looksList) {
+			LookData lookData = look.getLookData(); 
+			lookDataList.add(lookData);
 		}
 		
-		return costumeDataList;
+		return lookDataList;
 	}
 	
 	/**
 	 * 
 	 */
-	public CostumeData getCostumeDataByName(String costumeName) {
+	public LookData getLookDataByName(String lookName) {
 		
-		if(costumes.containsKey(costumeName)) {
-			return costumes.get(costumeName).getCostumeData();
+		if(looks.containsKey(lookName)) {
+			return looks.get(lookName).getLookData();
 		}
 		
 		return null;
@@ -186,88 +186,88 @@ public class Sprite {
 	/**
 	 * 
 	 */
-	public void showCostume() {
-		if (costume == null)
+	public void showLook() {
+		if (look == null)
 			return;
 		
-		CostumeData costumeData = costume.getCostumeData();
+		LookData lookData = look.getLookData();
 		
-		if(costumeData == null)
+		if(lookData == null)
 			return;
 		
-		currentCostume = ImageHandler.get().getImage(costumeData.getFilename());
+		currentLook = ImageHandler.get().getImage(lookData.getFilename());
 		
-		costumeData.setWidth(currentCostume.getWidth());
-		costumeData.setHeight(currentCostume.getHeight());
+		lookData.setWidth(currentLook.getWidth());
+		lookData.setHeight(currentLook.getHeight());
 	}
 
 	public void drawSprite() {
 		
-		if(currentCostume == null || !costume.isVisible()) {
+		if(currentLook == null || !look.isVisible()) {
 			return;
 		}
 		
 		long start = System.currentTimeMillis();
 
 //		CatrobatDebug.on();
-		CatrobatDebug.console("drawSprite: " + this.name + " - customename: " + costume.getCostumeData().getFilename());
+		CatrobatDebug.console("drawSprite: " + this.name + " - customename: " + look.getLookData().getFilename());
 		CatrobatDebug.off();
 		
-		CostumeData costumeData = costume.getCostumeData();
-		double size = costume.getSize();
-		double width = (double)costumeData.getWidth() * size;
-		double height = (double)costumeData.getHeight() * size;
+		LookData lookData = look.getLookData();
+		double size = look.getSize();
+		double width = (double)lookData.getWidth() * size;
+		double height = (double)lookData.getHeight() * size;
 				
-//		if(costume.getBrightnessValue() == 1.0) {
-//			Scene.get().drawImage(currentCostume, 
-//					costume.getXPosition(), 
-//					costume.getYPosition(), 
+//		if(look.getBrightnessValue() == 1.0) {
+//			Scene.get().drawImage(currentLook, 
+//					look.getXPosition(), 
+//					look.getYPosition(), 
 //					-costumeData.getWidth() / 2,
 //					-costumeData.getHeight() / 2, 
 //					costumeData.getWidth(), 
 //					costumeData.getHeight(),
-//					costume.getRotation(), 
-//					costume.getSize(), costume.getSize(),
-//					costume.getAlphaValue());
+//					look.getRotation(), 
+//					look.getSize(), look.getSize(),
+//					look.getAlphaValue());
 //		}
 //		else { //TODO: call the draw function with a brightness parameter
-//			Scene.get().drawImage(currentCostume, 
-//					costume.getXPosition(), 
-//					costume.getYPosition(), 
+//			Scene.get().drawImage(currentLook, 
+//					look.getXPosition(), 
+//					look.getYPosition(), 
 //					-costumeData.getWidth() / 2,
 //					-costumeData.getHeight() / 2, 
 //					costumeData.getWidth(), 
 //					costumeData.getHeight(),
-//					costume.getRotation(), 
-//					costume.getSize(), costume.getSize(),
-//					costume.getAlphaValue());
+//					look.getRotation(), 
+//					look.getSize(), look.getSize(),
+//					look.getAlphaValue());
 //		}
 		
-//		Scene.get().drawImage(currentCostume, 
-//				costume.getXPosition(), 
-//				costume.getYPosition(), 
+//		Scene.get().drawImage(currentLook, 
+//				look.getXPosition(), 
+//				look.getYPosition(), 
 //				-costumeData.getWidth() / 2,
 //				-costumeData.getHeight() / 2, 
 //				costumeData.getWidth(), 
 //				costumeData.getHeight(),
-//				costume.getRotation(), 
-//				costume.getSize(), costume.getSize(),
-//				costume.getAlphaValue());
+//				look.getRotation(), 
+//				look.getSize(), look.getSize(),
+//				look.getAlphaValue());
 		
-		Scene.get().drawImageJSNI(currentCostume, 
-				costume.getXPosition(), 
-				costume.getYPosition(), 
+		Scene.get().drawImageJSNI(currentLook, 
+				look.getXPosition(), 
+				look.getYPosition(), 
 				-width / 2,
 				-height / 2,
 				width, 
 				height,
-				-costume.getRotation(), // the MINUS is important because canvas positive rotation is clockwise
-				costume.getAlphaValue());
+				-look.getRotation(), // the MINUS is important because canvas positive rotation is clockwise
+				look.getAlphaValue());
 		
 		
 //		CatrobatDebug.on();
 		CatrobatDebug.console("drawSprite-execution needed " + (System.currentTimeMillis() - start) +
-							  "ms : z-Pos: " + costume.getZPosition() +
+							  "ms : z-Pos: " + look.getZPosition() +
 							  " : name: " + this.name);
 		CatrobatDebug.off();
 		
@@ -365,23 +365,23 @@ public class Sprite {
 	 */
 	public boolean processOnTouch(int relativeX, int relativeY) {
 		
-		//15.08.12: added || !costume.isVisible())  --Andi
+		//15.08.12: added || !look.isVisible())  --Andi
 		
 		//28.08.12 removed isBackground ||  --Andi
-//		if (isBackground || currentCostume == null || !costume.isVisible())
+//		if (isBackground || currentLook == null || !look.isVisible())
 //			return false;
 		
-		if (currentCostume == null || !costume.isVisible())
+		if (currentLook == null || !look.isVisible())
 			return false;
 		
-		double xPosition = costume.getXPosition();
-		double yPosition = costume.getYPosition();
-		double size = costume.getSize();
+		double xPosition = look.getXPosition();
+		double yPosition = look.getYPosition();
+		double size = look.getSize();
 		
-		CostumeData costumeData = costume.getCostumeData();
+		LookData lookData = look.getLookData();
 		
-		double widthHalf = ((double)costumeData.getWidth() * size) / 2;
-		double heightHalf = ((double)costumeData.getHeight() * size) / 2;
+		double widthHalf = ((double)lookData.getWidth() * size) / 2;
+		double heightHalf = ((double)lookData.getHeight() * size) / 2;
 		
 		if( xPosition + widthHalf  > relativeX &&
 			xPosition - widthHalf  < relativeX &&
@@ -399,20 +399,20 @@ public class Sprite {
 //		double relXTrans = relativeX - Stage.getInstance().getStageMiddleX();
 //		double relYTrans = relativeY - Stage.getInstance().getStageMiddleY();
 //		
-//		double costumeWidthHalf = currentCostume.getWidth()*costume.getSize() / 2;
-//		double costumeHeightHalf = currentCostume.getHeight()*costume.getSize() / 2;
+//		double costumeWidthHalf = currentLook.getWidth()*look.getSize() / 2;
+//		double costumeHeightHalf = currentLook.getHeight()*look.getSize() / 2;
 //		
-//		double leftXBorder = costume.getMiddleX() - costumeWidthHalf;
-//		double rightXBorder = costume.getMiddleX() + costumeWidthHalf;
+//		double leftXBorder = look.getMiddleX() - costumeWidthHalf;
+//		double rightXBorder = look.getMiddleX() + costumeWidthHalf;
 //		
-//		double topYBorder = costume.getMiddleY() + costumeHeightHalf;
-//		double bottomYBorder = costume.getMiddleY() - costumeHeightHalf;
+//		double topYBorder = look.getMiddleY() + costumeHeightHalf;
+//		double bottomYBorder = look.getMiddleY() - costumeHeightHalf;
 //		
 //		String debugMessage = "Click(" + relativeX + "," + relativeY + ")" +
 //							  " - transform to (" + relXTrans + "," + relYTrans + ")";
 //		
 //		debugMessage += "; Borders: left: " + leftXBorder + ", right: " + rightXBorder + ", top: " + topYBorder + ", bottom:" + bottomYBorder +
-//					    " of sprite: " + this.name + " with middleX: " + costume.getMiddleX() + " and middleY: " + costume.getMiddleY();
+//					    " of sprite: " + this.name + " with middleX: " + look.getMiddleX() + " and middleY: " + look.getMiddleY();
 //		
 //		CatrobatDebug.on();
 //		CatrobatDebug.console(debugMessage);

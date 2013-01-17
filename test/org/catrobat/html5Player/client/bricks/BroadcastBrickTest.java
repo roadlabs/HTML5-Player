@@ -26,8 +26,8 @@ import org.catrobat.html5Player.client.Scene;
 import org.catrobat.html5Player.client.Sprite;
 import org.catrobat.html5Player.client.SpriteManager;
 import org.catrobat.html5Player.client.Stage;
-import org.catrobat.html5Player.client.common.Costume;
-import org.catrobat.html5Player.client.common.CostumeData;
+import org.catrobat.html5Player.client.common.Look;
+import org.catrobat.html5Player.client.common.LookData;
 import org.catrobat.html5Player.client.scripts.BroadcastScript;
 import org.catrobat.html5Player.client.threading.CatScheduler;
 
@@ -76,11 +76,11 @@ public class BroadcastBrickTest extends GWTTestCase{
 	
 	/**
 	 * Helper
-	 * @param name of Costume
-	 * @return CostumeData for costume
+	 * @param name of Look
+	 * @return LookData for costume
 	 */
-	private CostumeData createCostumeData(String name) {
-		CostumeData data = new CostumeData();
+	private LookData createCostumeData(String name) {
+		LookData data = new LookData();
 		data.setName(name);
 		return data;
 	}
@@ -93,27 +93,27 @@ public class BroadcastBrickTest extends GWTTestCase{
 	public void testSingleBroadcastScript() {
 		
 		String costumeName1 = "costume1";
-		CostumeData costumeData1 = createCostumeData(costumeName1);
+		LookData costumeData1 = createCostumeData(costumeName1);
 		
 		String costumeName2 = "costume2";
-		CostumeData costumeData2 = createCostumeData(costumeName2);
+		LookData costumeData2 = createCostumeData(costumeName2);
 		
 		String spriteName = "sprite1";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		sprite.addCostumeData(costumeData1);
-		sprite.addCostumeData(costumeData2);
+		sprite.addLookData(costumeData1);
+		sprite.addLookData(costumeData2);
 		
-		//simulate SetCostumeBrick
-		sprite.getCostume().setCostumeData(costumeData1);
+		//simulate SetLookBrick
+		sprite.getLook().setLookData(costumeData1);
 		
-		//create BroadcastScript which executes one NextCostumeBrick
+		//create BroadcastScript which executes one NextLookBrick
 		String broadcastScriptName = "broadcastScript";
 		String message = "Next";
 		BroadcastScript broadcastScript = new BroadcastScript(sprite, broadcastScriptName, message);
 		
-		NextCostumeBrick nextCostumeBrick = new NextCostumeBrick(spriteName);
-		broadcastScript.addBrick(nextCostumeBrick);
+		NextLookBrick nextLookBrick = new NextLookBrick(spriteName);
+		broadcastScript.addBrick(nextLookBrick);
 		
 		
 		sprite.addScript(broadcastScript);
@@ -129,7 +129,7 @@ public class BroadcastBrickTest extends GWTTestCase{
 		
 		scheduler.execute();
 		
-		assertEquals(costumeName2, sprite.getCostume().getCostumeData().getName());
+		assertEquals(costumeName2, sprite.getLook().getLookData().getName());
 	}
 	
 	/**
@@ -138,23 +138,23 @@ public class BroadcastBrickTest extends GWTTestCase{
 	public void testMultipleBroadcastScripts() {
 		
 		String costumeName1 = "costume1";
-		CostumeData costumeData1 = createCostumeData(costumeName1);
+		LookData costumeData1 = createCostumeData(costumeName1);
 		
 		String costumeName2 = "costume2";
-		CostumeData costumeData2 = createCostumeData(costumeName2);
+		LookData costumeData2 = createCostumeData(costumeName2);
 		
 		String costumeName3 = "costume3";
-		CostumeData costumeData3 = createCostumeData(costumeName3);
+		LookData costumeData3 = createCostumeData(costumeName3);
 		
 		String spriteName = "sprite2";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		sprite.addCostumeData(costumeData1);
-		sprite.addCostumeData(costumeData2);
-		sprite.addCostumeData(costumeData3);
+		sprite.addLookData(costumeData1);
+		sprite.addLookData(costumeData2);
+		sprite.addLookData(costumeData3);
 		
-		//simulate SetCostumeBrick
-		sprite.getCostume().setCostumeData(costumeData1);
+		//simulate SetLookBrick
+		sprite.getLook().setLookData(costumeData1);
 		
 		//create BroadcastScripts
 		String message = "Next";
@@ -165,10 +165,10 @@ public class BroadcastBrickTest extends GWTTestCase{
 		String broadcastScriptName2 = "broadcastScript2";
 		BroadcastScript broadcastScript2 = new BroadcastScript(sprite, broadcastScriptName2, message);
 		
-		NextCostumeBrick nextCostumeBrick = new NextCostumeBrick(spriteName);
-		broadcastScript.addBrick(nextCostumeBrick);
+		NextLookBrick nextLookBrick = new NextLookBrick(spriteName);
+		broadcastScript.addBrick(nextLookBrick);
 		
-		NextCostumeBrick nextCostumeBrick2 = new NextCostumeBrick(spriteName);
+		NextLookBrick nextCostumeBrick2 = new NextLookBrick(spriteName);
 		broadcastScript2.addBrick(nextCostumeBrick2);
 		
 		
@@ -187,7 +187,7 @@ public class BroadcastBrickTest extends GWTTestCase{
 		scheduler.execute();
 		scheduler.execute();
 		
-		assertEquals(costumeName3, sprite.getCostume().getCostumeData().getName());
+		assertEquals(costumeName3, sprite.getLook().getLookData().getName());
 	}
 	
 	/**
@@ -196,33 +196,33 @@ public class BroadcastBrickTest extends GWTTestCase{
 	public void testMultipleExecution() {
 		
 		String costumeName1 = "costume1";
-		CostumeData costumeData1 = createCostumeData(costumeName1);
+		LookData costumeData1 = createCostumeData(costumeName1);
 		
 		String costumeName2 = "costume2";
-		CostumeData costumeData2 = createCostumeData(costumeName2);
+		LookData costumeData2 = createCostumeData(costumeName2);
 		
 		String spriteName = "sprite1";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		sprite.addCostumeData(costumeData1);
-		sprite.addCostumeData(costumeData2);
+		sprite.addLookData(costumeData1);
+		sprite.addLookData(costumeData2);
 		
-		Costume costume = sprite.getCostume();
+		Look look = sprite.getLook();
 		
-		//simulate SetCostumeBrick
-		costume.setCostumeData(costumeData1);
+		//simulate SetLookBrick
+		look.setLookData(costumeData1);
 		
-		costume.hide();
+		look.hide();
 		
-		//create BroadcastScript which executes one NextCostumeBrick
+		//create BroadcastScript which executes one NextLookBrick
 		String broadcastScriptName = "broadcastScript";
 		String message = "Next";
 		BroadcastScript broadcastScript = new BroadcastScript(sprite, broadcastScriptName, message);
 		
 		
-		NextCostumeBrick nextCostumeBrick = new NextCostumeBrick(spriteName);
+		NextLookBrick nextLookBrick = new NextLookBrick(spriteName);
 		ShowBrick showBrick = new ShowBrick(spriteName);
-		broadcastScript.addBrick(nextCostumeBrick);
+		broadcastScript.addBrick(nextLookBrick);
 		broadcastScript.addBrick(showBrick);
 		
 		
@@ -241,11 +241,11 @@ public class BroadcastBrickTest extends GWTTestCase{
 		scheduler.execute();
 		scheduler.execute();
 		
-		assertEquals(costumeName2, costume.getCostumeData().getName());
-		assertTrue(costume.isVisible());
+		assertEquals(costumeName2, look.getLookData().getName());
+		assertTrue(look.isVisible());
 		
-		costume.hide();
-		assertFalse(costume.isVisible());
+		look.hide();
+		assertFalse(look.isVisible());
 		
 		//second execution
 		broadcastBrick.execute();
@@ -255,8 +255,8 @@ public class BroadcastBrickTest extends GWTTestCase{
 		scheduler.execute();
 		scheduler.execute();
 		
-		assertEquals(costumeName1, costume.getCostumeData().getName());
-		assertTrue(costume.isVisible());
+		assertEquals(costumeName1, look.getLookData().getName());
+		assertTrue(look.isVisible());
 	}
 
 }

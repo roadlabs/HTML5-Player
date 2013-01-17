@@ -23,7 +23,7 @@
 package org.catrobat.html5Player.client.bricks;
 
 import org.catrobat.html5Player.client.Sprite;
-import org.catrobat.html5Player.client.common.Costume;
+import org.catrobat.html5Player.client.common.Look;
 
 public class ChangeYByBrick extends Brick {
 
@@ -36,11 +36,11 @@ public class ChangeYByBrick extends Brick {
 
 	@Override
 	public boolean execute(Sprite sprite) {
-		Costume costume = sprite.getCostume();
+		Look look = sprite.getLook();
 
-		costume.setMiddleY(costume.getMiddleY() + deltaY);
+		look.setMiddleY(look.getMiddleY() + deltaY);
 		
-		int yPosition = (int) costume.getYPosition();
+		int yPosition = (int) look.getYPosition();
 //		int tempDeltaY = deltaY;
 //		
 //		if (tempDeltaY == Integer.MIN_VALUE) {
@@ -61,7 +61,7 @@ public class ChangeYByBrick extends Brick {
 		
 		yPosition += deltaY;
 		
-		costume.setXYPosition(costume.getXPosition(), yPosition);
+		look.setXYPosition(look.getXPosition(), yPosition);
 		
 		return true;
 	}

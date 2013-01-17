@@ -48,10 +48,10 @@ public class HideBrickTest extends GWTTestCase {
 		Sprite sprite = new Sprite(spriteName);
 		stage.getSpriteManager().addSprite(sprite);
 		
-		assertTrue("Unexpected default visibility", sprite.getCostume().isVisible());
+		assertTrue("Unexpected default visibility", sprite.getLook().isVisible());
 		HideBrick hideBrick = new HideBrick(spriteName);
 		hideBrick.execute();
-		assertFalse("Sprite is still visible after HideBrick executed", sprite.getCostume().isVisible());
+		assertFalse("Sprite is still visible after HideBrick executed", sprite.getLook().isVisible());
 	}
 
 	public void testNullSprite() {

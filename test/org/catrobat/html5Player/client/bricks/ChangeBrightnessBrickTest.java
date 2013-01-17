@@ -67,13 +67,13 @@ public class ChangeBrightnessBrickTest extends GWTTestCase{
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
 		
 		double brightness = 50.0;
-		double newBrightnessValue = sprite.getCostume().getBrightnessValue() + (brightness / 100.);
+		double newBrightnessValue = sprite.getLook().getBrightnessValue() + (brightness / 100.);
 		
 		ChangeBrightnessBrick changeBrightnessBrick = new ChangeBrightnessBrick(spriteName, brightness);
 		
 		changeBrightnessBrick.execute();
 		
-		assertEquals(newBrightnessValue, sprite.getCostume().getBrightnessValue());
+		assertEquals(newBrightnessValue, sprite.getLook().getBrightnessValue());
 	}
 	
 	/**
@@ -84,13 +84,13 @@ public class ChangeBrightnessBrickTest extends GWTTestCase{
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
 		
 		double brightness = -50.0;
-		double newBrightnessValue = sprite.getCostume().getBrightnessValue() + (brightness / 100.);
+		double newBrightnessValue = sprite.getLook().getBrightnessValue() + (brightness / 100.);
 		
 		ChangeBrightnessBrick changeBrightnessBrick = new ChangeBrightnessBrick(spriteName, brightness);
 		
 		changeBrightnessBrick.execute();
 		
-		assertEquals(newBrightnessValue, sprite.getCostume().getBrightnessValue());
+		assertEquals(newBrightnessValue, sprite.getLook().getBrightnessValue());
 	}
 	
 	/**
@@ -106,7 +106,7 @@ public class ChangeBrightnessBrickTest extends GWTTestCase{
 		
 		changeBrightnessBrick.execute();
 		
-		assertEquals(0.0, sprite.getCostume().getBrightnessValue());
+		assertEquals(0.0, sprite.getLook().getBrightnessValue());
 	}
 
 }

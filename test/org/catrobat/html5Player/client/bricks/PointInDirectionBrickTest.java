@@ -81,7 +81,7 @@ public class PointInDirectionBrickTest extends GWTTestCase {
 		
 		double expectation = -degrees + 90.0;
 		
-		assertEquals(expectation, sprite.getCostume().getRotation());
+		assertEquals(expectation, sprite.getLook().getRotation());
 	}
 
 	/**
@@ -98,7 +98,7 @@ public class PointInDirectionBrickTest extends GWTTestCase {
 		
 		double expectation = -degrees + 90.0;
 		
-		assertEquals(expectation, sprite.getCostume().getRotation());
+		assertEquals(expectation, sprite.getLook().getRotation());
 	}
 
 	/**
@@ -115,7 +115,7 @@ public class PointInDirectionBrickTest extends GWTTestCase {
 		
 		double expectation = -degrees + 90.0;
 		
-		assertEquals(expectation, sprite.getCostume().getRotation());
+		assertEquals(expectation, sprite.getLook().getRotation());
 	}
 
 	/**
@@ -132,7 +132,7 @@ public class PointInDirectionBrickTest extends GWTTestCase {
 		
 		double expectation = -degrees + 90.0;
 		
-		assertEquals(expectation, sprite.getCostume().getRotation());
+		assertEquals(expectation, sprite.getLook().getRotation());
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class PointInDirectionBrickTest extends GWTTestCase {
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
 		double rotation = 42.0;
-		sprite.getCostume().setRotation(rotation);
+		sprite.getLook().setRotation(rotation);
 		
 		double degrees = 180.0;
 		PointInDirectionBrick pointInDirectionBrick = new PointInDirectionBrick(spriteName, 0, degrees);
@@ -153,7 +153,7 @@ public class PointInDirectionBrickTest extends GWTTestCase {
 		
 		double expectation = -degrees + 90.0;
 		
-		assertEquals(expectation, sprite.getCostume().getRotation());
+		assertEquals(expectation, sprite.getLook().getRotation());
 	}
 
 }

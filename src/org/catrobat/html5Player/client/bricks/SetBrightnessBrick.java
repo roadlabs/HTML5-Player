@@ -36,7 +36,7 @@ public class SetBrightnessBrick extends Brick {
 	@Override
 	protected boolean execute(Sprite sprite) {
 		
-		sprite.getCostume().setBrightnessValue(this.brightness);
+		sprite.getLook().setBrightnessValue(this.brightness);
 		
 		return true;
 	}

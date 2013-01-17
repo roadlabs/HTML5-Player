@@ -52,8 +52,8 @@ import org.catrobat.html5Player.client.bricks.PointToBrick;
 import org.catrobat.html5Player.client.bricks.RepeatBrick;
 import org.catrobat.html5Player.client.bricks.SetBrightnessBrick;
 import org.catrobat.html5Player.client.bricks.SetGhostEffectBrick;
-import org.catrobat.html5Player.client.bricks.SetCostumeBrick;
-import org.catrobat.html5Player.client.bricks.NextCostumeBrick;
+import org.catrobat.html5Player.client.bricks.SetLookBrick;
+import org.catrobat.html5Player.client.bricks.NextLookBrick;
 import org.catrobat.html5Player.client.bricks.SetSizeToBrick;
 import org.catrobat.html5Player.client.bricks.SetVolumeToBrick;
 import org.catrobat.html5Player.client.bricks.SetXBrick;
@@ -64,8 +64,8 @@ import org.catrobat.html5Player.client.bricks.TurnLeftBrick;
 import org.catrobat.html5Player.client.bricks.TurnRightBrick;
 import org.catrobat.html5Player.client.bricks.WaitBrick;
 
-import org.catrobat.html5Player.client.common.Costume;
-import org.catrobat.html5Player.client.common.CostumeData;
+import org.catrobat.html5Player.client.common.Look;
+import org.catrobat.html5Player.client.common.LookData;
 import org.catrobat.html5Player.client.common.SoundInfo;
 
 import org.catrobat.html5Player.client.scripts.BroadcastScript;
@@ -305,29 +305,29 @@ public class Parser {
 		
 		List<Element> costumes = getChildElementsByTagName(costumeList, "Common.CostumeData");
 		for (Element costumeDataElement : costumes) {
-			CostumeData costumeData = new CostumeData();
+			LookData lookData = new LookData();
 			String filename = getText(getChildElementByTagName(costumeDataElement, "fileName"));
 			
 			CatrobatDebug.console("XXXXXXXXXXXXXXXXXXXXX fileName: " + filename + " XXXXXXXXXXXXXXXXXXXXX");
 			
-			costumeData.setFilename(filename);
+			lookData.setFilename(filename);
 			String costumeName = getText(getChildElementByTagName(costumeDataElement, "name"));
-			costumeData.setName(costumeName);
+			lookData.setName(costumeName);
 			
 			CatrobatDebug.console("XXXXXXXXXXXXXXXXXXXXX name: " + costumeName + " XXXXXXXXXXXXXXXXXXXXX");
 
 			// String height =
 			// getText(getChildElementByTagName(costumeDataElement,
 			// "resHeight"));
-			costumeData.setHeight(0);
+			lookData.setHeight(0);
 			// String width =
 			// getText(getChildElementByTagName(costumeDataElement,
 			// "resWidth"));
-			costumeData.setWidth(0);
+			lookData.setWidth(0);
 			
-			sprite.addCostumeData(costumeData);
-			CatrobatDebug.console("CostumeData: " + costumeData.getName());
-			CatrobatDebug.console("File: " + costumeData.getFilename() + " Height: " + costumeData.getHeight() + " Width: " + costumeData.getWidth());
+			sprite.addLookData(lookData);
+			CatrobatDebug.console("LookData: " + lookData.getName());
+			CatrobatDebug.console("File: " + lookData.getFilename() + " Height: " + lookData.getHeight() + " Width: " + lookData.getWidth());
 			
 			
 			//add image name and url to ImageHandler
@@ -446,7 +446,7 @@ public class Parser {
 				//TODO handle this error?
 			}
 
-			return new SetCostumeBrick(brickSprite, costumeName);
+			return new SetLookBrick(brickSprite, costumeName);
 			
 		} 
 		else if (brickNode.getNodeName().equals("Bricks.WaitBrick")) {
@@ -651,7 +651,7 @@ public class Parser {
 		} 
 		else if (brickNode.getNodeName().equals("Bricks.NextCostumeBrick")) {
 						
-			return new NextCostumeBrick(brickSprite);
+			return new NextLookBrick(brickSprite);
 		} 
 		else if(brickNode.getNodeName().equals("Bricks.RepeatBrick")) {
 			

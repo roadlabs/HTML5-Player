@@ -48,14 +48,14 @@ public class SetYBrickTest extends GWTTestCase {
 		Sprite sprite = new Sprite(spriteName);
 		stage.getSpriteManager().addSprite(sprite);
 		
-		assertEquals("Unexpected initial sprite x position", 50d, sprite.getCostume().getXPosition());
-		assertEquals("Unexpected initial sprite y position", 50d, sprite.getCostume().getYPosition());
+		assertEquals("Unexpected initial sprite x position", 50d, sprite.getLook().getXPosition());
+		assertEquals("Unexpected initial sprite y position", 50d, sprite.getLook().getYPosition());
 
 		SetYBrick setYBrick = new SetYBrick(spriteName, yPosition);
 		setYBrick.execute();
 
 		assertEquals("Incorrect sprite y position after SetYBrick executed", (double) yPosition,
-				-sprite.getCostume().getYPosition()+50);
+				-sprite.getLook().getYPosition()+50);
 	}
 
 	public void testNullSprite() {
@@ -77,12 +77,12 @@ public class SetYBrickTest extends GWTTestCase {
 		setYBrick.execute();
 
 		assertEquals("SetYBrick failed to place Sprite at maximum y integer value", -(Integer.MAX_VALUE-50),
-				(int) sprite.getCostume().getYPosition());
+				(int) sprite.getLook().getYPosition());
 
 		setYBrick = new SetYBrick(spriteName, Integer.MIN_VALUE);
 		setYBrick.execute();
 
 		assertEquals("SetYBrick failed to place Sprite at minimum y integer value", Integer.MAX_VALUE,
-				(int) sprite.getCostume().getYPosition());
+				(int) sprite.getLook().getYPosition());
 	}
 }

@@ -54,13 +54,13 @@ public class ChangeSizeByNBrickTest extends GWTTestCase{
 		stage.getSpriteManager().addSprite(sprite);
 		
 		assertEquals("ChangeSizeByNBrick initial value wrong", 1,
-				(int) sprite.getCostume().getSize());
+				(int) sprite.getLook().getSize());
 		
 		ChangeSizeByNBrick changeBrick = new ChangeSizeByNBrick(spriteName, bigger);
 		changeBrick.execute();
 		
 		assertEquals("ChangeSizeByNBrick initial value wrong", 1.2,
-				 sprite.getCostume().getSize());
+				 sprite.getLook().getSize());
 		
 		
 		

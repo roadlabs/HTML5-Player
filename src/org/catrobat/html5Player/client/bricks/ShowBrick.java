@@ -23,7 +23,7 @@
 package org.catrobat.html5Player.client.bricks;
 
 import org.catrobat.html5Player.client.Sprite;
-import org.catrobat.html5Player.client.common.Costume;
+import org.catrobat.html5Player.client.common.Look;
 
 public class ShowBrick extends Brick {
 
@@ -33,8 +33,8 @@ public class ShowBrick extends Brick {
 
 	@Override
 	public boolean execute(Sprite sprite) {
-		Costume costume = sprite.getCostume();
-		costume.show();
+		Look look = sprite.getLook();
+		look.show();
 		return true;
 	}
 

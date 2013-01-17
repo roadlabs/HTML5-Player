@@ -67,13 +67,13 @@ public class ChangeGhostEffectByBrickTest extends GWTTestCase{
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
 		
 		double ghostEffectValue = 5.0;
-		double newAlphaValue = sprite.getCostume().getAlphaValue() - (ghostEffectValue / 100.);
+		double newAlphaValue = sprite.getLook().getAlphaValue() - (ghostEffectValue / 100.);
 		
 		ChangeGhostEffectByBrick changeGhostEffectBrick = new ChangeGhostEffectByBrick(spriteName, ghostEffectValue);
 		
 		changeGhostEffectBrick.execute();
 		
-		assertEquals(newAlphaValue, sprite.getCostume().getAlphaValue());
+		assertEquals(newAlphaValue, sprite.getLook().getAlphaValue());
 	}
 	
 	/**
@@ -89,7 +89,7 @@ public class ChangeGhostEffectByBrickTest extends GWTTestCase{
 		
 		changeGhostEffectBrick.execute();
 		
-		assertEquals(0.0, sprite.getCostume().getAlphaValue());
+		assertEquals(0.0, sprite.getLook().getAlphaValue());
 	}
 	
 	/**
@@ -105,7 +105,7 @@ public class ChangeGhostEffectByBrickTest extends GWTTestCase{
 		
 		changeGhostEffectBrick.execute();
 		
-		assertEquals(1.0, sprite.getCostume().getAlphaValue());
+		assertEquals(1.0, sprite.getLook().getAlphaValue());
 	}
 
 }

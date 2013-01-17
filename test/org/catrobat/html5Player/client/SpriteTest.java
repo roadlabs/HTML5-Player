@@ -22,7 +22,7 @@
  */
 package org.catrobat.html5Player.client;
 
-//import org.catrobat.html5Player.client.bricks.SetCostumeBrick;
+//import org.catrobat.html5Player.client.bricks.SetLookBrick;
 //import org.catrobat.html5Player.client.scripts.Script;
 //import org.catrobat.html5Player.client.scripts.WhenScript;
 
@@ -30,10 +30,10 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 
-import org.catrobat.html5Player.client.bricks.NextCostumeBrick;
-import org.catrobat.html5Player.client.bricks.SetCostumeBrick;
-import org.catrobat.html5Player.client.common.Costume;
-import org.catrobat.html5Player.client.common.CostumeData;
+import org.catrobat.html5Player.client.bricks.NextLookBrick;
+import org.catrobat.html5Player.client.bricks.SetLookBrick;
+import org.catrobat.html5Player.client.common.Look;
+import org.catrobat.html5Player.client.common.LookData;
 import org.catrobat.html5Player.client.common.Sound;
 import org.catrobat.html5Player.client.common.SoundInfo;
 import org.catrobat.html5Player.client.scripts.BroadcastScript;
@@ -84,11 +84,11 @@ public class SpriteTest extends GWTTestCase {
 	
 	/**
 	 * Helper
-	 * @param name of Costume
-	 * @return CostumeData for costume
+	 * @param name of Look
+	 * @return LookData for costume
 	 */
-	private CostumeData createCostumeData(String name) {
-		CostumeData data = new CostumeData();
+	private LookData createCostumeData(String name) {
+		LookData data = new LookData();
 		data.setName(name);
 		return data;
 	}
@@ -96,7 +96,7 @@ public class SpriteTest extends GWTTestCase {
 	/**
 	 * Helper
 	 * @param id of SoundInfo
-	 * @return CostumeData for costume
+	 * @return LookData for costume
 	 */
 	private SoundInfo createSoundInfo(String id, String filename, String name) {
 		SoundInfo info = new SoundInfo();
@@ -115,13 +115,13 @@ public class SpriteTest extends GWTTestCase {
 		String newSpriteName = "newSprite";
 		Sprite newSprite = new Sprite(newSpriteName);
 		
-		Costume startCostume = newSprite.getCostume();
+		Look startCostume = newSprite.getLook();
 		
 		assertEquals(newSpriteName, newSprite.getName());
 		assertFalse(newSprite.isBackground());
 		assertEquals(70.0, newSprite.getVolume());
-		assertTrue(newSprite.getCostumes().isEmpty());
-		assertTrue(startCostume instanceof Costume);
+		assertTrue(newSprite.getLooks().isEmpty());
+		assertTrue(startCostume instanceof Look);
 		
 		assertEquals((double)stage.getStageMiddleX(), startCostume.getXPosition());
 		assertEquals((double)stage.getStageMiddleY(), startCostume.getYPosition());
@@ -137,16 +137,16 @@ public class SpriteTest extends GWTTestCase {
 		
 		String costume1Name = "custome1";
 		String costume2Name = "custome2";
-		CostumeData costumeData1 = createCostumeData(costume1Name);
-		CostumeData costumeData2 = createCostumeData(costume2Name);
+		LookData costumeData1 = createCostumeData(costume1Name);
+		LookData costumeData2 = createCostumeData(costume2Name);
 		
-		newSprite.addCostumeData(costumeData1);
-		newSprite.addCostumeData(costumeData2);
+		newSprite.addLookData(costumeData1);
+		newSprite.addLookData(costumeData2);
 		
-		assertEquals(costumeData1, newSprite.getCostume(costume1Name).getCostumeData());
-		assertEquals(costumeData2, newSprite.getCostume(costume2Name).getCostumeData());
-		assertNull(newSprite.getCostume("no real name"));
-		assertNull(newSprite.getCostume(null));
+		assertEquals(costumeData1, newSprite.getLook(costume1Name).getLookData());
+		assertEquals(costumeData2, newSprite.getLook(costume2Name).getLookData());
+		assertNull(newSprite.getLook("no real name"));
+		assertNull(newSprite.getLook(null));
 	}
 	
 	/**
@@ -158,16 +158,16 @@ public class SpriteTest extends GWTTestCase {
 		
 		String costume1Name = "custome1";
 		String costume2Name = "custome2";
-		CostumeData costumeData1 = createCostumeData(costume1Name);
-		CostumeData costumeData2 = createCostumeData(costume2Name);
+		LookData costumeData1 = createCostumeData(costume1Name);
+		LookData costumeData2 = createCostumeData(costume2Name);
 		
-		newSprite.addCostumeData(costumeData1);
-		newSprite.addCostumeData(costumeData2);
+		newSprite.addLookData(costumeData1);
+		newSprite.addLookData(costumeData2);
 		
-		assertEquals(costumeData1, newSprite.getCostumeDataByName(costume1Name));
-		assertEquals(costumeData2, newSprite.getCostumeDataByName(costume2Name));
-		assertNull(newSprite.getCostumeDataByName("no real name"));
-		assertNull(newSprite.getCostumeDataByName(null));
+		assertEquals(costumeData1, newSprite.getLookDataByName(costume1Name));
+		assertEquals(costumeData2, newSprite.getLookDataByName(costume2Name));
+		assertNull(newSprite.getLookDataByName("no real name"));
+		assertNull(newSprite.getLookDataByName(null));
 	}
 	
 	/**
@@ -179,20 +179,20 @@ public class SpriteTest extends GWTTestCase {
 		
 		String costume1Name = "custome1";
 		String costume2Name = "custome2";
-		CostumeData costumeData1 = createCostumeData(costume1Name);
-		CostumeData costumeData2 = createCostumeData(costume2Name);
+		LookData costumeData1 = createCostumeData(costume1Name);
+		LookData costumeData2 = createCostumeData(costume2Name);
 		
 		//get list
-		ArrayList<CostumeData> costumeDataList = newSprite.getCostumeData();
+		ArrayList<LookData> costumeDataList = newSprite.getLookData();
 		
 		assertTrue(costumeDataList.isEmpty());
 		
 		//add costume data
-		newSprite.addCostumeData(costumeData1);
-		newSprite.addCostumeData(costumeData2);
+		newSprite.addLookData(costumeData1);
+		newSprite.addLookData(costumeData2);
 		
 		//get list
-		costumeDataList = newSprite.getCostumeData();
+		costumeDataList = newSprite.getLookData();
 		
 		assertFalse(costumeDataList.isEmpty());
 		assertEquals(2, costumeDataList.size());
@@ -209,20 +209,20 @@ public class SpriteTest extends GWTTestCase {
 		
 		String costume1Name = "custome1";
 		String costume2Name = "custome2";
-		CostumeData costumeData1 = createCostumeData(costume1Name);
-		CostumeData costumeData2 = createCostumeData(costume2Name);
+		LookData costumeData1 = createCostumeData(costume1Name);
+		LookData costumeData2 = createCostumeData(costume2Name);
 		
 		//get list
-		ArrayList<String> costumeDataList = newSprite.getCostumeDataNames();
+		ArrayList<String> costumeDataList = newSprite.getLookDataNames();
 		
 		assertTrue(costumeDataList.isEmpty());
 		
 		//add costume data
-		newSprite.addCostumeData(costumeData1);
-		newSprite.addCostumeData(costumeData2);
+		newSprite.addLookData(costumeData1);
+		newSprite.addLookData(costumeData2);
 		
 		//get list
-		costumeDataList = newSprite.getCostumeDataNames();
+		costumeDataList = newSprite.getLookDataNames();
 		
 		assertFalse(costumeDataList.isEmpty());
 		assertEquals(2, costumeDataList.size());
@@ -239,24 +239,24 @@ public class SpriteTest extends GWTTestCase {
 		
 		String costume1Name = "custome1";
 		String costume2Name = "custome2";
-		CostumeData costumeData1 = createCostumeData(costume1Name);
-		CostumeData costumeData2 = createCostumeData(costume2Name);
+		LookData costumeData1 = createCostumeData(costume1Name);
+		LookData costumeData2 = createCostumeData(costume2Name);
 		
-		newSprite.addCostumeData(costumeData1);
-		newSprite.addCostumeData(costumeData2);
+		newSprite.addLookData(costumeData1);
+		newSprite.addLookData(costumeData2);
 		
 		//add costume data which is already in the list 
-		newSprite.addCostumeData(costumeData1);
+		newSprite.addLookData(costumeData1);
 		
 		//get list, must have size 2
-		ArrayList<CostumeData> costumeDataList = newSprite.getCostumeData();
+		ArrayList<LookData> costumeDataList = newSprite.getLookData();
 		assertEquals(2, costumeDataList.size());
 		
 		//try to add a null pointer
-		newSprite.addCostumeData(null);
+		newSprite.addLookData(null);
 		
 		//get list, must have size 2 again
-		costumeDataList = newSprite.getCostumeData();
+		costumeDataList = newSprite.getLookData();
 		assertEquals(2, costumeDataList.size());
 	}
 	
@@ -348,13 +348,13 @@ public class SpriteTest extends GWTTestCase {
 		String costume1Name = "custome1";
 		String costume2Name = "custome2";
 		String costume3Name = "custome3";
-		CostumeData costumeData1 = createCostumeData(costume1Name);
-		CostumeData costumeData2 = createCostumeData(costume2Name);
-		CostumeData costumeData3 = createCostumeData(costume3Name);
+		LookData costumeData1 = createCostumeData(costume1Name);
+		LookData costumeData2 = createCostumeData(costume2Name);
+		LookData costumeData3 = createCostumeData(costume3Name);
 		
-		newSprite.addCostumeData(costumeData1);
-		newSprite.addCostumeData(costumeData2);
-		newSprite.addCostumeData(costumeData3);
+		newSprite.addLookData(costumeData1);
+		newSprite.addLookData(costumeData2);
+		newSprite.addLookData(costumeData3);
 		
 		// Scripts
 		String script1Name = "scriptToSetCoustme";
@@ -367,15 +367,15 @@ public class SpriteTest extends GWTTestCase {
 		BroadcastScript script4 = new BroadcastScript(newSprite, script4Name, "");
 		
 		// Bricks
-		SetCostumeBrick setCostumeBrick = new SetCostumeBrick(newSpriteName, costume1Name);
-		NextCostumeBrick nextCostumeBrick = new NextCostumeBrick(newSpriteName);
+		SetLookBrick setLookBrick = new SetLookBrick(newSpriteName, costume1Name);
+		NextLookBrick nextLookBrick = new NextLookBrick(newSpriteName);
 		
 		// Add Bricks
-		script1.addBrick(setCostumeBrick);
-		script2.addBrick(nextCostumeBrick);
-		script2.addBrick(nextCostumeBrick);
-		script3.addBrick(nextCostumeBrick);
-		script4.addBrick(nextCostumeBrick);
+		script1.addBrick(setLookBrick);
+		script2.addBrick(nextLookBrick);
+		script2.addBrick(nextLookBrick);
+		script3.addBrick(nextLookBrick);
+		script4.addBrick(nextLookBrick);
 		
 		// Add Scripts
 		newSprite.addScript(script1);
@@ -391,7 +391,7 @@ public class SpriteTest extends GWTTestCase {
 		CatScheduler.get().execute();
 		CatScheduler.get().execute();
 		
-		assertEquals(costume3Name, newSprite.getCostume().getCostumeData().getName());
+		assertEquals(costume3Name, newSprite.getLook().getLookData().getName());
 	}
 	
 	/**
@@ -405,13 +405,13 @@ public class SpriteTest extends GWTTestCase {
 		String costume1Name = "custome1";
 		String costume2Name = "custome2";
 		String costume3Name = "custome3";
-		CostumeData costumeData1 = createCostumeData(costume1Name);
-		CostumeData costumeData2 = createCostumeData(costume2Name);
-		CostumeData costumeData3 = createCostumeData(costume3Name);
+		LookData costumeData1 = createCostumeData(costume1Name);
+		LookData costumeData2 = createCostumeData(costume2Name);
+		LookData costumeData3 = createCostumeData(costume3Name);
 		
-		newSprite.addCostumeData(costumeData1);
-		newSprite.addCostumeData(costumeData2);
-		newSprite.addCostumeData(costumeData3);
+		newSprite.addLookData(costumeData1);
+		newSprite.addLookData(costumeData2);
+		newSprite.addLookData(costumeData3);
 		
 		// Scripts
 		String script1Name = "scriptShouldDoNothing";
@@ -424,15 +424,15 @@ public class SpriteTest extends GWTTestCase {
 		BroadcastScript script4 = new BroadcastScript(newSprite, script4Name, "");
 		
 		// Bricks
-		SetCostumeBrick setCostumeBrick = new SetCostumeBrick(newSpriteName, costume1Name);
-		NextCostumeBrick nextCostumeBrick = new NextCostumeBrick(newSpriteName);
+		SetLookBrick setLookBrick = new SetLookBrick(newSpriteName, costume1Name);
+		NextLookBrick nextLookBrick = new NextLookBrick(newSpriteName);
 		
 		// Add Bricks
-		script1.addBrick(nextCostumeBrick);
-		script2.addBrick(setCostumeBrick);
-		script3.addBrick(nextCostumeBrick);
-		script3.addBrick(nextCostumeBrick);
-		script4.addBrick(nextCostumeBrick);
+		script1.addBrick(nextLookBrick);
+		script2.addBrick(setLookBrick);
+		script3.addBrick(nextLookBrick);
+		script3.addBrick(nextLookBrick);
+		script4.addBrick(nextLookBrick);
 		
 		// Add Scripts
 		newSprite.addScript(script1);
@@ -451,7 +451,7 @@ public class SpriteTest extends GWTTestCase {
 		CatScheduler.get().execute();
 		CatScheduler.get().execute();
 		
-		assertEquals(costume3Name, newSprite.getCostume().getCostumeData().getName());
+		assertEquals(costume3Name, newSprite.getLook().getLookData().getName());
 	}
 	
 	/**
@@ -467,13 +467,13 @@ public class SpriteTest extends GWTTestCase {
 		stage.setProjectNumber("409");
 		
 		String costumeName = "Banzai-Katze";
-		CostumeData costumeData = createCostumeData(costumeName);
-		costumeData.setFilename("416BA8FDFA47432EBF5520B7669D8A95_Banzai-Katze");
-		costumeData.setWidth(0);
-		costumeData.setHeight(0);
-		sprite.addCostumeData(costumeData);
+		LookData lookData = createCostumeData(costumeName);
+		lookData.setFilename("416BA8FDFA47432EBF5520B7669D8A95_Banzai-Katze");
+		lookData.setWidth(0);
+		lookData.setHeight(0);
+		sprite.addLookData(lookData);
 		
-		sprite.getCostume().hide();
+		sprite.getLook().hide();
 		
 		//TODO es kommt zu einem Fehler:
 		//(SCHWERWIEGEND: Job run failed with unexpected RuntimeException)...
@@ -537,7 +537,7 @@ public class SpriteTest extends GWTTestCase {
 //		Sprite sprite = new Sprite(rootContext);
 //		sprite.addCostume("name", "url");
 //		Script script = new WhenScript();
-//		script.addBrick(new SetCostumeBrick());
+//		script.addBrick(new SetLookBrick());
 //		sprite.addScript(script);
 //		sprite.addSound("someSound", "toUrl", "id");
 //		sprite.drawSprite();

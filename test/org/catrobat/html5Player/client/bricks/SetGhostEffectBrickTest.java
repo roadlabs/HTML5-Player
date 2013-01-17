@@ -76,7 +76,7 @@ public class SetGhostEffectBrickTest extends GWTTestCase{
 		
 		double newAlphaValue = (100. - ghostEffectValue) / 100;
 		
-		assertEquals(newAlphaValue, sprite.getCostume().getAlphaValue());
+		assertEquals(newAlphaValue, sprite.getLook().getAlphaValue());
 	}
 
 }

@@ -25,7 +25,7 @@ package org.catrobat.html5Player.client.bricks;
 import org.catrobat.html5Player.client.Scene;
 import org.catrobat.html5Player.client.Sprite;
 import org.catrobat.html5Player.client.Stage;
-import org.catrobat.html5Player.client.common.CostumeData;
+import org.catrobat.html5Player.client.common.LookData;
 import org.catrobat.html5Player.client.scripts.StartScript;
 import org.catrobat.html5Player.client.threading.CatScheduler;
 
@@ -69,11 +69,11 @@ public class RepeatBrickTest extends GWTTestCase {
 	
 	/**
 	 * Helper
-	 * @param name of Costume
-	 * @return CostumeData for costume
+	 * @param name of Look
+	 * @return LookData for costume
 	 */
-	private CostumeData createCostumeData(String name) {
-		CostumeData data = new CostumeData();
+	private LookData createCostumeData(String name) {
+		LookData data = new LookData();
 		data.setName(name);
 		return data;
 	}
@@ -147,27 +147,27 @@ public class RepeatBrickTest extends GWTTestCase {
 		String costumeName1 = "coustme1";
 		String costumeName2 = "coustme2";
 		String costumeName3 = "coustme3";
-		SetCostumeBrick setCostumeBrick = new SetCostumeBrick(spriteName, costumeName1);
+		SetLookBrick setLookBrick = new SetLookBrick(spriteName, costumeName1);
 		
 		RepeatBrick repeatBrick = new RepeatBrick(spriteName, timesToRepeat);
-		NextCostumeBrick nexCostumeBrick = new NextCostumeBrick(spriteName);
+		NextLookBrick nexCostumeBrick = new NextLookBrick(spriteName);
 		LoopEndBrick loopEndBrick = new LoopEndBrick(spriteName, repeatBrick);
 		
 		repeatBrick.setLoopEndBrick(loopEndBrick);
 		
-		startScript.addBrick(setCostumeBrick);
+		startScript.addBrick(setLookBrick);
 		startScript.addBrick(repeatBrick);
 		startScript.addBrick(nexCostumeBrick);
 		startScript.addBrick(loopEndBrick);
 		
 		sprite.addScript(startScript);
 		
-		sprite.addCostumeData(createCostumeData(costumeName1));
-		sprite.addCostumeData(createCostumeData(costumeName2));
-		sprite.addCostumeData(createCostumeData(costumeName3));
+		sprite.addLookData(createCostumeData(costumeName1));
+		sprite.addLookData(createCostumeData(costumeName2));
+		sprite.addLookData(createCostumeData(costumeName3));
 		
 		//hide costume, so drawSprite() in redrawScreen() does nothing
-		sprite.getCostume().hide();
+		sprite.getLook().hide();
 		//
 		
 		sprite.run();
@@ -175,7 +175,7 @@ public class RepeatBrickTest extends GWTTestCase {
 		CatScheduler.get().execute();
 		CatScheduler.get().execute();
 		
-		assertEquals(costumeName1, sprite.getCostume().getCostumeData().getName());
+		assertEquals(costumeName1, sprite.getLook().getLookData().getName());
 		
 		assertEquals(0, CatScheduler.get().getThreadCount());
 	}

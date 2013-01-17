@@ -48,14 +48,14 @@ public class TurnLeftBrickTest extends GWTTestCase {
 		TurnLeftBrick turnLeftBrick = new TurnLeftBrick(spriteName, 10);
 
 		turnLeftBrick.execute();
-		assertEquals("Wrong direction!", 10d, sprite.getCostume().getRotation(), 1e-3);
-		assertEquals("Wrong X-Position!", 50d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong Y-Position!", 50d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong direction!", 10d, sprite.getLook().getRotation(), 1e-3);
+		assertEquals("Wrong X-Position!", 50d, sprite.getLook().getXPosition());
+		assertEquals("Wrong Y-Position!", 50d, sprite.getLook().getYPosition());
 
 		turnLeftBrick.execute();
-		assertEquals("Wrong direction!", 20d, sprite.getCostume().getRotation(), 1e-3);
-		assertEquals("Wrong X-Position!", 50d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong Y-Position!", 50d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong direction!", 20d, sprite.getLook().getRotation(), 1e-3);
+		assertEquals("Wrong X-Position!", 50d, sprite.getLook().getXPosition());
+		assertEquals("Wrong Y-Position!", 50d, sprite.getLook().getYPosition());
 	}
 
 	public void testTurnLeftAndScale() {
@@ -74,9 +74,9 @@ public class TurnLeftBrickTest extends GWTTestCase {
 		turnLeftBrick.execute();
 		brickScale.execute();
 
-		assertEquals("Wrong direction!", 10d, sprite.getCostume().getRotation(), 1e-3);
-		assertEquals("Wrong X-Position!", 50d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong Y-Position!", 50d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong direction!", 10d, sprite.getLook().getRotation(), 1e-3);
+		assertEquals("Wrong X-Position!", 50d, sprite.getLook().getXPosition());
+		assertEquals("Wrong Y-Position!", 50d, sprite.getLook().getYPosition());
 	}
 
 	public void testScaleAndTurnLeft() {
@@ -95,9 +95,9 @@ public class TurnLeftBrickTest extends GWTTestCase {
 		brickScale.execute();
 		turnLeftBrick.execute();
 
-		assertEquals("Wrong direction!", 10d, sprite.getCostume().getRotation(), 1e-3);
-		assertEquals("Wrong X-Position!", 50d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong Y-Position!", 50d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong direction!", 10d, sprite.getLook().getRotation(), 1e-3);
+		assertEquals("Wrong X-Position!", 50d, sprite.getLook().getXPosition());
+		assertEquals("Wrong Y-Position!", 50d, sprite.getLook().getYPosition());
 
 	}
 
@@ -115,9 +115,9 @@ public class TurnLeftBrickTest extends GWTTestCase {
 
 		turnLeftBrick.execute();
 
-		assertEquals("Wrong direction!", -10d, sprite.getCostume().getRotation(), 1e-3);
-		assertEquals("Wrong X-Position!", 50d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong Y-Position!", 50d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong direction!", -10d, sprite.getLook().getRotation(), 1e-3);
+		assertEquals("Wrong X-Position!", 50d, sprite.getLook().getXPosition());
+		assertEquals("Wrong Y-Position!", 50d, sprite.getLook().getYPosition());
 	}
 
 	public void testTurnLeft() {
@@ -134,9 +134,9 @@ public class TurnLeftBrickTest extends GWTTestCase {
 
 		turnLeftBrick.execute();
 
-		assertEquals("Wrong direction!", 370d, sprite.getCostume().getRotation(), 1e-3);
-		assertEquals("Wrong X-Position!", 50d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong Y-Position!", 50d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong direction!", 370d, sprite.getLook().getRotation(), 1e-3);
+		assertEquals("Wrong X-Position!", 50d, sprite.getLook().getXPosition());
+		assertEquals("Wrong Y-Position!", 50d, sprite.getLook().getYPosition());
 	}
 
 	public void testTurnLeftAndTurnRight() {
@@ -155,8 +155,8 @@ public class TurnLeftBrickTest extends GWTTestCase {
 		brickTurnLeft.execute();
 		brickTurnRight.execute();
 
-		assertEquals("Wrong direction!", 20d, sprite.getCostume().getRotation(), 1e-3);
-		assertEquals("Wrong X-Position!", 50d, sprite.getCostume().getXPosition());
-		assertEquals("Wrong Y-Position!", 50d, sprite.getCostume().getYPosition());
+		assertEquals("Wrong direction!", 20d, sprite.getLook().getRotation(), 1e-3);
+		assertEquals("Wrong X-Position!", 50d, sprite.getLook().getXPosition());
+		assertEquals("Wrong Y-Position!", 50d, sprite.getLook().getYPosition());
 	}
 }

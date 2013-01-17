@@ -26,7 +26,7 @@ import java.util.Collection;
 
 import org.catrobat.html5Player.client.Sprite;
 import org.catrobat.html5Player.client.Stage;
-import org.catrobat.html5Player.client.common.Costume;
+import org.catrobat.html5Player.client.common.Look;
 
 
 public class ComeToFrontBrick extends Brick {
@@ -37,24 +37,24 @@ public class ComeToFrontBrick extends Brick {
 
 	@Override
 	public boolean execute(Sprite sprite) {
-		Costume costume = sprite.getCostume();
+		Look look = sprite.getLook();
 		Collection<Sprite> sprites = Stage.getInstance().getSpriteManager().getSpriteList();
 
-		if (costume.getZPosition() == Integer.MAX_VALUE) {
+		if (look.getZPosition() == Integer.MAX_VALUE) {
 			return false;
 		}
 		int maxLayer = 0;
 		for (Sprite sp : sprites) {
-			int layer = sp.getCostume().getZPosition();
+			int layer = sp.getLook().getZPosition();
 			if (layer > maxLayer)
 				maxLayer = layer;
 		}
 
 		int layer = maxLayer + 1;
-		if (layer <= costume.getZPosition()) {
+		if (layer <= look.getZPosition()) {
 			return false;
 		}
-		costume.setZPosition(layer);
+		look.setZPosition(layer);
 		return true;
 	}
 

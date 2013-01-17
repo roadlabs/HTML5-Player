@@ -22,24 +22,43 @@
  */
 package org.catrobat.html5Player.client.bricks;
 
+import java.util.ArrayList;
+
 import org.catrobat.html5Player.client.Sprite;
+import org.catrobat.html5Player.client.common.LookData;
 
-public class SetCostumeBrick extends Brick {
+public class NextLookBrick extends Brick {
 
-	private String costumeName;
-
-	public SetCostumeBrick(String spriteName, String costumeName) {
+	public NextLookBrick(String spriteName) {
 		super(spriteName);
-		this.costumeName = costumeName;
 	}
-
-	public boolean execute(Sprite sprite) {
-
-		if(sprite != null && sprite.getCostumeDataNames().contains(costumeName)) {
-			sprite.getCostume().setCostumeData(sprite.getCostumeDataByName(costumeName));
-			sprite.showCostume(); //verträgt sich nicht mit unit-tests, auskommentieren beim testen
-		}
+	
+	@Override
+	protected boolean execute(Sprite sprite) {
 		
+		ArrayList<LookData> costumeDataList = sprite.getLookData();
+		
+		int costumeDataListSize = costumeDataList.size();
+		
+		if(costumeDataListSize > 0) {
+			
+			LookData currentCostumeData = sprite.getLook().getLookData();
+			
+			if(currentCostumeData != null) {
+			
+				int currentIndex = costumeDataList.indexOf(currentCostumeData);
+				int nextIndex = (currentIndex + 1) % costumeDataListSize;
+				currentCostumeData = costumeDataList.get(nextIndex);
+				
+				sprite.getLook().setLookData(currentCostumeData);
+				
+				sprite.showLook(); //verträgt sich nicht mit unit-tests, auskommentieren beim testen
+			}
+		}
+		else {
+			// if there are no costumes do nothing
+		}
+	
 		return true;
 	}
 

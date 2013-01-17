@@ -26,7 +26,7 @@ import org.catrobat.html5Player.client.Scene;
 import org.catrobat.html5Player.client.Sprite;
 import org.catrobat.html5Player.client.SpriteManager;
 import org.catrobat.html5Player.client.Stage;
-import org.catrobat.html5Player.client.common.CostumeData;
+import org.catrobat.html5Player.client.common.LookData;
 import org.catrobat.html5Player.client.scripts.BroadcastScript;
 import org.catrobat.html5Player.client.scripts.StartScript;
 import org.catrobat.html5Player.client.threading.CatScheduler;
@@ -85,11 +85,11 @@ public class WaitBrickTest extends GWTTestCase{
 	
 	/**
 	 * Helper
-	 * @param name of Costume
-	 * @return CostumeData for costume
+	 * @param name of Look
+	 * @return LookData for costume
 	 */
-	private CostumeData createCostumeData(String name) {
-		CostumeData data = new CostumeData();
+	private LookData createCostumeData(String name) {
+		LookData data = new LookData();
 		data.setName(name);
 		return data;
 	}
@@ -102,28 +102,28 @@ public class WaitBrickTest extends GWTTestCase{
 	public void testWait() {
 		
 		String costumeName1 = "costume1";
-		CostumeData costumeData1 = createCostumeData(costumeName1);
+		LookData costumeData1 = createCostumeData(costumeName1);
 		
-		CostumeData costumeData2 = createCostumeData(costumeNameResult_);
+		LookData costumeData2 = createCostumeData(costumeNameResult_);
 		
 		String spriteName = "sprite1";
 		sprite_ = spriteManager.getSprite(spriteName, true);
 		
-		sprite_.addCostumeData(costumeData1);
-		sprite_.addCostumeData(costumeData2);
+		sprite_.addLookData(costumeData1);
+		sprite_.addLookData(costumeData2);
 		
-		//simulate SetCostumeBrick
-		sprite_.getCostume().setCostumeData(costumeData1);
+		//simulate SetLookBrick
+		sprite_.getLook().setLookData(costumeData1);
 		
-		//create BroadcastScript which executes one NextCostumeBrick
+		//create BroadcastScript which executes one NextLookBrick
 		String startScriptName = "broadcastScript";
 		StartScript startScript = new StartScript(sprite_, startScriptName);
 		
 		int time = 400; //ms
 		WaitBrick waitBrick = new WaitBrick(spriteName, time, startScript);
-		NextCostumeBrick nextCostumeBrick = new NextCostumeBrick(spriteName);
+		NextLookBrick nextLookBrick = new NextLookBrick(spriteName);
 		startScript.addBrick(waitBrick);
-		startScript.addBrick(nextCostumeBrick);
+		startScript.addBrick(nextLookBrick);
 		
 		CatThread thread = new CatThread(spriteName + startScriptName, startScript);
 		scheduler.schedule(thread);
@@ -143,10 +143,10 @@ public class WaitBrickTest extends GWTTestCase{
 		Timer timer = new Timer() {
 			public void run() {
 				
-				//execute NextCostumeBrick
+				//execute NextLookBrick
 				scheduler.execute();
 				
-				assertEquals(costumeNameResult_, sprite_.getCostume().getCostumeData().getName());
+				assertEquals(costumeNameResult_, sprite_.getLook().getLookData().getName());
 				
 				// tell the test system the test is now done
 				finishTest();
@@ -167,28 +167,28 @@ public class WaitBrickTest extends GWTTestCase{
 	public void testWaitEndTestToEarly() {
 		
 		String costumeName1 = "costume1";
-		CostumeData costumeData1 = createCostumeData(costumeName1);
+		LookData costumeData1 = createCostumeData(costumeName1);
 		
-		CostumeData costumeData2 = createCostumeData(costumeNameResult_);
+		LookData costumeData2 = createCostumeData(costumeNameResult_);
 		
 		String spriteName = "sprite1";
 		sprite_ = spriteManager.getSprite(spriteName, true);
 		
-		sprite_.addCostumeData(costumeData1);
-		sprite_.addCostumeData(costumeData2);
+		sprite_.addLookData(costumeData1);
+		sprite_.addLookData(costumeData2);
 		
-		//simulate SetCostumeBrick
-		sprite_.getCostume().setCostumeData(costumeData1);
+		//simulate SetLookBrick
+		sprite_.getLook().setLookData(costumeData1);
 		
-		//create BroadcastScript which executes one NextCostumeBrick
+		//create BroadcastScript which executes one NextLookBrick
 		String startScriptName = "broadcastScript";
 		StartScript startScript = new StartScript(sprite_, startScriptName);
 		
 		int time = 1000; //ms
 		WaitBrick waitBrick = new WaitBrick(spriteName, time, startScript);
-		NextCostumeBrick nextCostumeBrick = new NextCostumeBrick(spriteName);
+		NextLookBrick nextLookBrick = new NextLookBrick(spriteName);
 		startScript.addBrick(waitBrick);
-		startScript.addBrick(nextCostumeBrick);
+		startScript.addBrick(nextLookBrick);
 		
 		CatThread thread = new CatThread(spriteName + startScriptName, startScript);
 		scheduler.schedule(thread);
@@ -208,10 +208,10 @@ public class WaitBrickTest extends GWTTestCase{
 		Timer timer = new Timer() {
 			public void run() {
 				
-				//execute NextCostumeBrick
+				//execute NextLookBrick
 				scheduler.execute();
 				
-				assertEquals("costume1", sprite_.getCostume().getCostumeData().getName());
+				assertEquals("costume1", sprite_.getLook().getLookData().getName());
 				
 				// tell the test system the test is now done
 				finishTest();

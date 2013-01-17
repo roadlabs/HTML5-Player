@@ -24,7 +24,7 @@ package org.catrobat.html5Player.client.bricks;
 
 import org.catrobat.html5Player.client.Sprite;
 import org.catrobat.html5Player.client.Stage;
-import org.catrobat.html5Player.client.common.Costume;
+import org.catrobat.html5Player.client.common.Look;
 
 public class SetYBrick extends Brick {
 
@@ -37,12 +37,12 @@ public class SetYBrick extends Brick {
 
 	@Override
 	public boolean execute(Sprite sprite) {
-		Costume costume = sprite.getCostume();		
+		Look look = sprite.getLook();		
 		int setYPosition = Stage.getInstance().getStageMiddleY() - yPosition;
 //		System.out.println("XXX SetYBrick " + setYPosition +" for " + sprite.getName());
-		costume.setYPosition(setYPosition);
+		look.setYPosition(setYPosition);
 		
-		costume.setMiddleY(-yPosition);
+		look.setMiddleY(-yPosition);
 		
 		return true;
 	}

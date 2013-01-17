@@ -29,10 +29,10 @@ import org.catrobat.html5Player.client.Sprite;
 import org.catrobat.html5Player.client.Stage;
 import org.catrobat.html5Player.client.bricks.Brick;
 import org.catrobat.html5Player.client.bricks.LoopEndBrick;
-import org.catrobat.html5Player.client.bricks.NextCostumeBrick;
+import org.catrobat.html5Player.client.bricks.NextLookBrick;
 import org.catrobat.html5Player.client.bricks.RepeatBrick;
-import org.catrobat.html5Player.client.bricks.SetCostumeBrick;
-import org.catrobat.html5Player.client.common.CostumeData;
+import org.catrobat.html5Player.client.bricks.SetLookBrick;
+import org.catrobat.html5Player.client.common.LookData;
 import org.catrobat.html5Player.client.threading.CatScheduler;
 import org.catrobat.html5Player.client.threading.CatThread;
 
@@ -81,11 +81,11 @@ public class WhenScriptTest extends GWTTestCase {
 	
 	/**
 	 * Helper
-	 * @param name of Costume
-	 * @return CostumeData for costume
+	 * @param name of Look
+	 * @return LookData for costume
 	 */
-	private CostumeData createCostumeData(String name) {
-		CostumeData data = new CostumeData();
+	private LookData createCostumeData(String name) {
+		LookData data = new LookData();
 		data.setName(name);
 		return data;
 	}
@@ -113,8 +113,8 @@ public class WhenScriptTest extends GWTTestCase {
 		String spriteName = "Sprite";
 		Sprite sprite = new Sprite(spriteName);
 		
-		SetCostumeBrick setBrick = new SetCostumeBrick(spriteName, "costumeName");
-		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+		SetLookBrick setBrick = new SetLookBrick(spriteName, "costumeName");
+		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 		
 		ArrayList<Brick> brickList = new ArrayList<Brick>();
 		brickList.add(setBrick);
@@ -135,8 +135,8 @@ public class WhenScriptTest extends GWTTestCase {
 		String spriteName = "Sprite";
 		Sprite sprite = new Sprite(spriteName);
 		
-		SetCostumeBrick setBrick = new SetCostumeBrick(spriteName, "costumeName");
-		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+		SetLookBrick setBrick = new SetLookBrick(spriteName, "costumeName");
+		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 		
 		String scriptName = "WhenScript";
 		WhenScript whenScript = new WhenScript(sprite, scriptName);
@@ -147,15 +147,15 @@ public class WhenScriptTest extends GWTTestCase {
 		whenScript.addBrick(nextBrick, position);
 		
 		assertEquals(2, whenScript.getBrickList().size());
-		assertTrue(whenScript.getBrick(position) instanceof NextCostumeBrick);
-		assertTrue(whenScript.getBrick(position+1) instanceof SetCostumeBrick);
+		assertTrue(whenScript.getBrick(position) instanceof NextLookBrick);
+		assertTrue(whenScript.getBrick(position+1) instanceof SetLookBrick);
 		
 		whenScript.addBrick(null);
 		assertEquals(2, whenScript.getBrickList().size());
 		
 		whenScript.addBrick(null, position);
 		assertEquals(2, whenScript.getBrickList().size());
-		assertTrue(whenScript.getBrick(position) instanceof NextCostumeBrick);
+		assertTrue(whenScript.getBrick(position) instanceof NextLookBrick);
 	}
 	
 	/**
@@ -165,8 +165,8 @@ public class WhenScriptTest extends GWTTestCase {
 		String spriteName = "Sprite";
 		Sprite sprite = new Sprite(spriteName);
 		
-		SetCostumeBrick setBrick = new SetCostumeBrick(spriteName, "costumeName");
-		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+		SetLookBrick setBrick = new SetLookBrick(spriteName, "costumeName");
+		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 		
 		String scriptName = "WhenScript";
 		WhenScript whenScript = new WhenScript(sprite, scriptName);
@@ -176,9 +176,9 @@ public class WhenScriptTest extends GWTTestCase {
 		whenScript.addBrick(nextBrick);
 		
 		assertEquals(3, whenScript.getBrickList().size());
-		assertTrue(whenScript.getBrick(0) instanceof SetCostumeBrick);
-		assertTrue(whenScript.getBrick(1) instanceof NextCostumeBrick);
-		assertTrue(whenScript.getBrick(2) instanceof NextCostumeBrick);
+		assertTrue(whenScript.getBrick(0) instanceof SetLookBrick);
+		assertTrue(whenScript.getBrick(1) instanceof NextLookBrick);
+		assertTrue(whenScript.getBrick(2) instanceof NextLookBrick);
 	}
 	
 	/**
@@ -188,8 +188,8 @@ public class WhenScriptTest extends GWTTestCase {
 		String spriteName = "Sprite";
 		Sprite sprite = new Sprite(spriteName);
 		
-		SetCostumeBrick setBrick = new SetCostumeBrick(spriteName, "costumeName");
-		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+		SetLookBrick setBrick = new SetLookBrick(spriteName, "costumeName");
+		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 		
 		String scriptName = "WhenScript";
 		WhenScript whenScript = new WhenScript(sprite, scriptName);
@@ -200,12 +200,12 @@ public class WhenScriptTest extends GWTTestCase {
 		whenScript.addBrick(nextBrick, position);
 		
 		assertEquals(2, whenScript.getBrickList().size());
-		assertTrue(whenScript.getBrick(position) instanceof NextCostumeBrick);
-		assertTrue(whenScript.getBrick(position+1) instanceof SetCostumeBrick);
+		assertTrue(whenScript.getBrick(position) instanceof NextLookBrick);
+		assertTrue(whenScript.getBrick(position+1) instanceof SetLookBrick);
 		
 		whenScript.deleteBrick(position);
 		assertEquals(1, whenScript.getBrickList().size());
-		assertTrue(whenScript.getBrick(position) instanceof SetCostumeBrick);
+		assertTrue(whenScript.getBrick(position) instanceof SetLookBrick);
 		
 		whenScript.deleteBrick(position);
 		assertTrue(whenScript.getBrickList().isEmpty());
@@ -223,17 +223,17 @@ public class WhenScriptTest extends GWTTestCase {
 		
 		Sprite sprite = new Sprite(spriteName);
 		
-		sprite.addCostumeData(createCostumeData(costumeName1));
-		sprite.addCostumeData(createCostumeData(costumeName2));
+		sprite.addLookData(createCostumeData(costumeName1));
+		sprite.addLookData(createCostumeData(costumeName2));
 		
 		//hide costume, so drawSprite() in redrawScreen() does nothing
-		sprite.getCostume().hide();
+		sprite.getLook().hide();
 		//
 
 		stage.getSpriteManager().addSprite(sprite);
 		
-		SetCostumeBrick setBrick = new SetCostumeBrick(spriteName, costumeName1);
-		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+		SetLookBrick setBrick = new SetLookBrick(spriteName, costumeName1);
+		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 		
 		String scriptName = "WhenScript";
 		WhenScript whenScript = new WhenScript(sprite, scriptName);
@@ -245,7 +245,7 @@ public class WhenScriptTest extends GWTTestCase {
 		whenScript.run();
 		whenScript.run();
 		
-		assertEquals(costumeName2, sprite.getCostume().getCostumeData().getName());
+		assertEquals(costumeName2, sprite.getLook().getLookData().getName());
 	}
 	
 	/**
@@ -261,7 +261,7 @@ public class WhenScriptTest extends GWTTestCase {
 		
 		whenScript.run();
 		
-		assertNull(sprite.getCostume().getCostumeData());
+		assertNull(sprite.getLook().getLookData());
 	}
 	
 	/**
@@ -274,17 +274,17 @@ public class WhenScriptTest extends GWTTestCase {
 		
 		Sprite sprite = new Sprite(spriteName);
 		
-		sprite.addCostumeData(createCostumeData(costumeName1));
-		sprite.addCostumeData(createCostumeData(costumeName2));
+		sprite.addLookData(createCostumeData(costumeName1));
+		sprite.addLookData(createCostumeData(costumeName2));
 		
 		//hide costume, so drawSprite() in redrawScreen() does nothing
-		sprite.getCostume().hide();
+		sprite.getLook().hide();
 		//
 
 		stage.getSpriteManager().addSprite(sprite);
 		
-		SetCostumeBrick setBrick = new SetCostumeBrick(spriteName, costumeName1);
-		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+		SetLookBrick setBrick = new SetLookBrick(spriteName, costumeName1);
+		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 		
 		String scriptName = "WhenScript";
 		WhenScript whenScript = new WhenScript(sprite, scriptName);
@@ -300,10 +300,10 @@ public class WhenScriptTest extends GWTTestCase {
 		CatScheduler.get().execute();
 		CatScheduler.get().execute();
 		
-		assertEquals(costumeName2, sprite.getCostume().getCostumeData().getName());
+		assertEquals(costumeName2, sprite.getLook().getLookData().getName());
 		
 		whenScript.resetWhenScript();
-		whenScript.deleteBrick(1); //delete NextCostumeBrick
+		whenScript.deleteBrick(1); //delete NextLookBrick
 		
 		//run script again as a thread
 		CatThread thread2 = new CatThread("thread", whenScript);
@@ -312,7 +312,7 @@ public class WhenScriptTest extends GWTTestCase {
 		//costume should change
 		CatScheduler.get().execute();
 		
-		assertEquals(costumeName1, sprite.getCostume().getCostumeData().getName());
+		assertEquals(costumeName1, sprite.getLook().getLookData().getName());
 	}
 	
 //	/**
@@ -335,7 +335,7 @@ public class WhenScriptTest extends GWTTestCase {
 //		stage.getSpriteManager().addSprite(sprite);
 //		
 //		SetCostumeBrick2 setBrick = new SetCostumeBrick2(spriteName, costumeName1);
-//		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+//		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 //		
 //		String scriptName = "WhenScript";
 //		WhenScript whenScript = new WhenScript(sprite, scriptName);
@@ -385,7 +385,7 @@ public class WhenScriptTest extends GWTTestCase {
 //		stage.getSpriteManager().addSprite(sprite_);
 //		
 //		SetCostumeBrick2 setBrick = new SetCostumeBrick2(spriteName, costumeName1);
-//		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+//		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 //		
 //		String scriptName = "WhenScript";
 //		WhenScript whenScript = new WhenScript(sprite_, scriptName);
@@ -437,18 +437,18 @@ public class WhenScriptTest extends GWTTestCase {
 		
 		Sprite sprite = new Sprite(spriteName);
 		
-		sprite.addCostumeData(createCostumeData(costumeName1));
-		sprite.addCostumeData(createCostumeData(costumeName2));
+		sprite.addLookData(createCostumeData(costumeName1));
+		sprite.addLookData(createCostumeData(costumeName2));
 		
 		//hide costume, so drawSprite() in redrawScreen() does nothing
-		sprite.getCostume().hide();
+		sprite.getLook().hide();
 		//
 
 		stage.getSpriteManager().addSprite(sprite);
 		
-		SetCostumeBrick setBrick = new SetCostumeBrick(spriteName, costumeName1);
-		SetCostumeBrick setBrick2 = new SetCostumeBrick(spriteName, costumeName2);
-		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+		SetLookBrick setBrick = new SetLookBrick(spriteName, costumeName1);
+		SetLookBrick setBrick2 = new SetLookBrick(spriteName, costumeName2);
+		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 		
 		String scriptName = "WhenScript";
 		WhenScript whenScript = new WhenScript(sprite, scriptName);
@@ -464,7 +464,7 @@ public class WhenScriptTest extends GWTTestCase {
 		whenScript.run();
 		whenScript.run();
 		
-		assertEquals(costumeName1, sprite.getCostume().getCostumeData().getName());
+		assertEquals(costumeName1, sprite.getLook().getLookData().getName());
 	}
 	
 	/**

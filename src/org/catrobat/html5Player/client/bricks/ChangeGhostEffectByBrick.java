@@ -38,7 +38,7 @@ public class ChangeGhostEffectByBrick extends Brick {
 		
 		double alphaValue = (- this.ghostEffectValue / 100);
 		
-		sprite.getCostume().changeAlphaValueBy(alphaValue);
+		sprite.getLook().changeAlphaValueBy(alphaValue);
 		
 		return true;
 	}

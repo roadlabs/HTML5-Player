@@ -24,9 +24,9 @@ package org.catrobat.html5Player.client.scripts;
 
 //import org.catrobat.html5Player.client.Sprite;
 //import org.catrobat.html5Player.client.Stage;
-//import org.catrobat.html5Player.client.bricks.NextCostumeBrick;
+//import org.catrobat.html5Player.client.bricks.NextLookBrick;
 //import org.catrobat.html5Player.client.bricks.SetCostumeBrick2;
-//import org.catrobat.html5Player.client.common.CostumeData;
+//import org.catrobat.html5Player.client.common.LookData;
 //import org.catrobat.html5Player.client.threading.CatScheduler;
 //import org.catrobat.html5Player.client.threading.CatThread;
 //
@@ -68,11 +68,11 @@ package org.catrobat.html5Player.client.scripts;
 //	
 //	/**
 //	 * Helper
-//	 * @param name of Costume
-//	 * @return CostumeData for costume
+//	 * @param name of Look
+//	 * @return LookData for costume
 //	 */
-//	private CostumeData createCostumeData(String name) {
-//		CostumeData data = new CostumeData();
+//	private LookData createCostumeData(String name) {
+//		LookData data = new LookData();
 //		data.setName(name);
 //		return data;
 //	}
@@ -102,7 +102,7 @@ package org.catrobat.html5Player.client.scripts;
 //		Sprite sprite = new Sprite(spriteName);
 //		
 //		SetCostumeBrick2 setBrick = new SetCostumeBrick2(spriteName, "costumeName");
-//		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+//		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 //		
 //		String scriptName = "Script";
 //		Script script = new Script(sprite, StartScript.SCRIPT_TYPE, scriptName);
@@ -113,7 +113,7 @@ package org.catrobat.html5Player.client.scripts;
 //		script.addBrick(nextBrick, position);
 //		
 //		assertEquals(2, script.getBrickList().size());
-//		assertTrue(script.getBrick(position) instanceof NextCostumeBrick);
+//		assertTrue(script.getBrick(position) instanceof NextLookBrick);
 //		assertTrue(script.getBrick(position+1) instanceof SetCostumeBrick2);
 //		
 //		script.addBrick(null);
@@ -121,7 +121,7 @@ package org.catrobat.html5Player.client.scripts;
 //		
 //		script.addBrick(null, position);
 //		assertEquals(2, script.getBrickList().size());
-//		assertTrue(script.getBrick(position) instanceof NextCostumeBrick);
+//		assertTrue(script.getBrick(position) instanceof NextLookBrick);
 //	}
 //	
 //	/**
@@ -132,7 +132,7 @@ package org.catrobat.html5Player.client.scripts;
 //		Sprite sprite = new Sprite(spriteName);
 //		
 //		SetCostumeBrick2 setBrick = new SetCostumeBrick2(spriteName, "costumeName");
-//		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+//		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 //		
 //		String scriptName = "Script";
 //		Script script = new Script(sprite, StartScript.SCRIPT_TYPE, scriptName);
@@ -143,8 +143,8 @@ package org.catrobat.html5Player.client.scripts;
 //		
 //		assertEquals(3, script.getBrickList().size());
 //		assertTrue(script.getBrick(0) instanceof SetCostumeBrick2);
-//		assertTrue(script.getBrick(1) instanceof NextCostumeBrick);
-//		assertTrue(script.getBrick(2) instanceof NextCostumeBrick);
+//		assertTrue(script.getBrick(1) instanceof NextLookBrick);
+//		assertTrue(script.getBrick(2) instanceof NextLookBrick);
 //	}
 //	
 //	/**
@@ -155,7 +155,7 @@ package org.catrobat.html5Player.client.scripts;
 //		Sprite sprite = new Sprite(spriteName);
 //		
 //		SetCostumeBrick2 setBrick = new SetCostumeBrick2(spriteName, "costumeName");
-//		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+//		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 //		
 //		String scriptName = "Script";
 //		Script script = new Script(sprite, StartScript.SCRIPT_TYPE, scriptName);
@@ -166,7 +166,7 @@ package org.catrobat.html5Player.client.scripts;
 //		script.addBrick(nextBrick, position);
 //		
 //		assertEquals(2, script.getBrickList().size());
-//		assertTrue(script.getBrick(position) instanceof NextCostumeBrick);
+//		assertTrue(script.getBrick(position) instanceof NextLookBrick);
 //		assertTrue(script.getBrick(position+1) instanceof SetCostumeBrick2);
 //		
 //		script.deleteBrick(position);
@@ -199,7 +199,7 @@ package org.catrobat.html5Player.client.scripts;
 //		stage.getSpriteManager().addSprite(sprite);
 //		
 //		SetCostumeBrick2 setBrick = new SetCostumeBrick2(spriteName, costumeName1);
-//		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+//		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 //		
 //		String scriptName = "Script";
 //		Script script = new Script(sprite, StartScript.SCRIPT_TYPE, scriptName);
@@ -249,7 +249,7 @@ package org.catrobat.html5Player.client.scripts;
 //		stage.getSpriteManager().addSprite(sprite);
 //		
 //		SetCostumeBrick2 setBrick = new SetCostumeBrick2(spriteName, costumeName1);
-//		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+//		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 //		
 //		String scriptName = "Script";
 //		Script script = new Script(sprite, StartScript.SCRIPT_TYPE, scriptName);
@@ -299,7 +299,7 @@ package org.catrobat.html5Player.client.scripts;
 //		stage.getSpriteManager().addSprite(sprite_);
 //		
 //		SetCostumeBrick2 setBrick = new SetCostumeBrick2(spriteName, costumeName1);
-//		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+//		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 //		
 //		String scriptName = "Script";
 //		Script script = new Script(sprite_, StartScript.SCRIPT_TYPE, scriptName);
@@ -362,7 +362,7 @@ package org.catrobat.html5Player.client.scripts;
 //		
 //		SetCostumeBrick2 setBrick = new SetCostumeBrick2(spriteName, costumeName1);
 //		SetCostumeBrick2 setBrick2 = new SetCostumeBrick2(spriteName, costumeName2);
-//		NextCostumeBrick nextBrick = new NextCostumeBrick(spriteName);
+//		NextLookBrick nextBrick = new NextLookBrick(spriteName);
 //		
 //		String scriptName = "Script";
 //		Script script = new Script(sprite, StartScript.SCRIPT_TYPE, scriptName);

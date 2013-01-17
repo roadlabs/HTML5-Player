@@ -23,7 +23,7 @@
 package org.catrobat.html5Player.client.bricks;
 
 import org.catrobat.html5Player.client.Sprite;
-import org.catrobat.html5Player.client.common.Costume;
+import org.catrobat.html5Player.client.common.Look;
 
 public class TurnRightBrick extends Brick {
 
@@ -36,8 +36,8 @@ public class TurnRightBrick extends Brick {
 
 	@Override
 	public boolean execute(Sprite sprite) {
-		Costume costume = sprite.getCostume();
-		costume.setRotation( (costume.getRotation() % 360) - (double) degrees);
+		Look look = sprite.getLook();
+		look.setRotation( (look.getRotation() % 360) - (double) degrees);
 		return false;
 	}
 

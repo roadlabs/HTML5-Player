@@ -25,7 +25,7 @@ package org.catrobat.html5Player.client.bricks;
 import org.catrobat.html5Player.client.Scene;
 import org.catrobat.html5Player.client.Sprite;
 import org.catrobat.html5Player.client.Stage;
-import org.catrobat.html5Player.client.common.CostumeData;
+import org.catrobat.html5Player.client.common.LookData;
 import org.catrobat.html5Player.client.scripts.StartScript;
 import org.catrobat.html5Player.client.threading.CatScheduler;
 import org.catrobat.html5Player.client.threading.CatThread;
@@ -70,11 +70,11 @@ public class ForeverBrickTest extends GWTTestCase {
 	
 		/**
 		 * Helper
-		 * @param name of Costume
-		 * @return CostumeData for costume
+		 * @param name of Look
+		 * @return LookData for costume
 		 */
-		private CostumeData createCostumeData(String name) {
-			CostumeData data = new CostumeData();
+		private LookData createCostumeData(String name) {
+			LookData data = new LookData();
 			data.setName(name);
 			return data;
 		}
@@ -119,31 +119,31 @@ public class ForeverBrickTest extends GWTTestCase {
 		String costumeName2 = "costume2";
 		String costumeName3 = "costume3";
 		
-		CostumeData costumeData1 = createCostumeData(costumeName1);
-		CostumeData costumeData2 = createCostumeData(costumeName2);
-		CostumeData costumeData3 = createCostumeData(costumeName3);
+		LookData costumeData1 = createCostumeData(costumeName1);
+		LookData costumeData2 = createCostumeData(costumeName2);
+		LookData costumeData3 = createCostumeData(costumeName3);
 		
-		sprite.addCostumeData(costumeData1);
-		sprite.addCostumeData(costumeData2);
-		sprite.addCostumeData(costumeData3);
+		sprite.addLookData(costumeData1);
+		sprite.addLookData(costumeData2);
+		sprite.addLookData(costumeData3);
 		
 		String scriptName = "scriptName";
 		StartScript startScript = new StartScript(sprite, scriptName);
 		
-		NextCostumeBrick nextCostumeBrick = new NextCostumeBrick(spriteName);
+		NextLookBrick nextLookBrick = new NextLookBrick(spriteName);
 		ForeverBrick repeatBrick = new ForeverBrick(spriteName);
 		LoopEndBrick loopEndBrick = new LoopEndBrick(spriteName, repeatBrick);
 		repeatBrick.setLoopEndBrick(loopEndBrick);
 		
 		startScript.addBrick(repeatBrick);
-		startScript.addBrick(nextCostumeBrick);
+		startScript.addBrick(nextLookBrick);
 		startScript.addBrick(loopEndBrick);
 		
 		sprite.addScript(startScript);
 		
-		//simulate SetCostumeBrick
-		sprite.getCostume().setCostumeData(costumeData1);
-		sprite.getCostume().hide();
+		//simulate SetLookBrick
+		sprite.getLook().setLookData(costumeData1);
+		sprite.getLook().hide();
 		
 		CatThread thread = new CatThread("threadName", startScript);
 		CatScheduler.get().schedule(thread);
@@ -153,22 +153,22 @@ public class ForeverBrickTest extends GWTTestCase {
 		CatScheduler.get().execute(); //next
 		CatScheduler.get().execute(); //loop end
 		
-		assertEquals(costumeName2, sprite.getCostume().getCostumeData().getName());
+		assertEquals(costumeName2, sprite.getLook().getLookData().getName());
 		
 		CatScheduler.get().execute(); //next
 		CatScheduler.get().execute(); //loop end
 		
-		assertEquals(costumeName3, sprite.getCostume().getCostumeData().getName());
+		assertEquals(costumeName3, sprite.getLook().getLookData().getName());
 		
 		CatScheduler.get().execute(); //next
 		CatScheduler.get().execute(); //loop end
 		
-		assertEquals(costumeName1, sprite.getCostume().getCostumeData().getName());
+		assertEquals(costumeName1, sprite.getLook().getLookData().getName());
 		
 		CatScheduler.get().execute(); //next
 		CatScheduler.get().execute(); //loop end
 		
-		assertEquals(costumeName2, sprite.getCostume().getCostumeData().getName());
+		assertEquals(costumeName2, sprite.getLook().getLookData().getName());
 		
 		assertEquals(LoopEndBrick.FOREVER, loopEndBrick.getTimesToRepeat());
 		

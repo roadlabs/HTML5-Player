@@ -26,7 +26,7 @@ import org.catrobat.html5Player.client.CatrobatDebug;
 import org.catrobat.html5Player.client.Const;
 import org.catrobat.html5Player.client.Sprite;
 import org.catrobat.html5Player.client.Stage;
-import org.catrobat.html5Player.client.common.Costume;
+import org.catrobat.html5Player.client.common.Look;
 import org.catrobat.html5Player.client.scripts.Script;
 
 import com.google.gwt.user.client.Timer;
@@ -98,7 +98,7 @@ public class GlideToBrick extends Brick {
 		
 		if (remainingDuration <= 0 && glideTimer != null) { 
 			
-			Costume costume = sprite.getCostume();
+			Look look = sprite.getLook();
 			
 			CatrobatDebug.on();
 			CatrobatDebug.console("GLIDETO: cancel timer, destination reached");
@@ -107,12 +107,12 @@ public class GlideToBrick extends Brick {
 			
 			glideTimer.cancel();
 			
-			costume.setXPosition(xDestination);
-			costume.setYPosition(yDestination);
+			look.setXPosition(xDestination);
+			look.setYPosition(yDestination);
 			
 			
-			costume.setMiddleX(xDestination);
-			costume.setMiddleY(yDestination);
+			look.setMiddleX(xDestination);
+			look.setMiddleY(yDestination);
 			
 			currentStep = 0;
 			
@@ -133,16 +133,16 @@ public class GlideToBrick extends Brick {
 	
 	private void updatePosition(Sprite sprite, int timePassed, int duration) {
 		
-		Costume costume = sprite.getCostume();
+		Look look = sprite.getLook();
 
-		double xPosition = costume.getXPosition();
-		double yPosition = costume.getYPosition();
+		double xPosition = look.getXPosition();
+		double yPosition = look.getYPosition();
 			
 		xPosition += ((double) timePassed / duration) * (xDestination - xPosition);
 		yPosition += ((double) timePassed / duration) * (yDestination - yPosition);
 
-		costume.setXPosition(xPosition);
-		costume.setYPosition(yPosition);
+		look.setXPosition(xPosition);
+		look.setYPosition(yPosition);
 		
 //	double xMiddlePosition = costume.getXPosition();
 //	double yMiddlePosition = costume.getYPosition();

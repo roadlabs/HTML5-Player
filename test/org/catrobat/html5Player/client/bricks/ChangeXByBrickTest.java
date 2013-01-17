@@ -51,17 +51,17 @@ public class ChangeXByBrickTest extends GWTTestCase {
 		Sprite sprite = new Sprite(spriteName);
 		stage.getSpriteManager().addSprite(sprite);
 		
-		assertEquals("Unexpected initial sprite x position", 50d, sprite.getCostume().getXPosition());
-		assertEquals("Unexpected initial sprite y position", 50d, sprite.getCostume().getYPosition());
+		assertEquals("Unexpected initial sprite x position", 50d, sprite.getLook().getXPosition());
+		assertEquals("Unexpected initial sprite y position", 50d, sprite.getLook().getYPosition());
 
-		int xPosition = (int) sprite.getCostume().getXPosition();
+		int xPosition = (int) sprite.getLook().getXPosition();
 
 		ChangeXByBrick changeXByBrick = new ChangeXByBrick(spriteName, xMovement);
 		changeXByBrick.execute();
 
 		xPosition += xMovement;
 		assertEquals("Incorrect sprite x position after ChangeXByBrick executed", (double) xPosition,
-				sprite.getCostume().getXPosition());
+				sprite.getLook().getXPosition());
 	}
 
 	public void testNullSprite() {
@@ -80,20 +80,20 @@ public class ChangeXByBrickTest extends GWTTestCase {
 		stage.getSpriteManager().addSprite(sprite);
 
 		int xPosition = 10;
-		sprite.getCostume().setXYPosition(xPosition, sprite.getCostume().getYPosition());
+		sprite.getLook().setXYPosition(xPosition, sprite.getLook().getYPosition());
 		ChangeXByBrick changeXByBrick = new ChangeXByBrick(spriteName, Integer.MAX_VALUE);
 		changeXByBrick.execute();
 
 		assertEquals("ChangeXByBrick failed to place Sprite at maximum x integer value", Integer.MAX_VALUE,
-				(int) sprite.getCostume().getXPosition());
+				(int) sprite.getLook().getXPosition());
 
 		xPosition = -10;
-		sprite.getCostume().setXYPosition(xPosition, sprite.getCostume().getYPosition());
+		sprite.getLook().setXYPosition(xPosition, sprite.getLook().getYPosition());
 		changeXByBrick = new ChangeXByBrick(spriteName, Integer.MIN_VALUE);
 		changeXByBrick.execute();
 
 		assertEquals("ChangeXByBrick failed to place Sprite at minimum x integer value", Integer.MIN_VALUE,
-				(int) sprite.getCostume().getXPosition());
+				(int) sprite.getLook().getXPosition());
 
 	}
 }

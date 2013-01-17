@@ -23,7 +23,7 @@
 package org.catrobat.html5Player.client.bricks;
 
 import org.catrobat.html5Player.client.Sprite;
-import org.catrobat.html5Player.client.common.Costume;
+import org.catrobat.html5Player.client.common.Look;
 
 public class MoveNStepsBrick extends Brick {
 
@@ -36,19 +36,19 @@ public class MoveNStepsBrick extends Brick {
 
 	@Override
 	public boolean execute(Sprite sprite) {
-		Costume costume = sprite.getCostume();
+		Look look = sprite.getLook();
 		
 		// the MINUS is important because canvas positive rotation is clockwise
-		double radians = Math.toRadians(-costume.getRotation());
+		double radians = Math.toRadians(-look.getRotation());
 
-		int newXPosition = (int) Math.round(costume.getXPosition() + steps * Math.cos(radians));
-		int newYPosition = (int) Math.round(costume.getYPosition() + steps * Math.sin(radians));
+		int newXPosition = (int) Math.round(look.getXPosition() + steps * Math.cos(radians));
+		int newYPosition = (int) Math.round(look.getYPosition() + steps * Math.sin(radians));
 
-		costume.setXYPosition(newXPosition, newYPosition);
+		look.setXYPosition(newXPosition, newYPosition);
 
 		
-		costume.setMiddleX(Math.round(costume.getMiddleX() + steps * Math.cos(radians)));
-		costume.setMiddleY(Math.round(costume.getMiddleY() + steps * Math.sin(radians)));
+		look.setMiddleX(Math.round(look.getMiddleX() + steps * Math.cos(radians)));
+		look.setMiddleY(Math.round(look.getMiddleY() + steps * Math.sin(radians)));
 		
 		return true;
 	}
