@@ -1,4 +1,7 @@
 *.class
+*.cache.html
+*.cache.png
+*.cache.gif
 
 # Package Files #
 *.jar
