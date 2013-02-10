@@ -8,7 +8,7 @@
   <!-- Servlets -->
   <servlet>
     <servlet-name>ServerConnectionServiceImpl</servlet-name>
-    <servlet-class>org.catrobat.html5Player.server.ServerConnectionServiceImpl</servlet-class>
+    <servlet-class>org.catrobat.html5player.server.ServerConnectionServiceImpl</servlet-class>
   </servlet>
 
   <servlet-mapping>

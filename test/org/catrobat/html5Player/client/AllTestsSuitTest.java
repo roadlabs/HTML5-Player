@@ -20,11 +20,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.catrobat.html5Player.client;
+package org.catrobat.html5player.client;
 
-import org.catrobat.html5Player.client.bricks.*;
-import org.catrobat.html5Player.client.scripts.*;
-import org.catrobat.html5Player.client.threading.*;
+import org.catrobat.html5player.client.bricks.*;
+import org.catrobat.html5player.client.scripts.*;
+import org.catrobat.html5player.client.threading.*;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;

@@ -1,2 +1,2 @@
-# Module org.catrobat.html5Player.html5player.JUnit
+# Module org.catrobat.html5player.html5player.JUnit
 # RPC service class, partial path of RPC policy file

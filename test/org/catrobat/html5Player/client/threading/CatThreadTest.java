@@ -20,7 +20,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.catrobat.html5Player.client.threading;
+package org.catrobat.html5player.client.threading;
 
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.Timer;
@@ -42,7 +42,7 @@ public class CatThreadTest extends GWTTestCase {
 	
 	@Override
 	public String getModuleName() {
-		return "org.catrobat.html5Player.html5player";
+		return "org.catrobat.html5player.html5player";
 	}
 	
 	//--------------------------------------------------------------------------

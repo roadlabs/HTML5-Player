@@ -20,22 +20,22 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.catrobat.html5Player.client.scripts;
+package org.catrobat.html5player.client.scripts;
 
 import java.util.ArrayList;
 
-import org.catrobat.html5Player.client.Scene;
-import org.catrobat.html5Player.client.Sprite;
-import org.catrobat.html5Player.client.Stage;
-import org.catrobat.html5Player.client.bricks.Brick;
-import org.catrobat.html5Player.client.bricks.LoopEndBrick;
-import org.catrobat.html5Player.client.bricks.NextLookBrick;
-import org.catrobat.html5Player.client.bricks.RepeatBrick;
-import org.catrobat.html5Player.client.bricks.SetLookBrick;
-import org.catrobat.html5Player.client.bricks.WaitBrick;
-import org.catrobat.html5Player.client.common.LookData;
-import org.catrobat.html5Player.client.threading.CatScheduler;
-import org.catrobat.html5Player.client.threading.CatThread;
+import org.catrobat.html5player.client.Scene;
+import org.catrobat.html5player.client.Sprite;
+import org.catrobat.html5player.client.Stage;
+import org.catrobat.html5player.client.bricks.Brick;
+import org.catrobat.html5player.client.bricks.LoopEndBrick;
+import org.catrobat.html5player.client.bricks.NextLookBrick;
+import org.catrobat.html5player.client.bricks.RepeatBrick;
+import org.catrobat.html5player.client.bricks.SetLookBrick;
+import org.catrobat.html5player.client.bricks.WaitBrick;
+import org.catrobat.html5player.client.common.LookData;
+import org.catrobat.html5player.client.threading.CatScheduler;
+import org.catrobat.html5player.client.threading.CatThread;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -57,7 +57,7 @@ public class StartScriptTest extends GWTTestCase {
 	
 	@Override
 	public String getModuleName() {
-		return "org.catrobat.html5Player.html5player";
+		return "org.catrobat.html5player.html5player";
 	}
 	
 	public void gwtSetUp() {

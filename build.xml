@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<project name="catroidWebPlayer" default="build" basedir=".">
+<project name="Html5Player" default="build" basedir=".">
   <!-- Configure path to GWT SDK -->
   <property name="gwt.sdk" location="Z:/Masterprojekt/Default/catroidWebPlayer/gwt.sdk" />
 
@@ -53,7 +53,7 @@
       <arg value="-startupUrl"/>
       <arg value="Html5Player.html"/>
       <!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
-      <arg value="org.catrobat.html5Player.Html5Player"/>
+      <arg value="org.catrobat.html5player.Html5Player"/>
     </java>
   </target>
 

@@ -20,11 +20,11 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-package org.catrobat.html5Player.client.bricks;
+package org.catrobat.html5player.client.bricks;
 
-import org.catrobat.html5Player.client.Sprite;
-import org.catrobat.html5Player.client.Stage;
-import org.catrobat.html5Player.client.bricks.ComeToFrontBrick;
+import org.catrobat.html5player.client.Sprite;
+import org.catrobat.html5player.client.Stage;
+import org.catrobat.html5player.client.bricks.ComeToFrontBrick;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -34,7 +34,7 @@ public class ComeToFrontBrickTest extends GWTTestCase {
 
 	@Override
 	public String getModuleName() {
-		return "org.catrobat.html5Player.html5player";
+		return "org.catrobat.html5player.html5player";
 	}
 
 	public void testComeToFront() {
