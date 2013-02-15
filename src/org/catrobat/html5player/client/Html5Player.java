@@ -26,6 +26,7 @@ import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.ListBox;
@@ -49,20 +50,28 @@ public class Html5Player implements EntryPoint {
 	//##########################################################################
 
 	public void onModuleLoad() {
-		
+
 		CatrobatDebug.off();
-
-		mainPanel.add(playButton);
-		playButton.ensureDebugId("playButton");
-
-		mainPanel.add(projectListBox);
-		playButton.ensureDebugId("projectListBox");
-
-		mainPanel.add(showLogButton);
-		showLogButton.ensureDebugId("showLogBox");
-
-		mainPanel.add(screenPanel);
-		screenPanel.add(logBox);
+		String projectNumber = Window.Location.getParameter("projectnumber");
+		
+		if(projectNumber == null)
+		{
+			mainPanel.add(playButton);
+			playButton.ensureDebugId("playButton");
+	
+			mainPanel.add(projectListBox);
+			playButton.ensureDebugId("projectListBox");
+	
+			mainPanel.add(showLogButton);
+			showLogButton.ensureDebugId("showLogBox");
+	
+			mainPanel.add(screenPanel);
+			screenPanel.add(logBox);
+		}
+		else
+		{
+			mainPanel.add(screenPanel);
+		}
 
 		
 		if(Scene.get().createScene() == false) {
@@ -127,7 +136,22 @@ public class Html5Player implements EntryPoint {
 						event.getRelativeY(rootCanvas.getCanvasElement())); 
 			}
 		});
-
+		
+		if(projectNumber != null)
+		{
+			CatrobatDebug.on();
+			CatrobatDebug.console("Play button was clicked, project: " + projectNumber + " is selected");
+				
+			stage.clearStage();
+			
+			stage.displayLoadingImage();
+			
+			stage.setProjectNumber(projectNumber);
+			// TODO: check if to name should be removed because it is not used!!!
+			String projectName = ""; 
+			//get xml-projectfile from server
+			server.getXML(projectName, projectNumber);
+		}
 	}
 
 	//##########################################################################
