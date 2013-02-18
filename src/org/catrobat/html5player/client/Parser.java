@@ -102,7 +102,10 @@ public class Parser {
 			manager = spriteManager;
 
 			Document messageDom = XMLParser.parse(currentXML);
-
+			if(hasDomDocumentPageNotFoundError(messageDom))
+			{
+				return;
+			}
 			parseScreenResolution(messageDom);
 
 			parseAndCreateSprites(messageDom);
@@ -118,6 +121,24 @@ public class Parser {
 	}
 
 	//##########################################################################
+	
+	private boolean hasDomDocumentPageNotFoundError(Document messageDom){
+		NodeList errornodes = ((Element)messageDom.getFirstChild()).getElementsByTagName("error");
+		if(errornodes != null && errornodes.getLength() != 0)
+		{
+			Element errorElement = (Element)errornodes.item(0);
+			NodeList codes =errorElement.getElementsByTagName("code");
+			if(codes != null && codes.getLength() != 0)
+			{
+				if(codes.item(0).toString().contains("ajax_request_page_not_found"))
+				{
+					Window.alert("No project found for the given project number.");
+					return true;
+				}
+			}
+		}	
+		return false;
+	}
 	
 	private Element getChildElementByTagName(Node context, String name) {
 		if (context == null && context.getNodeType() == Node.ELEMENT_NODE)

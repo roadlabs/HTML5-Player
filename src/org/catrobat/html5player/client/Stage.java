@@ -85,6 +85,10 @@ public class Stage {
 		long start = System.currentTimeMillis();
 		
 		parser.parseXML(spriteManager, projectXml);
+		if(!parser.isParsingComplete())
+		{
+			return;
+		}
 		
 		CatrobatDebug.on();
 		
