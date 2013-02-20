@@ -22,15 +22,10 @@
  */
  package org.catrobat.html5player.client;
 
-import org.catrobat.html5player.client.threading.CatScheduler;
 
 import com.google.gwt.core.client.GWT;
-import com.google.gwt.core.client.Scheduler;
-import com.google.gwt.core.client.Scheduler.RepeatingCommand;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
-import com.google.gwt.user.client.ui.Label;
-import com.google.gwt.user.client.ui.RootPanel;
 
 public class ServerConnectionCalls {
 	// TODO refactor this ServerConnectionCalls shouldn't have to hold all this

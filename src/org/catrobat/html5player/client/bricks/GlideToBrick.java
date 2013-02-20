@@ -42,9 +42,6 @@ public class GlideToBrick extends Brick {
 	// TODO: better solution for this easy quick hack
 	private Script script;
 	
-	//TODO: not needed anymore
-	private int currentStep; 
-	
 	private int durationInMilliSeconds;
 	private int remainingDuration;
 
@@ -55,8 +52,7 @@ public class GlideToBrick extends Brick {
 		this.yDestination = -newYDestination + Stage.getInstance().getStageMiddleY();
 		
 		this.script = newScript;
-		
-		this.currentStep = 0;
+
 		this.durationInMilliSeconds = (int) duration;
 		this.remainingDuration = 0;
 	}
@@ -73,8 +69,6 @@ public class GlideToBrick extends Brick {
 				CatrobatDebug.on();
 				CatrobatDebug.console("GLIDETO: Timer run() - elapsed time = " + (System.currentTimeMillis() - startTime) + "ms");
 				CatrobatDebug.off();
-				
-				currentStep++;
 				
 				long currentTime = System.currentTimeMillis();
 				
@@ -113,8 +107,6 @@ public class GlideToBrick extends Brick {
 			
 			look.setMiddleX(xDestination);
 			look.setMiddleY(yDestination);
-			
-			currentStep = 0;
 			
 //			CatrobatDebug.on();
 //			CatrobatDebug.console("GLIDETO: cancel timer, now redraw screen");

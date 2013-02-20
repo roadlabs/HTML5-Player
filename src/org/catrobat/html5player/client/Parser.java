@@ -64,7 +64,6 @@ import org.catrobat.html5player.client.bricks.TurnLeftBrick;
 import org.catrobat.html5player.client.bricks.TurnRightBrick;
 import org.catrobat.html5player.client.bricks.WaitBrick;
 
-import org.catrobat.html5player.client.common.Look;
 import org.catrobat.html5player.client.common.LookData;
 import org.catrobat.html5player.client.common.SoundInfo;
 
@@ -120,7 +119,7 @@ public class Parser {
 	//##########################################################################
 	
 	private Element getChildElementByTagName(Node context, String name) {
-		if (context == null && context.getNodeType() == Node.ELEMENT_NODE)
+		if (context == null || context.getNodeType() != Node.ELEMENT_NODE)
 			return null;
 		NodeList children = context.getChildNodes();
 		int childLength = children.getLength();
@@ -239,7 +238,6 @@ public class Parser {
 		if (nodeScreenWidth != null) {
 			Node firstChild = nodeScreenWidth.getFirstChild();
 			if (firstChild != null) {
-				String value = firstChild.getNodeValue();
 				dimX = Integer.valueOf(firstChild.getNodeValue());
 			} else {
 				CatrobatDebug.console("firstChild is null");
@@ -251,7 +249,6 @@ public class Parser {
 		if (nodeScreenHeight != null) {
 			Node firstChild = nodeScreenHeight.getFirstChild();
 			if (firstChild != null) {
-				String value = firstChild.getNodeValue();
 				dimY = Integer.valueOf(firstChild.getNodeValue());
 			} else {
 				CatrobatDebug.console("firstChild is null");
@@ -795,8 +792,8 @@ public class Parser {
 			// TODO parse action and number for now touch is only action
 
 			// FIXME add action and position fields to script
-			String action = getText(getChildElementByTagName(scriptElement, "action"));
-			String position = getText(getChildElementByTagName(scriptElement, "position"));
+			//String action = getText(getChildElementByTagName(scriptElement, "action"));
+			//String position = getText(getChildElementByTagName(scriptElement, "position"));
 
 			return new WhenScript(scriptSprite, "whenScript");
 		} 

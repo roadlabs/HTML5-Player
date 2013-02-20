@@ -200,16 +200,16 @@ public class CatScheduler implements RepeatingCommand {
 		}
 	}
 	
-	/**
-	 * checks if the current number of threads equals zero and resets in this
-	 * case the currentThread and currentThreadIndex member variables
-	 */
-	private void checkThreadCount() {
-		if(getThreadCount() == 0) {
-			currentThread = null;
-			currentThreadIndex = -1;
-		}
-	}
+//	/**
+//	 * checks if the current number of threads equals zero and resets in this
+//	 * case the currentThread and currentThreadIndex member variables
+//	 */
+//	private void checkThreadCount() {
+//		if(getThreadCount() == 0) {
+//			currentThread = null;
+//			currentThreadIndex = -1;
+//		}
+//	}
 	
 	/**
 	 * checks if the thread to remove is the currentThread,
