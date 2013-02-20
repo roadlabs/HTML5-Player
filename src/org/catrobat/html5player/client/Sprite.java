@@ -197,6 +197,9 @@ public class Sprite {
 		
 		currentLook = ImageHandler.get().getImage(lookData.getFilename());
 		
+		if(currentLook == null)
+			return;
+		
 		lookData.setWidth(currentLook.getWidth());
 		lookData.setHeight(currentLook.getHeight());
 	}
