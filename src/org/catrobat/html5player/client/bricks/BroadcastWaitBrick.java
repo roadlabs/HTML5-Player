@@ -33,7 +33,6 @@ import org.catrobat.html5player.client.threading.CatScheduler;
 import org.catrobat.html5player.client.threading.CatThread;
 import org.catrobat.html5player.client.threading.WaitCount;
 
-import com.google.gwt.user.client.Timer;
 
 public class BroadcastWaitBrick extends Brick {
 

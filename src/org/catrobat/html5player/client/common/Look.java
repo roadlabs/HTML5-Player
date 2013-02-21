@@ -24,9 +24,6 @@ package org.catrobat.html5player.client.common;
 
 import org.catrobat.html5player.client.Const;
 import org.catrobat.html5player.client.Stage;
-
-import com.google.gwt.event.dom.client.LoadEvent;
-import com.google.gwt.event.dom.client.LoadHandler;
 import com.google.gwt.user.client.ui.Image;
 
 //This class is for compatibility with android catroid
@@ -47,8 +44,6 @@ public class Look {
 	
 	private double middleX;
 	private double middleY;
-	private double x;
-	private double y;
 
 	
 	private Image image;
@@ -171,11 +166,11 @@ public class Look {
 		return Const.PROJECT_PATH + Stage.getInstance().getProjectNumber()+ "/images/";
 	}
 
-	private void updateImage() {
-		image = new Image(getImageBasePath() + this.lookData.getFilename());
-		image.setPixelSize(this.lookData.getWidth(),	this.lookData.getHeight());
-		image.setVisible(false);
-	}
+//	private void updateImage() {
+//		image = new Image(getImageBasePath() + this.lookData.getFilename());
+//		image.setPixelSize(this.lookData.getWidth(),	this.lookData.getHeight());
+//		image.setVisible(false);
+//	}
 	
 	public double getMiddleX() {
 		return this.middleX;

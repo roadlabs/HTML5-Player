@@ -1466,8 +1466,7 @@ public class ParserTest extends GWTTestCase {
 	 * 
 	 */
 	public void testParseXMLPlaySoundBrick() {
-		
-		String soundFileName = "68223C25ABEFABA96FD2BEC8C44D5A12_Aufnahme.mp3";
+/*		String soundFileName = "68223C25ABEFABA96FD2BEC8C44D5A12_Aufnahme.mp3";
 		String soundName = "Aufnahme";
 		
 		String spriteName = "TestSprite";
@@ -1500,7 +1499,7 @@ public class ParserTest extends GWTTestCase {
 			"</spriteList>" +
 			xmlStringRumpEnd;
 		
-		Parser parser = new Parser();
+		Parser parser = new Parser();*/
 		
 		//TODO: geht bei Unit-Test nicht, wegen addSound(...)
 //		parser.parseXML(spriteManager, xmlString);
@@ -1515,7 +1514,7 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLPlaySoundBrickWithReference() {
 		
-		String soundFileName = "68223C25ABEFABA96FD2BEC8C44D5A12_Aufnahme.mp3";
+		/*String soundFileName = "68223C25ABEFABA96FD2BEC8C44D5A12_Aufnahme.mp3";
 		String soundName = "Aufnahme";
 		
 		String spriteName = "TestSprite";
@@ -1552,7 +1551,7 @@ public class ParserTest extends GWTTestCase {
 			"</spriteList>" +
 			xmlStringRumpEnd;
 		
-		Parser parser = new Parser();
+		Parser parser = new Parser();*/
 		
 		//TODO: geht bei Unit-Test nicht, wegen addSound(...)
 //		parser.parseXML(spriteManager, xmlString);

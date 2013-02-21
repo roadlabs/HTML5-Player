@@ -53,7 +53,7 @@ public class ImageHandlerTest extends GWTTestCase {
 		ImageHandler.get().dumpAllImages(); 
 		
 		String name = "TestImage";
-		String url = Const.PROJECT_PATH + "410" + "/images/143780EBC24495149123CCAF3A1CDC35_Katze normal";
+		String url = Const.PROJECT_PATH + "410" + "/images/143780EBC24495149123CCAF3A1CDC35_Katze%20normal";
 		int width = 50;
 		int height = 100;
 		
@@ -66,7 +66,7 @@ public class ImageHandlerTest extends GWTTestCase {
 	 */
 	public void testNewImageAlreadyExisting() {
 		String name = "TestImage";
-		String url = Const.PROJECT_PATH + "410" + "/images/143780EBC24495149123CCAF3A1CDC35_Katze normal";
+		String url = Const.PROJECT_PATH + "410" + "/images/143780EBC24495149123CCAF3A1CDC35_Katze%20normal";
 		int width = 50;
 		int height = 100;
 		
@@ -81,7 +81,7 @@ public class ImageHandlerTest extends GWTTestCase {
 	 */
 	public void testGetImage() {
 		String name = "TestImage";
-		String url = Const.PROJECT_PATH + "410" + "/images/143780EBC24495149123CCAF3A1CDC35_Katze normal";
+		String url = Const.PROJECT_PATH + "410" + "/images/143780EBC24495149123CCAF3A1CDC35_Katze%20normal";
 		int width = 50;
 		int height = 100;
 		
@@ -104,7 +104,7 @@ public class ImageHandlerTest extends GWTTestCase {
 	 */
 	public void testAddImage() {
 		String name = "TestImage";
-		String url = Const.PROJECT_PATH + "410" + "/images/143780EBC24495149123CCAF3A1CDC35_Katze normal";
+		String url = Const.PROJECT_PATH + "410" + "/images/143780EBC24495149123CCAF3A1CDC35_Katze%20normal";
 		
 		ImageHandler.get().addImage(name, url);
 		
@@ -118,7 +118,7 @@ public class ImageHandlerTest extends GWTTestCase {
 	 */
 	public void testLoadImages() {
 		String name = "TestImage";
-		String url = Const.PROJECT_PATH + "410" + "/images/143780EBC24495149123CCAF3A1CDC35_Katze normal";
+		String url = Const.PROJECT_PATH + "410" + "/images/143780EBC24495149123CCAF3A1CDC35_Katze%20normal";
 		
 		String name2 = "TestImage2";
 		String url2 = Const.PROJECT_PATH + "410" + "/images/FE5DF421A5746EC7FC916AC1B94ECC17_Banzai-Katze";
@@ -143,7 +143,7 @@ public class ImageHandlerTest extends GWTTestCase {
 	 */
 	public void testDumpNotLoadedImages() {
 		String name = "TestImage";
-		String url = Const.PROJECT_PATH + "410" + "/images/143780EBC24495149123CCAF3A1CDC35_Katze normal";
+		String url = Const.PROJECT_PATH + "410" + "/images/143780EBC24495149123CCAF3A1CDC35_Katze%20normal";
 		
 		String name2 = "TestImage2";
 		String url2 = Const.PROJECT_PATH + "410" + "/images/FE5DF421A5746EC7FC916AC1B94ECC17_Banzai-Katze";
@@ -164,7 +164,7 @@ public class ImageHandlerTest extends GWTTestCase {
 	 */
 	public void testDumpNotLoadedImagesAndLoadImages() {
 		String name = "TestImage";
-		String url = Const.PROJECT_PATH + "410" + "/images/143780EBC24495149123CCAF3A1CDC35_Katze normal";
+		String url = Const.PROJECT_PATH + "410" + "/images/143780EBC24495149123CCAF3A1CDC35_Katze%20normal";
 		
 		String name2 = "TestImage2";
 		String url2 = Const.PROJECT_PATH + "410" + "/images/FE5DF421A5746EC7FC916AC1B94ECC17_Banzai-Katze";
@@ -189,7 +189,7 @@ public class ImageHandlerTest extends GWTTestCase {
 	 */
 	public void testDumpLoadedImages() {
 		String name = "TestImage";
-		String url = Const.PROJECT_PATH + "410" + "/images/143780EBC24495149123CCAF3A1CDC35_Katze normal";
+		String url = Const.PROJECT_PATH + "410" + "/images/143780EBC24495149123CCAF3A1CDC35_Katze%20normal";
 		
 		String name2 = "TestImage2";
 		String url2 = Const.PROJECT_PATH + "410" + "/images/FE5DF421A5746EC7FC916AC1B94ECC17_Banzai-Katze";

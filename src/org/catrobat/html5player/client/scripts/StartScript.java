@@ -25,13 +25,8 @@ package org.catrobat.html5player.client.scripts;
 import java.util.List;
 
 import org.catrobat.html5player.client.Sprite;
-import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.bricks.Brick;
-import org.catrobat.html5player.client.threading.CatScheduler;
 
-
-import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
 
 public class StartScript extends Script {
 

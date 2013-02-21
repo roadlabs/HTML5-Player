@@ -27,8 +27,6 @@ import java.util.Vector;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.scripts.BroadcastScript;
-import org.catrobat.html5player.client.threading.CatScheduler;
-import org.catrobat.html5player.client.threading.CatThread;
 
 
 public class BroadcastBrick extends Brick {

@@ -25,11 +25,7 @@ package org.catrobat.html5player.client.scripts;
 import org.catrobat.html5player.client.MessageContainer;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
-import org.catrobat.html5player.client.threading.CatScheduler;
 import org.catrobat.html5player.client.threading.WaitCount;
-
-import com.google.gwt.user.client.Timer;
-import com.google.gwt.user.client.Window;
 
 public class BroadcastScript extends Script {
 

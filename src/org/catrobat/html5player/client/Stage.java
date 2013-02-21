@@ -257,7 +257,14 @@ public class Stage {
 		if (logText == null)
 			logText = "";
 		
-		logText += "\n" + message.trim();
+		if(logText == "")
+		{
+			logText = message.trim();
+		}
+		else
+		{
+			logText += "\n" + message.trim();
+		}
 		logBox.setText(logText);
 		logBox.setSize("400px", (logText.split("\\n").length * TEXT_LINE_HEIGHT) + "px");
 	}

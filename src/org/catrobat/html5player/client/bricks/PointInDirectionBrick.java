@@ -32,10 +32,6 @@ public class PointInDirectionBrick extends Brick {
 	public static final int DIRECTION_UP = 2;
 	public static final int DIRECTION_DOWN = 3;
 
-	//TODO: remove directions, also from the constructor and parser
-	//
-	private static final double[] directions = { 90.0, -90.0, 0.0, 180.0 };
-
 	int direction;
 	
 	double degrees;
