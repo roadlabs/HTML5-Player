@@ -89,6 +89,8 @@ public class AllTestsSuitTest extends GWTTestSuite{
 	    suite.addTestSuite(ImageHandlerTest.class);
 	    suite.addTestSuite(SceneTest.class);
 	    
+	    suite.addTestSuite(InvalidProjectIdTest.class);
+	    
 	    return suite;
 	  }
 
