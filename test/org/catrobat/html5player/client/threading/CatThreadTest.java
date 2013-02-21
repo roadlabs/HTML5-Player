@@ -37,8 +37,8 @@ public class CatThreadTest extends GWTTestCase {
 	private CatThread threadToWaitFor2_ = null;
 	//-----------------------------------
 	
-	private CatThread thread_ = null; //thread for asynchronous testing
-	private Callable task_ = null;    //task for asynchronous testing
+	//private CatThread thread_ = null; //thread for asynchronous testing
+	//private Callable task_ = null;    //task for asynchronous testing
 	
 	@Override
 	public String getModuleName() {
@@ -56,8 +56,8 @@ public class CatThreadTest extends GWTTestCase {
 		waitingThread_ = null;
 		taskOfWaitingThread_ = null;
 		
-		thread_ = null;
-		task_ = null;
+		//thread_ = null;
+		//task_ = null;
 	}
 	
 	//--------------------------------------------------------------------------

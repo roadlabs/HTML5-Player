@@ -25,7 +25,6 @@ package org.catrobat.html5player.client;
 import org.catrobat.html5player.client.bricks.NextLookBrick;
 import org.catrobat.html5player.client.bricks.SetLookBrick;
 import org.catrobat.html5player.client.common.LookData;
-import org.catrobat.html5player.client.scripts.BroadcastScript;
 import org.catrobat.html5player.client.scripts.StartScript;
 import org.catrobat.html5player.client.scripts.WhenScript;
 import org.catrobat.html5player.client.threading.CatScheduler;

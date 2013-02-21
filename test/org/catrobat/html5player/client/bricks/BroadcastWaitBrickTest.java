@@ -26,7 +26,6 @@ import org.catrobat.html5player.client.Scene;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.SpriteManager;
 import org.catrobat.html5player.client.Stage;
-import org.catrobat.html5player.client.common.Look;
 import org.catrobat.html5player.client.common.LookData;
 import org.catrobat.html5player.client.scripts.BroadcastScript;
 import org.catrobat.html5player.client.scripts.StartScript;
@@ -35,7 +34,6 @@ import org.catrobat.html5player.client.threading.CatScheduler;
 import org.catrobat.html5player.client.threading.CatThread;
 
 import com.google.gwt.canvas.client.Canvas;
-import com.google.gwt.core.client.Scheduler;
 import com.google.gwt.junit.client.GWTTestCase;
 import com.google.gwt.user.client.Timer;
 

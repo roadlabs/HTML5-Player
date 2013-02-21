@@ -27,17 +27,13 @@ package org.catrobat.html5player.client;
 //import org.catrobat.html5player.client.scripts.WhenScript;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
 
 import org.catrobat.html5player.client.bricks.NextLookBrick;
 import org.catrobat.html5player.client.bricks.SetLookBrick;
 import org.catrobat.html5player.client.common.Look;
 import org.catrobat.html5player.client.common.LookData;
-import org.catrobat.html5player.client.common.Sound;
-import org.catrobat.html5player.client.common.SoundInfo;
+//import org.catrobat.html5player.client.common.SoundInfo;
 import org.catrobat.html5player.client.scripts.BroadcastScript;
-import org.catrobat.html5player.client.scripts.Script;
 import org.catrobat.html5player.client.scripts.StartScript;
 import org.catrobat.html5player.client.scripts.WhenScript;
 import org.catrobat.html5player.client.threading.CatScheduler;
@@ -98,13 +94,13 @@ public class SpriteTest extends GWTTestCase {
 	 * @param id of SoundInfo
 	 * @return LookData for costume
 	 */
-	private SoundInfo createSoundInfo(String id, String filename, String name) {
+	/*private SoundInfo createSoundInfo(String id, String filename, String name) {
 		SoundInfo info = new SoundInfo();
 		info.setFileName(filename);
 		info.setTitle(name);
 		info.setId(id);
 		return info;
-	}
+	}*/
 	
 	//--------------------------------------------------------------------------
 	
@@ -304,7 +300,7 @@ public class SpriteTest extends GWTTestCase {
 		
 		//URL of Project with sound: 
 		//http://catroid.org/resources/projects/393/projectcode.xml
-		
+		/*
 		String soundInfo1Filename = "E6EE4E71FEB185DC70261885C5C3D6DA_Super Mario Bros Theme Song.mp3";
 		String soundInfo2Filename = "A4A16FFE9972266AB24217FB89CE7732_Kleiner Junge spielt Schlagzeug.mp3";
 		String soundInfo1ID = soundInfo1Filename.split("_")[0];
@@ -315,7 +311,7 @@ public class SpriteTest extends GWTTestCase {
 																soundInfo1Name);
 		SoundInfo soundInfo2 = createSoundInfo(soundInfo2ID, soundInfo2Filename,
 																soundInfo2Name);
-		
+		*/
 //		// add sound infos
 //		newSprite.addSound(soundInfo1);
 //		newSprite.addSound(soundInfo2);

@@ -32,18 +32,18 @@ import org.catrobat.html5player.client.bricks.LoopEndBrick;
 import org.catrobat.html5player.client.bricks.NextLookBrick;
 import org.catrobat.html5player.client.bricks.RepeatBrick;
 import org.catrobat.html5player.client.bricks.SetLookBrick;
-import org.catrobat.html5player.client.bricks.WaitBrick;
+//import org.catrobat.html5player.client.bricks.WaitBrick;
 import org.catrobat.html5player.client.common.LookData;
-import org.catrobat.html5player.client.threading.CatScheduler;
-import org.catrobat.html5player.client.threading.CatThread;
+//import org.catrobat.html5player.client.threading.CatScheduler;
+//import org.catrobat.html5player.client.threading.CatThread;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
-import com.google.gwt.user.client.Timer;
+//import com.google.gwt.user.client.Timer;
 
 public class StartScriptTest extends GWTTestCase {
 
-	private Sprite sprite_ = null; //for asynchronous testing
+	//private Sprite sprite_ = null; //for asynchronous testing
 	
 	private Stage stage;
 	private Scene scene;
@@ -69,7 +69,7 @@ public class StartScriptTest extends GWTTestCase {
 	public void gwtTearDown() {
 		stage.setCanvas(null);
 		stage.getSpriteManager().reset(); //important
-		sprite_ = null;
+		//sprite_ = null;
 	}
 	
 	//--------------------------------------------------------------------------
