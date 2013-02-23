@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <project name="Html5Player" default="build" basedir=".">
-  <!-- Configure path to GWT SDK -->
+  <!-- Configure path to GWT SDK --> 
+  <!-- make environment variable GWT_HOME=...../gwt-2.5.0-->
+  <property environment="env"/>
+  <property name="gwt.sdk" value="${env.GWT_HOME}"/>
+  <fail unless="gwt.sdk" message="You must set the GWT_HOME environment variable to point to your GWT SDK"/>
 
   <path id="project.class.path">
     <pathelement location="war/WEB-INF/classes"/>
@@ -13,7 +17,9 @@
   <target name="libs" description="Copy libs to WEB-INF/lib">
     <mkdir dir="war/WEB-INF/lib" />
     <copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet.jar" />
+    <copy todir="war/WEB-INF/lib" file="${gwt.sdk}/gwt-servlet-deps.jar" />
     <!-- Add any additional server libs that need to be copied -->
+    <copy todir="war/WEB-INF/lib" file="libs/GWTXPath.jar" />
   </target>
 
   <target name="javac" depends="libs" description="Compile java source">
