@@ -30,6 +30,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -152,6 +153,19 @@ public class Html5Player implements EntryPoint {
 			//get xml-projectfile from server
 			server.getXML(projectName, projectNumber);
 		}
+	}
+	
+	public static void rotateRight(Panel panel)
+	{
+	}
+	
+	public static void rotateLeft(Panel panel)
+	{
+
+	}
+	public static int getRotatonAngle()
+	{
+		return 0;
 	}
 
 	//##########################################################################
