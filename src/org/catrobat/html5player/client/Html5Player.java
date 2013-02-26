@@ -183,7 +183,11 @@ public class Html5Player implements EntryPoint {
 	private static void rotateDirection(int degree,Panel panel)
 	{
 		int width = panel.getOffsetWidth();
+		if(width == 0)
+			width = getNumberFromCssAttribut(panel.getElement().getStyle().getWidth());
 		int height = panel.getOffsetHeight();
+		if(height == 0)
+			height = getNumberFromCssAttribut(panel.getElement().getStyle().getHeight());
 		int translation = 0;
 		rotationAngle =(rotationAngle + degree) % 360;
 		if(Math.abs(rotationAngle) != 0 && Math.abs(rotationAngle) != 180)
@@ -207,6 +211,16 @@ public class Html5Player implements EntryPoint {
 		panel.getElement().getStyle().setProperty("MsTransform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
 		panel.getElement().getStyle().setProperty("OTransform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
 		panel.getElement().getStyle().setProperty("MozTransform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
+	}
+	
+	private static int getNumberFromCssAttribut(String attr)
+	{
+		if(attr != null && !attr.equals(""))
+		{
+			String numberPart = attr.trim().split("[a-z]")[0];	
+			return Integer.parseInt(numberPart);
+		}
+		return 0;
 	}
 	
 	public static int getRotatonAngle()
