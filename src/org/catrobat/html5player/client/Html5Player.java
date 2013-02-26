@@ -40,6 +40,8 @@ public class Html5Player implements EntryPoint {
 	private FlowPanel mainPanel = new FlowPanel();
 	private Button playButton = new Button("Play");
 	private Button showLogButton = new Button("ShowLogBox");
+	private Button rotateLeftButton = new Button("rotateLeft");
+	private Button rotateRightButton = new Button("rotateRight");
 	private TextArea logBox = new TextArea();
 	private VerticalPanel screenPanel = new VerticalPanel();
 
@@ -47,6 +49,7 @@ public class Html5Player implements EntryPoint {
 	
 	private ServerConnectionCalls server;
 	private ListBox projectListBox = new ListBox();
+	private static int rotationAngle = 0;
 	
 	//##########################################################################
 
@@ -54,7 +57,8 @@ public class Html5Player implements EntryPoint {
 
 		CatrobatDebug.off();
 		String projectNumber = Window.Location.getParameter("projectnumber");
-		
+		mainPanel.add(rotateLeftButton);
+		mainPanel.add(rotateRightButton);
 		if(projectNumber == null)
 		{
 			mainPanel.add(playButton);
@@ -127,6 +131,17 @@ public class Html5Player implements EntryPoint {
 				logBox.setVisible(!logBox.isVisible());
 			}
 		});
+		
+		rotateLeftButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				rotateLeft(screenPanel);
+			}
+		});
+		rotateRightButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				rotateRight(screenPanel);
+			}
+		});
 
 		//handle click on the canvas
 		//
@@ -157,15 +172,46 @@ public class Html5Player implements EntryPoint {
 	
 	public static void rotateRight(Panel panel)
 	{
+		rotateDirection(90, panel);
 	}
 	
 	public static void rotateLeft(Panel panel)
 	{
-
+		rotateDirection(-90, panel);
 	}
+	
+	private static void rotateDirection(int degree,Panel panel)
+	{
+		int width = panel.getOffsetWidth();
+		int height = panel.getOffsetHeight();
+		int translation = 0;
+		rotationAngle =(rotationAngle + degree) % 360;
+		if(Math.abs(rotationAngle) != 0 && Math.abs(rotationAngle) != 180)
+		{
+			if((degree > 0 ))
+			{
+				translation = (width/2) - (height/2);
+			}
+			else
+			{
+				translation = (height/2) -(width/2); 
+			}
+			if(rotationAngle != degree)
+			{
+				translation = translation * -1;
+			}
+		}
+		System.out.println("tranlsation: " + translation + " rotationAngle: "+ rotationAngle + " degree: "+degree);
+		panel.getElement().getStyle().setProperty("transform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
+		panel.getElement().getStyle().setProperty("WebkitTransform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
+		panel.getElement().getStyle().setProperty("MsTransform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
+		panel.getElement().getStyle().setProperty("OTransform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
+		panel.getElement().getStyle().setProperty("MozTransform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
+	}
+	
 	public static int getRotatonAngle()
 	{
-		return 0;
+		return rotationAngle;
 	}
 
 	//##########################################################################
