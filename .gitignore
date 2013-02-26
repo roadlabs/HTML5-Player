@@ -11,6 +11,8 @@
 war/gwt_bree/
 gwt-unitCache/
 
+war/WEB-INF/lib/
+
 # boilerplate generated classes #
 .apt_generated/
 
@@ -19,3 +21,6 @@ war/WEB-INF/deploy/
 war/WEB-INF/classes/
 
 /.gwt
+
+#local settings (some only allow absolute paths) #)
+.settings/com.google.gdt.eclipse.core.prefs
