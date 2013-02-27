@@ -105,7 +105,8 @@ public class Html5Player implements EntryPoint {
 		//
 		playButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				
+				rotationAngle = 0;
+				rotateDirection(0, screenPanel);
 				int selectedIndex = projectListBox.getSelectedIndex();
 				String projectName = projectListBox.getItemText(selectedIndex);
 				String projectNumber = projectListBox.getValue(selectedIndex);
