@@ -52,8 +52,15 @@ public class Html5Player implements EntryPoint {
 	public void onModuleLoad() {
 
 		CatrobatDebug.off();
-		String projectNumber = Window.Location.getParameter("projectnumber");
+		String projectPath = Window.Location.getParameter("projectpath");
+		if(projectPath != null && !projectPath.equals(""))
+		{
+			//Window.alert(projectPath);
+			//return;
+			Const.PROJECT_PATH = projectPath;
+		}
 		
+		String projectNumber = Window.Location.getParameter("projectnumber");
 		if(projectNumber == null)
 		{
 			mainPanel.add(playButton);

@@ -131,7 +131,7 @@ public class Parser {
 			{
 				if(codes.item(0).toString().contains("ajax_request_page_not_found"))
 				{
-					Window.alert("No project found for the given project number.");
+					Window.alert("Project specification not supported or no project found for the given project number.");
 					return true;
 				}
 			}
