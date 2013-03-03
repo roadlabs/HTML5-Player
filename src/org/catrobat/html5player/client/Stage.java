@@ -115,7 +115,7 @@ public class Stage {
 			@Override
 			public void run() {
 
-				if(ImageHandler.get().areImagesLoaded()) {	
+				if(ImageHandler.get().areImagesLoaded() || ImageHandler.get().hasNothingToDo()) {	
 					
 					CatrobatDebug.on();
 					CatrobatDebug.console(ImageHandler.get().getNumberImagesLoaded() + " images are loaded, now start scheduler...");
@@ -133,7 +133,7 @@ public class Stage {
 				else {
 					CatrobatDebug.on();
 					CatrobatDebug.console("ImageHandler not finished loading...");
-					
+					CatrobatDebug.console(ImageHandler.get().getStatus());
 					if(ImageHandler.get().hasLoadingFailed()) {
 						CatrobatDebug.console("Error: ImageHandler couldn't load an image");
 						log("Error: ImageHandler couldn't load an image");

@@ -236,6 +236,14 @@ public class ImageHandler {
 		loadingFailed = false;
 	}
 	
+	public boolean hasNothingToDo(){
+		if(numberImagesLoaded == 0 && imagesToLoad == 0 && !loadingFailed)
+		{
+			return true;
+		}
+		return false;
+	}
+	
 	//##########################################################################
 	
 	/**
@@ -252,6 +260,12 @@ public class ImageHandler {
 	 */
 	public int getNumberImagesLoaded() {
 		return this.numberImagesLoaded;
+	}
+	
+	public String getStatus()
+	{
+		
+		return "numberImagesLoaded: "+ this.numberImagesLoaded + " loadingFailed: " + this.loadingFailed + "  imagesToLoad: "+ this.imagesToLoad +  " imagesLoaded: " + this.imagesLoaded; 
 	}
 	
 }
