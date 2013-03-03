@@ -214,6 +214,7 @@ public class Stage {
 		
 		//dump all loaded and unloaded images
 		ImageHandler.get().dumpAllImages();
+		ImageHandler.get().reset();
 		
 		CatrobatDebug.console("Spritemanager contains " + spriteManager.getSpriteList().size() + " sprites");
 		CatrobatDebug.console("MessageContainer holds " + messageContainer.getMessages().size() + " messages");
