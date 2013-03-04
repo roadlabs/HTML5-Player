@@ -52,7 +52,7 @@ public class BroadcastBrick extends Brick {
 		}
 		for (BroadcastScript receiverScript : receiver) {
 			
-			receiverScript.resetBroadcastScript(); ///TODO ???????
+			receiverScript.resetBroadcastScript(); 
 			
 			receiverScript.executeBroadcast();
 		}

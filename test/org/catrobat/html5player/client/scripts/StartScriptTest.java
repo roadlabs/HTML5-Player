@@ -205,7 +205,7 @@ public class StartScriptTest extends GWTTestCase {
 		startScript.deleteBrick(position);
 		assertTrue(startScript.getBrickList().isEmpty());
 		
-		//startScript.deleteBrick(position+3); <-- IndexOutOfBoundsException TODO
+		
 	}
 	
 	/**

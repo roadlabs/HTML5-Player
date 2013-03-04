@@ -28,23 +28,8 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class ServerConnectionCalls {
-	// TODO refactor this ServerConnectionCalls shouldn't have to hold all this
-	// members
 	private String currentXML;
-	
-//	
-//	private SpriteManager manager;
-//	private Parser parser;
-
 	private ServerConnectionServiceAsync getXMLSvc;
-
-//	public ServerConnectionCalls(Parser newParser, SpriteManager newManager) {
-//		getXMLSvc = GWT.create(ServerConnectionService.class);
-//		parser = newParser;
-//		manager = newManager;
-//		currentXML = "";
-//	}
-
 	public ServerConnectionCalls() {
 		getXMLSvc = GWT.create(ServerConnectionService.class);
 		currentXML = "";

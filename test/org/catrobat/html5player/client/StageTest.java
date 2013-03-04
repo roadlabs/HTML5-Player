@@ -168,7 +168,7 @@ public class StageTest extends GWTTestCase {
 		sprite.run();
 		
 		ImageHandler imageHandler = ImageHandler.get();
-		imageHandler.addImage("image", "images/ajax-loader.gif"); //TODO better solution
+		imageHandler.addImage("image", "images/ajax-loader.gif");
 		imageHandler.loadImages();
 		imageHandler.addImage("image2", "");
 		

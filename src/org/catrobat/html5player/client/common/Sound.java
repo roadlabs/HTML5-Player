@@ -52,7 +52,7 @@ public class Sound {
 	}
 
 	/**
-	 * TODO:
+	 * 
 	 * audio.addSource(String):
 	 * Only use this method if you do not know the type of the source file,
 	 * as the browser cannot determine the format from the filename and must

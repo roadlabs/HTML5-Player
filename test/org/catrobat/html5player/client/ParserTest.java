@@ -579,8 +579,7 @@ public class ParserTest extends GWTTestCase {
 	//##########################################################################
 	
 	/*
-	 * <<TODO BRICKS>>
-	 * Parser:
+	  * Parser:
 	 *  - Bricks:
 	 *  	(x) no test
 	 *  	(o) tested
@@ -1501,7 +1500,7 @@ public class ParserTest extends GWTTestCase {
 		
 		Parser parser = new Parser();*/
 		
-		//TODO: geht bei Unit-Test nicht, wegen addSound(...)
+		//geht bei Unit-Test nicht, wegen addSound(...)
 //		parser.parseXML(spriteManager, xmlString);
 //		
 //		Sprite sprite = spriteManager.getSprite(spriteName, false);
@@ -1553,7 +1552,7 @@ public class ParserTest extends GWTTestCase {
 		
 		Parser parser = new Parser();*/
 		
-		//TODO: geht bei Unit-Test nicht, wegen addSound(...)
+		//geht bei Unit-Test nicht, wegen addSound(...)
 //		parser.parseXML(spriteManager, xmlString);
 //		
 //		Sprite sprite = spriteManager.getSprite(spriteName, false);

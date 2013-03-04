@@ -20,7 +20,7 @@
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- package org.catrobat.html5player.client;
+package org.catrobat.html5player.client;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,16 +83,15 @@ import com.google.gwt.xml.client.Text;
 import com.google.gwt.xml.client.XMLParser;
 import com.mouchel.gwt.xpath.client.XPath;
 
-//TODO catch NOT supported message and return null
 public class Parser {
 
 	private String currentXML;
 	private SpriteManager manager;
-	
+
 	private boolean parsingComplete = false;
 
 	public Parser() {
-		
+
 	}
 
 	public void parseXML(SpriteManager spriteManager, String xmlString) {
@@ -101,44 +100,41 @@ public class Parser {
 			manager = spriteManager;
 
 			Document messageDom = XMLParser.parse(currentXML);
-			if(hasDomDocumentPageNotFoundError(messageDom))
-			{
+			if (hasDomDocumentPageNotFoundError(messageDom)) {
 				return;
 			}
 			parseScreenResolution(messageDom);
 
 			parseAndCreateSprites(messageDom);
-			
+
 			parserFinished();
-			
+
 			CatrobatDebug.console("Parser finished");
 
-		} 
-		catch (DOMException e) {
+		} catch (DOMException e) {
 			Window.alert("Could not parse XML document. " + e.getMessage());
 		}
 	}
 
-	//##########################################################################
-	
-	private boolean hasDomDocumentPageNotFoundError(Document messageDom){
-		NodeList errornodes = ((Element)messageDom.getFirstChild()).getElementsByTagName("error");
-		if(errornodes != null && errornodes.getLength() != 0)
-		{
-			Element errorElement = (Element)errornodes.item(0);
-			NodeList codes =errorElement.getElementsByTagName("code");
-			if(codes != null && codes.getLength() != 0)
-			{
-				if(codes.item(0).toString().contains("ajax_request_page_not_found"))
-				{
+	// ##########################################################################
+
+	private boolean hasDomDocumentPageNotFoundError(Document messageDom) {
+		NodeList errornodes = ((Element) messageDom.getFirstChild())
+				.getElementsByTagName("error");
+		if (errornodes != null && errornodes.getLength() != 0) {
+			Element errorElement = (Element) errornodes.item(0);
+			NodeList codes = errorElement.getElementsByTagName("code");
+			if (codes != null && codes.getLength() != 0) {
+				if (codes.item(0).toString()
+						.contains("ajax_request_page_not_found")) {
 					Window.alert("Project specification not supported or no project found for the given project number.");
 					return true;
 				}
 			}
-		}	
+		}
 		return false;
 	}
-	
+
 	private Element getChildElementByTagName(Node context, String name) {
 		if (context == null || context.getNodeType() != Node.ELEMENT_NODE)
 			return null;
@@ -212,40 +208,43 @@ public class Parser {
 		}
 		return text.toString();
 	}
-	
-	//##########################################################################
-	
+
+	// ##########################################################################
+
 	/**
-	 * Checks if a reference has the correct syntax for XPath to evaluate. If
-	 * a reference refers to the first element of a set of elements, than there
+	 * Checks if a reference has the correct syntax for XPath to evaluate. If a
+	 * reference refers to the first element of a set of elements, than there
 	 * must be square brackets with a 1 in between
 	 * 
 	 * @param reference
-	 * @param substring Element to check as a String
+	 * @param substring
+	 *            Element to check as a String
 	 * @return A reference with correct syntax
 	 */
 	private String checkReference(String reference, String substring) {
 		String checkedReference = "";
-		
-		if(reference.matches("(.*)" + substring + "(\\[){1}(\\d){1,}(\\]){1}(.*)")) {
-			CatrobatDebug.console("reference (" + reference + ") cointains square brackets");
+
+		if (reference.matches("(.*)" + substring
+				+ "(\\[){1}(\\d){1,}(\\]){1}(.*)")) {
+			CatrobatDebug.console("reference (" + reference
+					+ ") cointains square brackets");
 			return reference;
-		}
-		else {
-			CatrobatDebug.console("reference (" + reference + ") does not cointain square brackets");
-			
+		} else {
+			CatrobatDebug.console("reference (" + reference
+					+ ") does not cointain square brackets");
+
 			int offset = reference.lastIndexOf(substring) + substring.length();
-			
+
 			StringBuilder newReference = new StringBuilder(reference);
 			newReference.insert(offset, "[1]");
-			
+
 			checkedReference = newReference.toString();
 		}
-		
+
 		return checkedReference;
 	}
-	
-	//##########################################################################
+
+	// ##########################################################################
 
 	private void parseScreenResolution(Document messageDom) {
 		Node nodeScreenHeight = getChildElementByTagName(
@@ -264,7 +263,8 @@ public class Parser {
 				CatrobatDebug.console("firstChild is null");
 			}
 		} else {
-			CatrobatDebug.console("Methode:parseScreenResolution nodeScreenWidth  is null");
+			CatrobatDebug
+					.console("Methode:parseScreenResolution nodeScreenWidth  is null");
 		}
 
 		if (nodeScreenHeight != null) {
@@ -275,64 +275,80 @@ public class Parser {
 				CatrobatDebug.console("firstChild is null");
 			}
 		} else {
-			CatrobatDebug.console("Methode:parseScreenResolution  nodeScreenHeight  is null");
+			CatrobatDebug
+					.console("Methode:parseScreenResolution  nodeScreenHeight  is null");
 		}
 
 		setRootCanvasSize(dimX, dimY);
 	}
 
 	private void parseAndCreateSprites(Document messageDom) {
-		Element spriteListNode = getChildElementByTagName(messageDom.getDocumentElement(), "spriteList");
-		List<Element> spriteNodes = getChildElementsByTagName(spriteListNode, "Content.Sprite");
+		Element spriteListNode = getChildElementByTagName(
+				messageDom.getDocumentElement(), "spriteList");
+		List<Element> spriteNodes = getChildElementsByTagName(spriteListNode,
+				"Content.Sprite");
 		for (Element spriteNode : spriteNodes) {
-			
+
 			String name;
 			Node costumeList;
 			Node scriptList;
 			Node soundList;
-			
-			if(spriteNode.hasAttribute("reference")) {
-				String spriteReference = checkReference(spriteNode.getAttribute("reference"), "Content.Sprite");
-				Element referencedSpriteNode = XPath.evaluateSingle(spriteNode, spriteReference, Element.class);
-				
-				name = getText(getChildElementByTagName(referencedSpriteNode, "name"));
-				costumeList = getChildElementByTagName(referencedSpriteNode, "costumeDataList");
-				scriptList = getChildElementByTagName(referencedSpriteNode, "scriptList");
-				soundList = getChildElementByTagName(referencedSpriteNode, "soundList");
-			}
-			else {
-				// TODO: not check on order better on name
+
+			if (spriteNode.hasAttribute("reference")) {
+				String spriteReference = checkReference(
+						spriteNode.getAttribute("reference"), "Content.Sprite");
+				Element referencedSpriteNode = XPath.evaluateSingle(spriteNode,
+						spriteReference, Element.class);
+
+				name = getText(getChildElementByTagName(referencedSpriteNode,
+						"name"));
+				costumeList = getChildElementByTagName(referencedSpriteNode,
+						"costumeDataList");
+				scriptList = getChildElementByTagName(referencedSpriteNode,
+						"scriptList");
+				soundList = getChildElementByTagName(referencedSpriteNode,
+						"soundList");
+			} else {
 				name = getText(getChildElementByTagName(spriteNode, "name"));
-				costumeList = getChildElementByTagName(spriteNode, "costumeDataList");
+				costumeList = getChildElementByTagName(spriteNode,
+						"costumeDataList");
 				scriptList = getChildElementByTagName(spriteNode, "scriptList");
 				soundList = getChildElementByTagName(spriteNode, "soundList");
 			}
 
-			Sprite sprite = createSprite(name, costumeList, scriptList, soundList);
+			Sprite sprite = createSprite(name, costumeList, scriptList,
+					soundList);
 			manager.addSprite(sprite);
 		}
 	}
 
-	public Sprite createSprite(String name, Node costumeList, Node scriptList, Node soundList) {
-		
+	public Sprite createSprite(String name, Node costumeList, Node scriptList,
+			Node soundList) {
+
 		Sprite sprite = manager.getSprite(name, true);
-		
-		if (name.equals(Const.BACK_GROUND_GER) || name.equals(Const.BACK_GROUND_ENG)) {
+
+		if (name.equals(Const.BACK_GROUND_GER)
+				|| name.equals(Const.BACK_GROUND_ENG)) {
 			sprite.setBackground(true);
 		}
-		
-		List<Element> costumes = getChildElementsByTagName(costumeList, "Common.CostumeData");
+
+		List<Element> costumes = getChildElementsByTagName(costumeList,
+				"Common.CostumeData");
 		for (Element costumeDataElement : costumes) {
 			LookData lookData = new LookData();
-			String filename = getText(getChildElementByTagName(costumeDataElement, "fileName"));
-			
-			CatrobatDebug.console("XXXXXXXXXXXXXXXXXXXXX fileName: " + filename + " XXXXXXXXXXXXXXXXXXXXX");
-			
+			String filename = getText(getChildElementByTagName(
+					costumeDataElement, "fileName"));
+
+			CatrobatDebug.console("XXXXXXXXXXXXXXXXXXXXX fileName: " + filename
+					+ " XXXXXXXXXXXXXXXXXXXXX");
+
 			lookData.setFilename(filename);
-			String costumeName = getText(getChildElementByTagName(costumeDataElement, "name"));
+			String costumeName = getText(getChildElementByTagName(
+					costumeDataElement, "name"));
 			lookData.setName(costumeName);
-			
-			CatrobatDebug.console("XXXXXXXXXXXXXXXXXXXXX name: " + costumeName + " XXXXXXXXXXXXXXXXXXXXX");
+
+			CatrobatDebug.console("XXXXXXXXXXXXXXXXXXXXX name: " + costumeName
+					+ " XXXXXXXXXXXXXXXXXXXXX");
 
 			// String height =
 			// getText(getChildElementByTagName(costumeDataElement,
@@ -342,36 +358,41 @@ public class Parser {
 			// getText(getChildElementByTagName(costumeDataElement,
 			// "resWidth"));
 			lookData.setWidth(0);
-			
+
 			sprite.addLookData(lookData);
 			CatrobatDebug.console("LookData: " + lookData.getName());
-			CatrobatDebug.console("File: " + lookData.getFilename() + " Height: " + lookData.getHeight() + " Width: " + lookData.getWidth());
-			
-			
-			//add image name and url to ImageHandler
-			String url = Const.PROJECT_PATH + Stage.getInstance().getProjectNumber() + "/images/" + filename;
+			CatrobatDebug.console("File: " + lookData.getFilename()
+					+ " Height: " + lookData.getHeight() + " Width: "
+					+ lookData.getWidth());
+
+			// add image name and url to ImageHandler
+			String url = Const.PROJECT_PATH
+					+ Stage.getInstance().getProjectNumber() + "/images/"
+					+ filename;
 			ImageHandler.get().addImage(filename, url);
 		}
 
-//		CatrobatDebug.on();
-		
-//		CatrobatDebug.console("");
-		
-//		CatrobatDebug.console("Sprite: " + sprite.getName());
-		
+		// CatrobatDebug.on();
+
+		// CatrobatDebug.console("");
+
+		// CatrobatDebug.console("Sprite: " + sprite.getName());
+
 		List<Element> scripts = getChildElements(scriptList);
-		
+
 		for (Element scriptElement : scripts) {
 
 			Script script = checkScript(scriptElement, sprite);
-			
-//			CatrobatDebug.console("Script.name: " + script.getName() + ", address from used script: " + script);
-			
-			Element brickListElement = getChildElementByTagName(scriptElement, "brickList");
-			
+
+			// CatrobatDebug.console("Script.name: " + script.getName() +
+			// ", address from used script: " + script);
+
+			Element brickListElement = getChildElementByTagName(scriptElement,
+					"brickList");
+
 			if (brickListElement != null) {
 				List<Element> brickElements = getChildElements(brickListElement);
-				
+
 				for (Element brickElement : brickElements) {
 					CatrobatDebug.off();
 					Brick brick = checkBrick(brickElement, sprite, script);
@@ -381,14 +402,15 @@ public class Parser {
 					}
 				}
 			}
-			
+
 			sprite.addScript(script);
 		}
-		
-//		CatrobatDebug.console("Sprite has " + sprite.getNumberOfScripts() + " scripts");
-		
-//		CatrobatDebug.console("");
-		
+
+		// CatrobatDebug.console("Sprite has " + sprite.getNumberOfScripts() +
+		// " scripts");
+
+		// CatrobatDebug.console("");
+
 		CatrobatDebug.off();
 
 		// List<Element> sounds = getChildElementsByTagName(soundList,
@@ -418,134 +440,154 @@ public class Parser {
 		return sprite;
 	}
 
-	
 	private Brick checkBrick(Element brickNode, Sprite sprite, Script script) {
 
-		Element spriteReferenceElement = getChildElementByTagName(brickNode, "sprite");
-		
-		String spriteReference = spriteReferenceElement != null ? spriteReferenceElement.getAttribute("reference") : null;
-		
-		Element spriteElement = (spriteReferenceElement != null && 
-				spriteReference != null) ? XPath.evaluateSingle(spriteReferenceElement, spriteReference, Element.class) : null;
-				
+		Element spriteReferenceElement = getChildElementByTagName(brickNode,
+				"sprite");
+
+		String spriteReference = spriteReferenceElement != null ? spriteReferenceElement
+				.getAttribute("reference") : null;
+
+		Element spriteElement = (spriteReferenceElement != null && spriteReference != null) ? XPath
+				.evaluateSingle(spriteReferenceElement, spriteReference,
+						Element.class) : null;
+
 		String brickSprite = sprite.getName();
-		if (spriteElement != null && spriteElement.getNodeName().equals("Content.Sprite")) {
-			String spriteName = getText(getChildElementByTagName(spriteElement, "name"));
+		if (spriteElement != null
+				&& spriteElement.getNodeName().equals("Content.Sprite")) {
+			String spriteName = getText(getChildElementByTagName(spriteElement,
+					"name"));
 			if (spriteName == null || spriteName.trim().length() == 0) {
-				// TODO
-				Stage.getInstance().log("Invalid sprite reference: " + spriteElement.getNodeName() + " for " + spriteReference);
-			} 
-			else if (!brickSprite.equals(spriteName)) {
+				Stage.getInstance().log(
+						"Invalid sprite reference: "
+								+ spriteElement.getNodeName() + " for "
+								+ spriteReference);
+			} else if (!brickSprite.equals(spriteName)) {
 				brickSprite = spriteName;
 			}
-		} 
-		else {
-			CatrobatDebug.console("INVALID - checkBrick - spriteElement: " + spriteElement);
+		} else {
+			CatrobatDebug.console("INVALID - checkBrick - spriteElement: "
+					+ spriteElement);
 		}
-		
+
 		/**
 		 * now check bricks
 		 */
 		if (brickNode.getNodeName().equals("Bricks.SetCostumeBrick")) {
-			
-			Element costumeReferenceElement = getChildElementByTagName(brickNode, "costumeData");
-			
-			String costumeReference = costumeReferenceElement != null ? 
-					checkReference(costumeReferenceElement.getAttribute("reference"), "Common.CostumeData") : null;
 
-			Element costumeElement = costumeReferenceElement != null && costumeReference != null ? 
-					XPath.evaluateSingle(costumeReferenceElement, costumeReference, Element.class) : null;
+			Element costumeReferenceElement = getChildElementByTagName(
+					brickNode, "costumeData");
+
+			String costumeReference = costumeReferenceElement != null ? checkReference(
+					costumeReferenceElement.getAttribute("reference"),
+					"Common.CostumeData") : null;
+
+			Element lookElement = costumeReferenceElement != null
+					&& costumeReference != null ? XPath.evaluateSingle(
+					costumeReferenceElement, costumeReference, Element.class)
+					: null;
 
 			String costumeName = null;
-			if(costumeElement != null) {
-				costumeName = getText(getChildElementByTagName(costumeElement, "name"));
-			}
-			else {
-				//TODO handle this error?
+			if (lookElement != null) {
+				costumeName = getText(getChildElementByTagName(lookElement,
+						"name"));
+			} else {
+				System.out.println("Look is null");
 			}
 
 			return new SetLookBrick(brickSprite, costumeName);
-			
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.WaitBrick")) {
+
+		} else if (brickNode.getNodeName().equals("Bricks.WaitBrick")) {
 			String timeToWait = getText(getChildElementByTagName(brickNode,
 					"timeToWaitInMilliSeconds"));
 			int waitTime = Integer.valueOf(timeToWait);
 			return new WaitBrick(brickSprite, waitTime, script);
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.PlaySoundBrick")) {
+		} else if (brickNode.getNodeName().equals("Bricks.PlaySoundBrick")) {
 
-//			CatrobatDebug.on();
+			// CatrobatDebug.on();
 			CatrobatDebug.console("PlaySoundBrick:");
-			
-			Element soundInfoElement = getChildElementByTagName(brickNode, "soundInfo");
+
+			Element soundInfoElement = getChildElementByTagName(brickNode,
+					"soundInfo");
 			SoundInfo soundInfo = new SoundInfo();
 			String soundId = null;
 			String fileName = null;
-			
+
 			CatrobatDebug.console("soundInfo: " + soundInfoElement);
-			
+
 			if (soundInfoElement != null) {
 
-				if(soundInfoElement.hasAttribute("reference")) {
-					
-					String soundInfoReference = checkReference(soundInfoElement.getAttribute("reference"), "PlaySoundBrick");
-					Element referencedSoundInfoElement = XPath.evaluateSingle(soundInfoElement, soundInfoReference, Element.class);
-					
-					CatrobatDebug.console("PlaySoundBrick has a reference-attribute: " + soundInfoReference);
-					CatrobatDebug.console("referenced soundInfo: " + referencedSoundInfoElement);
-					
-					if(referencedSoundInfoElement != null) {
+				if (soundInfoElement.hasAttribute("reference")) {
+
+					String soundInfoReference = checkReference(
+							soundInfoElement.getAttribute("reference"),
+							"PlaySoundBrick");
+					Element referencedSoundInfoElement = XPath
+							.evaluateSingle(soundInfoElement,
+									soundInfoReference, Element.class);
+
+					CatrobatDebug
+							.console("PlaySoundBrick has a reference-attribute: "
+									+ soundInfoReference);
+					CatrobatDebug.console("referenced soundInfo: "
+							+ referencedSoundInfoElement);
+
+					if (referencedSoundInfoElement != null) {
 						soundInfoElement = referencedSoundInfoElement;
-						CatrobatDebug.console("soundInfoElement got set to the referenced soundInfo");
-					}
-					else {
+						CatrobatDebug
+								.console("soundInfoElement got set to the referenced soundInfo");
+					} else {
 						CatrobatDebug.console("referenced soundInfo is null");
 						return null;
 					}
-					
+
 				}
-				
-				fileName = getText(getChildElementByTagName(soundInfoElement, "fileName"));
+
+				fileName = getText(getChildElementByTagName(soundInfoElement,
+						"fileName"));
 				CatrobatDebug.console("Filename: " + fileName);
-				
+
 				soundInfo.setFileName(fileName);
-				
-				soundInfo.setTitle(getText(getChildElementByTagName(soundInfoElement, "name")));
-				
-				CatrobatDebug.console("Title: " + getText(getChildElementByTagName(soundInfoElement, "name")));
-				
+
+				soundInfo.setTitle(getText(getChildElementByTagName(
+						soundInfoElement, "name")));
+
+				CatrobatDebug.console("Title: "
+						+ getText(getChildElementByTagName(soundInfoElement,
+								"name")));
+
 				soundId = fileName.split("_")[0];
-				
+
 				CatrobatDebug.console("Sound ID: " + soundId);
-				
+
 				soundInfo.setId(soundId);
 			}
-			
+
 			if (soundId == null || soundId.trim().length() == 0) {
-				// TODO
+				System.out.println("sound is null");
+			}else{
+				sprite.addSound(soundInfo);	
 			}
+
 			
-			sprite.addSound(soundInfo);
 			CatrobatDebug.off();
-			
+
 			return new PlaySoundBrick(brickSprite, soundId);
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.ChangeVolumeByBrick")) {
-			// FIXME check element tag name
-			String volumeValue = getText(getChildElementByTagName(brickNode, "volume"));
+		} else if (brickNode.getNodeName().equals("Bricks.ChangeVolumeByBrick")) {
+
+			String volumeValue = getText(getChildElementByTagName(brickNode,
+					"volume"));
 			double volume = Double.parseDouble(volumeValue);
-//			int volume = new Double(volumeValue).intValue();
+			// int volume = new Double(volumeValue).intValue();
 			return new ChangeVolumeByBrick(brickSprite, volume);
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.SetVolumeToBrick")) {
-			// FIXME check element tag name
-			String volumeValue = getText(getChildElementByTagName(brickNode, "volume"));
+		} else if (brickNode.getNodeName().equals("Bricks.SetVolumeToBrick")) {
+
+			String volumeValue = getText(getChildElementByTagName(brickNode,
+					"volume"));
 			double volume = Double.parseDouble(volumeValue);
-//			int volume = new Double(volumeValue).intValue();
+			// int volume = new Double(volumeValue).intValue();
 			return new SetVolumeToBrick(brickSprite, volume);
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.PlaceAtBrick")) {
+		} else if (brickNode.getNodeName().equals("Bricks.PlaceAtBrick")) {
 			String xValue = getText(getChildElementByTagName(brickNode,
 					"xPosition"));
 			int xPosition = Integer.parseInt(xValue);
@@ -553,87 +595,74 @@ public class Parser {
 					"yPosition"));
 			int yPosition = Integer.parseInt(yValue);
 			return new PlaceAtBrick(brickSprite, xPosition, yPosition);
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.ChangeSizeByNBrick")) {
-			String sValue = getText(getChildElementByTagName(brickNode,	"size"));
+		} else if (brickNode.getNodeName().equals("Bricks.ChangeSizeByNBrick")) {
+			String sValue = getText(getChildElementByTagName(brickNode, "size"));
 			double size = Double.parseDouble(sValue);
 			return new ChangeSizeByNBrick(brickSprite, size);
-		}
-		else if (brickNode.getNodeName().equals("Bricks.SetYBrick")) {
+		} else if (brickNode.getNodeName().equals("Bricks.SetYBrick")) {
 			String yValue = getText(getChildElementByTagName(brickNode,
 					"yPosition"));
 			int yPosition = Integer.parseInt(yValue);
 			return new SetYBrick(brickSprite, yPosition);
-		}
-		else if (brickNode.getNodeName().equals("Bricks.SetXBrick")) {
+		} else if (brickNode.getNodeName().equals("Bricks.SetXBrick")) {
 			String xValue = getText(getChildElementByTagName(brickNode,
 					"xPosition"));
 			int xPosition = Integer.parseInt(xValue);
 			return new SetXBrick(brickSprite, xPosition);
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.ChangeXByBrick")) {
-			
-			// FIXME check element tag name
+		} else if (brickNode.getNodeName().equals("Bricks.ChangeXByBrick")) {
+
 			String deltaValue = getText(getChildElementByTagName(brickNode,
-					"xMovement")); //"deltaX" ersetzt durch "xMovement", 21.08.12 Andi
+					"xMovement")); // "deltaX" ersetzt durch "xMovement",
+									// 21.08.12 Andi
 			int deltaX = Integer.parseInt(deltaValue);
 			return new ChangeXByBrick(brickSprite, deltaX);
-			
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.ChangeYByBrick")) {
-			
-			// FIXME check element tag name
+
+		} else if (brickNode.getNodeName().equals("Bricks.ChangeYByBrick")) {
+
 			String deltaValue = getText(getChildElementByTagName(brickNode,
-					"yMovement")); //"deltaY" ersetzt durch "yMovement", 21.08.12 Andi
+					"yMovement")); // "deltaY" ersetzt durch "yMovement",
+									// 21.08.12 Andi
 			int deltaY = Integer.parseInt(deltaValue);
 			return new ChangeYByBrick(brickSprite, deltaY);
-			
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.HideBrick")) {
+
+		} else if (brickNode.getNodeName().equals("Bricks.HideBrick")) {
 			return new HideBrick(brickSprite);
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.ShowBrick")) {
+		} else if (brickNode.getNodeName().equals("Bricks.ShowBrick")) {
 			return new ShowBrick(brickSprite);
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.StopAllSoundsBrick")) {
+		} else if (brickNode.getNodeName().equals("Bricks.StopAllSoundsBrick")) {
 			return new StopAllSoundsBrick(brickSprite);
-		}
-		else if (brickNode.getNodeName().equals("Bricks.TurnLeftBrick")) {
-			// FIXME check element tag name
+		} else if (brickNode.getNodeName().equals("Bricks.TurnLeftBrick")) {
+
 			String degreeValue = getText(getChildElementByTagName(brickNode,
 					"degrees"));
 			int degrees = new Double(degreeValue).intValue();
 			return new TurnLeftBrick(brickSprite, degrees);
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.TurnRightBrick")) {
-			// FIXME check element tag name
+		} else if (brickNode.getNodeName().equals("Bricks.TurnRightBrick")) {
+
 			String degreeValue = getText(getChildElementByTagName(brickNode,
 					"degrees"));
 			int degrees = new Double(degreeValue).intValue();
 			return new TurnRightBrick(brickSprite, degrees);
-		} 
-		else if (brickNode.getNodeName().equals(
+		} else if (brickNode.getNodeName().equals(
 				"Bricks.PointInDirectionBrick")) {
-			// FIXME check element tag name
+
 			String directionValue = getText(getChildElementByTagName(brickNode,
-					"degrees")); //"selectedIndex" ersetzt durch "degrees", 21.08.12 Andi
-//			int direction = Integer.parseInt(directionValue);
-			
+					"degrees")); // "selectedIndex" ersetzt durch "degrees",
+									// 21.08.12 Andi
+			// int direction = Integer.parseInt(directionValue);
+
 			double direction = Double.parseDouble(directionValue);
-			
+
 			return new PointInDirectionBrick(brickSprite, 0, direction);
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.GoNStepsBackBrick")) {
-			// FIXME check element tag name
+		} else if (brickNode.getNodeName().equals("Bricks.GoNStepsBackBrick")) {
+
 			String stepsValue = getText(getChildElementByTagName(brickNode,
 					"steps"));
 			int steps = Integer.parseInt(stepsValue);
 			return new GoNStepsBackBrick(brickSprite, steps);
-		}
-		else if (brickNode.getNodeName().equals("Bricks.ComeToFrontBrick")) {
+		} else if (brickNode.getNodeName().equals("Bricks.ComeToFrontBrick")) {
 			return new ComeToFrontBrick(brickSprite);
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.GlideToBrick")) {
+		} else if (brickNode.getNodeName().equals("Bricks.GlideToBrick")) {
 			String durationValue = getText(getChildElementByTagName(brickNode,
 					"durationInMilliSeconds"));
 			int duration = Integer.parseInt(durationValue);
@@ -645,201 +674,214 @@ public class Parser {
 			int yDestination = Integer.parseInt(yValue);
 			return new GlideToBrick(brickSprite, duration, xDestination,
 					yDestination, script);
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.SetSizeToBrick")) {
+		} else if (brickNode.getNodeName().equals("Bricks.SetSizeToBrick")) {
 			String sizeValue = getText(getChildElementByTagName(brickNode,
 					"size"));
 			double size = Double.parseDouble(sizeValue);
 			return new SetSizeToBrick(brickSprite, (float) size);
-		}
-		else if (brickNode.getNodeName().equals("Bricks.BroadcastBrick")) {
+		} else if (brickNode.getNodeName().equals("Bricks.BroadcastBrick")) {
 			String message = getText(getChildElementByTagName(brickNode,
-					"broadcastMessage")); //tag-name changed from "message" to "broadcastMessage", Andi, 11.08.12
+					"broadcastMessage")); // tag-name changed from "message" to
+											// "broadcastMessage", Andi,
+											// 11.08.12
 			return new BroadcastBrick(brickSprite, message);
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.BroadcastWaitBrick")) {
-			String message = getText(getChildElementByTagName(brickNode, "broadcastMessage"));
+		} else if (brickNode.getNodeName().equals("Bricks.BroadcastWaitBrick")) {
+			String message = getText(getChildElementByTagName(brickNode,
+					"broadcastMessage"));
 			return new BroadcastWaitBrick(brickSprite, message, script);
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.MoveNStepsBrick")) {
+		} else if (brickNode.getNodeName().equals("Bricks.MoveNStepsBrick")) {
 			String stepsValue = getText(getChildElementByTagName(brickNode,
 					"steps"));
 			double steps = Double.parseDouble(stepsValue);
 			return new MoveNStepsBrick(brickSprite, steps);
-		} 
-		else if (brickNode.getNodeName().equals("Bricks.NextCostumeBrick")) {
-						
+		} else if (brickNode.getNodeName().equals("Bricks.NextCostumeBrick")) {
+
 			return new NextLookBrick(brickSprite);
-		} 
-		else if(brickNode.getNodeName().equals("Bricks.RepeatBrick")) {
-			
-			Element timesToRepeatNode = getChildElementByTagName(brickNode, "timesToRepeat");
-			
+		} else if (brickNode.getNodeName().equals("Bricks.RepeatBrick")) {
+
+			Element timesToRepeatNode = getChildElementByTagName(brickNode,
+					"timesToRepeat");
+
 			int timesToRepeat = Integer.parseInt(getText(timesToRepeatNode));
-				
+
 			return new RepeatBrick(brickSprite, timesToRepeat);
-			
-		}
-		else if(brickNode.getNodeName().equals("Bricks.ForeverBrick")) {
-			
+
+		} else if (brickNode.getNodeName().equals("Bricks.ForeverBrick")) {
+
 			return new ForeverBrick(brickSprite);
-			
-		}
-		else if(brickNode.getNodeName().equals("Bricks.LoopEndBrick")) {
-			
-			LoopBeginBrick loopStartingBrick = script.getLastLoopBeginBrickWithoutLoopEndBrick();
-			
-			//TODO: if loopStartingBrick == null, Exception??
-			
-			LoopEndBrick loopEndBrick = new LoopEndBrick(brickSprite, loopStartingBrick);
-			
+
+		} else if (brickNode.getNodeName().equals("Bricks.LoopEndBrick")) {
+
+			LoopBeginBrick loopStartingBrick = script
+					.getLastLoopBeginBrickWithoutLoopEndBrick();
+
+			if (loopStartingBrick == null) {
+				System.out.println("loopStartingBrick is null");
+				return null;
+			}
+
+			LoopEndBrick loopEndBrick = new LoopEndBrick(brickSprite,
+					loopStartingBrick);
+
 			loopStartingBrick.setLoopEndBrick(loopEndBrick);
-			
+
 			return loopEndBrick;
-		}
-		else if(brickNode.getNodeName().equals("Bricks.NoteBrick")) {
-			
+		} else if (brickNode.getNodeName().equals("Bricks.NoteBrick")) {
+
 			Element noteNode = getChildElementByTagName(brickNode, "note");
-			
+
 			String note = getText(noteNode);
-				
-			if(note == null)
+
+			if (note == null)
 				return new NoteBrick(brickSprite);
 			else
 				return new NoteBrick(brickSprite, note);
-		}
-		else if(brickNode.getNodeName().equals("Bricks.SetGhostEffectBrick")) {
-			Element transparencyNode = getChildElementByTagName(brickNode, "transparency");
+		} else if (brickNode.getNodeName().equals("Bricks.SetGhostEffectBrick")) {
+			Element transparencyNode = getChildElementByTagName(brickNode,
+					"transparency");
 			String transparency = getText(transparencyNode);
-			
+
 			double ghostEffectValue = Double.parseDouble(transparency);
 			return new SetGhostEffectBrick(brickSprite, ghostEffectValue);
-		}
-		else if(brickNode.getNodeName().equals("Bricks.ChangeGhostEffectBrick")) {
-			Element changeGhostEffectNode = getChildElementByTagName(brickNode, "changeGhostEffect");
+		} else if (brickNode.getNodeName().equals(
+				"Bricks.ChangeGhostEffectBrick")) {
+			Element changeGhostEffectNode = getChildElementByTagName(brickNode,
+					"changeGhostEffect");
 			String changeGhostEffect = getText(changeGhostEffectNode);
-			
-			double changeGhostEffectValue = Double.parseDouble(changeGhostEffect);
-			return new ChangeGhostEffectByBrick(brickSprite, changeGhostEffectValue);
-		} 
-		else if(brickNode.getNodeName().equals("Bricks.IfOnEdgeBounceBrick")) {
+
+			double changeGhostEffectValue = Double
+					.parseDouble(changeGhostEffect);
+			return new ChangeGhostEffectByBrick(brickSprite,
+					changeGhostEffectValue);
+		} else if (brickNode.getNodeName().equals("Bricks.IfOnEdgeBounceBrick")) {
 			return new IfOnEdgeBounceBrick(brickSprite);
-		}
-		else if(brickNode.getNodeName().equals("Bricks.PointToBrick")) {
-			
-			Element pointedSpriteNode = getChildElementByTagName(brickNode, "pointedSprite");
+		} else if (brickNode.getNodeName().equals("Bricks.PointToBrick")) {
+
+			Element pointedSpriteNode = getChildElementByTagName(brickNode,
+					"pointedSprite");
 			Element pointedSpriteNameNode = null;
 			String pointedSpriteName = null;
-			
-			if(pointedSpriteNode.hasAttribute("reference")) {
-				String pointedSpriteReference = pointedSpriteNode.getAttribute("reference");
-				Element referencedSpriteNode = XPath.evaluateSingle(pointedSpriteNode, pointedSpriteReference, Element.class);
-				pointedSpriteNameNode = getChildElementByTagName(referencedSpriteNode, "name");
+
+			if (pointedSpriteNode.hasAttribute("reference")) {
+				String pointedSpriteReference = pointedSpriteNode
+						.getAttribute("reference");
+				Element referencedSpriteNode = XPath.evaluateSingle(
+						pointedSpriteNode, pointedSpriteReference,
+						Element.class);
+				pointedSpriteNameNode = getChildElementByTagName(
+						referencedSpriteNode, "name");
+			} else {
+				pointedSpriteNameNode = getChildElementByTagName(
+						pointedSpriteNode, "name");
 			}
-			else {
-				pointedSpriteNameNode = getChildElementByTagName(pointedSpriteNode, "name");
-			}
-			
-			if(pointedSpriteNameNode != null) {
+
+			if (pointedSpriteNameNode != null) {
 				pointedSpriteName = getText(pointedSpriteNameNode);
 			}
-			
+
 			CatrobatDebug.on();
-			CatrobatDebug.console("Sprite " + brickSprite + " has PointToBrick which points to Sprite " + pointedSpriteName);
+			CatrobatDebug.console("Sprite " + brickSprite
+					+ " has PointToBrick which points to Sprite "
+					+ pointedSpriteName);
 			CatrobatDebug.off();
-			
+
 			return new PointToBrick(brickSprite, pointedSpriteName);
-		}
-		else if(brickNode.getNodeName().equals("Bricks.ClearGraphicEffectBrick")) {
+		} else if (brickNode.getNodeName().equals(
+				"Bricks.ClearGraphicEffectBrick")) {
 			return new ClearGraphicEffectBrick(brickSprite);
-		}
-		else if(brickNode.getNodeName().equals("Bricks.SetBrightnessBrick")) {
-			Element brightnessNode = getChildElementByTagName(brickNode, "brightness");
+		} else if (brickNode.getNodeName().equals("Bricks.SetBrightnessBrick")) {
+			Element brightnessNode = getChildElementByTagName(brickNode,
+					"brightness");
 			String brightnessValueAsString = getText(brightnessNode);
-			
-			double brightnessValue = Double.parseDouble(brightnessValueAsString);
-			
+
+			double brightnessValue = Double
+					.parseDouble(brightnessValueAsString);
+
 			return new SetBrightnessBrick(brickSprite, brightnessValue);
-		}
-		else if (brickNode.getNodeName().equals("Bricks.ChangeBrightnessBrick")) {
-			
-			//TODO: tag-name for brightness value unknown
-			Element brightnessNode = getChildElementByTagName(brickNode, "brightness");
+		} else if (brickNode.getNodeName().equals(
+				"Bricks.ChangeBrightnessBrick")) {
+
+			// TODO: tag-name for brightness value unknown
+			Element brightnessNode = getChildElementByTagName(brickNode,
+					"brightness");
 			String brightnessValueAsString = getText(brightnessNode);
-			
-			double brightnessValue = Double.parseDouble(brightnessValueAsString);
-			
+
+			double brightnessValue = Double
+					.parseDouble(brightnessValueAsString);
+
 			return new ChangeBrightnessBrick(brickSprite, brightnessValue);
 		} else {
-			CatrobatDebug.console("Brick: " + brickNode.getNodeName() + " not implemented");
-			Stage.getInstance().log("Brick not implemented:" + brickNode.getNodeName());
+			CatrobatDebug.console("Brick: " + brickNode.getNodeName()
+					+ " not implemented");
+			Stage.getInstance().log(
+					"Brick not implemented:" + brickNode.getNodeName());
 		}
 		return null;
 	}
 
 	private Script checkScript(Element scriptElement, Sprite sprite) {
 
-		Element spriteReferenceElement = getChildElementByTagName(scriptElement, "sprite");
-		String spriteReference = spriteReferenceElement != null ? spriteReferenceElement .getAttribute("reference") : null;
-		Element spriteElement = (spriteReferenceElement != null && spriteReference != null) ? 
-				XPath.evaluateSingle(spriteReferenceElement, spriteReference, Element.class) : null;
-				
+		Element spriteReferenceElement = getChildElementByTagName(
+				scriptElement, "sprite");
+		String spriteReference = spriteReferenceElement != null ? spriteReferenceElement
+				.getAttribute("reference") : null;
+		Element spriteElement = (spriteReferenceElement != null && spriteReference != null) ? XPath
+				.evaluateSingle(spriteReferenceElement, spriteReference,
+						Element.class) : null;
+
 		Sprite scriptSprite = sprite;
-		
-		if (spriteElement != null && spriteElement.getNodeName().equals("Content.Sprite")) {
-			
-			String spriteName = getText(getChildElementByTagName(spriteElement, "name"));
-			
+
+		if (spriteElement != null
+				&& spriteElement.getNodeName().equals("Content.Sprite")) {
+
+			String spriteName = getText(getChildElementByTagName(spriteElement,
+					"name"));
+
 			if (spriteName == null || spriteName.trim().length() == 0) {
-				// TODO
-				Stage.getInstance().log( "Invalid sprite reference: "
+
+				Stage.getInstance().log(
+						"Invalid sprite reference: "
 								+ spriteElement.getNodeName() + " for "
 								+ spriteReference);
-				
-			} 
-			else if (!sprite.getName().equals(spriteName)) {
+
+			} else if (!sprite.getName().equals(spriteName)) {
 				scriptSprite = manager.getSprite(spriteName, true);
 			}
-		} 
-		else {
+		} else {
 
 		}
 		if (scriptElement.getNodeName().equals("Content.StartScript")) {
 
 			return new StartScript(scriptSprite, "startScript");
-			
-		} 
-		else if (scriptElement.getNodeName().equals("Content.WhenScript")) {
-			// TODO parse action and number for now touch is only action
 
-			// FIXME add action and position fields to script
-			//String action = getText(getChildElementByTagName(scriptElement, "action"));
-			//String position = getText(getChildElementByTagName(scriptElement, "position"));
-
+		} else if (scriptElement.getNodeName().equals("Content.WhenScript")) {
 			return new WhenScript(scriptSprite, "whenScript");
-		} 
-		else if (scriptElement.getNodeName().equals("Content.BroadcastScript")) {
-			//tag-name changed from "message" to "receivedMessage", Andi, 11.08.12
-			String message = getText(getChildElementByTagName(scriptElement, "receivedMessage")); 
+		} else if (scriptElement.getNodeName()
+				.equals("Content.BroadcastScript")) {
+			// tag-name changed from "message" to "receivedMessage", Andi,
+			// 11.08.12
+			String message = getText(getChildElementByTagName(scriptElement,
+					"receivedMessage"));
 			return new BroadcastScript(scriptSprite, "broadcastScript", message);
 		} else {
-			Stage.getInstance().log("Script not implemented:" + scriptElement.getNodeName());
+			Stage.getInstance().log(
+					"Script not implemented:" + scriptElement.getNodeName());
 			return null;
 		}
 	}
-	
-	//##########################################################################
+
+	// ##########################################################################
 
 	private void setRootCanvasSize(int width, int height) {
 		Scene.get().setSceneMeasures(width, height);
 	}
-	
-	//##########################################################################
-	
+
+	// ##########################################################################
+
 	public boolean isParsingComplete() {
-		 return parsingComplete;
+		return parsingComplete;
 	}
-	
+
 	private void parserFinished() {
 		parsingComplete = true;
 	}

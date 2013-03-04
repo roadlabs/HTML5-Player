@@ -82,7 +82,7 @@ public class Html5Player implements EntryPoint {
 
 		
 		if(Scene.get().createScene() == false) {
-			//TODO exception?
+			//TODO exception  if canvas not supported?
 			CatrobatDebug.console("Canvas not supported");
 			return;
 		}
@@ -154,9 +154,8 @@ public class Html5Player implements EntryPoint {
 			stage.displayLoadingImage();
 			
 			stage.setProjectNumber(projectNumber);
-			// TODO: check if to name should be removed because it is not used!!!
+			// TODO: remove project name
 			String projectName = ""; 
-			//get xml-projectfile from server
 			server.getXML(projectName, projectNumber);
 		}
 	}

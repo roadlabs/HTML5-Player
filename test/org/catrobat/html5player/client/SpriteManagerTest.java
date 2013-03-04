@@ -80,24 +80,6 @@ public class SpriteManagerTest extends GWTTestCase {
 	}
 	
 	//--------------------------------------------------------------------------
-	
-	/**
-	 * TODO muss addSprite public sein?
-	 */
-	public void testAddSprite() {
-		String testSpriteName = "testSprite";
-		String testSprite2Name = "testSprite2";
-		Sprite testSprite = new Sprite(testSpriteName);
-		Sprite testSprite2 = new Sprite(testSprite2Name);
-		
-		spriteManager.addSprite(testSprite);
-		spriteManager.addSprite(testSprite2);
-		
-		assertFalse(spriteManager.getSpriteList().isEmpty());
-		assertEquals(testSprite, spriteManager.getSprite(testSpriteName, false));
-		assertEquals(testSprite2, spriteManager.getSprite(testSprite2Name, false));
-	}
-	
 	/**
 	 * 
 	 */

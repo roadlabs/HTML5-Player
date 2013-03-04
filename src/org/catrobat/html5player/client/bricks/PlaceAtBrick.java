@@ -40,12 +40,8 @@ public class PlaceAtBrick extends Brick {
 	@Override
 	public boolean execute(Sprite sprite) {
 		Look look = sprite.getLook();
-		// TODO fix this with the coordinate system, refactor whole program
-		
 		look.setXPosition(xPosition + Stage.getInstance().getStageMiddleX());
 		look.setYPosition(-yPosition + Stage.getInstance().getStageMiddleY());
-		
-		
 		look.setMiddleX(xPosition);
 		look.setMiddleY(-yPosition);
 		

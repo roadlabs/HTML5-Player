@@ -71,7 +71,7 @@ public class BroadcastWaitBrick extends Brick {
 		
 		for (BroadcastScript receiverScript : receiver) {
 			
-			receiverScript.resetBroadcastScript(); ///TODO ???????
+			receiverScript.resetBroadcastScript();
 			
 			receiverScript.executeBroadcastWait(signaler);
 			

@@ -41,11 +41,11 @@ public class IfOnEdgeBounceBrickTest extends GWTTestCase {
 	private int sceneHeight = 400;
 	private int sceneWidthMiddle = sceneWidth / 2;
 	private int sceneHeightMiddle = sceneHeight / 2;
-	
+
 	private String spriteName = "spriteName";
 	private Sprite sprite;
 	private Look look;
-	
+
 	/**
 	 * 
 	 */
@@ -54,32 +54,34 @@ public class IfOnEdgeBounceBrickTest extends GWTTestCase {
 		scene = Scene.get();
 		spriteManager = stage.getSpriteManager();
 	}
-	
+
 	@Override
 	public String getModuleName() {
 		return "org.catrobat.html5player.html5player";
 	}
-	
+
 	public void gwtSetUp() {
 		scene.createScene(sceneWidth, sceneHeight);
 		Canvas canvas = scene.getCanvas();
 		stage.setCanvas(canvas);
-		
+
 		sprite = spriteManager.getSprite(spriteName, true);
 		look = sprite.getLook();
 		LookData lookData = createCostumeData("look");
 		look.setLookData(lookData);
 	}
-	
+
 	public void gwtTearDown() {
 		spriteManager.reset();
 	}
-	
-	//--------------------------------------------------------------------------
-	
+
+	// --------------------------------------------------------------------------
+
 	/**
 	 * Helper
-	 * @param name of Look
+	 * 
+	 * @param name
+	 *            of Look
 	 * @return LookData for look
 	 */
 	private LookData createCostumeData(String name) {
@@ -87,12 +89,12 @@ public class IfOnEdgeBounceBrickTest extends GWTTestCase {
 		data.setName(name);
 		return data;
 	}
-	
-	//--------------------------------------------------------------------------
-	
-	
-	//----------------------- BOUNCE NO ROTATION -------------------------------
-	
+
+	// --------------------------------------------------------------------------
+
+	// ----------------------- BOUNCE NO ROTATION
+	// -------------------------------
+
 	/**
 	 * 
 	 */
@@ -100,29 +102,30 @@ public class IfOnEdgeBounceBrickTest extends GWTTestCase {
 		double x = -100 + sceneWidthMiddle;
 		double y = 0 + sceneHeightMiddle;
 		double rotation = 0;
-		
+
 		int width = 20;
 		int height = 30;
-		
+
 		look.setXPosition(x);
 		look.setYPosition(y);
 		look.setRotation(rotation);
-		
+
 		look.getLookData().setWidth(width);
 		look.getLookData().setHeight(height);
-		
+
 		IfOnEdgeBounceBrick brick = new IfOnEdgeBounceBrick(spriteName);
 		brick.execute();
-		
+
 		double costumeXPosition = look.getXPosition();
 		double costumeYPosition = look.getYPosition();
 		double costumeRotation = look.getRotation();
-		
-		assertEquals((-sceneWidthMiddle + width/2) + sceneWidthMiddle, (int)costumeXPosition);
-		assertEquals((int)y, (int)costumeYPosition);
+
+		assertEquals((-sceneWidthMiddle + width / 2) + sceneWidthMiddle,
+				(int) costumeXPosition);
+		assertEquals((int) y, (int) costumeYPosition);
 		assertEquals(0.0, costumeRotation);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -130,29 +133,30 @@ public class IfOnEdgeBounceBrickTest extends GWTTestCase {
 		double x = 100 + sceneWidthMiddle;
 		double y = 0 + sceneHeightMiddle;
 		double rotation = 0;
-		
+
 		int width = 20;
 		int height = 30;
-		
+
 		look.setXPosition(x);
 		look.setYPosition(y);
 		look.setRotation(rotation);
-		
+
 		look.getLookData().setWidth(width);
 		look.getLookData().setHeight(height);
-		
+
 		IfOnEdgeBounceBrick brick = new IfOnEdgeBounceBrick(spriteName);
 		brick.execute();
-		
+
 		double costumeXPosition = look.getXPosition();
 		double costumeYPosition = look.getYPosition();
 		double costumeRotation = look.getRotation();
-		
-		assertEquals((sceneWidthMiddle-width/2) + sceneWidthMiddle, (int)costumeXPosition);
-		assertEquals((int)y, (int)costumeYPosition);
+
+		assertEquals((sceneWidthMiddle - width / 2) + sceneWidthMiddle,
+				(int) costumeXPosition);
+		assertEquals((int) y, (int) costumeYPosition);
 		assertEquals(180.0, costumeRotation);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -160,29 +164,30 @@ public class IfOnEdgeBounceBrickTest extends GWTTestCase {
 		double x = 0 + sceneWidthMiddle;
 		double y = 200 + sceneHeightMiddle;
 		double rotation = 0;
-		
+
 		int width = 20;
 		int height = 30;
-		
+
 		look.setXPosition(x);
 		look.setYPosition(y);
 		look.setRotation(rotation);
-		
+
 		look.getLookData().setWidth(width);
 		look.getLookData().setHeight(height);
-		
+
 		IfOnEdgeBounceBrick brick = new IfOnEdgeBounceBrick(spriteName);
 		brick.execute();
-		
+
 		double costumeXPosition = look.getXPosition();
 		double costumeYPosition = look.getYPosition();
 		double costumeRotation = look.getRotation();
-		
-		assertEquals((int)x, (int)costumeXPosition);
-		assertEquals((sceneHeightMiddle - height/2) + sceneHeightMiddle, (int)costumeYPosition);
+
+		assertEquals((int) x, (int) costumeXPosition);
+		assertEquals((sceneHeightMiddle - height / 2) + sceneHeightMiddle,
+				(int) costumeYPosition);
 		assertEquals(0.0, costumeRotation);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -190,35 +195,33 @@ public class IfOnEdgeBounceBrickTest extends GWTTestCase {
 		double x = 0 + sceneWidthMiddle;
 		double y = -200 + sceneHeightMiddle;
 		double rotation = 0;
-		
+
 		int width = 20;
 		int height = 30;
-		
+
 		look.setXPosition(x);
 		look.setYPosition(y);
 		look.setRotation(rotation);
-		
+
 		look.getLookData().setWidth(width);
 		look.getLookData().setHeight(height);
-		
+
 		IfOnEdgeBounceBrick brick = new IfOnEdgeBounceBrick(spriteName);
 		brick.execute();
-		
+
 		double costumeXPosition = look.getXPosition();
 		double costumeYPosition = look.getYPosition();
 		double costumeRotation = look.getRotation();
-		
-		assertEquals((int)x, (int)costumeXPosition);
-		assertEquals((-sceneHeightMiddle + height / 2) + sceneHeightMiddle, (int)costumeYPosition);
+
+		assertEquals((int) x, (int) costumeXPosition);
+		assertEquals((-sceneHeightMiddle + height / 2) + sceneHeightMiddle,
+				(int) costumeYPosition);
 		assertEquals(0.0, costumeRotation);
 	}
-	
-	//----------------------- BOUNCE WITH ROTATION -----------------------------
-	
-	/**
-	 * TODO BETTER TESTS
-	 */
-	
+
+	// ----------------------- BOUNCE WITH ROTATION
+	// -----------------------------
+
 	/**
 	 * 
 	 */
@@ -226,29 +229,30 @@ public class IfOnEdgeBounceBrickTest extends GWTTestCase {
 		double x = -100 + sceneWidthMiddle;
 		double y = 0 + sceneHeightMiddle;
 		double rotation = 180;
-		
+
 		int width = 20;
 		int height = 30;
-		
+
 		look.setXPosition(x);
 		look.setYPosition(y);
 		look.setRotation(rotation);
-		
+
 		look.getLookData().setWidth(width);
 		look.getLookData().setHeight(height);
-		
+
 		IfOnEdgeBounceBrick brick = new IfOnEdgeBounceBrick(spriteName);
 		brick.execute();
-		
+
 		double costumeXPosition = look.getXPosition();
 		double costumeYPosition = look.getYPosition();
 		double costumeRotation = look.getRotation();
-		
-		assertEquals((-sceneWidthMiddle + width/2) + sceneWidthMiddle, (int)costumeXPosition);
-		assertEquals((int)y, (int)costumeYPosition);
+
+		assertEquals((-sceneWidthMiddle + width / 2) + sceneWidthMiddle,
+				(int) costumeXPosition);
+		assertEquals((int) y, (int) costumeYPosition);
 		assertEquals(0.0, costumeRotation);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -256,29 +260,30 @@ public class IfOnEdgeBounceBrickTest extends GWTTestCase {
 		double x = 100 + sceneWidthMiddle;
 		double y = 0 + sceneHeightMiddle;
 		double rotation = 180;
-		
+
 		int width = 20;
 		int height = 30;
-		
+
 		look.setXPosition(x);
 		look.setYPosition(y);
 		look.setRotation(rotation);
-		
+
 		look.getLookData().setWidth(width);
 		look.getLookData().setHeight(height);
-		
+
 		IfOnEdgeBounceBrick brick = new IfOnEdgeBounceBrick(spriteName);
 		brick.execute();
-		
+
 		double costumeXPosition = look.getXPosition();
 		double costumeYPosition = look.getYPosition();
 		double costumeRotation = look.getRotation();
-		
-		assertEquals((sceneWidthMiddle-width/2) + sceneWidthMiddle, (int)costumeXPosition);
-		assertEquals((int)y, (int)costumeYPosition);
+
+		assertEquals((sceneWidthMiddle - width / 2) + sceneWidthMiddle,
+				(int) costumeXPosition);
+		assertEquals((int) y, (int) costumeYPosition);
 		assertEquals(180.0, costumeRotation);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -286,29 +291,30 @@ public class IfOnEdgeBounceBrickTest extends GWTTestCase {
 		double x = 0 + sceneWidthMiddle;
 		double y = 200 + sceneHeightMiddle;
 		double rotation = 180;
-		
+
 		int width = 20;
 		int height = 30;
-		
+
 		look.setXPosition(x);
 		look.setYPosition(y);
 		look.setRotation(rotation);
-		
+
 		look.getLookData().setWidth(width);
 		look.getLookData().setHeight(height);
-		
+
 		IfOnEdgeBounceBrick brick = new IfOnEdgeBounceBrick(spriteName);
 		brick.execute();
-		
+
 		double costumeXPosition = look.getXPosition();
 		double costumeYPosition = look.getYPosition();
 		double costumeRotation = look.getRotation();
-		
-		assertEquals((int)x, (int)costumeXPosition);
-		assertEquals((sceneHeightMiddle - height/2) + sceneHeightMiddle, (int)costumeYPosition);
+
+		assertEquals((int) x, (int) costumeXPosition);
+		assertEquals((sceneHeightMiddle - height / 2) + sceneHeightMiddle,
+				(int) costumeYPosition);
 		assertEquals(180.0, costumeRotation);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -316,31 +322,33 @@ public class IfOnEdgeBounceBrickTest extends GWTTestCase {
 		double x = 0 + sceneWidthMiddle;
 		double y = -200 + sceneHeightMiddle;
 		double rotation = 180;
-		
+
 		int width = 20;
 		int height = 30;
-		
+
 		look.setXPosition(x);
 		look.setYPosition(y);
 		look.setRotation(rotation);
-		
+
 		look.getLookData().setWidth(width);
 		look.getLookData().setHeight(height);
-		
+
 		IfOnEdgeBounceBrick brick = new IfOnEdgeBounceBrick(spriteName);
 		brick.execute();
-		
+
 		double costumeXPosition = look.getXPosition();
 		double costumeYPosition = look.getYPosition();
 		double costumeRotation = look.getRotation();
-		
-		assertEquals((int)x, (int)costumeXPosition);
-		assertEquals((-sceneHeightMiddle + height / 2) + sceneHeightMiddle, (int)costumeYPosition);
+
+		assertEquals((int) x, (int) costumeXPosition);
+		assertEquals((-sceneHeightMiddle + height / 2) + sceneHeightMiddle,
+				(int) costumeYPosition);
 		assertEquals(180.0, costumeRotation);
 	}
-	
-	//---------------------------- NO BOUNCE -----------------------------------
-	
+
+	// ---------------------------- NO BOUNCE
+	// -----------------------------------
+
 	/**
 	 * 
 	 */
@@ -348,29 +356,29 @@ public class IfOnEdgeBounceBrickTest extends GWTTestCase {
 		double x = -90 + sceneWidthMiddle;
 		double y = 0 + sceneHeightMiddle;
 		double rotation = 0;
-		
+
 		int width = 20;
 		int height = 30;
-		
+
 		look.setXPosition(x);
 		look.setYPosition(y);
 		look.setRotation(rotation);
-		
+
 		look.getLookData().setWidth(width);
 		look.getLookData().setHeight(height);
-		
+
 		IfOnEdgeBounceBrick brick = new IfOnEdgeBounceBrick(spriteName);
 		brick.execute();
-		
+
 		double costumeXPosition = look.getXPosition();
 		double costumeYPosition = look.getYPosition();
 		double costumeRotation = look.getRotation();
-		
-		assertEquals((int)x, (int)costumeXPosition);
-		assertEquals((int)y, (int)costumeYPosition);
+
+		assertEquals((int) x, (int) costumeXPosition);
+		assertEquals((int) y, (int) costumeYPosition);
 		assertEquals(rotation, costumeRotation);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -378,29 +386,29 @@ public class IfOnEdgeBounceBrickTest extends GWTTestCase {
 		double x = 90 + sceneWidthMiddle;
 		double y = 0 + sceneHeightMiddle;
 		double rotation = 0;
-		
+
 		int width = 20;
 		int height = 30;
-		
+
 		look.setXPosition(x);
 		look.setYPosition(y);
 		look.setRotation(rotation);
-		
+
 		look.getLookData().setWidth(width);
 		look.getLookData().setHeight(height);
-		
+
 		IfOnEdgeBounceBrick brick = new IfOnEdgeBounceBrick(spriteName);
 		brick.execute();
-		
+
 		double costumeXPosition = look.getXPosition();
 		double costumeYPosition = look.getYPosition();
 		double costumeRotation = look.getRotation();
-		
-		assertEquals((int)x, (int)costumeXPosition);
-		assertEquals((int)y, (int)costumeYPosition);
+
+		assertEquals((int) x, (int) costumeXPosition);
+		assertEquals((int) y, (int) costumeYPosition);
 		assertEquals(rotation, costumeRotation);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -408,29 +416,29 @@ public class IfOnEdgeBounceBrickTest extends GWTTestCase {
 		double x = 0 + sceneWidthMiddle;
 		double y = 185 + sceneHeightMiddle;
 		double rotation = 0;
-		
+
 		int width = 20;
 		int height = 30;
-		
+
 		look.setXPosition(x);
 		look.setYPosition(y);
 		look.setRotation(rotation);
-		
+
 		look.getLookData().setWidth(width);
 		look.getLookData().setHeight(height);
-		
+
 		IfOnEdgeBounceBrick brick = new IfOnEdgeBounceBrick(spriteName);
 		brick.execute();
-		
+
 		double costumeXPosition = look.getXPosition();
 		double costumeYPosition = look.getYPosition();
 		double costumeRotation = look.getRotation();
-		
-		assertEquals((int)x, (int)costumeXPosition);
-		assertEquals((int)y, (int)costumeYPosition);
+
+		assertEquals((int) x, (int) costumeXPosition);
+		assertEquals((int) y, (int) costumeYPosition);
 		assertEquals(rotation, costumeRotation);
 	}
-	
+
 	/**
 	 * 
 	 */
@@ -438,47 +446,27 @@ public class IfOnEdgeBounceBrickTest extends GWTTestCase {
 		double x = 0 + sceneWidthMiddle;
 		double y = -185 + sceneHeightMiddle;
 		double rotation = 0;
-		
+
 		int width = 20;
 		int height = 30;
-		
+
 		look.setXPosition(x);
 		look.setYPosition(y);
 		look.setRotation(rotation);
-		
+
 		look.getLookData().setWidth(width);
 		look.getLookData().setHeight(height);
-		
+
 		IfOnEdgeBounceBrick brick = new IfOnEdgeBounceBrick(spriteName);
 		brick.execute();
-		
+
 		double costumeXPosition = look.getXPosition();
 		double costumeYPosition = look.getYPosition();
 		double costumeRotation = look.getRotation();
-		
-		assertEquals((int)x, (int)costumeXPosition);
-		assertEquals((int)y, (int)costumeYPosition);
+
+		assertEquals((int) x, (int) costumeXPosition);
+		assertEquals((int) y, (int) costumeYPosition);
 		assertEquals(rotation, costumeRotation);
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

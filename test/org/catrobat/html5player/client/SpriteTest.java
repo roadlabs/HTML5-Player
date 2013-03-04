@@ -290,47 +290,9 @@ public class SpriteTest extends GWTTestCase {
 	}
 	
 	/**
-	 * 
+	 * TODO Implement sound test
 	 */
-	public void testAddGetSound() {
-		String newSpriteName = "newSprite";
-		Sprite newSprite = new Sprite(newSpriteName);
-		
-		stage.setProjectNumber("393");
-		
-		//URL of Project with sound: 
-		//http://catroid.org/resources/projects/393/projectcode.xml
-		/*
-		String soundInfo1Filename = "E6EE4E71FEB185DC70261885C5C3D6DA_Super Mario Bros Theme Song.mp3";
-		String soundInfo2Filename = "A4A16FFE9972266AB24217FB89CE7732_Kleiner Junge spielt Schlagzeug.mp3";
-		String soundInfo1ID = soundInfo1Filename.split("_")[0];
-		String soundInfo2ID = soundInfo2Filename.split("_")[0];
-		String soundInfo1Name = "Super Mario Bros Theme Song";
-		String soundInfo2Name = "Kleiner Junge spielt Schlagzeug";
-		SoundInfo soundInfo1 = createSoundInfo(soundInfo1ID, soundInfo1Filename,
-																soundInfo1Name);
-		SoundInfo soundInfo2 = createSoundInfo(soundInfo2ID, soundInfo2Filename,
-																soundInfo2Name);
-		*/
-//		// add sound infos
-//		newSprite.addSound(soundInfo1);
-//		newSprite.addSound(soundInfo2);
-//		
-//		// get
-//		assertTrue(newSprite.getSound(soundInfo1ID) instanceof Sound);
-//		assertTrue(newSprite.getSound(soundInfo2ID) instanceof Sound);
-//		
-//		assertEquals(soundInfo1ID, newSprite.getSound(soundInfo1ID).getSoundInfo().getId());
-//		assertEquals(soundInfo2ID, newSprite.getSound(soundInfo2ID).getSoundInfo().getId());
-		
-		assertNull(newSprite.getSound("notInSoundList"));
-		assertNull(newSprite.getSound(null));
-		
-		stage.setProjectNumber(null);
-		
-		//TODO geht nicht wegen updateAudio() in Sound,
-		//     wenn addSource aufgerufen wird
-	}
+	
 	
 	
 	/**
@@ -380,8 +342,7 @@ public class SpriteTest extends GWTTestCase {
 		newSprite.addScript(script4);
 		
 		// run
-		newSprite.run(); //TODO muss SpriteManager übergeben werden?
-		
+		newSprite.run(); 
 		assertEquals(2, CatScheduler.get().getThreadCount());
 		CatScheduler.get().execute();
 		CatScheduler.get().execute();
@@ -514,32 +475,4 @@ public class SpriteTest extends GWTTestCase {
 	//TODO: tests for playSound(), stopSound(), showCostume(), drawSprite(),
 	//		processOnTouch(), 
 	//
-	//...
-	
-	/**
-	 * 
-	 */
-	
-	
-
-//	public void gwtSetUp(){
-//		rootCanvas = Canvas.createIfSupported();
-//		rootContext = rootCanvas.getContext2d();
-//		simpleCleanSprite = new Sprite(rootContext);
-//		
-//	}
-	
-//	public void testSprite(){
-//		Sprite sprite = new Sprite(rootContext);
-//		sprite.addCostume("name", "url");
-//		Script script = new WhenScript();
-//		script.addBrick(new SetLookBrick());
-//		sprite.addScript(script);
-//		sprite.addSound("someSound", "toUrl", "id");
-//		sprite.drawSprite();
-//		sprite.playSound(0);
-//		sprite.playSound(3);
-//		assertTrue(true);
-//	}
-
 }

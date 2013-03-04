@@ -226,7 +226,7 @@ public class BroadcastScriptTest extends GWTTestCase {
 		broadcastScript.deleteBrick(position);
 		assertTrue(broadcastScript.getBrickList().isEmpty());
 		
-		//startScript.deleteBrick(position+3); <-- IndexOutOfBoundsException TODO
+		
 	}
 	
 	/**
@@ -533,7 +533,7 @@ public class BroadcastScriptTest extends GWTTestCase {
 		assertEquals(loopEndBrickInner, repeatBrickInner.getLoopEndBrick());
 	}
 	
-	//TODO: runWait() - is same as run() in the meantime
+	//TODO: TEST runWait() - is same as run() in the meantime
 	//
 	//...
 	

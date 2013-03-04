@@ -164,10 +164,6 @@ public class SceneTest extends GWTTestCase {
 		Scene.get().drawImage(image, 10, 10, image.getWidth(), image.getHeight(), 1);
 	}
 	
-	/**
-	 * TODO: Test does not work, because transformations are applied to the 
-	 * 		 context in the drawImage() method
-	 */
 	public void testDrawImage2() {
 		
 		int sceneWidth = 200;
@@ -180,9 +176,9 @@ public class SceneTest extends GWTTestCase {
 		String url = Const.PROJECT_PATH + "410" + "/images/143780EBC24495149123CCAF3A1CDC35_Katze normal";
 		
 		ImageHandler.get().newImage(imageName, url, 0, 0);
-		//Image image = ImageHandler.get().getImage(imageName);
+		Image image = ImageHandler.get().getImage(imageName);
 		
-//		Scene.get().drawImage(image, 10, 10, 10, 10, image.getWidth(), image.getHeight(), 0, 1, 1, 1);
+		Scene.get().drawImage(image, 10, 10, 10, 10, image.getWidth(), image.getHeight(), 0, 1, 1, 1);
 	}
 	
 }

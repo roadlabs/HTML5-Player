@@ -147,7 +147,7 @@ public class Sprite {
 		}
 	}
 
-	//TODO: unused, only in sprite test
+	// unused, only in sprite test
 	public Script getScript(String name) {
 		for (Script script : scripts) {
 			if (script.getName().equals(name)) {
@@ -221,41 +221,6 @@ public class Sprite {
 		double width = (double)lookData.getWidth() * size;
 		double height = (double)lookData.getHeight() * size;
 				
-//		if(look.getBrightnessValue() == 1.0) {
-//			Scene.get().drawImage(currentLook, 
-//					look.getXPosition(), 
-//					look.getYPosition(), 
-//					-costumeData.getWidth() / 2,
-//					-costumeData.getHeight() / 2, 
-//					costumeData.getWidth(), 
-//					costumeData.getHeight(),
-//					look.getRotation(), 
-//					look.getSize(), look.getSize(),
-//					look.getAlphaValue());
-//		}
-//		else { //TODO: call the draw function with a brightness parameter
-//			Scene.get().drawImage(currentLook, 
-//					look.getXPosition(), 
-//					look.getYPosition(), 
-//					-costumeData.getWidth() / 2,
-//					-costumeData.getHeight() / 2, 
-//					costumeData.getWidth(), 
-//					costumeData.getHeight(),
-//					look.getRotation(), 
-//					look.getSize(), look.getSize(),
-//					look.getAlphaValue());
-//		}
-		
-//		Scene.get().drawImage(currentLook, 
-//				look.getXPosition(), 
-//				look.getYPosition(), 
-//				-costumeData.getWidth() / 2,
-//				-costumeData.getHeight() / 2, 
-//				costumeData.getWidth(), 
-//				costumeData.getHeight(),
-//				look.getRotation(), 
-//				look.getSize(), look.getSize(),
-//				look.getAlphaValue());
 		
 		Scene.get().drawImageJSNI(currentLook, 
 				look.getXPosition(), 

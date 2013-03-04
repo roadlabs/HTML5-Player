@@ -39,7 +39,6 @@ public class SetYBrick extends Brick {
 	public boolean execute(Sprite sprite) {
 		Look look = sprite.getLook();		
 		int setYPosition = Stage.getInstance().getStageMiddleY() - yPosition;
-//		System.out.println("XXX SetYBrick " + setYPosition +" for " + sprite.getName());
 		look.setYPosition(setYPosition);
 		
 		look.setMiddleY(-yPosition);

@@ -39,7 +39,6 @@ public class GlideToBrick extends Brick {
 	private long startTime;
 	private Timer glideTimer;
 
-	// TODO: better solution for this easy quick hack
 	private Script script;
 	
 	private int durationInMilliSeconds;
