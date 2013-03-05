@@ -52,11 +52,8 @@ public class NextLookBrick extends Brick {
 				
 				sprite.getLook().setLookData(currentCostumeData);
 				
-				sprite.showLook(); //verträgt sich nicht mit unit-tests, auskommentieren beim testen
+				sprite.showLook();
 			}
-		}
-		else {
-			// if there are no costumes do nothing
 		}
 	
 		return true;

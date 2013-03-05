@@ -37,9 +37,8 @@ public class SetLookBrick extends Brick {
 
 		if(sprite != null && sprite.getLookDataNames().contains(costumeName)) {
 			sprite.getLook().setLookData(sprite.getLookDataByName(costumeName));
-			sprite.showLook(); //verträgt sich nicht mit unit-tests, auskommentieren beim testen
+			sprite.showLook();
 		}
-		
 		return true;
 	}
 
