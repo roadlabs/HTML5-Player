@@ -30,5 +30,5 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("getData")
 public interface ServerConnectionService extends RemoteService {
-	String getXML(String name, String number);
+	String getXML(String number);
 }

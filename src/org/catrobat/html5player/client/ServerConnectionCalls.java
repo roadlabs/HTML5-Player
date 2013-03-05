@@ -35,7 +35,7 @@ public class ServerConnectionCalls {
 		currentXML = "";
 	}
 
-	public void getXML(String name, String number) {
+	public void getXML(String number) {
 		if (getXMLSvc == null) {
 			getXMLSvc = GWT.create(ServerConnectionService.class);
 		}
@@ -79,7 +79,7 @@ public class ServerConnectionCalls {
 				
 			}
 		};
-		getXMLSvc.getXML(name, number, callback);
+		getXMLSvc.getXML(number, callback);
 	}
 
 	// For Testing

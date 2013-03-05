@@ -38,7 +38,7 @@ public class ServerConnectionServiceImpl extends RemoteServiceServlet implements
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public String getXML(String name, String number) {
+	public String getXML(String number) {
 		String xml = "";
 		URL url;
 		try {

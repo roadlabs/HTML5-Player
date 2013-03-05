@@ -108,14 +108,11 @@ public class Html5Player implements EntryPoint {
 		
 		server = new ServerConnectionCalls();
 
-		//handle click on the play-button
-		//
 		playButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				rotationAngle = 0;
 				rotateDirection(0, screenPanel);
 				int selectedIndex = projectListBox.getSelectedIndex();
-				String projectName = projectListBox.getItemText(selectedIndex);
 				String projectNumber = projectListBox.getValue(selectedIndex);
 				
 				CatrobatDebug.on();
@@ -128,7 +125,7 @@ public class Html5Player implements EntryPoint {
 				stage.setProjectNumber(projectNumber);
 				
 				//get xml-projectfile from server
-				server.getXML(projectName, projectNumber);
+				server.getXML(projectNumber);
 			}
 		});
 
@@ -171,9 +168,7 @@ public class Html5Player implements EntryPoint {
 			stage.displayLoadingImage();
 			
 			stage.setProjectNumber(projectNumber);
-			// TODO: remove project name
-			String projectName = ""; 
-			server.getXML(projectName, projectNumber);
+			server.getXML(projectNumber);
 		}
 	}
 	
