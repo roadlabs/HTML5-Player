@@ -30,6 +30,7 @@ import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.ListBox;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TextArea;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -39,6 +40,8 @@ public class Html5Player implements EntryPoint {
 	private FlowPanel mainPanel = new FlowPanel();
 	private Button playButton = new Button("Play");
 	private Button showLogButton = new Button("ShowLogBox");
+	private Button rotateLeftButton = new Button("rotateLeft");
+	private Button rotateRightButton = new Button("rotateRight");
 	private TextArea logBox = new TextArea();
 	private VerticalPanel screenPanel = new VerticalPanel();
 
@@ -46,6 +49,7 @@ public class Html5Player implements EntryPoint {
 	
 	private ServerConnectionCalls server;
 	private ListBox projectListBox = new ListBox();
+	private static int rotationAngle = 0;
 	
 	//##########################################################################
 
@@ -59,7 +63,8 @@ public class Html5Player implements EntryPoint {
 			//return;
 			Const.PROJECT_PATH = projectPath;
 		}
-		
+		mainPanel.add(rotateLeftButton);
+		mainPanel.add(rotateRightButton);
 		String projectNumber = Window.Location.getParameter("projectnumber");
 		if(projectNumber == null)
 		{
@@ -107,7 +112,8 @@ public class Html5Player implements EntryPoint {
 		//
 		playButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				
+				rotationAngle = 0;
+				rotateDirection(0, screenPanel);
 				int selectedIndex = projectListBox.getSelectedIndex();
 				String projectName = projectListBox.getItemText(selectedIndex);
 				String projectNumber = projectListBox.getValue(selectedIndex);
@@ -131,6 +137,17 @@ public class Html5Player implements EntryPoint {
 		showLogButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				logBox.setVisible(!logBox.isVisible());
+			}
+		});
+		
+		rotateLeftButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				rotateLeft(screenPanel);
+			}
+		});
+		rotateRightButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				rotateRight(screenPanel);
 			}
 		});
 
@@ -158,6 +175,64 @@ public class Html5Player implements EntryPoint {
 			String projectName = ""; 
 			server.getXML(projectName, projectNumber);
 		}
+	}
+	
+	public static void rotateRight(Panel panel)
+	{
+		rotateDirection(90, panel);
+	}
+	
+	public static void rotateLeft(Panel panel)
+	{
+		rotateDirection(-90, panel);
+	}
+	
+	private static void rotateDirection(int degree,Panel panel)
+	{
+		int width = panel.getOffsetWidth();
+		if(width == 0)
+			width = getNumberFromCssAttribut(panel.getElement().getStyle().getWidth());
+		int height = panel.getOffsetHeight();
+		if(height == 0)
+			height = getNumberFromCssAttribut(panel.getElement().getStyle().getHeight());
+		int translation = 0;
+		rotationAngle =(rotationAngle + degree) % 360;
+		if(Math.abs(rotationAngle) != 0 && Math.abs(rotationAngle) != 180)
+		{
+			if((degree > 0 ))
+			{
+				translation = (width/2) - (height/2);
+			}
+			else
+			{
+				translation = (height/2) -(width/2); 
+			}
+			if(rotationAngle != degree)
+			{
+				translation = translation * -1;
+			}
+		}
+		System.out.println("tranlsation: " + translation + " rotationAngle: "+ rotationAngle + " degree: "+degree);
+		panel.getElement().getStyle().setProperty("transform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
+		panel.getElement().getStyle().setProperty("WebkitTransform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
+		panel.getElement().getStyle().setProperty("MsTransform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
+		panel.getElement().getStyle().setProperty("OTransform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
+		panel.getElement().getStyle().setProperty("MozTransform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
+	}
+	
+	private static int getNumberFromCssAttribut(String attr)
+	{
+		if(attr != null && !attr.equals(""))
+		{
+			String numberPart = attr.trim().split("[a-z]")[0];	
+			return Integer.parseInt(numberPart);
+		}
+		return 0;
+	}
+	
+	public static int getRotatonAngle()
+	{
+		return rotationAngle;
 	}
 
 	//##########################################################################

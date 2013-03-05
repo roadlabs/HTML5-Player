@@ -90,6 +90,7 @@ public class AllTestsSuitTest extends GWTTestSuite{
 	    suite.addTestSuite(SceneTest.class);
 	    
 	    suite.addTestSuite(InvalidProjectIdTest.class);
+	    suite.addTestSuite(RotationTest.class);
 	    
 	    return suite;
 	  }
