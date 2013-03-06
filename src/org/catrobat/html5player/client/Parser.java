@@ -578,14 +578,12 @@ public class Parser {
 			String volumeValue = getText(getChildElementByTagName(brickNode,
 					"volume"));
 			double volume = Double.parseDouble(volumeValue);
-			// int volume = new Double(volumeValue).intValue();
 			return new ChangeVolumeByBrick(brickSprite, volume);
 		} else if (brickNode.getNodeName().equals("Bricks.SetVolumeToBrick")) {
 
 			String volumeValue = getText(getChildElementByTagName(brickNode,
 					"volume"));
 			double volume = Double.parseDouble(volumeValue);
-			// int volume = new Double(volumeValue).intValue();
 			return new SetVolumeToBrick(brickSprite, volume);
 		} else if (brickNode.getNodeName().equals("Bricks.PlaceAtBrick")) {
 			String xValue = getText(getChildElementByTagName(brickNode,
@@ -612,16 +610,14 @@ public class Parser {
 		} else if (brickNode.getNodeName().equals("Bricks.ChangeXByBrick")) {
 
 			String deltaValue = getText(getChildElementByTagName(brickNode,
-					"xMovement")); // "deltaX" ersetzt durch "xMovement",
-									// 21.08.12 Andi
+					"xMovement"));
 			int deltaX = Integer.parseInt(deltaValue);
 			return new ChangeXByBrick(brickSprite, deltaX);
 
 		} else if (brickNode.getNodeName().equals("Bricks.ChangeYByBrick")) {
 
 			String deltaValue = getText(getChildElementByTagName(brickNode,
-					"yMovement")); // "deltaY" ersetzt durch "yMovement",
-									// 21.08.12 Andi
+					"yMovement")); 
 			int deltaY = Integer.parseInt(deltaValue);
 			return new ChangeYByBrick(brickSprite, deltaY);
 
@@ -647,10 +643,7 @@ public class Parser {
 				"Bricks.PointInDirectionBrick")) {
 
 			String directionValue = getText(getChildElementByTagName(brickNode,
-					"degrees")); // "selectedIndex" ersetzt durch "degrees",
-									// 21.08.12 Andi
-			// int direction = Integer.parseInt(directionValue);
-
+					"degrees")); 
 			double direction = Double.parseDouble(directionValue);
 
 			return new PointInDirectionBrick(brickSprite, 0, direction);
@@ -681,9 +674,7 @@ public class Parser {
 			return new SetSizeToBrick(brickSprite, (float) size);
 		} else if (brickNode.getNodeName().equals("Bricks.BroadcastBrick")) {
 			String message = getText(getChildElementByTagName(brickNode,
-					"broadcastMessage")); // tag-name changed from "message" to
-											// "broadcastMessage", Andi,
-											// 11.08.12
+					"broadcastMessage")); 
 			return new BroadcastBrick(brickSprite, message);
 		} else if (brickNode.getNodeName().equals("Bricks.BroadcastWaitBrick")) {
 			String message = getText(getChildElementByTagName(brickNode,
@@ -858,8 +849,6 @@ public class Parser {
 			return new WhenScript(scriptSprite, "whenScript");
 		} else if (scriptElement.getNodeName()
 				.equals("Content.BroadcastScript")) {
-			// tag-name changed from "message" to "receivedMessage", Andi,
-			// 11.08.12
 			String message = getText(getChildElementByTagName(scriptElement,
 					"receivedMessage"));
 			return new BroadcastScript(scriptSprite, "broadcastScript", message);

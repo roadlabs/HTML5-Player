@@ -42,6 +42,7 @@ public class Html5Player implements EntryPoint {
 	private Button showLogButton = new Button("ShowLogBox");
 	private Button rotateLeftButton = new Button("rotateLeft");
 	private Button rotateRightButton = new Button("rotateRight");
+	private Button rePlayButton = new Button("RePlay");
 	private TextArea logBox = new TextArea();
 	private VerticalPanel screenPanel = new VerticalPanel();
 
@@ -59,13 +60,12 @@ public class Html5Player implements EntryPoint {
 		String projectPath = Window.Location.getParameter("projectpath");
 		if(projectPath != null && !projectPath.equals(""))
 		{
-			//Window.alert(projectPath);
-			//return;
 			Const.PROJECT_PATH = projectPath;
 		}
 		mainPanel.add(rotateLeftButton);
 		mainPanel.add(rotateRightButton);
-		String projectNumber = Window.Location.getParameter("projectnumber");
+		
+		final String projectNumber = Window.Location.getParameter("projectnumber");
 		if(projectNumber == null)
 		{
 			mainPanel.add(playButton);
@@ -82,6 +82,7 @@ public class Html5Player implements EntryPoint {
 		}
 		else
 		{
+			mainPanel.add(rePlayButton);
 			mainPanel.add(screenPanel);
 		}
 
@@ -147,6 +148,17 @@ public class Html5Player implements EntryPoint {
 				rotateRight(screenPanel);
 			}
 		});
+		rePlayButton.addClickHandler(new ClickHandler() {
+			public void onClick(ClickEvent event) {
+				CatrobatDebug.on();
+				stage.clearStage();
+				
+				stage.displayLoadingImage();
+				
+				stage.setProjectNumber(projectNumber);
+				server.getXML(projectNumber);
+			}
+		});
 
 		//handle click on the canvas
 		//
@@ -161,8 +173,6 @@ public class Html5Player implements EntryPoint {
 		if(projectNumber != null)
 		{
 			CatrobatDebug.on();
-			CatrobatDebug.console("Play button was clicked, project: " + projectNumber + " is selected");
-				
 			stage.clearStage();
 			
 			stage.displayLoadingImage();
