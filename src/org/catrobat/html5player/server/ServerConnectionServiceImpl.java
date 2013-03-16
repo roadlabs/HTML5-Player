@@ -23,9 +23,13 @@
 package org.catrobat.html5player.server;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
+import java.util.zip.ZipInputStream;
+
+import javax.servlet.http.HttpSession;
 
 import org.catrobat.html5player.client.Const;
 import org.catrobat.html5player.client.ServerConnectionService;
@@ -64,5 +68,51 @@ public class ServerConnectionServiceImpl extends RemoteServiceServlet implements
 		}
 		return xml;	
 	}
+	@Override
+	public String getXML(){
+		HttpSession session = this.getThreadLocalRequest().getSession();
+		ProjectData pd = (ProjectData) session.getAttribute("projectdata");
+		
+		System.out.println("xml from projectdata:"+pd.getXml());
+		return pd.getXml();
+	}
+	@Override
+	public String getImage(String name){
+		HttpSession session = this.getThreadLocalRequest().getSession();
+		ProjectData pd = (ProjectData) session.getAttribute("projectdata");
+		return pd.getImage(name);
+	}
+	@Override
+	public String getSound(String name){
+		HttpSession session = this.getThreadLocalRequest().getSession();
+		ProjectData pd = (ProjectData) session.getAttribute("projectdata");
+		return pd.getSound(name);
+	}
+	
+	@Override
+	public String getXMLFromProjectFileUrl(String url)
+	{
+		String xml = "";
+		URL tmpurl;
+		try {
+			tmpurl = new URL(url);
+
+		InputStream stream = tmpurl.openStream();
+		ZipInputStream zip = new ZipInputStream(stream);
+		ProjectData pd = LoadUtils.loadDatafromZipStream(zip);
+		HttpSession session = this.getThreadLocalRequest().getSession();
+		session.setAttribute("projectdata", pd);
+		xml = pd.getXml();
+		
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return xml;
+	}
+	
 
 }

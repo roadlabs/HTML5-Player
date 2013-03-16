@@ -115,7 +115,7 @@ public class Stage {
 			@Override
 			public void run() {
 
-				if(ImageHandler.get().areImagesLoaded()) {	
+				if(ImageHandler.get().areImagesLoaded() || ImageHandler.get().hasNothingToDo()) {	
 					
 					CatrobatDebug.on();
 					CatrobatDebug.console(ImageHandler.get().getNumberImagesLoaded() + " images are loaded, now start scheduler...");
@@ -141,6 +141,7 @@ public class Stage {
 						
 						loadingFailure();
 					}
+					System.out.println(ImageHandler.get().getStatus());
 					
 					CatrobatDebug.off();
 				}
@@ -159,7 +160,9 @@ public class Stage {
 		CatrobatDebug.console("displayLoadingImage...");
 		CatrobatDebug.off();
 		
-		ImageHandler.get().addImage("loadgif", "images/ajax-loader.gif");
+		//ImageHandler.get().addImage("loadgif", "images/ajax-loader.gif");
+		Image i = new Image( "images/ajax-loader.gif");
+		ImageHandler.get().newImage("loadgif", i);
 		ImageHandler.get().loadImages();
 		
 		//wait for the image to load, then draw it

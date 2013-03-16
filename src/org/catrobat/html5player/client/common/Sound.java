@@ -24,12 +24,13 @@ package org.catrobat.html5player.client.common;
 
 import org.catrobat.html5player.client.CatrobatDebug;
 import org.catrobat.html5player.client.Const;
+import org.catrobat.html5player.client.ServerConnectionCalls;
 import org.catrobat.html5player.client.Stage;
 
 import com.google.gwt.media.client.Audio;
 
 public class Sound {
-
+	private ServerConnectionCalls server = new ServerConnectionCalls();
 	private SoundInfo soundInfo;
 
 	private Audio audio;
@@ -68,9 +69,9 @@ public class Sound {
 			audio = Audio.createIfSupported();
 			
 			if(audio != null) {
-				audio.addSource(getSoundBasePath() + soundInfo.getFileName());
-				audio.load();
-				
+				//audio.addSource(getSoundBasePath() + soundInfo.getFileName());
+				//audio.load();
+				server.getSound(soundInfo.getFileName(), audio);
 				CatrobatDebug.on();
 				CatrobatDebug.console("updateAudio - getError: " + audio.getError() + "...");
 				CatrobatDebug.off();

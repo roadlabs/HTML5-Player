@@ -1,14 +1,14 @@
 package org.catrobat.html5player.server;
 
+
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
+import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -30,17 +30,52 @@ public class FileUpload extends HttpServlet {
                 System.out.println(":Field Name:"+item.getFieldName());
                 System.out.println(":Name:"+item.getName());
                 System.out.println(":is form field:"+item.isFormField());
-                String name = item.getFieldName();
+                //String name = item.getFieldName();
                 InputStream stream = item.openStream();
 
-                //ByteArrayOutputStream out = new ByteArrayOutputStream();
                 ZipInputStream zip = new ZipInputStream(stream);
-                ZipEntry zipEntry;
-                while((zipEntry = zip.getNextEntry())!=null)
-                {
-                	System.out.println(zipEntry.getName());
-                	
-                }
+                ProjectData pd = LoadUtils.loadDatafromZipStream(zip);
+                HttpSession session = request.getSession();
+                session.setAttribute("projectdata", pd);
+//                ZipEntry zipEntry;
+//                StringBuilder s = new StringBuilder();
+//                while((zipEntry = zip.getNextEntry())!=null)
+//                {
+//                	ByteArrayOutputStream baos = new ByteArrayOutputStream();
+//                    byte[] buffer = new byte[1024];
+//                    int read = 0;
+//                	System.out.println(zipEntry.getName() + " " + zipEntry.isDirectory()+ " "+ zipEntry.toString() );
+//                	if(zipEntry.getName().endsWith(".xml"))
+//                	{
+//                	      while ((read = zip.read(buffer, 0, 1024)) >= 0) {
+//                	           s.append(new String(buffer, 0, read));
+//                	      }
+//                	
+//                		String xml = s.toString();
+//                		pd.setXml(xml);
+//                	}
+//                	else if(!zipEntry.getName().endsWith(".nomedia"))
+//                	{
+//	                	if(zipEntry.getName().contains("images/"))
+//	                	{
+//							while ((read = zip.read(buffer, 0, 1024)) >= 0) {
+//								baos.write(buffer, 0, read);
+//							}
+//							String base64 = StringUtils.newStringUtf8(Base64.encodeBase64(baos.toByteArray()));
+//							base64 = "data:image/"+LoadUtils.getFileExtension(zipEntry.getName())+";base64," + base64;
+//	                		pd.addImage(zipEntry.getName().replaceFirst("images/", ""), base64);
+//	                	}
+//	                	else if(zipEntry.getName().contains("sounds/"))
+//	                	{
+//							while ((read = zip.read(buffer, 0, 1024)) >= 0) {
+//								baos.write(buffer, 0, read);
+//							}
+//							String base64 = StringUtils.newStringUtf8(Base64.encodeBase64(baos.toByteArray()));
+//							base64 = "data:audio/"+LoadUtils.getFileExtension(zipEntry.getName())+";base64," + base64;
+//	                		pd.addSound(zipEntry.getName().replaceFirst("sounds/", ""), base64);
+//	                	}
+//                	}
+//                }
               response.setStatus(HttpServletResponse.SC_CREATED);
               response.getWriter().print("The file was created successfully.");
               response.flushBuffer();
@@ -48,59 +83,10 @@ public class FileUpload extends HttpServlet {
         }
         catch(Exception e){
             throw new RuntimeException(e);
-        }
-        
-        
-//        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
-//        System.out.println("Status : "+isMultipart);
-//        if (isMultipart) {
-//            FileItemFactory factory = new DiskFileItemFactory();
-//            ServletFileUpload upload = new ServletFileUpload(factory);
-//
-//            try {
-//                @SuppressWarnings("unchecked")
-//				List<FileItem> items = upload.parseRequest(request);
-//                Iterator<FileItem> iterator = items.iterator();
-//                System.out.println("Test1 : " + items.size());
-//                while (iterator.hasNext()) {
-//                    FileItem item = (FileItem) iterator.next();
-//                    System.out.println("Test2");
-//                    if (!item.isFormField()) {
-//                        String fileName = item.getName();
-//                        System.out.println("Test3");
-//                        String root = getServletContext().getRealPath("/");
-//                        File path = new File(root + UPLOAD_DIRECTORY);
-//                        if (!path.exists()) {
-//                            boolean result = path.mkdir();  
-//                            if(!result){    
-//                          	  throw new IOException("Could not create directory.");
-//                             }
-//                        }
-//                        
-//                      
-//
-//                        File uploadedFile = new File(path + "/" + fileName);
-//                        System.out.println(uploadedFile.getAbsolutePath());
-//                        item.write(uploadedFile);
-//                        
-//                        
-//                        response.setStatus(HttpServletResponse.SC_CREATED);
-//                        response.getWriter().print("The file was created successfully.");
-//                        response.flushBuffer();
-//                        System.out.println("Test5");
-//                    }
-//                }
-//            } catch (FileUploadException e) {
-//            	response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  
-//            			"An error occurred while creating the file : " + e.getMessage());
-//                e.printStackTrace();
-//            } catch (Exception e) {
-//            	response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR,  
-//            			"An error occurred while creating the file : " + e.getMessage());
-//                e.printStackTrace();
-//            }
-//        }
-//        System.out.println("Test6");
+        }  
     }
+
+	
+	
 }
 
