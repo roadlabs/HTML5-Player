@@ -252,7 +252,6 @@ public class ImageHandler {
 		loadingFailed = false;
 	}
 	
-	//##########################################################################
 	
 	/**
 	 * FOR TESTING

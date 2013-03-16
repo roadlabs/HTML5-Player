@@ -133,7 +133,7 @@ public class Stage {
 				else {
 					CatrobatDebug.on();
 					CatrobatDebug.console("ImageHandler not finished loading...");
-					
+					CatrobatDebug.console(ImageHandler.get().getStatus());
 					if(ImageHandler.get().hasLoadingFailed()) {
 						CatrobatDebug.console("Error: ImageHandler couldn't load an image");
 						log("Error: ImageHandler couldn't load an image");
@@ -217,6 +217,7 @@ public class Stage {
 		
 		//dump all loaded and unloaded images
 		ImageHandler.get().dumpAllImages();
+		ImageHandler.get().reset();
 		
 		CatrobatDebug.console("Spritemanager contains " + spriteManager.getSpriteList().size() + " sprites");
 		CatrobatDebug.console("MessageContainer holds " + messageContainer.getMessages().size() + " messages");
