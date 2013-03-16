@@ -131,7 +131,7 @@ public class ServerConnectionCalls {
 		}
 		final AsyncCallback<String> callback = new AsyncCallback<String>() {
 			public void onFailure(final Throwable caught) {
-				Window.alert("Server Error");
+				Window.alert("Server Error or URL Problem");
 			}
 
 			public void onSuccess(final String result) {
@@ -153,7 +153,7 @@ public class ServerConnectionCalls {
 		}
 		final AsyncCallback<String> callback = new AsyncCallback<String>() {
 			public void onFailure(final Throwable caught) {
-				Window.alert("Server Error");
+				Window.alert("Server Error or URL Problem");
 			}
 
 			public void onSuccess(final String result) {
