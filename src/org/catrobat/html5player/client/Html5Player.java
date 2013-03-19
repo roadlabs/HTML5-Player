@@ -33,6 +33,7 @@ import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.FormPanel;
 import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -49,6 +50,7 @@ public class Html5Player implements EntryPoint {
 	private Button rePlayButton = new Button("RePlay");
 	private TextArea logBox = new TextArea();
 	private VerticalPanel screenPanel = new VerticalPanel();
+	private Label uploadLabel = new Label("Upload a project file:");
 
 	private Canvas rootCanvas;
 	
@@ -87,6 +89,7 @@ public class Html5Player implements EntryPoint {
 			
 			if(projectNumber == null)
 			{
+				
 	//			mainPanel.add(playButton);
 	//			playButton.ensureDebugId("playButton");
 	//	
@@ -98,6 +101,7 @@ public class Html5Player implements EntryPoint {
 	//	
 	//			mainPanel.add(screenPanel);
 	//			screenPanel.add(logBox);
+				mainPanel.add(rePlayButton);
 				VerticalPanel panel = new VerticalPanel();
 			      
 			      //create a file upload widget
@@ -122,15 +126,13 @@ public class Html5Player implements EntryPoint {
 			             if (filename.length() == 0) {
 			                Window.alert("No File Specified!");
 			             } else {
-			                //submit the form
 			                form.submit();			          
 			             }				
 			          }
 			       });
-			    
-	
-			      
-			       form.add(panel);      
+			     
+			    form.add(panel);    
+			    mainPanel.add(uploadLabel);   
 				mainPanel.add(form);
 				mainPanel.add(screenPanel);
 				
@@ -197,13 +199,10 @@ public class Html5Player implements EntryPoint {
 				String projectNumber = projectListBox.getValue(selectedIndex);
 				
 				CatrobatDebug.on();
-				CatrobatDebug.console("Play button was clicked, project: " + projectNumber + " is selected");
 					
 				stage.clearStage();
 				stage.displayLoadingImage();
 				stage.setProjectNumber(projectNumber);
-				
-				//get xml-projectfile from server
 				server.getXML();
 			}
 	       });
@@ -235,7 +234,14 @@ public class Html5Player implements EntryPoint {
 				stage.displayLoadingImage();
 				
 				stage.setProjectNumber(projectNumber);
-				server.getXML(projectNumber);
+				if(projectNumber != null)
+				{
+					server.getXML(projectNumber);
+				}
+				else
+				{
+					server.getXML();
+				}
 			}
 		});
 

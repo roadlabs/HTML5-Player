@@ -287,6 +287,13 @@ public class Parser {
 				messageDom.getDocumentElement(), "spriteList");
 		List<Element> spriteNodes = getChildElementsByTagName(spriteListNode,
 				"Content.Sprite");
+		if(spriteNodes == null || spriteNodes.isEmpty())
+		{
+			System.out.println("Content.Sprite not found!");
+			spriteNodes = getChildElementsByTagName(spriteListNode,
+					"sprite"); 
+		}
+		
 		for (Element spriteNode : spriteNodes) {
 
 			String name;
@@ -304,6 +311,12 @@ public class Parser {
 						"name"));
 				costumeList = getChildElementByTagName(referencedSpriteNode,
 						"costumeDataList");
+				if(costumeList == null)
+				{
+					System.out.println("costumeDataList not found!");
+					costumeList = getChildElementByTagName(referencedSpriteNode,
+							"lookList"); 
+				}
 				scriptList = getChildElementByTagName(referencedSpriteNode,
 						"scriptList");
 				soundList = getChildElementByTagName(referencedSpriteNode,
@@ -312,9 +325,17 @@ public class Parser {
 				name = getText(getChildElementByTagName(spriteNode, "name"));
 				costumeList = getChildElementByTagName(spriteNode,
 						"costumeDataList");
+				if(costumeList == null)
+				{
+					System.out.println("costumeDataList not found!");
+					costumeList = getChildElementByTagName(spriteNode,
+							"lookList"); 
+				}
 				scriptList = getChildElementByTagName(spriteNode, "scriptList");
 				soundList = getChildElementByTagName(spriteNode, "soundList");
 			}
+			
+
 
 			Sprite sprite = createSprite(name, costumeList, scriptList,
 					soundList);
@@ -334,6 +355,13 @@ public class Parser {
 
 		List<Element> costumes = getChildElementsByTagName(costumeList,
 				"Common.CostumeData");
+		if(costumes == null || costumes.isEmpty())
+		{
+			System.out.println("Common.CostumeData not found!");
+			costumes = getChildElementsByTagName(costumeList,
+					"look");
+		}
+		
 		for (Element costumeDataElement : costumes) {
 			LookData lookData = new LookData();
 			String filename = getText(getChildElementByTagName(
