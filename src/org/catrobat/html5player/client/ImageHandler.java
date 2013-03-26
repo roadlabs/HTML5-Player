@@ -161,7 +161,7 @@ public class ImageHandler {
 		
 		for(Entry<String, String> entry : imagesToCreateMap.entrySet()) {
 		    server.getImage(entry.getKey());
-			//this.newImage(entry.getKey(), entry.getValue(), 0, 0);
+			//this.newImage(entry.getKey(), url, 0, 0);
 		}
 		
 		dumpNotLoadedImages();

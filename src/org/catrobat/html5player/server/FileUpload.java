@@ -3,12 +3,15 @@ package org.catrobat.html5player.server;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.zip.ZipInputStream;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -85,6 +88,19 @@ public class FileUpload extends HttpServlet {
             throw new RuntimeException(e);
         }  
     }
+	
+	public void doGet(HttpServletRequest req, HttpServletResponse res)throws ServletException, IOException 
+	{       
+	 String name = req.getParameter("name");
+		HttpSession session = req.getSession();
+		ProjectData pd = (ProjectData) session.getAttribute("projectdata");
+		String ts = pd.getImage(name);
+		ts = ts.replace("data:image/png;base64,", "");
+		byte[] buffer = Base64.decodeBase64(ts.getBytes());
+		res.setContentType("image/png");
+	 res.getOutputStream().write(buffer);
+	}
+	
 
 	
 	
