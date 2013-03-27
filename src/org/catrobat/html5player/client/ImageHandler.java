@@ -87,7 +87,7 @@ public class ImageHandler {
 	 * @param height
 	 * @return false if the name is already in use, true otherwise
 	 */
-	public boolean newImage(String name, String url, int width, int height) {
+	public boolean newImage(String name, final String url, int width, int height) {
 		
 		//Image with this name already exists
 		if(imagesMap.containsKey(name))
@@ -99,7 +99,7 @@ public class ImageHandler {
 			
 			@Override
 			public void onError(ErrorEvent event) {
-				System.out.println("ImageHandler couldn't load an image");
+				System.out.println("ImageHandler couldn't load an image from "+ url);
 				loadingFailed = true;
 			}
 		});
@@ -160,8 +160,8 @@ public class ImageHandler {
 		imagesToLoad = imagesToCreateMap.size();
 		
 		for(Entry<String, String> entry : imagesToCreateMap.entrySet()) {
-		    server.getImage(entry.getKey());
-			//this.newImage(entry.getKey(), url, 0, 0);
+		    //server.getImage(entry.getKey());
+			this.newImage(entry.getKey(), entry.getValue(), 0, 0);
 		}
 		
 		dumpNotLoadedImages();

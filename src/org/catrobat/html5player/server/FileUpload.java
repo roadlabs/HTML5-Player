@@ -94,10 +94,20 @@ public class FileUpload extends HttpServlet {
 	 String name = req.getParameter("name");
 		HttpSession session = req.getSession();
 		ProjectData pd = (ProjectData) session.getAttribute("projectdata");
-		String ts = pd.getImage(name);
-		ts = ts.replace("data:image/png;base64,", "");
-		byte[] buffer = Base64.decodeBase64(ts.getBytes());
-		res.setContentType("image/png");
+		String fs = pd.getImage(name);
+		if(fs == null)
+		{
+			fs = pd.getSound(name);
+		}
+		if(fs == null)
+		{
+			res.getWriter().print("File not found!");
+            res.flushBuffer();
+		}
+		String type  = fs.substring(5, fs.indexOf(";base64,"));
+		fs = fs.substring(fs.indexOf(',')+1);//fs.replace("data:image/png;base64,", "");
+		byte[] buffer = Base64.decodeBase64(fs.getBytes());
+		res.setContentType(type);
 	 res.getOutputStream().write(buffer);
 	}
 	

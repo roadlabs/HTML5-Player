@@ -394,9 +394,8 @@ public class Parser {
 					+ lookData.getWidth());
 
 			// add image name and url to ImageHandler
-			String url = Const.PROJECT_PATH
-					+ Stage.getInstance().getProjectNumber() + "/images/"
-					+ filename;
+			//String url = Const.PROJECT_PATH + Stage.getInstance().getProjectNumber() + "/images/"+ filename;
+			String url = "http://"+Window.Location.getHost()+ "/Html5Player/fileupload?name="+ filename;
 			ImageHandler.get().addImage(filename, url);
 		}
 
