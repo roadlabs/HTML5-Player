@@ -3,7 +3,6 @@ package org.catrobat.html5player.server;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.zip.ZipInputStream;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

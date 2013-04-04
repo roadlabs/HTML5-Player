@@ -49,12 +49,12 @@ public class ImageHandler {
 	
 	//to check if an image failed loading
 	private boolean loadingFailed = false;
-	private ServerConnectionCalls server;
+	//private ServerConnectionCalls server;
 	
 	//##########################################################################
 	
 	private ImageHandler() {
-		server = new ServerConnectionCalls();
+		//server = new ServerConnectionCalls();
 		imagesToCreateMap = new HashMap<String, String>();
 		
 		imagesMap = new HashMap<String, Image>();

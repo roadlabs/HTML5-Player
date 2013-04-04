@@ -108,12 +108,11 @@ public class Parser {
 			}
 			parseScreenResolution(messageDom);
 
-			parseAndCreateSprites(messageDom);
-
-			parserFinished();
-
-			CatrobatDebug.console("Parser finished");
-
+			if(parseAndCreateSprites(messageDom))
+			{
+				parserFinished();
+				CatrobatDebug.console("Parser finished");
+			}
 		} catch (DOMException e) {
 			Window.alert("Could not parse XML document. " + e.getMessage());
 		}
@@ -300,7 +299,7 @@ public class Parser {
 		setRootCanvasSize(dimX, dimY);
 	}
 
-	private void parseAndCreateSprites(Document messageDom) {
+	private boolean parseAndCreateSprites(Document messageDom) {
 		Element spriteListNode = getChildElementByTagName(
 				messageDom.getDocumentElement(), "spriteList");
 		List<Element> spriteNodes = getChildElementsByTagName(spriteListNode,
@@ -355,10 +354,15 @@ public class Parser {
 			
 
 
-			Sprite sprite = createSprite(name, costumeList, scriptList,
-					soundList);
+			Sprite sprite = createSprite(name, costumeList, scriptList,soundList);
+			if(sprite == null)
+			{
+				Window.alert("Could not parse XML document. There are unsupported elements!");
+				return false;
+			}
 			manager.addSprite(sprite);
 		}
+		return true;
 	}
 
 	public Sprite createSprite(String name, Node costumeList, Node scriptList,
@@ -370,7 +374,6 @@ public class Parser {
 				|| name.equals(Const.BACK_GROUND_ENG)) {
 			sprite.setBackground(true);
 		}
-
 		List<Element> costumes = getChildElementsByTagName(costumeList,
 				"Common.CostumeData");
 		if(costumes == null || costumes.isEmpty())
@@ -396,13 +399,7 @@ public class Parser {
 			CatrobatDebug.console("XXXXXXXXXXXXXXXXXXXXX name: " + costumeName
 					+ " XXXXXXXXXXXXXXXXXXXXX");
 
-			// String height =
-			// getText(getChildElementByTagName(costumeDataElement,
-			// "resHeight"));
 			lookData.setHeight(0);
-			// String width =
-			// getText(getChildElementByTagName(costumeDataElement,
-			// "resWidth"));
 			lookData.setWidth(0);
 
 			sprite.addLookData(lookData);
@@ -444,6 +441,10 @@ public class Parser {
 					CatrobatDebug.on();
 					if (brick != null && script != null) {
 						script.addBrick(brick);
+					}
+					else
+					{
+						return null;
 					}
 				}
 			}
@@ -515,9 +516,6 @@ public class Parser {
 					+ spriteElement);
 		}
 
-		/**
-		 * now check bricks
-		 */
 		if (brickNode.getNodeName().equals("Bricks.SetCostumeBrick")) {
 
 			Element costumeReferenceElement = getChildElementByTagName(

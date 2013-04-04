@@ -23,15 +23,15 @@
 package org.catrobat.html5player.client.common;
 
 import org.catrobat.html5player.client.CatrobatDebug;
-import org.catrobat.html5player.client.Const;
-import org.catrobat.html5player.client.ServerConnectionCalls;
-import org.catrobat.html5player.client.Stage;
+//import org.catrobat.html5player.client.Const;
+//import org.catrobat.html5player.client.ServerConnectionCalls;
+//import org.catrobat.html5player.client.Stage;
 
 import com.google.gwt.media.client.Audio;
 import com.google.gwt.user.client.Window;
 
 public class Sound {
-	private ServerConnectionCalls server = new ServerConnectionCalls();
+	//private ServerConnectionCalls server = new ServerConnectionCalls();
 	private SoundInfo soundInfo;
 
 	private Audio audio;
