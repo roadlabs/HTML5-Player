@@ -103,6 +103,9 @@ public class Parser {
 			if (hasDomDocumentPageNotFoundError(messageDom)) {
 				return;
 			}
+			if (!isVersionOK(messageDom)) {
+				return;
+			}
 			parseScreenResolution(messageDom);
 
 			parseAndCreateSprites(messageDom);
@@ -132,6 +135,21 @@ public class Parser {
 				}
 			}
 		}
+		return false;
+	}
+	
+	private boolean isVersionOK(Document messageDom)
+	{
+		NodeList versionNode = ((Element) messageDom.getFirstChild()).getElementsByTagName("catroidVersionName");
+		if (versionNode != null && versionNode.getLength() != 0) {
+			Element versionElement = (Element) versionNode.item(0);
+			if (versionElement != null) {
+				if (versionElement.toString().contains("0.6.0beta")) {
+					return true;
+				}
+			}
+		}
+		Window.alert("Project version not supported!");
 		return false;
 	}
 
