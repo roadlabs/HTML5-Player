@@ -78,7 +78,7 @@ public class Scene {
 			fillColor = CssColor.make("rgb(255,255,255)");
 		}
 		
-		System.out.println("Scene created");
+		CatrobatDebug.info("Scene created");
 		
 		return true;
 	}

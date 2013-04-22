@@ -147,7 +147,7 @@ public class Html5Player implements EntryPoint {
 		
 		if(Scene.get().createScene() == false) {
 			//TODO exception  if canvas not supported?
-			CatrobatDebug.console("Canvas not supported");
+			CatrobatDebug.error("Canvas not supported");
 			return;
 		}
 		

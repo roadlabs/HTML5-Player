@@ -22,47 +22,63 @@
  */
 package org.catrobat.html5player.client;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import com.google.gwt.core.client.GWT;
 
 public class CatrobatDebug {
 
 	private static boolean debug = true;
-	
+	private static Logger log = null;
+
 	private CatrobatDebug() {
-		
 	}
 	
-	/**
-	 * 
-	 * @param message
-	 */
+	private static void init() {
+		if (log == null)
+			log = Logger.getLogger("Catrobat");
+	}
+
+	@Deprecated
 	public static void console(String message) {
 		if(debug)
 			System.out.println(message);
 	}
-	
-	/**
-	 * 
-	 * @param message
-	 */
+
+	@Deprecated
 	public static void GWTLogger(String message) {
 		if(debug)
 			GWT.log(message);
 	}
-	
-	/**
-	 * 
+
+	/*
+	 * Inform user about current operation.
 	 */
+	public static void info(String message) {
+		init();
+		log.log(Level.INFO, message);
+	}
+
+	/*
+	 * Provide debugging information for problem analysis.
+	 */
+	public static void debug(String message) {
+		init();
+		log.log(Level.INFO, message);
+	}
+	
+	/*
+	 * Tell about a serious failure. Throw Exception afterwards.
+	 */
+	public static void error(String message) {
+		log.log(Level.SEVERE, message);
+	}
+
 	public static void on() {
 		debug = true;
 	}
-	
-	/**
-	 * 
-	 */
+
 	public static void off() {
 		debug = false;
-	}
-	
+	}	
 }
-
