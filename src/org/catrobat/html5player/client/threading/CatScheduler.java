@@ -101,7 +101,7 @@ public class CatScheduler implements RepeatingCommand {
 		else if(currentThread.getStatus() == CatThread.SLEEPING) {
 //			System.out.println("currentThread is sleeping"); //nur zum debuggen
 		}
-		//esle if: eventuell nächsten thread auswählen??
+		//else if: possibly take the next thread??
 		
 		cleanUpThreads();
 		
