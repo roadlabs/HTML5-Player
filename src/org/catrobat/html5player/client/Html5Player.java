@@ -235,7 +235,7 @@ public class Html5Player implements EntryPoint {
 		return 0;
 	}
 	
-	public static int getRotatonAngle()
+	public static int getRotationAngle()
 	{
 		return rotationAngle;
 	}
