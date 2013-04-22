@@ -313,7 +313,7 @@ public class Html5Player implements EntryPoint {
 				translation = translation * -1;
 			}
 		}
-		System.out.println("tranlsation: " + translation + " rotationAngle: "+ rotationAngle + " degree: "+degree);
+		System.out.println("translation: " + translation + " rotationAngle: "+ rotationAngle + " degree: "+degree);
 		panel.getElement().getStyle().setProperty("transform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
 		panel.getElement().getStyle().setProperty("WebkitTransform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
 		panel.getElement().getStyle().setProperty("MsTransform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
@@ -331,7 +331,7 @@ public class Html5Player implements EntryPoint {
 		return 0;
 	}
 	
-	public static int getRotatonAngle()
+	public static int getRotationAngle()
 	{
 		return rotationAngle;
 	}
