@@ -416,7 +416,7 @@ public class Parser {
     return object;
   }
 
-  private Brick checkBrick(Element brickNode, Sprite object, Script script) {
+  private Brick checkBrick(Element brickNode, Sprite object, Script script) throws Exception {
 
     Element objectReference = getChildElementByTagName(brickNode, "object");
 
@@ -462,8 +462,8 @@ public class Parser {
       return new SetLookBrick(objName, lookName);
 
     } else if (brickNode.getNodeName().equals("waitBrick")) {
-      String timeToWait = getText(getChildElementByTagName(brickNode, "timeToWaitInMilliSeconds"));
-      int waitTime = Integer.valueOf(timeToWait);
+      
+      int waitTime = (int) (1000.0* parseformulaTree(getChildElementByTagName(brickNode, "timeToWaitInSeconds")));
       return new WaitBrick(objName, waitTime, script);
     } else if (brickNode.getNodeName().equals("playSoundBrick")) {
 
@@ -532,15 +532,11 @@ public class Parser {
       double volume = Double.parseDouble(volumeValue);
       return new ChangeVolumeByBrick(objName, volume);
     } else if (brickNode.getNodeName().equals("setVolumeToBrick")) {
-
-      String volumeValue = getText(getChildElementByTagName(brickNode, "volume"));
-      double volume = Double.parseDouble(volumeValue);
+      double volume = parseformulaTree(getChildElementByTagName(brickNode, "volume"));
       return new SetVolumeToBrick(objName, volume);
     } else if (brickNode.getNodeName().equals("placeAtBrick")) {
-      String xValue = getText(getChildElementByTagName(brickNode, "xPosition"));
-      int xPosition = Integer.parseInt(xValue);
-      String yValue = getText(getChildElementByTagName(brickNode, "yPosition"));
-      int yPosition = Integer.parseInt(yValue);
+      int xPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "xPosition"));
+      int yPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "yPosition"));
       return new PlaceAtBrick(objName, xPosition, yPosition);
     } else if (brickNode.getNodeName().equals("changeSizeByNBrick")) {
       String sValue = getText(getChildElementByTagName(brickNode, "size"));
