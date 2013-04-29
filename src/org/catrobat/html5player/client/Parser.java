@@ -373,7 +373,12 @@ public class Parser {
 
         for (Element brickElement : brickElements) {
           CatrobatDebug.off();
-          Brick brick = checkBrick(brickElement, object, script);
+          Brick brick;
+          try {
+            brick = checkBrick(brickElement, object, script);
+          } catch (Exception e) {
+            return null;
+          }
           CatrobatDebug.on();
           if (brick != null && script != null) {
             script.addBrick(brick);
