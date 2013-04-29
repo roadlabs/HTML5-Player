@@ -767,7 +767,42 @@ public class Parser {
   }
 
   // ##########################################################################
-
+  public double parseformulaTree(Node tree) throws Exception {
+    Element type = getChildElementByTagName(tree,"type");
+    if(type == null){
+      throw new Exception();
+    }
+    if(type.getNodeValue().equals("NUMBER")){
+      Element value = getChildElementByTagName(tree,"value");
+      return Double.parseDouble(value.toString());
+    }
+    else if(type.getNodeValue().equals("OPERATOR")){
+      Element value = getChildElementByTagName(tree,"value");
+      double sign = 0.0;
+      if(value.getNodeValue().equals("MINUS")){
+        sign = -1.0;
+      }
+      else if(value.getNodeValue().equals("PLUS")){
+        sign = 1.0;
+      }
+      else{
+        throw new Exception();
+      }
+      Element rightChild = getChildElementByTagName(tree,"rightChild");
+      Element subType = getChildElementByTagName((Node)rightChild, "type");
+      if(subType == null || !subType.getNodeValue().equals("NUMBER")){
+        throw new Exception();
+      }
+      Element subValue = getChildElementByTagName((Node)rightChild, "value");
+      return Double.parseDouble(subValue.toString()) * sign;
+    }
+    else
+    {
+      throw new Exception();
+    }
+  }
+  
+  
   public boolean isParsingComplete() {
     return parsingComplete;
   }
