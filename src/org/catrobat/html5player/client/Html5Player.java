@@ -306,7 +306,7 @@ public class Html5Player implements EntryPoint {
 				translation = translation * -1;
 			}
 		}
-		System.out.println("translation: " + translation + " rotationAngle: "+ rotationAngle + " degree: "+degree);
+		CatrobatDebug.debug("translation: " + translation + " rotationAngle: " + rotationAngle + " degree: " + degree);
 		panel.getElement().getStyle().setProperty("transform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
 		panel.getElement().getStyle().setProperty("WebkitTransform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");
 		panel.getElement().getStyle().setProperty("MsTransform", "rotate("+rotationAngle+"deg) translate("+translation+"px,"+translation+"px)");

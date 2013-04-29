@@ -9,6 +9,7 @@ import java.util.zip.ZipInputStream;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
+import org.catrobat.html5player.client.CatrobatDebug;
 
 public class LoadUtils {
 	
@@ -36,7 +37,7 @@ public class LoadUtils {
         	ByteArrayOutputStream baos = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int read = 0;
-        	//System.out.println(zipEntry.getName() + " " + zipEntry.isDirectory()+ " "+ zipEntry.toString() );
+        	CatrobatDebug.debug(zipEntry.getName() + " " + zipEntry.isDirectory()+ " "+ zipEntry.toString() );
         	if(zipEntry.getName().endsWith(".xml"))
         	{
         	      while ((read = zip.read(buffer, 0, 1024)) >= 0) {

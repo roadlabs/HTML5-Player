@@ -122,7 +122,7 @@ public class Scene {
 			
 //			back.getContext2d().translate(sceneWidth/2, sceneHeight/2);
 			
-			System.out.println("Scene got measures - width: " + this.sceneWidth + " and height: " + this.sceneHeight);
+			CatrobatDebug.debug("Scene got measures - width: " + this.sceneWidth + " and height: " + this.sceneHeight);
 		}
 	}
 	

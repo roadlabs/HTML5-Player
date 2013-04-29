@@ -555,7 +555,7 @@ public class Parser {
 			}
 
 			if (soundId == null || soundId.trim().length() == 0) {
-				System.out.println("sound is null");
+				CatrobatDebug.debug("sound is null");
 			}else{
 				sprite.addSound(soundInfo);	
 			}
@@ -695,7 +695,7 @@ public class Parser {
 					.getLastLoopBeginBrickWithoutLoopEndBrick();
 
 			if (loopStartingBrick == null) {
-				System.out.println("loopStartingBrick is null");
+				CatrobatDebug.debug("loopStartingBrick is null");
 				return null;
 			}
 

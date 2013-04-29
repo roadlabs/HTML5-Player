@@ -99,7 +99,7 @@ public class ImageHandler {
 			
 			@Override
 			public void onError(ErrorEvent event) {
-				System.out.println("ImageHandler couldn't load an image from "+ url);
+				CatrobatDebug.warn("ImageHandler couldn't load an image from " + url);
 				loadingFailed = true;
 			}
 		});
@@ -108,7 +108,7 @@ public class ImageHandler {
 			
 			@Override
 			public void onLoad(LoadEvent event) {
-				System.out.println("ImageHandler successfully loaded an image");
+				CatrobatDebug.info("ImageHandler successfully loaded an image");
 				numberImagesLoaded++;
 				
 				if(numberImagesLoaded == imagesToLoad) {
@@ -128,7 +128,7 @@ public class ImageHandler {
 		imagePanel.add(i);
 		
 		imagesMap.put(name, i);
-		System.out.println("ImageHandler successfully loaded an image");
+		CatrobatDebug.debug("ImageHandler successfully loaded an image");
 		numberImagesLoaded++;
 		
 		if(numberImagesLoaded == imagesToLoad) {
@@ -144,7 +144,7 @@ public class ImageHandler {
 	 * @return
 	 */
 	public boolean addImage(String name, String url) {
-		System.out.println("imgloader add image: "+name);
+		CatrobatDebug.debug("imgloader add image: " + name);
 		if(imagesToCreateMap.containsKey(name) || imagesMap.containsKey(name))
 			return false;
 

@@ -97,7 +97,7 @@ public class CatScheduler implements RepeatingCommand {
 			CatrobatDebug.info("One thread execution took " + (System.currentTimeMillis() - start) + " ms, thread: " + currentThread.getName());
 		}
 		else if(currentThread.getStatus() == CatThread.SLEEPING) {
-//			System.out.println("currentThread is sleeping"); //nur zum debuggen
+			CatrobatDebug.debug("currentThread is sleeping");
 		}
 		//else if: possibly take the next thread??
 		

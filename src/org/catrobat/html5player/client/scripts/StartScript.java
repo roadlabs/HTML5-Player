@@ -56,27 +56,27 @@ public class StartScript extends Script {
 ////			Stage.getInstance().getSpriteManager().redrawScreen();
 ////		}
 //		
-//		System.out.println(" > > > > Script.run()");
-//		System.out.println(" > > > > execute brick");
+//		CatrobatDebug.info("Start running the script");
+//		CatrobatDebug.debug("execute brick");
 //		
 //		brickList.get(currentBrick).execute();
 //		
-//		System.out.println(" > > > > redraw screen");
+//		CatrobatDebug.debug("redraw screen");
 //
 //		Stage.getInstance().getSpriteManager().redrawScreen();
 //		
 //		if(currentBrick < (brickList.size() - 1)) {
 //			currentBrick++;
-//			System.out.println(" > > > > incremented currentBrick");
+//			CatrobatDebug.debug("incremented currentBrick");
 //		}
 //		else {
 //			setWorkDone();
-//			System.out.println(" > > > > Schript finished");
+//			CatrobatDebug.debug("Script finished");
 //		}
 //	}
 //
 //	public void pause(int time) {
-//		System.out.println("pause for " + time + "ms");
+//		CatrobatDebug.debug("pause for " + time + " ms");
 //		
 ////		CatScheduler.get().getThread(sprite.getName() + this.name).sleep();
 //		pauseWork();
@@ -87,7 +87,7 @@ public class StartScript extends Script {
 //			Timer t = new Timer() {
 //				public void run() {
 ////					currentBrick++;
-//					System.out.println("pause is over, resume()");
+//					CatrobatDebug.debug("pause is over, resume()");
 //					resume();
 //				}
 //			};
@@ -102,7 +102,7 @@ public class StartScript extends Script {
 ////		stop = false;
 //		
 ////		CatScheduler.get().getThread(sprite.getName() + this.name).wake();
-//		System.out.println("resumeWork()");
+//		CatrobatDebug.debug("resumeWork()");
 //		resumeWork();
 //		
 //		
