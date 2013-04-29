@@ -23,13 +23,16 @@
 package org.catrobat.html5player.client.common;
 
 import org.catrobat.html5player.client.CatrobatDebug;
-import org.catrobat.html5player.client.Const;
-import org.catrobat.html5player.client.Stage;
+import org.catrobat.html5player.client.ServerConnectionCalls;
+//import org.catrobat.html5player.client.Const;
+//import org.catrobat.html5player.client.ServerConnectionCalls;
+//import org.catrobat.html5player.client.Stage;
 
 import com.google.gwt.media.client.Audio;
+import com.google.gwt.user.client.Window;
 
 public class Sound {
-
+	private ServerConnectionCalls server = new ServerConnectionCalls();
 	private SoundInfo soundInfo;
 
 	private Audio audio;
@@ -44,7 +47,8 @@ public class Sound {
 	}
 
 	public static String getSoundBasePath() {
-		return Const.PROJECT_PATH + Stage.getInstance().getProjectNumber() + "/sounds/";
+		//return Const.PROJECT_PATH + Stage.getInstance().getProjectNumber() + "/sounds/";
+		return "http://"+Window.Location.getHost()+ "/Html5Player/fileupload?name=";
 	}
 
 	public Audio getAudio() {
@@ -68,11 +72,13 @@ public class Sound {
 			audio = Audio.createIfSupported();
 			
 			if(audio != null) {
-				audio.addSource(getSoundBasePath() + soundInfo.getFileName());
-				audio.load();
-				
+				//audio.addSource(getSoundBasePath() + soundInfo.getFileName());
+				//audio.load();
+				server.getSound(soundInfo.getFileName(), audio);
 				CatrobatDebug.on();
 				CatrobatDebug.console("updateAudio - getError: " + audio.getError() + "...");
+				//CatrobatDebug.console("audioINFO: " + audio.getCurrentSrc() + " " + audio.getDuration() + " " 
+				//+ audio.toString() + " " +audio.getCurrentTime());
 				CatrobatDebug.off();
 			}
 			

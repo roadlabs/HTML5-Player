@@ -28,4 +28,9 @@ public interface ServerConnectionServiceAsync {
 
 	void getXML(String number, AsyncCallback<String> callback);
 
+	void getXML(AsyncCallback<String> callback);
+	void getImage(String name, AsyncCallback<String> callback);
+	void getSound(String name, AsyncCallback<String> callback);
+
+	void getXMLFromProjectFileUrl(String url, AsyncCallback<String> callback);
 }

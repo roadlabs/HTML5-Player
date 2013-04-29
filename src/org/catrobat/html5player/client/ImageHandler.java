@@ -49,11 +49,12 @@ public class ImageHandler {
 	
 	//to check if an image failed loading
 	private boolean loadingFailed = false;
+	//private ServerConnectionCalls server;
 	
 	//##########################################################################
 	
 	private ImageHandler() {
-		
+		//server = new ServerConnectionCalls();
 		imagesToCreateMap = new HashMap<String, String>();
 		
 		imagesMap = new HashMap<String, Image>();
@@ -86,7 +87,7 @@ public class ImageHandler {
 	 * @param height
 	 * @return false if the name is already in use, true otherwise
 	 */
-	public boolean newImage(String name, String url, int width, int height) {
+	public boolean newImage(String name, final String url, int width, int height) {
 		
 		//Image with this name already exists
 		if(imagesMap.containsKey(name))
@@ -98,7 +99,7 @@ public class ImageHandler {
 			
 			@Override
 			public void onError(ErrorEvent event) {
-				System.out.println("ImageHandler couldn't load an image");
+				System.out.println("ImageHandler couldn't load an image from "+ url);
 				loadingFailed = true;
 			}
 		});
@@ -123,6 +124,19 @@ public class ImageHandler {
 		return true;
 	}
 	
+	public boolean newImage(String name, Image i){
+		imagePanel.add(i);
+		
+		imagesMap.put(name, i);
+		System.out.println("ImageHandler successfully loaded an image");
+		numberImagesLoaded++;
+		
+		if(numberImagesLoaded == imagesToLoad) {
+			imagesLoaded = true;
+		}
+		return true;
+	}
+	
 	/**
 	 * 
 	 * @param name
@@ -130,6 +144,7 @@ public class ImageHandler {
 	 * @return
 	 */
 	public boolean addImage(String name, String url) {
+		System.out.println("imgloader add image: "+name);
 		if(imagesToCreateMap.containsKey(name) || imagesMap.containsKey(name))
 			return false;
 
@@ -145,6 +160,7 @@ public class ImageHandler {
 		imagesToLoad = imagesToCreateMap.size();
 		
 		for(Entry<String, String> entry : imagesToCreateMap.entrySet()) {
+		    //server.getImage(entry.getKey());
 			this.newImage(entry.getKey(), entry.getValue(), 0, 0);
 		}
 		
@@ -236,7 +252,6 @@ public class ImageHandler {
 		loadingFailed = false;
 	}
 	
-	//##########################################################################
 	
 	/**
 	 * FOR TESTING
@@ -252,6 +267,20 @@ public class ImageHandler {
 	 */
 	public int getNumberImagesLoaded() {
 		return this.numberImagesLoaded;
+	}
+	
+	public String getStatus()
+	{
+
+		return "numberImagesLoaded: "+ this.numberImagesLoaded + " loadingFailed: " + this.loadingFailed + "  imagesToLoad: "+ this.imagesToLoad +  " imagesLoaded: " + this.imagesLoaded; 
+	}
+	
+	public boolean hasNothingToDo(){
+		if(numberImagesLoaded == 0 && imagesToLoad == 0 && !loadingFailed)
+		{
+			return true;
+		}
+		return false;
 	}
 	
 }

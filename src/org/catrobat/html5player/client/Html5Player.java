@@ -24,11 +24,16 @@ package org.catrobat.html5player.client;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.FileUpload;
 import com.google.gwt.user.client.ui.FlowPanel;
+import com.google.gwt.user.client.ui.FormPanel;
+import com.google.gwt.user.client.ui.FormPanel.SubmitCompleteEvent;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.ListBox;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -45,45 +50,98 @@ public class Html5Player implements EntryPoint {
 	private Button rePlayButton = new Button("RePlay");
 	private TextArea logBox = new TextArea();
 	private VerticalPanel screenPanel = new VerticalPanel();
+	private Label uploadLabel = new Label("Upload a project file:");
 
 	private Canvas rootCanvas;
 	
 	private ServerConnectionCalls server;
 	private ListBox projectListBox = new ListBox();
 	private static int rotationAngle = 0;
+	Button uploadButton = new Button("Upload File");
+	final FormPanel form = new FormPanel();
 	
 	//##########################################################################
 
 	public void onModuleLoad() {
 
 		CatrobatDebug.off();
-		String projectPath = Window.Location.getParameter("projectpath");
-		if(projectPath != null && !projectPath.equals(""))
-		{
-			Const.PROJECT_PATH = projectPath;
-		}
 		mainPanel.add(rotateLeftButton);
 		mainPanel.add(rotateRightButton);
-		
+		final String projectFileUrl = Window.Location.getParameter("projectfileurl");
 		final String projectNumber = Window.Location.getParameter("projectnumber");
-		if(projectNumber == null)
-		{
-			mainPanel.add(playButton);
-			playButton.ensureDebugId("playButton");
-	
-			mainPanel.add(projectListBox);
-			playButton.ensureDebugId("projectListBox");
-	
-			mainPanel.add(showLogButton);
-			showLogButton.ensureDebugId("showLogBox");
-	
-			mainPanel.add(screenPanel);
-			screenPanel.add(logBox);
-		}
-		else
+		if(projectFileUrl != null)
 		{
 			mainPanel.add(rePlayButton);
 			mainPanel.add(screenPanel);
+		}
+		else
+		{
+				
+			
+			
+	//		String projectPath = Window.Location.getParameter("projectpath");
+	//		if(projectPath != null && !projectPath.equals(""))
+	//		{
+	//			Const.PROJECT_PATH = projectPath;
+	//		}
+	
+			
+			
+			if(projectNumber == null)
+			{
+				
+	//			mainPanel.add(playButton);
+	//			playButton.ensureDebugId("playButton");
+	//	
+	//			mainPanel.add(projectListBox);
+	//			playButton.ensureDebugId("projectListBox");
+	//	
+	//			mainPanel.add(showLogButton);
+	//			showLogButton.ensureDebugId("showLogBox");
+	//	
+	//			mainPanel.add(screenPanel);
+	//			screenPanel.add(logBox);
+				mainPanel.add(rePlayButton);
+				VerticalPanel panel = new VerticalPanel();
+			      
+			      //create a file upload widget
+			      final FileUpload fileUpload = new FileUpload();
+			      //create upload button
+			      
+			      //pass action to the form to point to service handling file 
+			      //receiving operation.
+			      form.setAction(GWT.getModuleBaseURL()+"fileupload");
+			      // set form to use the POST method, and multipart MIME encoding.
+			      form.setEncoding(FormPanel.ENCODING_MULTIPART);
+			      form.setMethod(FormPanel.METHOD_POST);
+			      fileUpload.setName("uploadFormElement");
+			      panel.add(fileUpload);
+			      //add a button to upload the file
+			      panel.add(uploadButton);
+			      uploadButton.addClickHandler(new ClickHandler() {
+			          @Override
+			          public void onClick(ClickEvent event) {
+			             //get the filename to be uploaded
+			             String filename = fileUpload.getFilename();
+			             if (filename.length() == 0) {
+			                Window.alert("No File Specified!");
+			             } else {
+			                form.submit();			          
+			             }				
+			          }
+			       });
+			     
+			    form.add(panel);    
+			    mainPanel.add(uploadLabel);   
+				mainPanel.add(form);
+				mainPanel.add(screenPanel);
+				
+			}
+			else
+			{
+				mainPanel.add(rePlayButton);
+				mainPanel.add(screenPanel);
+			}
 		}
 
 		
@@ -130,6 +188,26 @@ public class Html5Player implements EntryPoint {
 			}
 		});
 
+	       form.addSubmitCompleteHandler(new FormPanel.SubmitCompleteHandler() {
+			@Override
+			public void onSubmitComplete(SubmitCompleteEvent event) {
+				
+				//Window.alert(event.getResults());
+				rotationAngle = 0;
+				rotateDirection(0, screenPanel);
+				int selectedIndex = projectListBox.getSelectedIndex();
+				String projectNumber = projectListBox.getValue(selectedIndex);
+				
+				CatrobatDebug.on();
+					
+				stage.clearStage();
+				stage.displayLoadingImage();
+				stage.setProjectNumber(projectNumber);
+				server.getXML();
+			}
+	       });
+		
+		
 		//handle click on the log-button
 		//
 		showLogButton.addClickHandler(new ClickHandler() {
@@ -156,7 +234,14 @@ public class Html5Player implements EntryPoint {
 				stage.displayLoadingImage();
 				
 				stage.setProjectNumber(projectNumber);
-				server.getXML(projectNumber);
+				if(projectNumber != null)
+				{
+					server.getXML(projectNumber);
+				}
+				else
+				{
+					server.getXML();
+				}
 			}
 		});
 
@@ -170,16 +255,27 @@ public class Html5Player implements EntryPoint {
 			}
 		});
 		
-		if(projectNumber != null)
+//		if(projectNumber != null)
+//		{
+//			CatrobatDebug.on();
+//			stage.clearStage();
+//			
+//			stage.displayLoadingImage();
+//			
+//			stage.setProjectNumber(projectNumber);
+//			server.getXML(projectNumber);
+//		}
+		
+		if(projectFileUrl != null)
 		{
 			CatrobatDebug.on();
 			stage.clearStage();
 			
 			stage.displayLoadingImage();
-			
-			stage.setProjectNumber(projectNumber);
-			server.getXML(projectNumber);
-		}
+			server.getXMLFromProjectFileUrl(projectFileUrl);
+		}	
+		
+		
 	}
 	
 	public static void rotateRight(Panel panel)

@@ -103,14 +103,16 @@ public class Parser {
 			if (hasDomDocumentPageNotFoundError(messageDom)) {
 				return;
 			}
+			if (!isVersionOK(messageDom)) {
+				return;
+			}
 			parseScreenResolution(messageDom);
 
-			parseAndCreateSprites(messageDom);
-
-			parserFinished();
-
-			CatrobatDebug.console("Parser finished");
-
+			if(parseAndCreateSprites(messageDom))
+			{
+				parserFinished();
+				CatrobatDebug.console("Parser finished");
+			}
 		} catch (DOMException e) {
 			Window.alert("Could not parse XML document. " + e.getMessage());
 		}
@@ -132,6 +134,21 @@ public class Parser {
 				}
 			}
 		}
+		return false;
+	}
+	
+	private boolean isVersionOK(Document messageDom)
+	{
+		NodeList versionNode = ((Element) messageDom.getFirstChild()).getElementsByTagName("catroidVersionName");
+		if (versionNode != null && versionNode.getLength() != 0) {
+			Element versionElement = (Element) versionNode.item(0);
+			if (versionElement != null) {
+				if (versionElement.toString().contains("0.6.0beta")) {
+					return true;
+				}
+			}
+		}
+		Window.alert("Project version not supported!");
 		return false;
 	}
 
@@ -282,11 +299,18 @@ public class Parser {
 		setRootCanvasSize(dimX, dimY);
 	}
 
-	private void parseAndCreateSprites(Document messageDom) {
+	private boolean parseAndCreateSprites(Document messageDom) {
 		Element spriteListNode = getChildElementByTagName(
 				messageDom.getDocumentElement(), "spriteList");
 		List<Element> spriteNodes = getChildElementsByTagName(spriteListNode,
 				"Content.Sprite");
+		if(spriteNodes == null || spriteNodes.isEmpty())
+		{
+			System.out.println("Content.Sprite not found!");
+			spriteNodes = getChildElementsByTagName(spriteListNode,
+					"sprite"); 
+		}
+		
 		for (Element spriteNode : spriteNodes) {
 
 			String name;
@@ -304,6 +328,12 @@ public class Parser {
 						"name"));
 				costumeList = getChildElementByTagName(referencedSpriteNode,
 						"costumeDataList");
+				if(costumeList == null)
+				{
+					System.out.println("costumeDataList not found!");
+					costumeList = getChildElementByTagName(referencedSpriteNode,
+							"lookList"); 
+				}
 				scriptList = getChildElementByTagName(referencedSpriteNode,
 						"scriptList");
 				soundList = getChildElementByTagName(referencedSpriteNode,
@@ -312,14 +342,27 @@ public class Parser {
 				name = getText(getChildElementByTagName(spriteNode, "name"));
 				costumeList = getChildElementByTagName(spriteNode,
 						"costumeDataList");
+				if(costumeList == null)
+				{
+					System.out.println("costumeDataList not found!");
+					costumeList = getChildElementByTagName(spriteNode,
+							"lookList"); 
+				}
 				scriptList = getChildElementByTagName(spriteNode, "scriptList");
 				soundList = getChildElementByTagName(spriteNode, "soundList");
 			}
+			
 
-			Sprite sprite = createSprite(name, costumeList, scriptList,
-					soundList);
+
+			Sprite sprite = createSprite(name, costumeList, scriptList,soundList);
+			if(sprite == null)
+			{
+				Window.alert("Could not parse XML document. There are unsupported elements!");
+				return false;
+			}
 			manager.addSprite(sprite);
 		}
+		return true;
 	}
 
 	public Sprite createSprite(String name, Node costumeList, Node scriptList,
@@ -331,9 +374,15 @@ public class Parser {
 				|| name.equals(Const.BACK_GROUND_ENG)) {
 			sprite.setBackground(true);
 		}
-
 		List<Element> costumes = getChildElementsByTagName(costumeList,
 				"Common.CostumeData");
+		if(costumes == null || costumes.isEmpty())
+		{
+			System.out.println("Common.CostumeData not found!");
+			costumes = getChildElementsByTagName(costumeList,
+					"look");
+		}
+		
 		for (Element costumeDataElement : costumes) {
 			LookData lookData = new LookData();
 			String filename = getText(getChildElementByTagName(
@@ -350,13 +399,7 @@ public class Parser {
 			CatrobatDebug.console("XXXXXXXXXXXXXXXXXXXXX name: " + costumeName
 					+ " XXXXXXXXXXXXXXXXXXXXX");
 
-			// String height =
-			// getText(getChildElementByTagName(costumeDataElement,
-			// "resHeight"));
 			lookData.setHeight(0);
-			// String width =
-			// getText(getChildElementByTagName(costumeDataElement,
-			// "resWidth"));
 			lookData.setWidth(0);
 
 			sprite.addLookData(lookData);
@@ -366,9 +409,8 @@ public class Parser {
 					+ lookData.getWidth());
 
 			// add image name and url to ImageHandler
-			String url = Const.PROJECT_PATH
-					+ Stage.getInstance().getProjectNumber() + "/images/"
-					+ filename;
+			//String url = Const.PROJECT_PATH + Stage.getInstance().getProjectNumber() + "/images/"+ filename;
+			String url = "http://"+Window.Location.getHost()+ "/Html5Player/fileupload?name="+ filename;
 			ImageHandler.get().addImage(filename, url);
 		}
 
@@ -399,6 +441,10 @@ public class Parser {
 					CatrobatDebug.on();
 					if (brick != null && script != null) {
 						script.addBrick(brick);
+					}
+					else
+					{
+						return null;
 					}
 				}
 			}
@@ -470,9 +516,6 @@ public class Parser {
 					+ spriteElement);
 		}
 
-		/**
-		 * now check bricks
-		 */
 		if (brickNode.getNodeName().equals("Bricks.SetCostumeBrick")) {
 
 			Element costumeReferenceElement = getChildElementByTagName(

@@ -19,3 +19,4 @@ war/WEB-INF/deploy/
 war/WEB-INF/classes/
 
 /.gwt
+/org.catrobat.html5player.html5player.JUnit

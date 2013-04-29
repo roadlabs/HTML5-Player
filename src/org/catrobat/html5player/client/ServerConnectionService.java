@@ -22,6 +22,8 @@
  */
  package org.catrobat.html5player.client;
 
+import java.io.IOException;
+
 import com.google.gwt.user.client.rpc.RemoteService;
 import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
 
@@ -30,5 +32,9 @@ import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
  */
 @RemoteServiceRelativePath("getData")
 public interface ServerConnectionService extends RemoteService {
-	String getXML(String number);
+	String getXML(String number) throws IOException;
+	String getXML();
+	String getImage(String name);
+	String getSound(String name);
+	String getXMLFromProjectFileUrl(String url) throws IOException;
 }

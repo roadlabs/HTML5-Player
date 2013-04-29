@@ -23,9 +23,12 @@
 package org.catrobat.html5player.server;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Scanner;
+import java.util.zip.ZipInputStream;
+
+import javax.servlet.http.HttpSession;
 
 import org.catrobat.html5player.client.Const;
 import org.catrobat.html5player.client.ServerConnectionService;
@@ -38,31 +41,47 @@ public class ServerConnectionServiceImpl extends RemoteServiceServlet implements
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	public String getXML(String number) {
-		String xml = "";
-		URL url;
-		try {
-			url = new URL(Const.PROJECT_PATH + number +"/"+ Const.PROJECT_FILE);
-			System.out.println("ProjectURL: " + url);
-			xml = new Scanner(url.openStream()).useDelimiter("//Z").next();
-		} catch (MalformedURLException e) {
-			
-			e.printStackTrace();
-			
-			
-			//TODO: handle exception
-			
-			
-		} catch (IOException e) {
-			
-			e.printStackTrace();
-			
-			
-			//TODO: handle exception
-			
-			
-		}
-		return xml;	
+	public String getXML(String number) throws IOException {
+		URL url = new URL(Const.PROJECT_PATH + number +"/"+ Const.PROJECT_FILE);
+		System.out.println("ProjectURL: " + url);
+		return new Scanner(url.openStream()).useDelimiter("//Z").next();
 	}
+	@Override
+	public String getXML(){
+		HttpSession session = this.getThreadLocalRequest().getSession();
+		ProjectData pd = (ProjectData) session.getAttribute("projectdata");
+		
+		System.out.println("xml from projectdata:"+pd.getXml());
+		return pd.getXml();
+	}
+	@Override
+	public String getImage(String name){
+		HttpSession session = this.getThreadLocalRequest().getSession();
+		ProjectData pd = (ProjectData) session.getAttribute("projectdata");
+		return pd.getImage(name);
+	}
+	@Override
+	public String getSound(String name){
+		HttpSession session = this.getThreadLocalRequest().getSession();
+		ProjectData pd = (ProjectData) session.getAttribute("projectdata");
+		return pd.getSound(name);
+	}
+	
+	@Override
+	public String getXMLFromProjectFileUrl(String url) throws IOException
+	{
+		URL tmpurl = new URL(url);
+		InputStream stream = tmpurl.openStream();
+		ZipInputStream zip = new ZipInputStream(stream);
+		ProjectData pd = LoadUtils.loadDatafromZipStream(zip);
+		HttpSession session = this.getThreadLocalRequest().getSession();
+		session.setAttribute("projectdata", pd);
+		if(pd == null)
+		{
+			return null;
+		}
+		return pd.getXml();
+	}
+	
 
 }

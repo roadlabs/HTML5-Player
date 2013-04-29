@@ -91,6 +91,7 @@ public class AllTestsSuitTest extends GWTTestSuite{
 	    
 	    suite.addTestSuite(InvalidProjectIdTest.class);
 	    suite.addTestSuite(RotationTest.class);
+	    suite.addTestSuite(UnsupportedVersionTest.class);
 	    
 	    return suite;
 	  }

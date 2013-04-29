@@ -23,9 +23,12 @@
  package org.catrobat.html5player.client;
 
 
+
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.media.client.Audio;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.rpc.AsyncCallback;
+import com.google.gwt.user.client.ui.Image;
 
 public class ServerConnectionCalls {
 	private String currentXML;
@@ -49,7 +52,6 @@ public class ServerConnectionCalls {
 			public void onSuccess(final String result) {
 				
 				currentXML = result;
-				
 				Stage.getInstance().start(currentXML);
 				
 //				long start = System.currentTimeMillis();
@@ -81,6 +83,89 @@ public class ServerConnectionCalls {
 		};
 		getXMLSvc.getXML(number, callback);
 	}
+	
+	
+	
+	public void getXML() {
+		if (getXMLSvc == null) {
+			getXMLSvc = GWT.create(ServerConnectionService.class);
+		}
+		final AsyncCallback<String> callback = new AsyncCallback<String>() {
+			public void onFailure(final Throwable caught) {
+				Window.alert("Server Error");
+			}
+
+			public void onSuccess(final String result) {
+				currentXML = result;
+				Stage.getInstance().start(currentXML);
+			}
+		};
+		getXMLSvc.getXML(callback);
+	}
+	public void getImage(final String name) {
+		if (getXMLSvc == null) {
+			getXMLSvc = GWT.create(ServerConnectionService.class);
+		}
+		final AsyncCallback<String> callback = new AsyncCallback<String>() {
+			public void onFailure(final Throwable caught) {
+				Window.alert("Server Error");
+			}
+
+			public void onSuccess(final String result) {
+				System.out.println(result);
+				if(result == null)
+				{
+					Window.alert("Image Error" + name);
+				}
+				//System.out.println(currentXML);
+				Image image = new Image(result); 
+				//System.out.println(result);
+				ImageHandler.get().newImage(name, image);
+			}
+		};
+		getXMLSvc.getImage(name, callback);
+	}
+	public void getSound(final String name, final Audio audio) {
+		if (getXMLSvc == null) {
+			getXMLSvc = GWT.create(ServerConnectionService.class);
+		}
+		final AsyncCallback<String> callback = new AsyncCallback<String>() {
+			public void onFailure(final Throwable caught) {
+				Window.alert("Server Error or URL Problem");
+			}
+
+			public void onSuccess(final String result) {
+				System.out.println(result);
+				if(result == null)
+				{
+					Window.alert("Sound Error" + name);
+				}
+				audio.addSource(result);
+				audio.load();
+			}
+		};
+		getXMLSvc.getSound(name, callback);
+	}
+	
+	public void getXMLFromProjectFileUrl(String url) {
+		if (getXMLSvc == null) {
+			getXMLSvc = GWT.create(ServerConnectionService.class);
+		}
+		final AsyncCallback<String> callback = new AsyncCallback<String>() {
+			public void onFailure(final Throwable caught) {
+				Window.alert("Server Error or URL Problem");
+			}
+
+			public void onSuccess(final String result) {
+				currentXML = result;
+				Stage.getInstance().start(currentXML);
+			}
+		};
+		getXMLSvc.getXMLFromProjectFileUrl(url, callback);
+	}
+
+	
+	
 
 	// For Testing
 	public String getCurrentXML() {

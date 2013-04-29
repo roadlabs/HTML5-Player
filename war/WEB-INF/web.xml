@@ -10,6 +10,15 @@
     <servlet-name>ServerConnectionServiceImpl</servlet-name>
     <servlet-class>org.catrobat.html5player.server.ServerConnectionServiceImpl</servlet-class>
   </servlet>
+  
+  <servlet>
+    <servlet-name>fileUploaderServlet</servlet-name>
+    <servlet-class>org.catrobat.html5player.server.FileUpload</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>fileUploaderServlet</servlet-name>
+  <url-pattern>/Html5Player/fileupload</url-pattern>
+</servlet-mapping>
 
   <servlet-mapping>
     <servlet-name>ServerConnectionServiceImpl</servlet-name>
