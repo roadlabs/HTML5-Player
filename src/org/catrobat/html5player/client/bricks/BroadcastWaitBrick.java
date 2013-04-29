@@ -49,19 +49,15 @@ public class BroadcastWaitBrick extends Brick {
 	public boolean execute(Sprite sprite) {
 		final Vector<BroadcastScript> receiver = Stage.getInstance().getMessageContainer().getReceiverOfMessage(message);
 
-		CatrobatDebug.on();
-		
-		CatrobatDebug.console("BroadcastWait - message: " + message);
+		CatrobatDebug.debug("BroadcastWait - message: " + message);
 		
 		if (receiver == null) {
-			CatrobatDebug.console("receiver == null");
-			CatrobatDebug.off();
+			CatrobatDebug.debug("receiver is null");
 			return false;
 		}
 		
 		if (receiver.size() == 0) {
-			CatrobatDebug.console("no receivers");
-			CatrobatDebug.off();
+			CatrobatDebug.debug("no receivers");
 			return true;
 		}
 
@@ -75,13 +71,11 @@ public class BroadcastWaitBrick extends Brick {
 			
 			receiverScript.executeBroadcastWait(signaler);
 			
-			CatrobatDebug.console("BroadcastWait - receiver, script: " + receiverScript.getName() + ", sprite: " + receiverScript.getSprite().getName());
+			CatrobatDebug.debug("BroadcastWait - receiver, script: " + receiverScript.getName() + ", sprite: " + receiverScript.getSprite().getName());
 			
 		}
 		
 		executiveThread.awaitSignal(signaler);
-		
-		CatrobatDebug.off();
 		
 		return true;
 	}

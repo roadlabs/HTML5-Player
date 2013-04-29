@@ -63,8 +63,6 @@ public class Html5Player implements EntryPoint {
 	//##########################################################################
 
 	public void onModuleLoad() {
-
-		CatrobatDebug.off();
 		mainPanel.add(rotateLeftButton);
 		mainPanel.add(rotateRightButton);
 		final String projectFileUrl = Window.Location.getParameter("projectfileurl");
@@ -174,8 +172,7 @@ public class Html5Player implements EntryPoint {
 				int selectedIndex = projectListBox.getSelectedIndex();
 				String projectNumber = projectListBox.getValue(selectedIndex);
 				
-				CatrobatDebug.on();
-				CatrobatDebug.console("Play button was clicked, project: " + projectNumber + " is selected");
+				CatrobatDebug.info("Play button was clicked, project: " + projectNumber + " is selected");
 					
 				stage.clearStage();
 				
@@ -198,8 +195,6 @@ public class Html5Player implements EntryPoint {
 				int selectedIndex = projectListBox.getSelectedIndex();
 				String projectNumber = projectListBox.getValue(selectedIndex);
 				
-				CatrobatDebug.on();
-					
 				stage.clearStage();
 				stage.displayLoadingImage();
 				stage.setProjectNumber(projectNumber);
@@ -228,7 +223,6 @@ public class Html5Player implements EntryPoint {
 		});
 		rePlayButton.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
-				CatrobatDebug.on();
 				stage.clearStage();
 				
 				stage.displayLoadingImage();
@@ -268,7 +262,6 @@ public class Html5Player implements EntryPoint {
 		
 		if(projectFileUrl != null)
 		{
-			CatrobatDebug.on();
 			stage.clearStage();
 			
 			stage.displayLoadingImage();

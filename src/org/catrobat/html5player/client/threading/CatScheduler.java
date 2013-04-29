@@ -93,10 +93,8 @@ public class CatScheduler implements RepeatingCommand {
 			
 			currentThread.run();
 		
-			CatrobatDebug.on();
-//			CatrobatDebug.console("currentThreadIndex: " + currentThreadIndex);
-			CatrobatDebug.console("One Thread-execution needed " + (System.currentTimeMillis() - start) + "ms, thread: " + currentThread.getName());
-			CatrobatDebug.off();
+			CatrobatDebug.debug("currentThreadIndex: " + currentThreadIndex);
+			CatrobatDebug.info("One thread execution took " + (System.currentTimeMillis() - start) + " ms, thread: " + currentThread.getName());
 		}
 		else if(currentThread.getStatus() == CatThread.SLEEPING) {
 //			System.out.println("currentThread is sleeping"); //nur zum debuggen
@@ -105,9 +103,7 @@ public class CatScheduler implements RepeatingCommand {
 		
 		cleanUpThreads();
 		
-//		CatrobatDebug.on();
-		CatrobatDebug.console("currentThreadIndex after cleanUp: " + currentThreadIndex);
-		CatrobatDebug.off();
+		CatrobatDebug.debug("currentThreadIndex after cleanUp: " + currentThreadIndex);
 		
 		return alive;
 	}
@@ -175,19 +171,17 @@ public class CatScheduler implements RepeatingCommand {
 		
 //		checkThreadCount();
 		
-		CatrobatDebug.on();
-		CatrobatDebug.console("currentThreadIndex: " + currentThreadIndex);
+		CatrobatDebug.debug("currentThreadIndex: " + currentThreadIndex);
 		
 		setCurrentThreadIndexAfterRemoval(removedThreadsBeforeCurrentThread);
 		
-		CatrobatDebug.console("currentThreadIndex after removal: " + currentThreadIndex);
+		CatrobatDebug.debug("currentThreadIndex after removal: " + currentThreadIndex);
 		
 		boolean debugYes = true;
 		if(currentThread != null)
 			debugYes = false;
 		
-		CatrobatDebug.console("SCHEDULER: removed " + removedThreadsBeforeCurrentThread + " threads before currentThread, currentThread removed: " + debugYes);
-		CatrobatDebug.off();
+		CatrobatDebug.debug("SCHEDULER: removed " + removedThreadsBeforeCurrentThread + " threads before currentThread, currentThread removed: " + debugYes);
 	}
 	
 	/**

@@ -52,9 +52,7 @@ public class LoopEndBrick extends Brick {
 			script.setCurrentBrick(script.getBrickList().indexOf(loopBeginBrick));
 		}
 		
-		CatrobatDebug.on();
-		CatrobatDebug.console("loopEndBrick - timesToRepeat: " + timesToRepeat);
-		CatrobatDebug.off();
+		CatrobatDebug.debug("loopEndBrick - timesToRepeat: " + timesToRepeat);
 		
 		return true;
 	}

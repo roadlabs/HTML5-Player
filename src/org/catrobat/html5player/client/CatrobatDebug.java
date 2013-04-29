@@ -36,7 +36,7 @@ public class CatrobatDebug {
 	
 	private static void init() {
 		if (log == null)
-			log = Logger.getLogger("Catrobat");
+			log = Logger.getLogger("Catrobat.HTML5Player");
 	}
 
 	@Deprecated
@@ -66,7 +66,15 @@ public class CatrobatDebug {
 		init();
 		log.log(Level.INFO, message);
 	}
-	
+
+	/*
+	 * A warning informs the developer about an unusual state.
+	 * The system will proceed will but might fail.
+	 */
+	public static void warn(String message) {
+		log.log(Level.WARNING, message);
+	}
+
 	/*
 	 * Tell about a serious failure. Throw Exception afterwards.
 	 */
@@ -74,10 +82,12 @@ public class CatrobatDebug {
 		log.log(Level.SEVERE, message);
 	}
 
+	@Deprecated
 	public static void on() {
 		debug = true;
 	}
 
+	@Deprecated
 	public static void off() {
 		debug = false;
 	}	

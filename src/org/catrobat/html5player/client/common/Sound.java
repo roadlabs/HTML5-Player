@@ -72,14 +72,9 @@ public class Sound {
 			audio = Audio.createIfSupported();
 			
 			if(audio != null) {
-				//audio.addSource(getSoundBasePath() + soundInfo.getFileName());
-				//audio.load();
 				server.getSound(soundInfo.getFileName(), audio);
-				CatrobatDebug.on();
-				CatrobatDebug.console("updateAudio - getError: " + audio.getError() + "...");
-				//CatrobatDebug.console("audioINFO: " + audio.getCurrentSrc() + " " + audio.getDuration() + " " 
-				//+ audio.toString() + " " +audio.getCurrentTime());
-				CatrobatDebug.off();
+				
+				CatrobatDebug.debug("updateAudio - getError: " + audio.getError() + "...");
 			}
 			
 		}
