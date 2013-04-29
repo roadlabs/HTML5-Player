@@ -470,7 +470,7 @@ public class Parser {
       // CatrobatDebug.on();
       CatrobatDebug.console("PlaySoundBrick:");
 
-      Element soundInfoElement = getChildElementByTagName(brickNode, "soundInfo");
+      Element soundInfoElement = getChildElementByTagName(brickNode, "sound");
       SoundInfo soundInfo = new SoundInfo();
       String soundId = null;
       String fileName = null;
@@ -749,9 +749,9 @@ public class Parser {
 
       return new StartScript(scriptObject, "startScript");
 
-    } else if (scriptElement.getNodeName().equals("Content.WhenScript")) {
+    } else if (scriptElement.getNodeName().equals("whenScript")) {
       return new WhenScript(scriptObject, "whenScript");
-    } else if (scriptElement.getNodeName().equals("Content.BroadcastScript")) {
+    } else if (scriptElement.getNodeName().equals("broadcastScript")) {
       String message = getText(getChildElementByTagName(scriptElement, "receivedMessage"));
       return new BroadcastScript(scriptObject, "broadcastScript", message);
     } else {
