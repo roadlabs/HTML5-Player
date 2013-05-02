@@ -544,27 +544,23 @@ public class Parser {
       int yPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "yPosition"));
       return new PlaceAtBrick(objName, xPosition, yPosition);
     } else if (brickNode.getNodeName().equals("changeSizeByNBrick")) {
-      String sValue = getText(getChildElementByTagName(brickNode, "size"));
-      double size = Double.parseDouble(sValue);
+      double size = parseformulaTree(getChildElementByTagName(brickNode, "size"));
       return new ChangeSizeByNBrick(objName, size);
     } else if (brickNode.getNodeName().equals("setYBrick")) {
-      String yValue = getText(getChildElementByTagName(brickNode, "yPosition"));
-      int yPosition = Integer.parseInt(yValue);
+      int yPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "yPosition"));
       return new SetYBrick(objName, yPosition);
     } else if (brickNode.getNodeName().equals("setXBrick")) {
-      String xValue = getText(getChildElementByTagName(brickNode, "xPosition"));
-      int xPosition = Integer.parseInt(xValue);
+      int xPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "xPosition"));
       return new SetXBrick(objName, xPosition);
     } else if (brickNode.getNodeName().equals("changeXByNBrick")) {
-
-      String deltaValue = getText(getChildElementByTagName(brickNode, "xMovement"));
-      int deltaX = Integer.parseInt(deltaValue);
+      int deltaX = (int) parseformulaTree(getChildElementByTagName(brickNode, "xMovement"));
       return new ChangeXByBrick(objName, deltaX);
 
     } else if (brickNode.getNodeName().equals("changeYByNBrick")) {
 
       String deltaValue = getText(getChildElementByTagName(brickNode, "yMovement"));
       int deltaY = Integer.parseInt(deltaValue);
+      int deltaY = (int) parseformulaTree(getChildElementByTagName(brickNode, "yMovement"));
       return new ChangeYByBrick(objName, deltaY);
 
     } else if (brickNode.getNodeName().equals("hideBrick")) {
@@ -622,13 +618,8 @@ public class Parser {
 
       return new NextLookBrick(objName);
     } else if (brickNode.getNodeName().equals("repeatBrick")) {
-
-      Element timesToRepeatNode = getChildElementByTagName(brickNode, "timesToRepeat");
-
-      int timesToRepeat = Integer.parseInt(getText(timesToRepeatNode));
-
+      int timesToRepeat  = (int) parseformulaTree(getChildElementByTagName(brickNode, "timesToRepeat"));
       return new RepeatBrick(objName, timesToRepeat);
-
     } else if (brickNode.getNodeName().equals("foreverBrick")) {
 
       return new ForeverBrick(objName);
@@ -658,16 +649,10 @@ public class Parser {
       else
         return new NoteBrick(objName, note);
     } else if (brickNode.getNodeName().equals("setGhostEffectBrick")) {
-      Element transparencyNode = getChildElementByTagName(brickNode, "transparency");
-      String transparency = getText(transparencyNode);
-
-      double ghostEffectValue = Double.parseDouble(transparency);
+      double ghostEffectValue = parseformulaTree(getChildElementByTagName(brickNode, "transparency"));
       return new SetGhostEffectBrick(objName, ghostEffectValue);
     } else if (brickNode.getNodeName().equals("changeGhostEffectByNBrick")) {
-      Element changeGhostEffectNode = getChildElementByTagName(brickNode, "changeGhostEffect");
-      String changeGhostEffect = getText(changeGhostEffectNode);
-
-      double changeGhostEffectValue = Double.parseDouble(changeGhostEffect);
+      double changeGhostEffectValue = parseformulaTree(getChildElementByTagName(brickNode, "changeGhostEffect"));
       return new ChangeGhostEffectByBrick(objName, changeGhostEffectValue);
     } else if (brickNode.getNodeName().equals("ifOnEdgeBounceBrick")) {
       return new IfOnEdgeBounceBrick(objName);
