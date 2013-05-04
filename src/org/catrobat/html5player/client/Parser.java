@@ -365,8 +365,14 @@ public class Parser {
     for (Element scriptElement : scripts) {
 
       Script script = checkScript(scriptElement, object);
+      if(script == null)
+      {
+        System.out.println("error parsing script: "+scriptElement.toString());
+        return null;
+      }
 
       Element brickListElement = getChildElementByTagName(scriptElement, "brickList");
+
 
       if (brickListElement != null) {
         List<Element> brickElements = getChildElements(brickListElement);
@@ -377,12 +383,15 @@ public class Parser {
           try {
             brick = checkBrick(brickElement, object, script);
           } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("exception"+brickElement.toString() +"-"+ script.toString() +"-"+ object.toString());
             return null;
           }
           CatrobatDebug.on();
           if (brick != null && script != null) {
             script.addBrick(brick);
           } else {
+            System.out.println(brickElement.toString() +"-"+ script.toString() +"-"+ object.toString());
             return null;
           }
         }
@@ -595,8 +604,9 @@ public class Parser {
       return new RepeatBrick(objName, timesToRepeat);
     } else if (brickNode.getNodeName().equals("foreverBrick")) {
       return new ForeverBrick(objName);
-    } else if (brickNode.getNodeName().equals("loopEndBrick")) {
+    } else if (brickNode.getNodeName().equals("loopEndBrick") || brickNode.getNodeName().equals("loopEndlessBrick")) {
 
+      //TODO: check what to do with loopEndlessBrick
       LoopBeginBrick loopStartingBrick = script.getLastLoopBeginBrickWithoutLoopEndBrick();
 
       if (loopStartingBrick == null) {
@@ -692,7 +702,7 @@ public class Parser {
     } else {
 
     }
-    if (scriptElement.getNodeName().equals("StartScript")) {
+    if (scriptElement.getNodeName().equals("startScript")) {
 
       return new StartScript(scriptObject, "startScript");
 
@@ -715,37 +725,46 @@ public class Parser {
 
   // ##########################################################################
   public double parseformulaTree(Node tree) throws Exception {
-    Element type = getChildElementByTagName(tree,"type");
+    Element formula = getChildElementByTagName(tree,"formulaTree");
+    if(formula == null){
+      //System.out.println(tree.getFirstChild().toString());
+      return Double.parseDouble(tree.getFirstChild().toString());
+      //throw new Exception("formulaTree exception 1");
+    }   
+    
+    Element type = getChildElementByTagName(formula,"type");
     if(type == null){
-      throw new Exception();
+      throw new Exception("formulaTree exception 2");
     }
-    if(type.getNodeValue().equals("NUMBER")){
-      Element value = getChildElementByTagName(tree,"value");
-      return Double.parseDouble(value.toString());
+    if(type.getFirstChild().toString().equals("NUMBER")){
+      Element value = getChildElementByTagName(formula,"value");
+      System.out.println(value.toString());
+      return Double.parseDouble(value.getFirstChild().toString());
     }
-    else if(type.getNodeValue().equals("OPERATOR")){
-      Element value = getChildElementByTagName(tree,"value");
+    else if(type.getFirstChild().toString().equals("OPERATOR")){
+      Element value = getChildElementByTagName(formula,"value");
       double sign = 0.0;
-      if(value.getNodeValue().equals("MINUS")){
+      if(value.getFirstChild().toString().equals("MINUS")){
         sign = -1.0;
       }
-      else if(value.getNodeValue().equals("PLUS")){
+      else if(value.getFirstChild().toString().equals("PLUS")){
         sign = 1.0;
       }
       else{
-        throw new Exception();
+        throw new Exception("formulaTree exception 3");
       }
-      Element rightChild = getChildElementByTagName(tree,"rightChild");
+      Element rightChild = getChildElementByTagName(formula,"rightChild");
       Element subType = getChildElementByTagName((Node)rightChild, "type");
-      if(subType == null || !subType.getNodeValue().equals("NUMBER")){
-        throw new Exception();
+      if(subType == null || !subType.getFirstChild().toString().equals("NUMBER")){
+        throw new Exception("formulaTree exception 4");
       }
       Element subValue = getChildElementByTagName((Node)rightChild, "value");
-      return Double.parseDouble(subValue.toString()) * sign;
+      System.out.println(subValue.toString());
+      return Double.parseDouble(subValue.getFirstChild().toString()) * sign;
     }
     else
     {
-      throw new Exception();
+      throw new Exception("formulaTree exception 5");
     }
   }
   
