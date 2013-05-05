@@ -251,11 +251,12 @@ public class Parser {
   // ##########################################################################
 
   private void parseScreenResolution(Document messageDom) {
+    Node header = getChildElementByTagName(messageDom.getDocumentElement(), "header");
     Node nodeScreenHeight =
-        getChildElementByTagName(messageDom.getDocumentElement(), Const.SCREEN_HEIGHT);
+        getChildElementByTagName(header, Const.SCREEN_HEIGHT);
     Node nodeScreenWidth =
-        getChildElementByTagName(messageDom.getDocumentElement(), Const.SCREEN_WIDTH);
-
+        getChildElementByTagName(header, Const.SCREEN_WIDTH);
+    
     int dimX = 0;
     int dimY = 0;
 
@@ -280,7 +281,7 @@ public class Parser {
     } else {
       CatrobatDebug.console("Methode:parseScreenResolution  nodeScreenHeight  is null");
     }
-
+    System.out.println("SCREEN SIZE: " + dimX + " : "+ dimY);
     setRootCanvasSize(dimX, dimY);
   }
 
@@ -617,7 +618,12 @@ public class Parser {
       LoopEndBrick loopEndBrick = new LoopEndBrick(objName, loopStartingBrick);
 
       loopStartingBrick.setLoopEndBrick(loopEndBrick);
-
+      //loopStartingBrick.getClass()
+      if(brickNode.getNodeName().equals("loopEndlessBrick"))
+      {
+        loopEndBrick.setTimesToRepeat(LoopEndBrick.FOREVER);
+        //System.out.println(loopEndBrick.getTimesToRepeat() + " " + loopStartingBrick.getClass()+ " ");
+      }
       return loopEndBrick;
     } else if (brickNode.getNodeName().equals("noteBrick")) {
 
@@ -738,7 +744,7 @@ public class Parser {
     }
     if(type.getFirstChild().toString().equals("NUMBER")){
       Element value = getChildElementByTagName(formula,"value");
-      System.out.println(value.toString());
+      //System.out.println(value.toString());
       return Double.parseDouble(value.getFirstChild().toString());
     }
     else if(type.getFirstChild().toString().equals("OPERATOR")){
@@ -759,7 +765,7 @@ public class Parser {
         throw new Exception("formulaTree exception 4");
       }
       Element subValue = getChildElementByTagName((Node)rightChild, "value");
-      System.out.println(subValue.toString());
+      //System.out.println(subValue.toString());
       return Double.parseDouble(subValue.getFirstChild().toString()) * sign;
     }
     else
