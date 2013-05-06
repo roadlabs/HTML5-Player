@@ -252,36 +252,23 @@ public class Parser {
 
   private void parseScreenResolution(Document messageDom) {
     Node header = getChildElementByTagName(messageDom.getDocumentElement(), "header");
-    Node nodeScreenHeight =
-        getChildElementByTagName(header, Const.SCREEN_HEIGHT);
-    Node nodeScreenWidth =
-        getChildElementByTagName(header, Const.SCREEN_WIDTH);
+    Node nodeScreenHeight = getChildElementByTagName(header, Const.SCREEN_HEIGHT);
+    Node nodeScreenWidth = getChildElementByTagName(header, Const.SCREEN_WIDTH);
     
     int dimX = 0;
     int dimY = 0;
 
     if (nodeScreenWidth != null) {
-      Node firstChild = nodeScreenWidth.getFirstChild();
-      if (firstChild != null) {
-        dimX = Integer.valueOf(firstChild.getNodeValue());
-      } else {
-        CatrobatDebug.console("firstChild is null");
-      }
+      dimX = Integer.valueOf(nodeScreenWidth.getFirstChild().getNodeValue());
     } else {
       CatrobatDebug.console("Methode:parseScreenResolution nodeScreenWidth  is null");
     }
 
     if (nodeScreenHeight != null) {
-      Node firstChild = nodeScreenHeight.getFirstChild();
-      if (firstChild != null) {
-        dimY = Integer.valueOf(firstChild.getNodeValue());
-      } else {
-        CatrobatDebug.console("firstChild is null");
-      }
+      dimY = Integer.valueOf(nodeScreenHeight.getFirstChild().getNodeValue());
     } else {
       CatrobatDebug.console("Methode:parseScreenResolution  nodeScreenHeight  is null");
     }
-    System.out.println("SCREEN SIZE: " + dimX + " : "+ dimY);
     setRootCanvasSize(dimX, dimY);
   }
 
@@ -289,9 +276,7 @@ public class Parser {
     Element objectListNode = getChildElementByTagName(messageDom.getDocumentElement(), "objectList");
     List<Element> objectNodes = getChildElementsByTagName(objectListNode, "object");
 
-
     for (Element objectNode : objectNodes) {
-
       String name;
       Node lookList;
       Node scriptList;
@@ -306,7 +291,6 @@ public class Parser {
       lookList = getChildElementByTagName(objectNode, "lookList");
       scriptList = getChildElementByTagName(objectNode, "scriptList");
       soundList = getChildElementByTagName(objectNode, "soundList");
-
 
       Sprite object = createObject(name, lookList, scriptList, soundList);
       if (object == null) {
@@ -364,7 +348,6 @@ public class Parser {
     List<Element> scripts = getChildElements(scriptList);
 
     for (Element scriptElement : scripts) {
-
       Script script = checkScript(scriptElement, object);
       if(script == null)
       {
@@ -532,7 +515,6 @@ public class Parser {
         object.addSound(soundInfo);
       }
 
-
       CatrobatDebug.off();
 
       return new PlaySoundBrick(objName, soundId);
@@ -598,7 +580,7 @@ public class Parser {
     } else if (brickNode.getNodeName().equals("moveNStepsBrick")) {
       double steps  = parseformulaTree(getChildElementByTagName(brickNode, "steps"));
       return new MoveNStepsBrick(objName, steps);
-    } else if (brickNode.getNodeName().equals("nextCostumeBrick")) {
+    } else if (brickNode.getNodeName().equals("nextLookBrick")) {
       return new NextLookBrick(objName);
     } else if (brickNode.getNodeName().equals("repeatBrick")) {
       int timesToRepeat  = (int) parseformulaTree(getChildElementByTagName(brickNode, "timesToRepeat"));
@@ -618,12 +600,6 @@ public class Parser {
       LoopEndBrick loopEndBrick = new LoopEndBrick(objName, loopStartingBrick);
 
       loopStartingBrick.setLoopEndBrick(loopEndBrick);
-      //loopStartingBrick.getClass()
-      if(brickNode.getNodeName().equals("loopEndlessBrick"))
-      {
-        loopEndBrick.setTimesToRepeat(LoopEndBrick.FOREVER);
-        //System.out.println(loopEndBrick.getTimesToRepeat() + " " + loopStartingBrick.getClass()+ " ");
-      }
       return loopEndBrick;
     } else if (brickNode.getNodeName().equals("noteBrick")) {
 
