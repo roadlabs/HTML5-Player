@@ -345,5 +345,9 @@ public abstract class Script extends Callable implements Comparable<Script> {
 			return false;
 		return true;
 	}
+	
+	public int getId(){
+	  return id;
+	}
 
 }

@@ -36,6 +36,8 @@
  */
  package org.catrobat.html5player.client;
 
+import org.catrobat.html5player.client.formulaeditor.UserVariablesContainer;
+import org.catrobat.html5player.client.scripts.Script;
 import org.catrobat.html5player.client.threading.CatScheduler;
 
 import com.google.gwt.canvas.client.Canvas;
@@ -56,10 +58,37 @@ public class Stage {
 	private String projectNumber;
 	private Canvas rootCanvas;
 	private TextArea logBox;
+	private Script currentScript;
+	private Sprite currentSprite;
+	private UserVariablesContainer userVariables;
+	   public UserVariablesContainer getUserVariables() {
+	        return userVariables;
+	    }
+	
+	   public Sprite getCurrentSprite() {
+	        return currentSprite;
+	    }
+
+	    public void setCurrentSprite(Sprite sprite) {
+	        currentSprite = sprite;
+	    }
+
+	    public Script getCurrentScript() {
+	        return currentScript;
+	    }
+
+	    public void setCurrentScript(Script script) {
+	        if (script == null) {
+	            currentScript = null;
+	        } else if (currentSprite.getScriptIndex(script) != -1) {
+	            currentScript = script;
+	        }
+	    }
 
 	private Stage() {
 		spriteManager = new SpriteManager();
 		messageContainer = new MessageContainer();
+		userVariables = new UserVariablesContainer();
 	}
 
 	public static Stage getInstance() {

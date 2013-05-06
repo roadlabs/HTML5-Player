@@ -170,6 +170,21 @@ public class Sprite {
 		else
 			return null;
 	}
+	
+	
+	   public int getScriptIndex(Script script){
+	        ArrayList<Script> scriptsList = new ArrayList<Script>(scripts);
+	        int index = 0;
+	        for(Script s : scriptsList)
+	        {
+	          if(s.getId() == script.getId())
+	          {
+	            return index;
+	          }
+	          index++;
+	        }
+	        return -1;
+	    }
 
 	public void addSound(SoundInfo soundInfo) {
 		if (soundInfo != null && !sounds.containsKey(soundInfo.getId())) {
