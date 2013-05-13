@@ -51,7 +51,7 @@ public class ServerConnectionServiceImpl extends RemoteServiceServlet implements
 		HttpSession session = this.getThreadLocalRequest().getSession();
 		ProjectData pd = (ProjectData) session.getAttribute("projectdata");
 		
-		CatrobatDebug.debug("xml from projectdata:"+pd.getXml());
+		//CatrobatDebug.debug("xml from projectdata: " + pd.getXml());
 		return pd.getXml();
 	}
 	@Override
