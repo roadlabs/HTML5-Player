@@ -23,7 +23,6 @@
 package org.catrobat.html5player.client;
 
 import org.catrobat.html5player.client.bricks.*;
-
 import org.catrobat.html5player.client.common.Look;
 import org.catrobat.html5player.client.scripts.BroadcastScript;
 import org.catrobat.html5player.client.scripts.StartScript;
@@ -53,16 +52,20 @@ public class ParserTest extends GWTTestCase {
 		spriteManager = stage.getSpriteManager();
 		
 		xmlStringRumpBegin = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-				"<Content.Project>" + 
-				"<androidVersion>10</androidVersion>" +
-				"<catroidVersionCode>820</catroidVersionCode>" +
-				"<catroidVersionName>0.6.0beta-820-debug</catroidVersionName>" +
-				"<deviceName>GT-S5830</deviceName>" +
-				"<projectName>" + projectName + "</projectName>" +
+				"<program>" + 
+				"<header>" +
+			    "<applicationBuildName></applicationBuildName>" +
+			    "<applicationBuildNumber>0</applicationBuildNumber>" +
+			    "<applicationName>Catroid</applicationName>" +
+			    "<applicationVersion>0.7.0beta</applicationVersion>" +
+			    "<catrobatLanguageVersion>0.6</catrobatLanguageVersion>" +
+			    "<deviceName>GT-S5830</deviceName>" +
+				"<programName>" + projectName + "</programName>" +
 				"<screenHeight>" + screenHeight + "</screenHeight>" +
-				"<screenWidth>" + screenWidth + "</screenWidth>";
+				"<screenWidth>" + screenWidth + "</screenWidth>"+
+				"</header>";
 		
-		xmlStringRumpEnd = "</Content.Project>";
+		xmlStringRumpEnd = "</program>";
 		
 		
 	}
@@ -96,13 +99,13 @@ public class ParserTest extends GWTTestCase {
 	 * Helper
 	 * @param filename
 	 * @param name
-	 * @return xml string of <Common.CostumeData> Node
+	 * @return xml string of <look> Node
 	 */
-	public String costumeDataXMLString(String filename, String name) {
-		return "<Common.CostumeData>" +
+	public String lookXMLString(String filename, String name) {
+		return "<look>" +
 				"<fileName>" + filename + "</fileName>" +
 				"<name>" + name + "</name>" +
-				"</Common.CostumeData>";
+				"</look>";
 	}
 	
 	//--------------------------------------------------------------------------
@@ -111,7 +114,7 @@ public class ParserTest extends GWTTestCase {
 	 * 
 	 */
 	public void testParseXMLScreenResolution() {
-		String xmlString = xmlStringRumpBegin + "<spriteList></spriteList>" +
+		String xmlString = xmlStringRumpBegin + "<objectList></objectList>" +
 					       xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -126,24 +129,24 @@ public class ParserTest extends GWTTestCase {
 	/**
 	 * 
 	 */
-	public void testParseXMLSpriteWithCostumes() {
+	public void testParseXMLSpriteWithlooks() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
-		String fileNameCostumeData2 = "92382349283_costume2";
-		String costumeName2 = "costume2";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
+		String fileNamelook2 = "92382349283_look2";
+		String lookName2 = "look2";
 		String xmlString = xmlStringRumpBegin + 
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			costumeDataXMLString(fileNameCostumeData2, costumeName2) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			lookXMLString(fileNamelook2, lookName2) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList/>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -154,12 +157,12 @@ public class ParserTest extends GWTTestCase {
 		assertTrue(sprite instanceof Sprite);
 		assertEquals(2, sprite.getLooks().size());
 		
-		Look costume1 = sprite.getLook(costumeName);
-		Look costume2 = sprite.getLook(costumeName2);
-		assertNotNull(costume1);
-		assertNotNull(costume2);
-		assertEquals(fileNameCostumeData, costume1.getLookData().getFilename());
-		assertEquals(fileNameCostumeData2, costume2.getLookData().getFilename());
+		Look look1 = sprite.getLook(lookName);
+		Look look2 = sprite.getLook(lookName2);
+		assertNotNull(look1);
+		assertNotNull(look2);
+		assertEquals(fileNamelook, look1.getLookData().getFilename());
+		assertEquals(fileNamelook2, look2.getLookData().getFilename());
 	}
 	
 	//##########################################################################
@@ -169,32 +172,32 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLStartScriptOneBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
-		String fileNameCostumeData2 = "92382349283_costume2";
-		String costumeName2 = "costume2";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
+		String fileNamelook2 = "92382349283_look2";
+		String lookName2 = "look2";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			costumeDataXMLString(fileNameCostumeData2, costumeName2) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			lookXMLString(fileNamelook2, lookName2) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.SetCostumeBrick>" +
-			"<costumeData reference=\"../../../../../costumeDataList/Common.CostumeData\"/>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.SetCostumeBrick>" +
+			"<setlookBrick>" +
+			"<look reference=\"../../../../../lookList/look\"/>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</setlookBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -216,41 +219,41 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLMultipleStartScriptsWithOneBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
-		String fileNameCostumeData2 = "92382349283_costume2";
-		String costumeName2 = "costume2";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
+		String fileNamelook2 = "92382349283_look2";
+		String lookName2 = "look2";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			costumeDataXMLString(fileNameCostumeData2, costumeName2) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			lookXMLString(fileNamelook2, lookName2) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.SetCostumeBrick>" +
-			"<costumeData reference=\"../../../../../costumeDataList/Common.CostumeData\"/>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.SetCostumeBrick>" +
+			"<setlookBrick>" +
+			"<look reference=\"../../../../../lookList/look\"/>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</setlookBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
-			"<Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.SetCostumeBrick>" +
-			"<costumeData reference=\"../../../../../costumeDataList/Common.CostumeData\"/>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.SetCostumeBrick>" +
+			"<setlookBrick>" +
+			"<look reference=\"../../../../../lookList/look\"/>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</setlookBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -275,33 +278,33 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLWhenScriptOneBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
-		String fileNameCostumeData2 = "92382349283_costume2";
-		String costumeName2 = "costume2";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
+		String fileNamelook2 = "92382349283_look2";
+		String lookName2 = "look2";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			costumeDataXMLString(fileNameCostumeData2, costumeName2) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			lookXMLString(fileNamelook2, lookName2) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.WhenScript>" +
+			"<whenScript>" +
 			"<brickList>" +
-			"<Bricks.SetCostumeBrick>" +
-			"<costumeData reference=\"../../../../../costumeDataList/Common.CostumeData\"/>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.SetCostumeBrick>" +
+			"<setlookBrick>" +
+			"<look reference=\"../../../../../lookList/look\"/>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</setlookBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
+			"<object reference=\"../../..\"/>" +
 			"<action>Tapped</action>" +
-			"</Content.WhenScript>" +
+			"</whenScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -323,43 +326,43 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLMultipleWhenScriptsWithOneBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
-		String fileNameCostumeData2 = "92382349283_costume2";
-		String costumeName2 = "costume2";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
+		String fileNamelook2 = "92382349283_look2";
+		String lookName2 = "look2";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			costumeDataXMLString(fileNameCostumeData2, costumeName2) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			lookXMLString(fileNamelook2, lookName2) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.WhenScript>" +
+			"<whenScript>" +
 			"<brickList>" +
-			"<Bricks.SetCostumeBrick>" +
-			"<costumeData reference=\"../../../../../costumeDataList/Common.CostumeData\"/>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.SetCostumeBrick>" +
+			"<setlookBrick>" +
+			"<look reference=\"../../../../../lookList/look\"/>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</setlookBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
+			"<object reference=\"../../..\"/>" +
 			"<action>Tapped</action>" +
-			"</Content.WhenScript>" +
-			"<Content.WhenScript>" +
+			"</whenScript>" +
+			"<whenScript>" +
 			"<brickList>" +
-			"<Bricks.SetCostumeBrick>" +
-			"<costumeData reference=\"../../../../../costumeDataList/Common.CostumeData\"/>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.SetCostumeBrick>" +
+			"<setlookBrick>" +
+			"<look reference=\"../../../../../lookList/look\"/>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</setlookBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
+			"<object reference=\"../../..\"/>" +
 			"<action>Tapped</action>" +
-			"</Content.WhenScript>" +
+			"</whenScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -387,32 +390,32 @@ public class ParserTest extends GWTTestCase {
 		String receivedMessage = "Next";
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
-		String fileNameCostumeData2 = "92382349283_costume2";
-		String costumeName2 = "costume2";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
+		String fileNamelook2 = "92382349283_look2";
+		String lookName2 = "look2";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			costumeDataXMLString(fileNameCostumeData2, costumeName2) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			lookXMLString(fileNamelook2, lookName2) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.BroadcastScript>" +
+			"<broadcastScript>" +
 			"<brickList>" +
-			"<Bricks.HideBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.HideBrick>" +
+			"<hideBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</hideBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
+			"<object reference=\"../../..\"/>" +
 			"<receivedMessage>" + receivedMessage + "</receivedMessage>" +
-			"</Content.BroadcastScript>" +
+			"</broadcastScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -441,41 +444,41 @@ public class ParserTest extends GWTTestCase {
 		String receivedMessage = "Next";
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
-		String fileNameCostumeData2 = "92382349283_costume2";
-		String costumeName2 = "costume2";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
+		String fileNamelook2 = "92382349283_look2";
+		String lookName2 = "look2";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			costumeDataXMLString(fileNameCostumeData2, costumeName2) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			lookXMLString(fileNamelook2, lookName2) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.BroadcastScript>" +
+			"<broadcastScript>" +
 			"<brickList>" +
-			"<Bricks.HideBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.HideBrick>" +
+			"<hideBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</hideBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
+			"<object reference=\"../../..\"/>" +
 			"<receivedMessage>" + receivedMessage + "</receivedMessage>" +
-			"</Content.BroadcastScript>" +
-			"<Content.BroadcastScript>" +
+			"</broadcastScript>" +
+			"<broadcastScript>" +
 			"<brickList>" +
-			"<Bricks.HideBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.HideBrick>" +
+			"<hideBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</hideBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
+			"<object reference=\"../../..\"/>" +
 			"<receivedMessage>" + receivedMessage + "</receivedMessage>" +
-			"</Content.BroadcastScript>" +
+			"</broadcastScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -509,51 +512,51 @@ public class ParserTest extends GWTTestCase {
 		String receivedMessage = "Next";
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
-		String fileNameCostumeData2 = "92382349283_costume2";
-		String costumeName2 = "costume2";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
+		String fileNamelook2 = "92382349283_look2";
+		String lookName2 = "look2";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			costumeDataXMLString(fileNameCostumeData2, costumeName2) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			lookXMLString(fileNamelook2, lookName2) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.SetCostumeBrick>" +
-			"<costumeData reference=\"../../../../../costumeDataList/Common.CostumeData\"/>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.SetCostumeBrick>" +
+			"<setlookBrick>" +
+			"<look reference=\"../../../../../lookList/look\"/>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</setlookBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
-			"<Content.WhenScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
+			"<whenScript>" +
 			"<brickList>" +
-			"<Bricks.SetCostumeBrick>" +
-			"<costumeData reference=\"../../../../../costumeDataList/Common.CostumeData\"/>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.SetCostumeBrick>" +
+			"<setlookBrick>" +
+			"<look reference=\"../../../../../lookList/look\"/>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</setlookBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
+			"<object reference=\"../../..\"/>" +
 			"<action>Tapped</action>" +
-			"</Content.WhenScript>" +
-			"<Content.BroadcastScript>" +
+			"</whenScript>" +
+			"<broadcastScript>" +
 			"<brickList>" +
-			"<Bricks.HideBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.HideBrick>" +
+			"<hideBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</hideBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
+			"<object reference=\"../../..\"/>" +
 			"<receivedMessage>" + receivedMessage + "</receivedMessage>" +
-			"</Content.BroadcastScript>" +
+			"</broadcastScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -585,7 +588,7 @@ public class ParserTest extends GWTTestCase {
 	 *  	(o) tested
 	 *  	(-) not in parser
 	 * 
-	 * SetCostume					(o)			
+	 * Setlook					(o)			
 	 * WaitBrick					(o)					
 	 * PlaySound					(x)
 	 * ChangeVolumeBy				(o)
@@ -609,7 +612,7 @@ public class ParserTest extends GWTTestCase {
 	 * Broadcast					(o)
 	 * BroadcastWait				(o)
 	 * MoveNSteps					(o)
-	 * NextCostume					(o)
+	 * Nextlook					(o)
 	 * Repeat						(o)
 	 * Forever						(o)
 	 * LoopEnd						(o)
@@ -629,31 +632,31 @@ public class ParserTest extends GWTTestCase {
 	/**
 	 * 
 	 */
-	public void testParseXMLSetCostumeBrick() {
+	public void testParseXMLSetlookBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.SetCostumeBrick>" +
-			"<costumeData reference=\"../../../../../costumeDataList/Common.CostumeData\"/>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.SetCostumeBrick>" +
+			"<setlookBrick>" +
+			"<look reference=\"../../../../../lookList/look\"/>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</setlookBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -671,29 +674,29 @@ public class ParserTest extends GWTTestCase {
 		int timeToWait = 1000;
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.WaitBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"<timeToWaitInMilliSeconds>" + timeToWait + "</timeToWaitInMilliSeconds>" +
-			"</Bricks.WaitBrick>" +
+			"<waitBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"<timeToWaitInSeconds>" + timeToWait + "</timeToWaitInSeconds>" +
+			"</waitBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -712,30 +715,30 @@ public class ParserTest extends GWTTestCase {
 		int yPosition = 0;
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.PlaceAtBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<placeAtBrick>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<xPosition>" + xPosition + "</xPosition>" +
 			"<yPosition>" + yPosition + "</yPosition>" +
-			"</Bricks.PlaceAtBrick>" +
+			"</placeAtBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -753,29 +756,29 @@ public class ParserTest extends GWTTestCase {
 		int size = 10;
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.ChangeSizeByNBrick>" +
+			"<changeSizeByNBrick>" +
 			"<size>" + size + "</size>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.ChangeSizeByNBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</changeSizeByNBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -793,29 +796,29 @@ public class ParserTest extends GWTTestCase {
 		int yPosition = 10;
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.SetYBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<setYBrick>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<yPosition>" + yPosition + "</yPosition>" +
-			"</Bricks.SetYBrick>" +
+			"</setYBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -833,29 +836,29 @@ public class ParserTest extends GWTTestCase {
 		int xPosition = 10;
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.SetXBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<setXBrick>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<xPosition>" + xPosition + "</xPosition>" +
-			"</Bricks.SetXBrick>" +
+			"</setXBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -871,28 +874,28 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLHideBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.HideBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.HideBrick>" +
+			"<hideBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</hideBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -908,28 +911,28 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLShowBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.ShowBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.ShowBrick>" +
+			"<showBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</showBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -948,29 +951,29 @@ public class ParserTest extends GWTTestCase {
 		double steps = 50.0;
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.MoveNStepsBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<moveNStepsBrick>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<steps>" + steps + "</steps>" + 
-			"</Bricks.MoveNStepsBrick>" +
+			"</moveNStepsBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -989,29 +992,29 @@ public class ParserTest extends GWTTestCase {
 		int steps = 3;
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.GoNStepsBackBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<goNStepsBackBrick>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<steps>" + steps + "</steps>" + 
-			"</Bricks.GoNStepsBackBrick>" +
+			"</goNStepsBackBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1027,29 +1030,29 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLComeToFrontBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.ComeToFrontBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.ComeToFrontBrick>" +
+			"<comeToFrontBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</comeToFrontBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1069,31 +1072,31 @@ public class ParserTest extends GWTTestCase {
 		int yDestination = 0;
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.GlideToBrick>" +
-			"<durationInMilliSeconds>" + duration + "</durationInMilliSeconds>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<glideToBrick>" +
+			"<durationInSeconds>" + duration + "</durationInSeconds>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<xDestination>" + xDestination + "</xDestination>" +
 			"<yDestination>" + yDestination + "</yDestination>" +
-			"</Bricks.GlideToBrick>" +
+			"</glideToBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1107,33 +1110,33 @@ public class ParserTest extends GWTTestCase {
 	/**
 	 * 
 	 */
-	public void testParseXMLChangeXByBrick() {
+	public void testParseXMLChangeXByNBrick() {
 		int xMovement = 100;
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.ChangeXByBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<changeXByNBrick>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<xMovement>" + xMovement + "</xMovement>" +
-			"</Bricks.ChangeXByBrick>" +
+			"</changeXByNBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1147,33 +1150,33 @@ public class ParserTest extends GWTTestCase {
 	/**
 	 * 
 	 */
-	public void testParseXMLChangeYByBrick() {
+	public void testParseXMLChangeYByNBrick() {
 		int yMovement = 100;
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.ChangeYByBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<changeYByNBrick>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<yMovement>" + yMovement + "</yMovement>" +
-			"</Bricks.ChangeYByBrick>" +
+			"</changeYByNBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1191,29 +1194,29 @@ public class ParserTest extends GWTTestCase {
 		double degrees = 10.0;
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.TurnLeftBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<turnLeftBrick>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<degrees>" + degrees + "</degrees>" +
-			"</Bricks.TurnLeftBrick>" +
+			"</turnLeftBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1231,29 +1234,29 @@ public class ParserTest extends GWTTestCase {
 		double degrees = 10.0;
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.TurnRightBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<turnRightBrick>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<degrees>" + degrees + "</degrees>" +
-			"</Bricks.TurnRightBrick>" +
+			"</turnRightBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1271,29 +1274,29 @@ public class ParserTest extends GWTTestCase {
 		double degrees = 10.0;
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.PointInDirectionBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<pointInDirectionBrick>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<degrees>" + degrees + "</degrees>" +
-			"</Bricks.PointInDirectionBrick>" +
+			"</pointInDirectionBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1311,29 +1314,29 @@ public class ParserTest extends GWTTestCase {
 		double size = 100.0;
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.SetSizeToBrick>" +
+			"<setSizeToBrick>" +
 			"<size>" + size + "</size>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.SetSizeToBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</setSizeToBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1351,29 +1354,29 @@ public class ParserTest extends GWTTestCase {
 		double volume = 10.0;
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.SetVolumeToBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<setVolumeToBrick>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<volume>" + volume + "</volume>" +
-			"</Bricks.SetVolumeToBrick>" +
+			"</setVolumeToBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1387,33 +1390,33 @@ public class ParserTest extends GWTTestCase {
 	/**
 	 * 
 	 */
-	public void testParseXMLChangeVolumeByBrick() {
+	public void testParseXMLChangeVolumeByNBrick() {
 		double volume = 25.0f;
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.ChangeVolumeByBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<changeVolumeByNBrick>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<volume>" + volume + "</volume>" +
-			"</Bricks.ChangeVolumeByBrick>" +
+			"</changeVolumeByNBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1427,30 +1430,30 @@ public class ParserTest extends GWTTestCase {
 	/**
 	 * 
 	 */
-	public void testParseXMLNextCostumeBrick() {
+	public void testParseXMLNextlookBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.NextCostumeBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.NextCostumeBrick>" +
+			"<nextlookBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</nextlookBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1469,33 +1472,33 @@ public class ParserTest extends GWTTestCase {
 		String soundName = "Aufnahme";
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.PlaySoundBrick>" +
+			"<playSoundBrick>" +
 			"<soundInfo>" +
 			"<fileName>" + soundFileName + "</fileName>" +
 			"<name>" + soundName + "</name>" +
 			"</soundInfo>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.PlaySoundBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</playSoundBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();*/
@@ -1517,37 +1520,37 @@ public class ParserTest extends GWTTestCase {
 		String soundName = "Aufnahme";
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.PlaySoundBrick>" +
+			"<playSoundBrick>" +
 			"<soundInfo>" +
 			"<fileName>" + soundFileName + "</fileName>" +
 			"<name>" + soundName + "</name>" +
 			"</soundInfo>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.PlaySoundBrick>" +
-			"<Bricks.PlaySoundBrick>" +
-			"<soundInfo reference=\"../../Bricks.PlaySoundBrick/soundInfo\"/>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.PlaySoundBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</playSoundBrick>" +
+			"<playSoundBrick>" +
+			"<soundInfo reference=\"../../playSoundBrick/soundInfo\"/>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</playSoundBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();*/
@@ -1566,28 +1569,28 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLStopAllSoundsBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.StopAllSoundsBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.StopAllSoundsBrick>" +
+			"<stopAllSoundsBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</stopAllSoundsBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1606,29 +1609,29 @@ public class ParserTest extends GWTTestCase {
 		String broadcastMessage = "Next";
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
 			"<Bricks.BroadcastBrick>" +
 			"<broadcastMessage>" + broadcastMessage + "</broadcastMessage>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<object reference=\"../../../../..\"/>" +
 			"</Bricks.BroadcastBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1647,29 +1650,29 @@ public class ParserTest extends GWTTestCase {
 		String broadcastMessage = "Next";
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
 			"<Bricks.BroadcastWaitBrick>" +
 			"<broadcastMessage>" + broadcastMessage + "</broadcastMessage>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<object reference=\"../../../../..\"/>" +
 			"</Bricks.BroadcastWaitBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1688,29 +1691,29 @@ public class ParserTest extends GWTTestCase {
 		String note = "Correct";
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.NoteBrick>" +
+			"<noteBrick>" +
 			"<note>" + note + "</note>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.NoteBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</noteBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1732,34 +1735,34 @@ public class ParserTest extends GWTTestCase {
 		int timesToRepeat = 3;
 		
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.RepeatBrick>" +
+			"<repeatBrick>" +
 			"<loopEndBrick>" +
-			"<loopBeginBrick class=\"Bricks.RepeatBrick\" reference=\"../..\"/>" +
-			"<sprite reference=\"../../../../../..\"/>" +
+			"<loopBeginBrick class=\"repeatBrick\" reference=\"../..\"/>" +
+			"<object reference=\"../../../../../..\"/>" +
 			"</loopEndBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<timesToRepeat>" + Integer.toString(timesToRepeat) + "</timesToRepeat>" +
-			"</Bricks.RepeatBrick>" +
-			"<Bricks.LoopEndBrick reference=\"../Bricks.RepeatBrick/loopEndBrick\"/>" +
+			"</repeatBrick>" +
+			"<loopEndBrick reference=\"../repeatBrick/loopEndBrick\"/>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1783,33 +1786,33 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLForeverBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.ForeverBrick>" +
+			"<foreverBrick>" +
 			"<loopEndBrick>" +
-			"<loopBeginBrick class=\"Bricks.ForeverBrick\" reference=\"../..\"/>" +
-			"<sprite reference=\"../../../../../..\"/>" +
+			"<loopBeginBrick class=\"foreverBrick\" reference=\"../..\"/>" +
+			"<object reference=\"../../../../../..\"/>" +
 			"</loopEndBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.ForeverBrick>" +
-			"<Bricks.LoopEndBrick reference=\"../Bricks.RepeatBrick/loopEndBrick\"/>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</foreverBrick>" +
+			"<loopEndBrick reference=\"../repeatBrick/loopEndBrick\"/>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1832,32 +1835,32 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLSetGhostEffectBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		
 		double transparency = 10.0;
 		
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.SetGhostEffectBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<setGhostEffectBrick>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<transparency>" + transparency + "</transparency>" +
-			"</Bricks.SetGhostEffectBrick>" +
+			"</setGhostEffectBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1873,34 +1876,34 @@ public class ParserTest extends GWTTestCase {
 	/**
 	 * 
 	 */
-	public void testParseXMLChangeGhostEffectByBrick() {
+	public void testParseXMLChangeGhostEffectByNBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		
 		double changeGhostEffect = 0.5;
 		
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.ChangeGhostEffectBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<changeGhostEffectByNBrick>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<changeGhostEffect>" + changeGhostEffect + "</changeGhostEffect>" +
-			"</Bricks.ChangeGhostEffectBrick>" +
+			"</changeGhostEffectByNBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1918,29 +1921,29 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLIfOnEdgeBounceBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.IfOnEdgeBounceBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.IfOnEdgeBounceBrick>" +
+			"<ifOnEdgeBounceBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</ifOnEdgeBounceBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -1958,53 +1961,53 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLPointToBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		
 		String pointedSpriteName = "TestSpritePointed";
-		String fileNameCostumeData2 = "91223QE849283_costume2";
-		String costumeName2 = "costume2";
+		String fileNamelook2 = "91223QE849283_look2";
+		String lookName2 = "look2";
 		
 		double size = 100.0;
 		
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.PointToBrick>" +
+			"<pointToBrick>" +
 			"<pointedSprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData2, costumeName2) +
-			"</costumeDataList>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook2, lookName2) +
+			"</lookList>" +
 			"<name>" + pointedSpriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.SetSizeToBrick>" +
+			"<setSizeToBrick>" +
 			"<size>" + size + "</size>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.SetSizeToBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</setSizeToBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<object reference=\"../../../../..\"/>" +
 			"</pointedSprite>" +
-			"</Bricks.PointToBrick>" +
+			"</pointToBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -2022,52 +2025,52 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLPointToBrickWithReference() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		
 		String pointedSpriteName = "TestSpritePointed";
-		String fileNameCostumeData2 = "91223QE849283_costume2";
-		String costumeName2 = "costume2";
+		String fileNamelook2 = "91223QE849283_look2";
+		String lookName2 = "look2";
 		
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.PointToBrick>" +
-			"<pointedSprite reference=\"../../../../../../Content.Sprite[2]\">" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<pointToBrick>" +
+			"<pointedobject reference=\"../../../../../../object[2]\">" +
+			"<object reference=\"../../../../..\"/>" +
 			"</pointedSprite>" +
-			"</Bricks.PointToBrick>" +
+			"</pointToBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData2, costumeName2) +
-			"</costumeDataList>" +
+			"</object>" +
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook2, lookName2) +
+			"</lookList>" +
 			"<name>" + pointedSpriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.ShowBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.ShowBrick>" +
+			"<showBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</showBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -2085,29 +2088,29 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLClearGraphicEffectBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		
 		String xmlString = xmlStringRumpBegin +
-				"<spriteList>"+
-				"<Content.Sprite>" +
-				"<costumeDataList>" +
-				costumeDataXMLString(fileNameCostumeData, costumeName) +
-				"</costumeDataList>" +
+				"<objectList>"+
+				"<object>" +
+				"<lookList>" +
+				lookXMLString(fileNamelook, lookName) +
+				"</lookList>" +
 				"<name>" + spriteName + "</name>" +
 				"<scriptList>" +
-				"<Content.StartScript>" +
+				"<startScript>" +
 				"<brickList>" +
-				"<Bricks.ClearGraphicEffectBrick>" +
-				"<sprite reference=\"../../../../..\"/>" +
-				"</Bricks.ClearGraphicEffectBrick>" +
+				"<clearGraphicEffectBrick>" +
+				"<object reference=\"../../../../..\"/>" +
+				"</clearGraphicEffectBrick>" +
 				"</brickList>" +
-				"<sprite reference=\"../../..\"/>" +
-				"</Content.StartScript>" +
+				"<object reference=\"../../..\"/>" +
+				"</startScript>" +
 				"</scriptList>" +
 				"<soundList/>" +
-				"</Content.Sprite>" +
-				"</spriteList>" +
+				"</object>" +
+				"</objectList>" +
 				xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -2125,32 +2128,32 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLSetBrightnessBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		
 		double brightness = 300.0;
 		
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.SetBrightnessBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<setBrightnessBrick>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<brightness>" + brightness + "</brightness>" +
-			"</Bricks.SetBrightnessBrick>" +
+			"</setBrightnessBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -2168,32 +2171,32 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLChangeBrightnessBrick() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		
 		double brightness = -30.0;
 		
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.ChangeBrightnessBrick>" +
-			"<sprite reference=\"../../../../..\"/>" +
+			"<changeBrightnessByNBrick>" +
+			"<object reference=\"../../../../..\"/>" +
 			"<brightness>" + brightness + "</brightness>" +
-			"</Bricks.ChangeBrightnessBrick>" +
+			"</changeBrightnessByNBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"</spriteList>" +
+			"</object>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
@@ -2213,56 +2216,56 @@ public class ParserTest extends GWTTestCase {
 	 */
 	public void testParseXMLSpriteReference() {
 		String spriteName = "TestSprite";
-		String fileNameCostumeData = "923QE849283_costume";
-		String costumeName = "costume1";
+		String fileNamelook = "923QE849283_look";
+		String lookName = "look1";
 		
 		String pointedSpriteName = "TestSpritePointed";
-		String fileNameCostumeData2 = "91223QE849283_costume2";
-		String costumeName2 = "costume2";
+		String fileNamelook2 = "91223QE849283_look2";
+		String lookName2 = "look2";
 		
 		double size = 100.0;
 		
-		String reference="../Content.Sprite/scriptList/Content.StartScript/brickList/Bricks.PointToBrick/pointedSprite";
+		String reference="../object/scriptList/startScript/brickList/pointToBrick/pointedSprite";
 		
 		String xmlString = xmlStringRumpBegin +
-			"<spriteList>"+
-			"<Content.Sprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData, costumeName) +
-			"</costumeDataList>" +
+			"<objectList>"+
+			"<object>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook, lookName) +
+			"</lookList>" +
 			"<name>" + spriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.PointToBrick>" +
+			"<pointToBrick>" +
 			"<pointedSprite>" +
-			"<costumeDataList>" +
-			costumeDataXMLString(fileNameCostumeData2, costumeName2) +
-			"</costumeDataList>" +
+			"<lookList>" +
+			lookXMLString(fileNamelook2, lookName2) +
+			"</lookList>" +
 			"<name>" + pointedSpriteName + "</name>" +
 			"<scriptList>" +
-			"<Content.StartScript>" +
+			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.SetSizeToBrick>" +
+			"<setSizeToBrick>" +
 			"<size>" + size + "</size>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.SetSizeToBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</setSizeToBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
 			"</pointedSprite>" +
-			"<sprite reference=\"../../../../..\"/>" +
-			"</Bricks.PointToBrick>" +
+			"<object reference=\"../../../../..\"/>" +
+			"</pointToBrick>" +
 			"</brickList>" +
-			"<sprite reference=\"../../..\"/>" +
-			"</Content.StartScript>" +
+			"<object reference=\"../../..\"/>" +
+			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</Content.Sprite>" +
-			"<Content.Sprite reference=\"" + reference + "\"/>" +
-			"</spriteList>" +
+			"</object>" +
+			"<object reference=\"" + reference + "\"/>" +
+			"</objectList>" +
 			xmlStringRumpEnd;
 		
 		Parser parser = new Parser();
