@@ -23,4 +23,7 @@
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>
 
+  <set-property name="gwt.logging.logLevel" value="INFO"/>
+  <set-property name="gwt.logging.enabled" value="TRUE"/>
+  <set-property name="gwt.logging.consoleHandler" value="ENABLED"/>
 </module>
