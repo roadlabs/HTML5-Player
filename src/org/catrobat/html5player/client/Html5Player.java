@@ -250,9 +250,13 @@ public class Html5Player implements EntryPoint {
 		rootCanvas.addClickHandler(new ClickHandler() {
 			public void onClick(ClickEvent event) {
 				stage.getSpriteManager().handleScreenClick(
-						event.getRelativeX(rootCanvas.getCanvasElement()),
-						event.getRelativeY(rootCanvas.getCanvasElement())); 
+				  getRelativeXforRotation(event.getRelativeX(rootCanvas.getCanvasElement()), 
+				                 event.getRelativeY(rootCanvas.getCanvasElement()), screenPanel),
+				  getRelativeYforRotation(event.getRelativeX(rootCanvas.getCanvasElement()), 
+				    event.getRelativeY(rootCanvas.getCanvasElement()), screenPanel)); 
+	           
 			}
+
 		});
 		
 //		if(projectNumber != null)
@@ -277,6 +281,42 @@ public class Html5Player implements EntryPoint {
 		
 		
 	}
+
+  public static int getRelativeXforRotation(int x, int y, Panel panel) {
+    int width = panel.getOffsetWidth();
+    if(width == 0)
+        width = getNumberFromCssAttribut(panel.getElement().getStyle().getWidth());
+    int height = panel.getOffsetHeight();
+    if(height == 0)
+        height = getNumberFromCssAttribut(panel.getElement().getStyle().getHeight());
+    
+    if (rotationAngle == 180 || rotationAngle == -180) {
+      return width - x;
+    } else if (rotationAngle == 90 || rotationAngle == -270) {
+      return y;
+    } else if (rotationAngle == -90 || rotationAngle == 270) {
+      return width-y;
+    }
+    return x;
+  }
+
+  public static int getRelativeYforRotation(int x, int y, Panel panel) {
+    int width = panel.getOffsetWidth();
+    if(width == 0)
+        width = getNumberFromCssAttribut(panel.getElement().getStyle().getWidth());
+    int height = panel.getOffsetHeight();
+    if(height == 0)
+        height = getNumberFromCssAttribut(panel.getElement().getStyle().getHeight());
+    
+    if (rotationAngle == 180 || rotationAngle == -180) {
+      return height-y;
+    } else if (rotationAngle == 90 || rotationAngle == -270) {
+      return height-x;
+    } else if (rotationAngle == -90 || rotationAngle == 270) {
+      return x;
+    }
+    return y;
+  }
 	
 	public static void rotateRight(Panel panel)
 	{

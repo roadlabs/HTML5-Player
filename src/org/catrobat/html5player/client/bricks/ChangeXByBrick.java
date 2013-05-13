@@ -37,12 +37,18 @@ public class ChangeXByBrick extends Brick {
 	@Override
 	public boolean execute(Sprite sprite) {
 		Look look = sprite.getLook();
+		System.out.println("beforeMove: " +look.getXPosition() + " " + look.getMiddleX());
 		look.setXPosition(look.getXPosition() + deltaX);
 		
 		
 		look.setMiddleX(look.getMiddleX() + deltaX);
-		
+		System.out.println("afterMove: " +look.getXPosition() + " " + look.getMiddleX());
 		return true;
+	}
+	@Override
+    public String toString(){
+	  return this.getClass() + " deltaX: " + deltaX;
+	  
 	}
 
 }

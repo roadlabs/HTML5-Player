@@ -33,7 +33,6 @@ import org.catrobat.html5player.client.Stage;
 
 
 public class UserVariablesContainer {
-	private static final long serialVersionUID = 1L;
 
 	private List<UserVariable> projectVariables;
 	private Map<Sprite, List<UserVariable>> spriteVariables;
