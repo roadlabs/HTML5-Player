@@ -187,10 +187,10 @@ public class ParserTest extends GWTTestCase {
 			"<scriptList>" +
 			"<startScript>" +
 			"<brickList>" +
-			"<setlookBrick>" +
+			"<setLookBrick>" +
 			"<look reference=\"../../../../../lookList/look\"/>" +
 			"<object reference=\"../../../../..\"/>" +
-			"</setlookBrick>" +
+			"</setLookBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +
 			"</startScript>" +
@@ -234,19 +234,19 @@ public class ParserTest extends GWTTestCase {
 			"<scriptList>" +
 			"<startScript>" +
 			"<brickList>" +
-			"<setlookBrick>" +
+			"<setLookBrick>" +
 			"<look reference=\"../../../../../lookList/look\"/>" +
 			"<object reference=\"../../../../..\"/>" +
-			"</setlookBrick>" +
+			"</setLookBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +
 			"</startScript>" +
 			"<startScript>" +
 			"<brickList>" +
-			"<setlookBrick>" +
+			"<setLookBrick>" +
 			"<look reference=\"../../../../../lookList/look\"/>" +
 			"<object reference=\"../../../../..\"/>" +
-			"</setlookBrick>" +
+			"</setLookBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +
 			"</startScript>" +
@@ -293,10 +293,10 @@ public class ParserTest extends GWTTestCase {
 			"<scriptList>" +
 			"<whenScript>" +
 			"<brickList>" +
-			"<setlookBrick>" +
+			"<setLookBrick>" +
 			"<look reference=\"../../../../../lookList/look\"/>" +
 			"<object reference=\"../../../../..\"/>" +
-			"</setlookBrick>" +
+			"</setLookBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +
 			"<action>Tapped</action>" +
@@ -341,20 +341,20 @@ public class ParserTest extends GWTTestCase {
 			"<scriptList>" +
 			"<whenScript>" +
 			"<brickList>" +
-			"<setlookBrick>" +
+			"<setLookBrick>" +
 			"<look reference=\"../../../../../lookList/look\"/>" +
 			"<object reference=\"../../../../..\"/>" +
-			"</setlookBrick>" +
+			"</setLookBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +
 			"<action>Tapped</action>" +
 			"</whenScript>" +
 			"<whenScript>" +
 			"<brickList>" +
-			"<setlookBrick>" +
+			"<setLookBrick>" +
 			"<look reference=\"../../../../../lookList/look\"/>" +
 			"<object reference=\"../../../../..\"/>" +
-			"</setlookBrick>" +
+			"</setLookBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +
 			"<action>Tapped</action>" +
@@ -527,19 +527,19 @@ public class ParserTest extends GWTTestCase {
 			"<scriptList>" +
 			"<startScript>" +
 			"<brickList>" +
-			"<setlookBrick>" +
+			"<setLookBrick>" +
 			"<look reference=\"../../../../../lookList/look\"/>" +
 			"<object reference=\"../../../../..\"/>" +
-			"</setlookBrick>" +
+			"</setLookBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +
 			"</startScript>" +
 			"<whenScript>" +
 			"<brickList>" +
-			"<setlookBrick>" +
+			"<setLookBrick>" +
 			"<look reference=\"../../../../../lookList/look\"/>" +
 			"<object reference=\"../../../../..\"/>" +
-			"</setlookBrick>" +
+			"</setLookBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +
 			"<action>Tapped</action>" +
@@ -632,7 +632,7 @@ public class ParserTest extends GWTTestCase {
 	/**
 	 * 
 	 */
-	public void testParseXMLSetlookBrick() {
+	public void testParseXMLsetLookBrick() {
 		String spriteName = "TestSprite";
 		String fileNamelook = "923QE849283_look";
 		String lookName = "look1";
@@ -646,10 +646,10 @@ public class ParserTest extends GWTTestCase {
 			"<scriptList>" +
 			"<startScript>" +
 			"<brickList>" +
-			"<setlookBrick>" +
+			"<setLookBrick>" +
 			"<look reference=\"../../../../../lookList/look\"/>" +
 			"<object reference=\"../../../../..\"/>" +
-			"</setlookBrick>" +
+			"</setLookBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +
 			"</startScript>" +
