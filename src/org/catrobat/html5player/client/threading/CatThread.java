@@ -24,6 +24,8 @@ package org.catrobat.html5player.client.threading;
 
 import java.util.ArrayList;
 
+import org.catrobat.html5player.client.CatrobatDebug;
+
 public class CatThread {
 
 	public final static int READY = 1;
