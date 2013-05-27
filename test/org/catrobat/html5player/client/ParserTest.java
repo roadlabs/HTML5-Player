@@ -2281,4 +2281,65 @@ public class ParserTest extends GWTTestCase {
 		assertTrue(pointedStartScript.getBrick(0) instanceof SetSizeToBrick);
 	}
 	
+	
+    public void testSetVariableBrick() {
+      String spriteName = "TestSprite";
+      String fileNamelook = "923QE849283_look";
+      String lookName = "look1";
+      
+      double oldValue = 30.0;
+      double targetValue = 30.0;
+      
+      String xmlString = xmlStringRumpBegin +
+          "<objectList>"+
+          "<object>" +
+          "<lookList>" +
+          lookXMLString(fileNamelook, lookName) +
+          "</lookList>" +
+          "<name>" + spriteName + "</name>" +
+          "<scriptList>" +
+          "<startScript>" +
+          "<brickList>" +
+          "<setVariableBrick>"+
+              "<object reference=\"../../../../..\"/>"+
+              "<userVariable>"+
+                "<name>testname</name>"+
+                "<value>"+oldValue+"</value>"+
+              "</userVariable>"+
+              "<variableFormula>"+
+                "<formulaTree>"+
+                  "<type>NUMBER</type>"+
+                 "<value>"+targetValue+"</value>"+
+                "</formulaTree>"+
+              "</variableFormula>"+
+            "</setVariableBrick>"+
+          "</brickList>" +
+          "<object reference=\"../../..\"/>" +
+          "</startScript>" +
+          "</scriptList>" +
+          "<soundList/>" +
+          "</object>" +
+          "</objectList>" +
+          "<variables>"+
+          "<objectVariableList/>" +
+          "<programVariableList>" +
+            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick/userVariable\"/>" +
+            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[2]/userVariable\"/>" +
+            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[3]/userVariable\"/>" +
+            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[4]/userVariable\"/>" +
+            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[6]/userVariable\"/>" +
+          "</programVariableList>" +
+        "</variables>" +
+          xmlStringRumpEnd;
+      
+      Parser parser = new Parser();
+      parser.parseXML(spriteManager, xmlString);
+      
+      Sprite sprite = spriteManager.getSprite(spriteName, false);
+      
+      StartScript startScript = (StartScript)sprite.getScript(0);
+      
+      assertTrue(startScript.getBrick(0) instanceof SetVariableBrick);
+  }
+	
 }

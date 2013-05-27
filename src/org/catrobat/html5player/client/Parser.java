@@ -51,6 +51,7 @@ import org.catrobat.html5player.client.bricks.SetGhostEffectBrick;
 import org.catrobat.html5player.client.bricks.SetLookBrick;
 import org.catrobat.html5player.client.bricks.NextLookBrick;
 import org.catrobat.html5player.client.bricks.SetSizeToBrick;
+import org.catrobat.html5player.client.bricks.SetVariableBrick;
 import org.catrobat.html5player.client.bricks.SetVolumeToBrick;
 import org.catrobat.html5player.client.bricks.SetXBrick;
 import org.catrobat.html5player.client.bricks.SetYBrick;
@@ -62,6 +63,8 @@ import org.catrobat.html5player.client.bricks.WaitBrick;
 
 import org.catrobat.html5player.client.common.LookData;
 import org.catrobat.html5player.client.common.SoundInfo;
+import org.catrobat.html5player.client.formulaeditor.Formula;
+import org.catrobat.html5player.client.formulaeditor.UserVariable;
 
 import org.catrobat.html5player.client.scripts.BroadcastScript;
 import org.catrobat.html5player.client.scripts.Script;
@@ -250,6 +253,37 @@ public class Parser {
 
   // ##########################################################################
 
+  private void parseUserVariableList(Node tree)
+  {
+    Element userVariables = getChildElementByTagName(tree,"programVariableList");
+
+    for(int i = 0; i < userVariables.getChildNodes().getLength();i++)
+    {
+      Element var = (Element)userVariables.getChildNodes().item(i);
+      if (var.hasAttribute("reference")) {
+        String objectReference = checkReference(var.getAttribute("reference"), "userVariable");
+        Element userVariable = XPath.evaluateSingle(var, objectReference, Element.class);
+        if(userVariable == null){
+          return;
+        }  
+        String name = "";
+        double value = 0.0;
+        Element nameEl = getChildElementByTagName(userVariable,"name");
+        
+        if(nameEl != null)
+        {
+          name = nameEl.getFirstChild().toString();
+        }
+        Element valueEl = getChildElementByTagName(userVariable,"value");
+        if(nameEl != null)
+        {
+          value = Double.parseDouble(valueEl.getFirstChild().toString());
+        }
+        Stage.getInstance().getUserVariables().addProjectUserVariable(name, value);
+      }
+    }
+  }
+  
   private void parseScreenResolution(Document messageDom) {
     Node header = getChildElementByTagName(messageDom.getDocumentElement(), "header");
     Node nodeScreenHeight = getChildElementByTagName(header, Const.SCREEN_HEIGHT);
@@ -652,6 +686,10 @@ public class Parser {
     } else if (brickNode.getNodeName().equals("changeBrightnessByNBrick")) {
       double changeBrightness = parseformulaTree(getChildElementByTagName(brickNode, "changeBrightness"));
       return new ChangeBrightnessBrick(objName, changeBrightness);
+    } else if(brickNode.getNodeName().equals("setVariableBrick")){
+      UserVariable userVar  = parseUserVariable(brickNode);
+      Formula formula = new Formula(parseformulaTree(getChildElementByTagName(brickNode, "variableFormula")));
+      return new SetVariableBrick(objName,formula, userVar);
     } else {
       CatrobatDebug.console("Brick: " + brickNode.getNodeName() + " not implemented");
       Stage.getInstance().log("Brick not implemented:" + brickNode.getNodeName());
@@ -705,6 +743,33 @@ public class Parser {
     Scene.get().setSceneMeasures(width, height);
   }
 
+  public UserVariable parseUserVariable(Node tree){
+    Element userVariable = getChildElementByTagName(tree,"userVariable");
+    if(userVariable == null){
+      return null;
+    }  
+    Element nameEl = getChildElementByTagName(userVariable,"name");
+    if(nameEl != null){
+      String name = nameEl.getFirstChild().toString();
+      return Stage.getInstance().getUserVariables().getUserVariable(name, Stage.getInstance().getCurrentSprite());
+    }
+      
+    if (userVariable.hasAttribute("reference")) {
+      String objectReference = checkReference(userVariable.getAttribute("reference"), "userVariable");
+      userVariable = XPath.evaluateSingle(userVariable, objectReference, Element.class);
+      if(userVariable == null){
+        return null;
+      }  
+      nameEl = getChildElementByTagName(userVariable,"name");
+      if(nameEl != null)
+      {
+        String name = nameEl.getFirstChild().toString();
+        return Stage.getInstance().getUserVariables().getUserVariable(name, Stage.getInstance().getCurrentSprite());
+      }
+    }
+      return null;
+  }
+  
   // ##########################################################################
   public double parseformulaTree(Node tree) throws Exception {
     Element formula = getChildElementByTagName(tree,"formulaTree");

@@ -228,6 +228,7 @@ public class Stage {
 	 * 
 	 */
 	public void clearStage() {
+	    userVariables = new UserVariablesContainer();
 		defaultLogBoxSettings();
 		
 		CatrobatDebug.console("Spritemanager contains " + spriteManager.getSpriteList().size() + " sprites");
