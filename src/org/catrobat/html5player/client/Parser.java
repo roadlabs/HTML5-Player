@@ -103,14 +103,16 @@ public class Parser {
 			if (hasDomDocumentPageNotFoundError(messageDom)) {
 				return;
 			}
+			if (!isVersionOK(messageDom)) {
+				return;
+			}
 			parseScreenResolution(messageDom);
 
-			parseAndCreateSprites(messageDom);
-
-			parserFinished();
-
-			CatrobatDebug.info("Parser finished");
-
+			if(parseAndCreateSprites(messageDom))
+			{
+				parserFinished();
+				CatrobatDebug.console("Parser finished");
+			}
 		} catch (DOMException e) {
 			Window.alert("Could not parse XML document. " + e.getMessage());
 		}
@@ -132,6 +134,21 @@ public class Parser {
 				}
 			}
 		}
+		return false;
+	}
+
+	private boolean isVersionOK(Document messageDom)
+	{
+		NodeList versionNode = ((Element) messageDom.getFirstChild()).getElementsByTagName("catroidVersionName");
+		if (versionNode != null && versionNode.getLength() != 0) {
+			Element versionElement = (Element) versionNode.item(0);
+			if (versionElement != null) {
+				if (versionElement.toString().contains("0.6.0beta")) {
+					return true;
+				}
+			}
+		}
+		Window.alert("Project version not supported!");
 		return false;
 	}
 
@@ -226,12 +243,12 @@ public class Parser {
 
 		if (reference.matches("(.*)" + substring
 				+ "(\\[){1}(\\d){1,}(\\]){1}(.*)")) {
-			CatrobatDebug.debug("reference (" + reference
-					+ ") contains square brackets");
+			CatrobatDebug.console("reference (" + reference
+					+ ") cointains square brackets");
 			return reference;
 		} else {
-			CatrobatDebug.debug("reference (" + reference
-					+ ") does not contain any square brackets");
+			CatrobatDebug.console("reference (" + reference
+					+ ") does not cointain square brackets");
 
 			int offset = reference.lastIndexOf(substring) + substring.length();
 
@@ -260,10 +277,11 @@ public class Parser {
 			if (firstChild != null) {
 				dimX = Integer.valueOf(firstChild.getNodeValue());
 			} else {
-				CatrobatDebug.debug("firstChild is null");
+				CatrobatDebug.console("firstChild is null");
 			}
 		} else {
-			CatrobatDebug.debug("Method 'parseScreenResolution': nodeScreenWidth is null");
+			CatrobatDebug
+					.console("Methode:parseScreenResolution nodeScreenWidth  is null");
 		}
 
 		if (nodeScreenHeight != null) {
@@ -271,20 +289,28 @@ public class Parser {
 			if (firstChild != null) {
 				dimY = Integer.valueOf(firstChild.getNodeValue());
 			} else {
-				CatrobatDebug.debug("firstChild is null");
+				CatrobatDebug.console("firstChild is null");
 			}
 		} else {
-			CatrobatDebug.debug("Method 'parseScreenResolution': nodeScreenHeight is null");
+			CatrobatDebug
+					.console("Methode:parseScreenResolution  nodeScreenHeight  is null");
 		}
 
 		setRootCanvasSize(dimX, dimY);
 	}
 
-	private void parseAndCreateSprites(Document messageDom) {
+	private boolean parseAndCreateSprites(Document messageDom) {
 		Element spriteListNode = getChildElementByTagName(
 				messageDom.getDocumentElement(), "spriteList");
 		List<Element> spriteNodes = getChildElementsByTagName(spriteListNode,
 				"Content.Sprite");
+		if(spriteNodes == null || spriteNodes.isEmpty())
+		{
+			System.out.println("Content.Sprite not found!");
+			spriteNodes = getChildElementsByTagName(spriteListNode,
+					"sprite"); 
+		}
+
 		for (Element spriteNode : spriteNodes) {
 
 			String name;
@@ -302,6 +328,12 @@ public class Parser {
 						"name"));
 				costumeList = getChildElementByTagName(referencedSpriteNode,
 						"costumeDataList");
+				if(costumeList == null)
+				{
+					System.out.println("costumeDataList not found!");
+					costumeList = getChildElementByTagName(referencedSpriteNode,
+							"lookList"); 
+				}
 				scriptList = getChildElementByTagName(referencedSpriteNode,
 						"scriptList");
 				soundList = getChildElementByTagName(referencedSpriteNode,
@@ -310,14 +342,27 @@ public class Parser {
 				name = getText(getChildElementByTagName(spriteNode, "name"));
 				costumeList = getChildElementByTagName(spriteNode,
 						"costumeDataList");
+				if(costumeList == null)
+				{
+					System.out.println("costumeDataList not found!");
+					costumeList = getChildElementByTagName(spriteNode,
+							"lookList"); 
+				}
 				scriptList = getChildElementByTagName(spriteNode, "scriptList");
 				soundList = getChildElementByTagName(spriteNode, "soundList");
 			}
 
-			Sprite sprite = createSprite(name, costumeList, scriptList,
-					soundList);
+
+
+			Sprite sprite = createSprite(name, costumeList, scriptList,soundList);
+			if(sprite == null)
+			{
+				Window.alert("Could not parse XML document. There are unsupported elements!");
+				return false;
+			}
 			manager.addSprite(sprite);
 		}
+		return true;
 	}
 
 	public Sprite createSprite(String name, Node costumeList, Node scriptList,
@@ -329,44 +374,43 @@ public class Parser {
 				|| name.equals(Const.BACK_GROUND_ENG)) {
 			sprite.setBackground(true);
 		}
-
 		List<Element> costumes = getChildElementsByTagName(costumeList,
 				"Common.CostumeData");
+		if(costumes == null || costumes.isEmpty())
+		{
+			System.out.println("Common.CostumeData not found!");
+			costumes = getChildElementsByTagName(costumeList,
+					"look");
+		}
+
 		for (Element costumeDataElement : costumes) {
 			LookData lookData = new LookData();
 			String filename = getText(getChildElementByTagName(
 					costumeDataElement, "fileName"));
 
-			CatrobatDebug.info("Sprite fileName: " + filename);
+			CatrobatDebug.console("XXXXXXXXXXXXXXXXXXXXX fileName: " + filename
+					+ " XXXXXXXXXXXXXXXXXXXXX");
 
 			lookData.setFilename(filename);
 			String costumeName = getText(getChildElementByTagName(
 					costumeDataElement, "name"));
 			lookData.setName(costumeName);
 
-			CatrobatDebug.info("Sprite name: " + costumeName);
+			CatrobatDebug.console("XXXXXXXXXXXXXXXXXXXXX name: " + costumeName
+					+ " XXXXXXXXXXXXXXXXXXXXX");
 
-			// String height =
-			// getText(getChildElementByTagName(costumeDataElement,
-			// "resHeight"));
 			lookData.setHeight(0);
-			// String width =
-			// getText(getChildElementByTagName(costumeDataElement,
-			// "resWidth"));
 			lookData.setWidth(0);
 
 			sprite.addLookData(lookData);
-			CatrobatDebug.debug("LookData: " + lookData.getName());
-			CatrobatDebug.debug(
-				"File: " + lookData.getFilename() +
-				" Height: " + lookData.getHeight() +
-				" Width: " + lookData.getWidth()
-			);
+			CatrobatDebug.console("LookData: " + lookData.getName());
+			CatrobatDebug.console("File: " + lookData.getFilename()
+					+ " Height: " + lookData.getHeight() + " Width: "
+					+ lookData.getWidth());
 
 			// add image name and url to ImageHandler
-			String url = Const.PROJECT_PATH
-					+ Stage.getInstance().getProjectNumber() + "/images/"
-					+ filename;
+			//String url = Const.PROJECT_PATH + Stage.getInstance().getProjectNumber() + "/images/"+ filename;
+			String url = "http://"+Window.Location.getHost()+ "/Html5Player/fileupload?name="+ filename;
 			ImageHandler.get().addImage(filename, url);
 		}
 
@@ -392,9 +436,15 @@ public class Parser {
 				List<Element> brickElements = getChildElements(brickListElement);
 
 				for (Element brickElement : brickElements) {
+					CatrobatDebug.off();
 					Brick brick = checkBrick(brickElement, sprite, script);
+					CatrobatDebug.on();
 					if (brick != null && script != null) {
 						script.addBrick(brick);
+					}
+					else
+					{
+						return null;
 					}
 				}
 			}
@@ -402,8 +452,12 @@ public class Parser {
 			sprite.addScript(script);
 		}
 
-		// CatrobatDebug.debug("Sprite has " + sprite.getNumberOfScripts() +
+		// CatrobatDebug.console("Sprite has " + sprite.getNumberOfScripts() +
 		// " scripts");
+
+		// CatrobatDebug.console("");
+
+		CatrobatDebug.off();
 
 		// List<Element> sounds = getChildElementsByTagName(soundList,
 		// "Common.SoundInfo");
@@ -458,13 +512,10 @@ public class Parser {
 				brickSprite = spriteName;
 			}
 		} else {
-			CatrobatDebug.debug("INVALID - checkBrick - spriteElement: "
+			CatrobatDebug.console("INVALID - checkBrick - spriteElement: "
 					+ spriteElement);
 		}
 
-		/**
-		 * now check bricks
-		 */
 		if (brickNode.getNodeName().equals("Bricks.SetCostumeBrick")) {
 
 			Element costumeReferenceElement = getChildElementByTagName(
@@ -484,7 +535,7 @@ public class Parser {
 				costumeName = getText(getChildElementByTagName(lookElement,
 						"name"));
 			} else {
-				CatrobatDebug.debug("Look is null");
+				System.out.println("Look is null");
 			}
 
 			return new SetLookBrick(brickSprite, costumeName);
@@ -496,7 +547,8 @@ public class Parser {
 			return new WaitBrick(brickSprite, waitTime, script);
 		} else if (brickNode.getNodeName().equals("Bricks.PlaySoundBrick")) {
 
-			CatrobatDebug.debug("PlaySoundBrick:");
+			// CatrobatDebug.on();
+			CatrobatDebug.console("PlaySoundBrick:");
 
 			Element soundInfoElement = getChildElementByTagName(brickNode,
 					"soundInfo");
@@ -504,7 +556,7 @@ public class Parser {
 			String soundId = null;
 			String fileName = null;
 
-			CatrobatDebug.debug("soundInfo: " + soundInfoElement);
+			CatrobatDebug.console("soundInfo: " + soundInfoElement);
 
 			if (soundInfoElement != null) {
 
@@ -518,17 +570,17 @@ public class Parser {
 									soundInfoReference, Element.class);
 
 					CatrobatDebug
-							.debug("PlaySoundBrick has a reference-attribute: "
+							.console("PlaySoundBrick has a reference-attribute: "
 									+ soundInfoReference);
-					CatrobatDebug.debug("referenced soundInfo: "
+					CatrobatDebug.console("referenced soundInfo: "
 							+ referencedSoundInfoElement);
 
 					if (referencedSoundInfoElement != null) {
 						soundInfoElement = referencedSoundInfoElement;
 						CatrobatDebug
-								.debug("soundInfoElement got set to the referenced soundInfo");
+								.console("soundInfoElement got set to the referenced soundInfo");
 					} else {
-						CatrobatDebug.debug("referenced soundInfo is null");
+						CatrobatDebug.console("referenced soundInfo is null");
 						return null;
 					}
 
@@ -536,29 +588,32 @@ public class Parser {
 
 				fileName = getText(getChildElementByTagName(soundInfoElement,
 						"fileName"));
-				CatrobatDebug.info("Brick Filename: " + fileName);
+				CatrobatDebug.console("Filename: " + fileName);
 
 				soundInfo.setFileName(fileName);
 
 				soundInfo.setTitle(getText(getChildElementByTagName(
 						soundInfoElement, "name")));
 
-				CatrobatDebug.debug("Title: "
+				CatrobatDebug.console("Title: "
 						+ getText(getChildElementByTagName(soundInfoElement,
 								"name")));
 
 				soundId = fileName.split("_")[0];
 
-				CatrobatDebug.debug("Sound ID: " + soundId);
+				CatrobatDebug.console("Sound ID: " + soundId);
 
 				soundInfo.setId(soundId);
 			}
 
 			if (soundId == null || soundId.trim().length() == 0) {
-				CatrobatDebug.debug("sound is null");
+				System.out.println("sound is null");
 			}else{
 				sprite.addSound(soundInfo);	
 			}
+
+
+			CatrobatDebug.off();
 
 			return new PlaySoundBrick(brickSprite, soundId);
 		} else if (brickNode.getNodeName().equals("Bricks.ChangeVolumeByBrick")) {
@@ -695,7 +750,7 @@ public class Parser {
 					.getLastLoopBeginBrickWithoutLoopEndBrick();
 
 			if (loopStartingBrick == null) {
-				CatrobatDebug.debug("loopStartingBrick is null");
+				System.out.println("loopStartingBrick is null");
 				return null;
 			}
 
@@ -758,9 +813,11 @@ public class Parser {
 				pointedSpriteName = getText(pointedSpriteNameNode);
 			}
 
-			CatrobatDebug.debug("Sprite " + brickSprite
+			CatrobatDebug.on();
+			CatrobatDebug.console("Sprite " + brickSprite
 					+ " has PointToBrick which points to Sprite "
 					+ pointedSpriteName);
+			CatrobatDebug.off();
 
 			return new PointToBrick(brickSprite, pointedSpriteName);
 		} else if (brickNode.getNodeName().equals(
@@ -788,7 +845,7 @@ public class Parser {
 
 			return new ChangeBrightnessBrick(brickSprite, brightnessValue);
 		} else {
-			CatrobatDebug.error("Brick: " + brickNode.getNodeName()
+			CatrobatDebug.console("Brick: " + brickNode.getNodeName()
 					+ " not implemented");
 			Stage.getInstance().log(
 					"Brick not implemented:" + brickNode.getNodeName());

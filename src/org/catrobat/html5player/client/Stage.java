@@ -110,7 +110,7 @@ public class Stage {
 			@Override
 			public void run() {
 
-				if(ImageHandler.get().areImagesLoaded()) {	
+				if(ImageHandler.get().areImagesLoaded() || ImageHandler.get().hasNothingToDo()) {	
 					
 					CatrobatDebug.debug(ImageHandler.get().getNumberImagesLoaded() + " images are loaded, now start scheduler...");
 					
@@ -147,7 +147,9 @@ public class Stage {
 		
 		CatrobatDebug.debug("displayLoadingImage...");
 		
-		ImageHandler.get().addImage("loadgif", "images/ajax-loader.gif");
+		//ImageHandler.get().addImage("loadgif", "images/ajax-loader.gif");
+		Image i = new Image( "images/ajax-loader.gif");
+		ImageHandler.get().newImage("loadgif", i);
 		ImageHandler.get().loadImages();
 		
 		//wait for the image to load, then draw it
@@ -200,6 +202,7 @@ public class Stage {
 		
 		//dump all loaded and unloaded images
 		ImageHandler.get().dumpAllImages();
+		ImageHandler.get().reset();
 		
 		CatrobatDebug.debug("Spritemanager contains " + spriteManager.getSpriteList().size() + " sprites");
 		CatrobatDebug.debug("MessageContainer holds " + messageContainer.getMessages().size() + " messages");
