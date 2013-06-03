@@ -267,7 +267,7 @@ public class Sprite {
 		List<Script> scriptList = new ArrayList<Script>();
 		scriptList.addAll(scripts);
 		Collections.sort(scriptList);
-		
+		Stage.getInstance().setCurrentSprite(this);
 		for (Script script : scriptList) {
 
 			//only add StartScripts to the scheduler
@@ -291,7 +291,7 @@ public class Sprite {
 	public void startTapScripts() {
 		
 		CatrobatDebug.console("<<< Sprite: " + this.name + " startTapScripts() >>>");
-		
+		Stage.getInstance().setCurrentSprite(this);
 		for (Script script : scripts) {
 			if (script.getType().equals(WhenScript.SCRIPT_TYPE)) {
 				WhenScript touchScript = (WhenScript) script;

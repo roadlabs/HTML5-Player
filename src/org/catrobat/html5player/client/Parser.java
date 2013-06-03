@@ -106,7 +106,7 @@ public class Parser {
         return;
       }
       parseScreenResolution(messageDom);
-
+      parseUserVariableList(getChildElementByTagName(messageDom.getDocumentElement(),"variables"));
       if (parseAndCreateObjects(messageDom)) {
         parserFinished();
         CatrobatDebug.console("Parser finished");
@@ -255,8 +255,11 @@ public class Parser {
 
   private void parseUserVariableList(Node tree)
   {
+    if(tree == null)
+      return;
     Element userVariables = getChildElementByTagName(tree,"programVariableList");
-
+    if(userVariables == null)
+      return;
     for(int i = 0; i < userVariables.getChildNodes().getLength();i++)
     {
       Element var = (Element)userVariables.getChildNodes().item(i);
@@ -751,7 +754,7 @@ public class Parser {
     Element nameEl = getChildElementByTagName(userVariable,"name");
     if(nameEl != null){
       String name = nameEl.getFirstChild().toString();
-      return Stage.getInstance().getUserVariables().getUserVariable(name, Stage.getInstance().getCurrentSprite());
+      return Stage.getInstance().getUserVariables().getUserVariable(name, null);
     }
       
     if (userVariable.hasAttribute("reference")) {
@@ -764,7 +767,7 @@ public class Parser {
       if(nameEl != null)
       {
         String name = nameEl.getFirstChild().toString();
-        return Stage.getInstance().getUserVariables().getUserVariable(name, Stage.getInstance().getCurrentSprite());
+        return Stage.getInstance().getUserVariables().getUserVariable(name, null);
       }
     }
       return null;

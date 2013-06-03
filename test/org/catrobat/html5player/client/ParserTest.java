@@ -2337,8 +2337,9 @@ public class ParserTest extends GWTTestCase {
       Sprite sprite = spriteManager.getSprite(spriteName, false);
       
       StartScript startScript = (StartScript)sprite.getScript(0);
-      
+      startScript.getBrick(0).execute();
       assertTrue(startScript.getBrick(0) instanceof SetVariableBrick);
+      assertTrue(stage.getUserVariables().getUserVariable("testname", null).getValue() == targetValue);
   }
 	
 }

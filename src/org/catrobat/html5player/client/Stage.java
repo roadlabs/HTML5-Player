@@ -58,8 +58,8 @@ public class Stage {
 	private String projectNumber;
 	private Canvas rootCanvas;
 	private TextArea logBox;
-	private Script currentScript;
-	private Sprite currentSprite;
+	private Script currentScript = null;
+	private Sprite currentSprite = null;
 	private UserVariablesContainer userVariables;
 	   public UserVariablesContainer getUserVariables() {
 	        return userVariables;
