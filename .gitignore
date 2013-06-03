@@ -29,3 +29,5 @@ war/WEB-INF/classes/
 
 #local settings (some only allow absolute paths) #)
 .settings/com.google.gdt.eclipse.core.prefs
+
+/org.catrobat.html5player.html5player.JUnit
