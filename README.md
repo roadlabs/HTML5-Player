@@ -12,12 +12,12 @@ into [Catroweb](https://github.com/Catrobat/Catroweb).
 Setup for developers
 --------------------
 
-# Use Eclipse as IDE.
-# Be sure to add all dependencies to the Build Path.
-# Configure `eclipse-java-google-style.xml` as your code style (has not been applied globally yet).
-# Right-click on the project, `Google`, `Compile GWT`.
-# `Run As`, `Web application`.
-# HTML5 Player should now be running.
+1. Use Eclipse as IDE.
+2. Be sure to add all dependencies to the Build Path.
+3. Configure `eclipse-java-google-style.xml` as your code style (has not been applied globally yet).
+4. Right-click on the project, `Google`, `Compile GWT`.
+5. `Run As`, `Web application`.
+6. HTML5 Player should now be running.
 
 Bugs
 ----
