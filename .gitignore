@@ -18,6 +18,7 @@ war/WEB-INF/lib/
 .apt_generated/
 
 # more caches and things from deploy #
+war/Html5Player/
 war/WEB-INF/deploy/
 war/WEB-INF/classes/
 
