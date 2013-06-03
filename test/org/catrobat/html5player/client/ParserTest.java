@@ -1444,9 +1444,9 @@ public class ParserTest extends GWTTestCase {
 			"<scriptList>" +
 			"<startScript>" +
 			"<brickList>" +
-			"<nextlookBrick>" +
+			"<nextLookBrick>" +
 			"<object reference=\"../../../../..\"/>" +
-			"</nextlookBrick>" +
+			"</nextLookBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +
 			"</startScript>" +
@@ -1460,7 +1460,6 @@ public class ParserTest extends GWTTestCase {
 		parser.parseXML(spriteManager, xmlString);
 		
 		Sprite sprite = spriteManager.getSprite(spriteName, false);
-		
 		assertTrue(sprite.getScript(0).getBrick(0) instanceof NextLookBrick);
 	}
 	
@@ -1621,10 +1620,10 @@ public class ParserTest extends GWTTestCase {
 			"<scriptList>" +
 			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.BroadcastBrick>" +
+			"<broadcastBrick>" +
 			"<broadcastMessage>" + broadcastMessage + "</broadcastMessage>" +
 			"<object reference=\"../../../../..\"/>" +
-			"</Bricks.BroadcastBrick>" +
+			"</broadcastBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +
 			"</startScript>" +
@@ -1662,10 +1661,10 @@ public class ParserTest extends GWTTestCase {
 			"<scriptList>" +
 			"<startScript>" +
 			"<brickList>" +
-			"<Bricks.BroadcastWaitBrick>" +
+			"<broadcastWaitBrick>" +
 			"<broadcastMessage>" + broadcastMessage + "</broadcastMessage>" +
 			"<object reference=\"../../../../..\"/>" +
-			"</Bricks.BroadcastWaitBrick>" +
+			"</broadcastWaitBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +
 			"</startScript>" +
@@ -1981,7 +1980,7 @@ public class ParserTest extends GWTTestCase {
 			"<startScript>" +
 			"<brickList>" +
 			"<pointToBrick>" +
-			"<pointedSprite>" +
+			"<pointedObject>" +
 			"<lookList>" +
 			lookXMLString(fileNamelook2, lookName2) +
 			"</lookList>" +
@@ -1999,7 +1998,7 @@ public class ParserTest extends GWTTestCase {
 			"</scriptList>" +
 			"<soundList/>" +
 			"<object reference=\"../../../../..\"/>" +
-			"</pointedSprite>" +
+			"</pointedObject>" +
 			"</pointToBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +
@@ -2043,9 +2042,9 @@ public class ParserTest extends GWTTestCase {
 			"<startScript>" +
 			"<brickList>" +
 			"<pointToBrick>" +
-			"<pointedobject reference=\"../../../../../../object[2]\">" +
+			"<pointedObject reference=\"../../../../../../object[2]\">" +
 			"<object reference=\"../../../../..\"/>" +
-			"</pointedSprite>" +
+			"</pointedObject>" +
 			"</pointToBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +
@@ -2188,7 +2187,7 @@ public class ParserTest extends GWTTestCase {
 			"<brickList>" +
 			"<changeBrightnessByNBrick>" +
 			"<object reference=\"../../../../..\"/>" +
-			"<brightness>" + brightness + "</brightness>" +
+			"<changeBrightness>" + brightness + "</changeBrightness>" +
 			"</changeBrightnessByNBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +
@@ -2225,7 +2224,7 @@ public class ParserTest extends GWTTestCase {
 		
 		double size = 100.0;
 		
-		String reference="../object/scriptList/startScript/brickList/pointToBrick/pointedSprite";
+		String reference="../object/scriptList/startScript/brickList/pointToBrick/pointedObject";
 		
 		String xmlString = xmlStringRumpBegin +
 			"<objectList>"+
@@ -2238,7 +2237,7 @@ public class ParserTest extends GWTTestCase {
 			"<startScript>" +
 			"<brickList>" +
 			"<pointToBrick>" +
-			"<pointedSprite>" +
+			"<pointedObject>" +
 			"<lookList>" +
 			lookXMLString(fileNamelook2, lookName2) +
 			"</lookList>" +
@@ -2255,7 +2254,7 @@ public class ParserTest extends GWTTestCase {
 			"</startScript>" +
 			"</scriptList>" +
 			"<soundList/>" +
-			"</pointedSprite>" +
+			"</pointedObject>" +
 			"<object reference=\"../../../../..\"/>" +
 			"</pointToBrick>" +
 			"</brickList>" +
