@@ -655,7 +655,7 @@ public class Parser {
       return new IfOnEdgeBounceBrick(objName);
     } else if (brickNode.getNodeName().equals("pointToBrick")) {
 
-      Element pointedSpriteNode = getChildElementByTagName(brickNode, "pointedSprite");
+      Element pointedSpriteNode = getChildElementByTagName(brickNode, "pointedObject");
       Element pointedSpriteNameNode = null;
       String pointedSpriteName = null;
 
