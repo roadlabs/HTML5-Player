@@ -2286,7 +2286,7 @@ public class ParserTest extends GWTTestCase {
       String fileNamelook = "923QE849283_look";
       String lookName = "look1";
       
-      double oldValue = 30.0;
+      double oldValue = 10.0;
       double targetValue = 30.0;
       
       String xmlString = xmlStringRumpBegin +
@@ -2339,6 +2339,154 @@ public class ParserTest extends GWTTestCase {
       StartScript startScript = (StartScript)sprite.getScript(0);
       startScript.getBrick(0).execute();
       assertTrue(startScript.getBrick(0) instanceof SetVariableBrick);
+      assertTrue(stage.getUserVariables().getUserVariable("testname", null).getValue() == targetValue);
+  }
+    
+    public void testSimpleFormulaParsing() {
+      String spriteName = "TestSprite";
+      String fileNamelook = "923QE849283_look";
+      String lookName = "look1";
+      
+      double oldValue = 123.5;
+      double targetValue = oldValue*13.5;
+      
+      String xmlString = xmlStringRumpBegin +
+          "<objectList>"+
+          "<object>" +
+          "<lookList>" +
+          lookXMLString(fileNamelook, lookName) +
+          "</lookList>" +
+          "<name>" + spriteName + "</name>" +
+          "<scriptList>" +
+          "<startScript>" +
+          "<brickList>" +
+          "<setVariableBrick>"+
+              "<object reference=\"../../../../..\"/>"+
+              "<userVariable>"+
+                "<name>testname</name>"+
+                "<value>"+oldValue+"</value>"+
+              "</userVariable>"+
+              "<variableFormula>"+
+                "<formulaTree>"+
+                "<leftChild>"+
+                  "<type>NUMBER</type>"+
+                  "<value>13.5</value>"+
+                "</leftChild>"+
+                "<rightChild>"+
+                  "<type>USER_VARIABLE</type>"+
+                  "<value>testname</value>"+
+                "</rightChild>"+
+                "<type>OPERATOR</type>"+
+                "<value>MULT</value>"+
+                "</formulaTree>"+
+              "</variableFormula>"+
+            "</setVariableBrick>"+
+          "</brickList>" +
+          "<object reference=\"../../..\"/>" +
+          "</startScript>" +
+          "</scriptList>" +
+          "<soundList/>" +
+          "</object>" +
+          "</objectList>" +
+          "<variables>"+
+          "<objectVariableList/>" +
+          "<programVariableList>" +
+            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick/userVariable\"/>" +
+            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[2]/userVariable\"/>" +
+            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[3]/userVariable\"/>" +
+            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[4]/userVariable\"/>" +
+            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[6]/userVariable\"/>" +
+          "</programVariableList>" +
+        "</variables>" +
+          xmlStringRumpEnd;
+      
+      Parser parser = new Parser();
+      parser.parseXML(spriteManager, xmlString);
+      
+      Sprite sprite = spriteManager.getSprite(spriteName, false);
+      
+      StartScript startScript = (StartScript)sprite.getScript(0);
+      startScript.getBrick(0).execute();
+      assertTrue(stage.getUserVariables().getUserVariable("testname", null).getValue() == targetValue);
+  }
+    
+  public void testFormulaParsing() {
+      String spriteName = "TestSprite";
+      String fileNamelook = "923QE849283_look";
+      String lookName = "look1";
+      
+      double oldValue = 42.0;
+      double targetValue = Math.round(((oldValue*479) / 2.0));
+      
+      String xmlString = xmlStringRumpBegin +
+          "<objectList>"+
+          "<object>" +
+          "<lookList>" +
+          lookXMLString(fileNamelook, lookName) +
+          "</lookList>" +
+          "<name>" + spriteName + "</name>" +
+          "<scriptList>" +
+          "<startScript>" +
+          "<brickList>" +
+          "<setVariableBrick>"+
+              "<object reference=\"../../../../..\"/>"+
+              "<userVariable>"+
+                "<name>testname</name>"+
+                "<value>"+oldValue+"</value>"+
+              "</userVariable>"+
+              "<variableFormula>"+
+                "<formulaTree>"+
+                  "<leftChild>"+
+                  "<leftChild>"+
+                    "<leftChild>"+
+                      "<type>NUMBER</type>"+
+                      "<value>479</value>"+
+                    "</leftChild>"+
+                    "<rightChild>"+
+                      "<type>USER_VARIABLE</type>"+
+                      "<value>testname</value>"+
+                    "</rightChild>"+
+                    "<type>OPERATOR</type>"+
+                    "<value>MULT</value>"+
+                  "</leftChild>"+
+                  "<rightChild>"+
+                   "<type>NUMBER</type>"+
+                    "<value>2</value>"+
+                  "</rightChild>"+
+                  "<type>OPERATOR</type>"+
+                  "<value>DIVIDE</value>"+
+                "</leftChild>"+
+                "<type>FUNCTION</type>"+
+                "<value>ROUND</value>"+
+                "</formulaTree>"+
+              "</variableFormula>"+
+            "</setVariableBrick>"+
+          "</brickList>" +
+          "<object reference=\"../../..\"/>" +
+          "</startScript>" +
+          "</scriptList>" +
+          "<soundList/>" +
+          "</object>" +
+          "</objectList>" +
+          "<variables>"+
+          "<objectVariableList/>" +
+          "<programVariableList>" +
+            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick/userVariable\"/>" +
+            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[2]/userVariable\"/>" +
+            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[3]/userVariable\"/>" +
+            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[4]/userVariable\"/>" +
+            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[6]/userVariable\"/>" +
+          "</programVariableList>" +
+        "</variables>" +
+          xmlStringRumpEnd;
+      
+      Parser parser = new Parser();
+      parser.parseXML(spriteManager, xmlString);
+      
+      Sprite sprite = spriteManager.getSprite(spriteName, false);
+      
+      StartScript startScript = (StartScript)sprite.getScript(0);
+      startScript.getBrick(0).execute();
       assertTrue(stage.getUserVariables().getUserVariable("testname", null).getValue() == targetValue);
   }
 	
