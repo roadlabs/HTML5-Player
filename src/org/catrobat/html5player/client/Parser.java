@@ -149,7 +149,7 @@ public class Parser {
     return false;
   }
 
-  private Element getChildElementByTagName(Node context, String name) {
+  public static Element getChildElementByTagName(Node context, String name) {
     if (context == null || context.getNodeType() != Node.ELEMENT_NODE) return null;
     NodeList children = context.getChildNodes();
     int childLength = children.getLength();
@@ -260,9 +260,10 @@ public class Parser {
     Element userVariables = getChildElementByTagName(tree,"programVariableList");
     if(userVariables == null)
       return;
-    for(int i = 0; i < userVariables.getChildNodes().getLength();i++)
+    
+    for(int i = 0; i < getChildElements(userVariables).size();i++)
     {
-      Element var = (Element)userVariables.getChildNodes().item(i);
+      Element var = getChildElements(userVariables).get(i);
       if (var.hasAttribute("reference")) {
         String objectReference = checkReference(var.getAttribute("reference"), "userVariable");
         Element userVariable = XPath.evaluateSingle(var, objectReference, Element.class);
@@ -691,7 +692,8 @@ public class Parser {
       return new ChangeBrightnessBrick(objName, changeBrightness);
     } else if(brickNode.getNodeName().equals("setVariableBrick")){
       UserVariable userVar  = parseUserVariable(brickNode);
-      Formula formula = new Formula(parseformulaTree(getChildElementByTagName(brickNode, "variableFormula")));
+      Formula formula = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "variableFormula"));
+      //Formula formula = new Formula(parseformulaTree(getChildElementByTagName(brickNode, "variableFormula")));
       return new SetVariableBrick(objName,formula, userVar);
     } else {
       CatrobatDebug.console("Brick: " + brickNode.getNodeName() + " not implemented");
