@@ -38,8 +38,8 @@ public class SetXBrick extends Brick {
 	@Override
 	public boolean execute(Sprite sprite) {
 		Look look = sprite.getLook();
-//		System.out.println("############# X = " + xPosition + " " + sprite.getName());
-//		System.out.println("############ X Mitte = " + Stage.getInstance().getStageMiddleX());
+//		CatrobatDebug.debug("############# X = " + xPosition + " " + sprite.getName());
+//		CatrobatDebug.debug("X middle = " + Stage.getInstance().getStageMiddleX());
 		look.setXPosition(xPosition + Stage.getInstance().getStageMiddleX());
 		
 		

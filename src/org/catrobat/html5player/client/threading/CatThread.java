@@ -24,6 +24,8 @@ package org.catrobat.html5player.client.threading;
 
 import java.util.ArrayList;
 
+import org.catrobat.html5player.client.CatrobatDebug;
+
 public class CatThread {
 
 	public final static int READY = 1;
@@ -49,7 +51,7 @@ public class CatThread {
 		this.task = task;
 		this.status = READY;
 		
-		System.out.println("new thread with name: " + this.name);
+		CatrobatDebug.debug("new thread with name: " + this.name);
 		
 		this.task.setExecutorName(this.name);
 		
@@ -62,16 +64,15 @@ public class CatThread {
 		
 		
 		
-//		System.out.println("Thread '" + this.name + "' running...");
-		
-//		//check if task should pause
-//		if(task.pause()) {
-////			System.out.println("Callable wants to pause work");
-//			return;
-//		} //task shall resume
-//		else { 
-////			System.out.println("Callable wants to resume work");
-//		}
+//      CatrobatDebug.debug("Thread '" + this.name + "' running...");
+//      // check if task should pause
+//      if(task.pause()) {
+//          CatrobatDebug.debug("Callable wants to pause work");
+//          return;
+//      } // task shall resume
+//      else { 
+//          CatrobatDebug.debug("Callable wants to resume work");
+//      }
 		
 		//work
 		task.run();

@@ -14,6 +14,7 @@ import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.catrobat.html5player.client.CatrobatDebug;
 
 public class FileUpload extends HttpServlet {
 	/**
@@ -25,13 +26,13 @@ public class FileUpload extends HttpServlet {
 
         try{
             FileItemIterator iter = upload.getItemIterator(request);
-            System.out.println("UploadServlet iter:"+iter);
+            CatrobatDebug.debug("UploadServlet iter:"+iter);
             while (iter.hasNext()) {
 
                 FileItemStream item = iter.next();
-                System.out.println(":Field Name:"+item.getFieldName());
-                System.out.println(":Name:"+item.getName());
-                System.out.println(":is form field:"+item.isFormField());
+                CatrobatDebug.debug("Field Name: " + item.getFieldName());
+                CatrobatDebug.debug("Name: " + item.getName());
+                CatrobatDebug.debug("is form field: " + item.isFormField());
                 //String name = item.getFieldName();
                 InputStream stream = item.openStream();
 
@@ -46,7 +47,7 @@ public class FileUpload extends HttpServlet {
 //                	ByteArrayOutputStream baos = new ByteArrayOutputStream();
 //                    byte[] buffer = new byte[1024];
 //                    int read = 0;
-//                	System.out.println(zipEntry.getName() + " " + zipEntry.isDirectory()+ " "+ zipEntry.toString() );
+//                	CatrobatDebug.debug(zipEntry.getName() + " " + zipEntry.isDirectory()+ " "+ zipEntry.toString() );
 //                	if(zipEntry.getName().endsWith(".xml"))
 //                	{
 //                	      while ((read = zip.read(buffer, 0, 1024)) >= 0) {

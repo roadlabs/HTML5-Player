@@ -212,9 +212,7 @@ public class Sprite {
 		
 		long start = System.currentTimeMillis();
 
-//		CatrobatDebug.on();
-		CatrobatDebug.console("drawSprite: " + this.name + " - customename: " + look.getLookData().getFilename());
-		CatrobatDebug.off();
+		CatrobatDebug.debug("drawSprite: " + this.name + " - customename: " + look.getLookData().getFilename());
 		
 		LookData lookData = look.getLookData();
 		double size = look.getSize();
@@ -232,22 +230,14 @@ public class Sprite {
 				-look.getRotation(), // the MINUS is important because canvas positive rotation is clockwise
 				look.getAlphaValue());
 		
-		
-//		CatrobatDebug.on();
-		CatrobatDebug.console("drawSprite-execution needed " + (System.currentTimeMillis() - start) +
-							  "ms : z-Pos: " + look.getZPosition() +
-							  " : name: " + this.name);
-		CatrobatDebug.off();
-		
+		CatrobatDebug.debug("drawSprite-execution took " + (System.currentTimeMillis() - start + " ms"));
+		CatrobatDebug.debug("z-Pos: " + look.getZPosition() + " : name: " + this.name);
 	}
 
 	public void run() {
 		
-//		CatrobatDebug.on();
-		
-		CatrobatDebug.console("Sprite: " + this.name + ".run() - add startscripts");
-		
-		CatrobatDebug.console("number of scripts: " + this.getNumberOfScripts());
+		CatrobatDebug.debug("Sprite: " + this.name + ".run() - add startscripts");
+		CatrobatDebug.debug("Number of scripts: " + this.getNumberOfScripts());
 		
 		List<Script> scriptList = new ArrayList<Script>();
 		scriptList.addAll(scripts);
@@ -258,37 +248,33 @@ public class Sprite {
 			//only add StartScripts to the scheduler
 			if(script instanceof StartScript) {
 
-//				CatrobatDebug.console("script is no WhenScript or BroadcastScript, Sprite: " + this.name);
-				
+//				CatrobatDebug.debug("script is no WhenScript or BroadcastScript, Sprite: " + this.name);
+
 				CatThread thread = new CatThread(this.getName() + script.getName(), script);
 				CatScheduler.get().schedule(thread);
 			}
 			else {
-//				CatrobatDebug.console("script '" + script.getName() + "' is a WhenScript or a BroadcastScript, Sprite: " + this.name);
+//				CatrobatDebug.debug("script '" + script.getName() + "' is a WhenScript or a BroadcastScript, Sprite: " + this.name);
 			}
 			
 //			script.run();
 		}
-		
-		CatrobatDebug.off();
 	}
 
 	public void startTapScripts() {
 		
-		CatrobatDebug.console("<<< Sprite: " + this.name + " startTapScripts() >>>");
+		CatrobatDebug.debug("<<< Sprite: " + this.name + " startTapScripts() >>>");
 		
 		for (Script script : scripts) {
 			if (script.getType().equals(WhenScript.SCRIPT_TYPE)) {
 				WhenScript touchScript = (WhenScript) script;
 				
 				if(CatScheduler.get().getThread(script.getExecutor()) != null) {
-					CatrobatDebug.on();
-					CatrobatDebug.console("Already existing Thread with WhenScript: " + script.getName());
-					CatrobatDebug.off();
+					CatrobatDebug.debug("Already existing Thread with WhenScript: " + script.getName());
 					continue;
 				}
 				else {
-					CatrobatDebug.console("Add WhenScript to Scheduler");
+					CatrobatDebug.info("Add WhenScript to Scheduler");
 				}
 				
 				if(touchScript.hasScriptFinished()) {
@@ -299,7 +285,7 @@ public class Sprite {
 				
 				CatScheduler.get().schedule(thread);
 				
-				CatrobatDebug.console("script added to scheduler");
+				CatrobatDebug.info("script added to scheduler");
 			}
 		}
 	}
@@ -356,9 +342,7 @@ public class Sprite {
 		    yPosition + heightHalf > relativeY &&
 		    yPosition - heightHalf < relativeY) {
 		
-			CatrobatDebug.on();
-			CatrobatDebug.console("sprite " + this.name + " got touched");
-			CatrobatDebug.off();
+			CatrobatDebug.info("Sprite " + this.name + " got touched");
 			
 			return true;
 		}
@@ -414,9 +398,7 @@ public class Sprite {
 			audio.setVolume((double) volume / 100);
 			audio.play();
 			
-			CatrobatDebug.on();
-			CatrobatDebug.console("playSound - getError: " + audio.getError() + "...");
-			CatrobatDebug.off();
+			CatrobatDebug.debug("playSound - getError: " + audio.getError() + "...");
 		}
 		else {
 			Stage.getInstance().log("no sound with id: " + id);
@@ -435,11 +417,9 @@ public class Sprite {
 					audio.setCurrentTime(initialTime); 
 				}
 				catch(JavaScriptException e) {
-					CatrobatDebug.on();
-					CatrobatDebug.console("JavaScriptException in stopSound of sprite: " + this.name);
-					CatrobatDebug.console("initialTime: " + audio.getInitialTime());
-					CatrobatDebug.console(e.getMessage());
-					CatrobatDebug.off();
+					CatrobatDebug.debug("JavaScriptException in stopSound of sprite: " + this.name);
+					CatrobatDebug.debug("initialTime: " + audio.getInitialTime());
+					CatrobatDebug.debug(e.getMessage());
 				}
 				
 			}

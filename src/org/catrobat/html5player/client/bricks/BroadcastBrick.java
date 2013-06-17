@@ -24,6 +24,7 @@ package org.catrobat.html5player.client.bricks;
 
 import java.util.Vector;
 
+import org.catrobat.html5player.client.CatrobatDebug;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.scripts.BroadcastScript;
@@ -43,11 +44,11 @@ public class BroadcastBrick extends Brick {
 		final Vector<BroadcastScript> receiver = Stage.getInstance().getMessageContainer().getReceiverOfMessage(message);
 		
 		if (receiver == null) {
-			System.out.println("receiver == null");
+			CatrobatDebug.debug("receiver is null");
 			return false;
 		}
 		if (receiver.size() == 0) {
-			System.out.println("no receivers for message: " + message);
+			CatrobatDebug.warn("no receivers for message: " + message);
 			return true;
 		}
 		for (BroadcastScript receiverScript : receiver) {
