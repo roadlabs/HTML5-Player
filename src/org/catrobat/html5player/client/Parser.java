@@ -21,45 +21,7 @@ package org.catrobat.html5player.client;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.catrobat.html5player.client.bricks.Brick;
-import org.catrobat.html5player.client.bricks.BroadcastBrick;
-import org.catrobat.html5player.client.bricks.BroadcastWaitBrick;
-import org.catrobat.html5player.client.bricks.ChangeBrightnessBrick;
-import org.catrobat.html5player.client.bricks.ChangeGhostEffectByBrick;
-import org.catrobat.html5player.client.bricks.ChangeSizeByNBrick;
-import org.catrobat.html5player.client.bricks.ChangeVolumeByBrick;
-import org.catrobat.html5player.client.bricks.ChangeXByBrick;
-import org.catrobat.html5player.client.bricks.ChangeYByBrick;
-import org.catrobat.html5player.client.bricks.ClearGraphicEffectBrick;
-import org.catrobat.html5player.client.bricks.ComeToFrontBrick;
-import org.catrobat.html5player.client.bricks.ForeverBrick;
-import org.catrobat.html5player.client.bricks.GlideToBrick;
-import org.catrobat.html5player.client.bricks.GoNStepsBackBrick;
-import org.catrobat.html5player.client.bricks.HideBrick;
-import org.catrobat.html5player.client.bricks.IfOnEdgeBounceBrick;
-import org.catrobat.html5player.client.bricks.LoopBeginBrick;
-import org.catrobat.html5player.client.bricks.LoopEndBrick;
-import org.catrobat.html5player.client.bricks.MoveNStepsBrick;
-import org.catrobat.html5player.client.bricks.NoteBrick;
-import org.catrobat.html5player.client.bricks.PlaceAtBrick;
-import org.catrobat.html5player.client.bricks.PlaySoundBrick;
-import org.catrobat.html5player.client.bricks.PointInDirectionBrick;
-import org.catrobat.html5player.client.bricks.PointToBrick;
-import org.catrobat.html5player.client.bricks.RepeatBrick;
-import org.catrobat.html5player.client.bricks.SetBrightnessBrick;
-import org.catrobat.html5player.client.bricks.SetGhostEffectBrick;
-import org.catrobat.html5player.client.bricks.SetLookBrick;
-import org.catrobat.html5player.client.bricks.NextLookBrick;
-import org.catrobat.html5player.client.bricks.SetSizeToBrick;
-import org.catrobat.html5player.client.bricks.SetVariableBrick;
-import org.catrobat.html5player.client.bricks.SetVolumeToBrick;
-import org.catrobat.html5player.client.bricks.SetXBrick;
-import org.catrobat.html5player.client.bricks.SetYBrick;
-import org.catrobat.html5player.client.bricks.ShowBrick;
-import org.catrobat.html5player.client.bricks.StopAllSoundsBrick;
-import org.catrobat.html5player.client.bricks.TurnLeftBrick;
-import org.catrobat.html5player.client.bricks.TurnRightBrick;
-import org.catrobat.html5player.client.bricks.WaitBrick;
+import org.catrobat.html5player.client.bricks.*;
 
 import org.catrobat.html5player.client.common.LookData;
 import org.catrobat.html5player.client.common.SoundInfo;
@@ -695,6 +657,11 @@ public class Parser {
       Formula formula = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "variableFormula"));
       //Formula formula = new Formula(parseformulaTree(getChildElementByTagName(brickNode, "variableFormula")));
       return new SetVariableBrick(objName,formula, userVar);
+    } else if(brickNode.getNodeName().equals("changeVariableBrick")){
+      UserVariable userVar  = parseUserVariable(brickNode);
+      Formula formula = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "variableFormula"));
+      //Formula formula = new Formula(parseformulaTree(getChildElementByTagName(brickNode, "variableFormula")));
+      return new ChangeVariableBrick(objName,formula, userVar);
     } else {
       CatrobatDebug.console("Brick: " + brickNode.getNodeName() + " not implemented");
       Stage.getInstance().log("Brick not implemented:" + brickNode.getNodeName());

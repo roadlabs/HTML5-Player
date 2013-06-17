@@ -34,8 +34,8 @@ import org.catrobat.html5player.client.Stage;
 
 public class UserVariablesContainer {
 
-	private List<UserVariable> projectVariables;
-	private Map<Sprite, List<UserVariable>> spriteVariables;
+	private  List<UserVariable> projectVariables;
+	private  Map<Sprite, List<UserVariable>> spriteVariables;
 
 	public UserVariablesContainer() {
 		projectVariables = new ArrayList<UserVariable>();
@@ -99,5 +99,11 @@ public class UserVariablesContainer {
 		}
 		return null;
 	}
+
+  public void printProjectVariables() {
+    for (UserVariable uv : projectVariables) {
+      System.out.println("UVAR: " + uv.getName() + ": " + uv.getValue());
+    }
+  }
 
 }

@@ -2352,6 +2352,24 @@ public class ParserTest extends GWTTestCase {
       
       String xmlString = xmlStringRumpBegin +
           "<objectList>"+
+          "<object>"+
+          "<lookList>" +
+          lookXMLString(fileNamelook, lookName) +
+          "</lookList>" +
+            "<name>Background</name>" +
+            "<scriptList>" +
+             "<startScript>" +
+                "<brickList>" +
+                  "<setLookBrick>" +
+                    "<object reference=\"../../../../..\"/>" +
+                    "<look reference=\"../../../../../lookList/look\"/>" +
+                  "</setLookBrick>" +
+                "</brickList>" +
+                "<object reference=\"../../..\"/>" +
+              "</startScript>" +
+            "</scriptList>" +
+            "<soundList/>" +
+          "</object>" +
           "<object>" +
           "<lookList>" +
           lookXMLString(fileNamelook, lookName) +
@@ -2391,11 +2409,7 @@ public class ParserTest extends GWTTestCase {
           "<variables>"+
           "<objectVariableList/>" +
           "<programVariableList>" +
-            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick/userVariable\"/>" +
-            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[2]/userVariable\"/>" +
-            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[3]/userVariable\"/>" +
-            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[4]/userVariable\"/>" +
-            "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[6]/userVariable\"/>" +
+            "<userVariable reference=\"../../../objectList/object[2]/scriptList/startScript/brickList/setVariableBrick/userVariable\"/>" +
           "</programVariableList>" +
         "</variables>" +
           xmlStringRumpEnd;
@@ -2407,7 +2421,8 @@ public class ParserTest extends GWTTestCase {
       
       StartScript startScript = (StartScript)sprite.getScript(0);
       startScript.getBrick(0).execute();
-      assertTrue(stage.getUserVariables().getUserVariable("testname", null).getValue() == targetValue);
+      //assertEquals(targetValue, stage.getUserVariables().getUserVariable("testname", null).getValue());
+      assertEquals(targetValue, ((SetVariableBrick)startScript.getBrick(0)).getUserVariable().getValue());
   }
     
   public void testFormulaParsing() {
@@ -2487,7 +2502,7 @@ public class ParserTest extends GWTTestCase {
       
       StartScript startScript = (StartScript)sprite.getScript(0);
       startScript.getBrick(0).execute();
-      assertTrue(stage.getUserVariables().getUserVariable("testname", null).getValue() == targetValue);
+      assertEquals(targetValue, stage.getUserVariables().getUserVariable("testname", null).getValue());
   }
 	
 }
