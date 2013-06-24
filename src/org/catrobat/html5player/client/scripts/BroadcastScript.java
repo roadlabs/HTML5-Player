@@ -22,6 +22,7 @@
  */
 package org.catrobat.html5player.client.scripts;
 
+import org.catrobat.html5player.client.CatrobatDebug;
 import org.catrobat.html5player.client.MessageContainer;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
@@ -54,7 +55,7 @@ public class BroadcastScript extends Script {
 	}
 	
 //	public void pause(int time) {
-//		System.out.println("pause for " + time + "ms");
+//		CatrobatDebug.debug("pause for " + time + "ms");
 //		
 //		CatScheduler.get().getThread(sprite.getName() + this.name).sleep();
 //		
@@ -105,7 +106,7 @@ public class BroadcastScript extends Script {
 	}
 	
 	public void resetBroadcastScript() {
-		System.out.println("<<< resetBroadcastScript - sprite: " + getSprite().getName() + " >>>");
+		CatrobatDebug.debug("<<< resetBroadcastScript - sprite: " + getSprite().getName() + " >>>");
 		this.currentBrick = 0;
 		this.resetWorkDone();
 		this.scriptFinished = false;

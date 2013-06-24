@@ -115,37 +115,29 @@ public abstract class Script extends Callable implements Comparable<Script> {
 	public void run() {	
 
 		if(brickList.isEmpty()) {
-			CatrobatDebug.console("no bricks, work is done");
+			CatrobatDebug.debug("no bricks, work is done");
 			setWorkDone();
 			return;
 		}
 		
-		CatrobatDebug.on();
-		CatrobatDebug.console("\n" + brickList.get(currentBrick).toString() + " : " + getSprite().getName());
-		CatrobatDebug.off();
+		CatrobatDebug.debug(brickList.get(currentBrick).toString() + " : " + getSprite().getName());
 		
 		long start = System.currentTimeMillis();
 		
 		brickList.get(currentBrick).execute();
 		
-		CatrobatDebug.on();
-		CatrobatDebug.console("brick-execution needed " + (System.currentTimeMillis() - start) + "ms");
-		CatrobatDebug.off();
-		
-		
-		CatrobatDebug.console("------ brick executed");
+		CatrobatDebug.debug("brick-execution took " + (System.currentTimeMillis() - start) + " ms");
+		CatrobatDebug.info("brick execution done");
 		
 		long start2 = System.currentTimeMillis();
 		
-		CatrobatDebug.console("-------------------------- redraw");
+		CatrobatDebug.info("Redrawing...");
 		
 		//redraw screen
 		if(isRedrawNecessary()) { // check visibility -sprite.getCostume().isVisible()
 			Stage.getInstance().getSpriteManager().redrawScreen();
 			
-			CatrobatDebug.on();
-			CatrobatDebug.console("Redraw-execution needed " + (System.currentTimeMillis() - start2) + "ms");
-			CatrobatDebug.off();
+			CatrobatDebug.debug("Redraw-execution took " + (System.currentTimeMillis() - start2) + " ms");
 		}
 				
 		if(currentBrick < (brickList.size() - 1)) {
@@ -166,9 +158,7 @@ public abstract class Script extends Callable implements Comparable<Script> {
 			
 			CatScheduler.get().getThread(getExecutor()).sleep();
 			
-			CatrobatDebug.on();
-			CatrobatDebug.console("SCRIPT: " + getExecutor() + " sleep for " + time + "ms...");
-			CatrobatDebug.off();
+			CatrobatDebug.debug("SCRIPT: " + getExecutor() + " sleep for " + time + " ms...");
 			
 			Timer wakeUpTimer = new Timer() {
 				public void run() {
@@ -186,9 +176,7 @@ public abstract class Script extends Callable implements Comparable<Script> {
 
 		CatScheduler.get().getThread(getExecutor()).sleep();
 		
-		CatrobatDebug.on();
-		CatrobatDebug.console("SCRIPT: " + getExecutor() + " sleep...");
-		CatrobatDebug.off();
+		CatrobatDebug.debug("SCRIPT: " + getExecutor() + " sleep...");
 	}
 
 	/**
@@ -200,10 +188,7 @@ public abstract class Script extends Callable implements Comparable<Script> {
 		if(myself != null) {
 			myself.wake();
 			
-			CatrobatDebug.on();
-			CatrobatDebug.console("SCRIPT: " + getExecutor() + " wake up...");
-			CatrobatDebug.off();
-			
+			CatrobatDebug.debug("SCRIPT: " + getExecutor() + " wake up...");
 		}
 		else {
 			//thread has finished execution and is already dead, no need to wake up

@@ -96,8 +96,7 @@ public class SpriteManager {
 				sprite.drawSprite();
 				
 //				CatrobatDebug.on();
-				CatrobatDebug.console("zPos of sprite: " + sprite.getName() + ": " + sprite.getLook().getZPosition());
-				CatrobatDebug.off();
+				CatrobatDebug.debug("zPos of sprite: " + sprite.getName() + ": " + sprite.getLook().getZPosition());
 			}
 		}
 		
@@ -110,8 +109,7 @@ public class SpriteManager {
 
 	public void handleScreenClick(int relativeX, int relativeY) {
 		
-		CatrobatDebug.on();
-		CatrobatDebug.console("handleScreenClick(" + relativeX + ", " + relativeY + ")");
+		CatrobatDebug.debug("handleScreenClick(" + relativeX + ", " + relativeY + ")");
 		
 		
 //		TreeMap<Integer, Set<Sprite>> tmp = new TreeMap<Integer, Set<Sprite>>();
@@ -164,8 +162,6 @@ public class SpriteManager {
 		
 		int numberOfTouchedSprites = touchedSprites.size();
 		
-		CatrobatDebug.on();
-		
 		if (!touchedSprites.isEmpty()) {
 			
 			for (Sprite sprite : touchedSprites) {		
@@ -174,24 +170,15 @@ public class SpriteManager {
 				//background touched, do not start the WhenScripts of the 
 				//background
 				if(sprite.isBackground() && numberOfTouchedSprites > 1) {
-					
-					CatrobatDebug.console("Background got touched but another sprite too...");
-					
+					CatrobatDebug.warn("Background got touched but another sprite too...");
 					continue;
 				}
 				else {
-					
-					CatrobatDebug.console("start WhenScripts of sprite: " + sprite.getName());
-					
+					CatrobatDebug.debug("start WhenScripts of sprite: " + sprite.getName());
 					sprite.startTapScripts();
 				}
-				
 			}
 		}
-		
-		CatrobatDebug.off();
-		
-
 	}
 
 	/**
@@ -228,9 +215,7 @@ public class SpriteManager {
 	 */
 	public void debugSpriteCostumes() {
 		for (Sprite sprite : sprites) {
-			CatrobatDebug.on();
-			CatrobatDebug.console(sprite.getLook().debug());
-			CatrobatDebug.off();
+			CatrobatDebug.debug(sprite.getLook().debug());
 		}
 	}
 

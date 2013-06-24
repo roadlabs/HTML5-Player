@@ -30,9 +30,9 @@ import java.util.zip.ZipInputStream;
 
 import javax.servlet.http.HttpSession;
 
+import org.catrobat.html5player.client.CatrobatDebug;
 import org.catrobat.html5player.client.Const;
 import org.catrobat.html5player.client.ServerConnectionService;
-
 
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 
@@ -43,7 +43,7 @@ public class ServerConnectionServiceImpl extends RemoteServiceServlet implements
 	@Override
 	public String getXML(String number) throws IOException {
 		URL url = new URL(Const.PROJECT_PATH + number +"/"+ Const.PROJECT_FILE);
-		System.out.println("ProjectURL: " + url);
+		CatrobatDebug.info("ProjectURL: " + url);
 		return new Scanner(url.openStream()).useDelimiter("//Z").next();
 	}
 	@Override
@@ -51,7 +51,7 @@ public class ServerConnectionServiceImpl extends RemoteServiceServlet implements
 		HttpSession session = this.getThreadLocalRequest().getSession();
 		ProjectData pd = (ProjectData) session.getAttribute("projectdata");
 		
-		System.out.println("xml from projectdata:"+pd.getXml());
+		CatrobatDebug.debug("xml from projectdata:"+pd.getXml());
 		return pd.getXml();
 	}
 	@Override

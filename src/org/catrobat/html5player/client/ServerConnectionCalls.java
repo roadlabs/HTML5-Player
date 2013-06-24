@@ -112,14 +112,14 @@ public class ServerConnectionCalls {
 			}
 
 			public void onSuccess(final String result) {
-				System.out.println(result);
+				CatrobatDebug.debug(result);
 				if(result == null)
 				{
 					Window.alert("Image Error" + name);
 				}
-				//System.out.println(currentXML);
+				//CatrobatDebug.debug(currentXML);
 				Image image = new Image(result); 
-				//System.out.println(result);
+				//CatrobatDebug.debug(result);
 				ImageHandler.get().newImage(name, image);
 			}
 		};
@@ -135,7 +135,7 @@ public class ServerConnectionCalls {
 			}
 
 			public void onSuccess(final String result) {
-				System.out.println(result);
+				CatrobatDebug.debug(result);
 				if(result == null)
 				{
 					Window.alert("Sound Error" + name);

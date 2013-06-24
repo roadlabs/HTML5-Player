@@ -5,7 +5,6 @@
 
 # Package Files #
 *.jar
-!libs/*.jar
 *.war
 
 # gwt caches and compiled units #
@@ -13,11 +12,16 @@ war/gwt_bree/
 gwt-unitCache/
 
 war/WEB-INF/lib/
+!war/WEB-INF/lib/GWTXPath.jar
+!war/WEB-INF/lib/commons-codec-1.7.jar
+!war/WEB-INF/lib/commons-fileupload-1.2.jar
+!war/WEB-INF/lib/commons-io-2.4.jar
 
 # boilerplate generated classes #
 .apt_generated/
 
 # more caches and things from deploy #
+war/Html5Player/
 war/WEB-INF/deploy/
 war/WEB-INF/classes/
 
@@ -25,3 +29,5 @@ war/WEB-INF/classes/
 
 #local settings (some only allow absolute paths) #)
 .settings/com.google.gdt.eclipse.core.prefs
+
+/org.catrobat.html5player.html5player.JUnit

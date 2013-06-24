@@ -75,9 +75,7 @@ public class Sound {
 				//audio.addSource(getSoundBasePath() + soundInfo.getFileName());
 				//audio.load();
 				server.getSound(soundInfo.getFileName(), audio);
-				CatrobatDebug.on();
-				CatrobatDebug.console("updateAudio - getError: " + audio.getError() + "...");
-				CatrobatDebug.off();
+				CatrobatDebug.debug("updateAudio - getError: " + audio.getError() + "...");
 			}
 			
 		}

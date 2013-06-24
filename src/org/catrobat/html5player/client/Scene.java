@@ -77,9 +77,9 @@ public class Scene {
 			isSceneCreated = true;
 			fillColor = CssColor.make("rgb(255,255,255)");
 		}
-		
-		System.out.println("Scene created");
-		
+
+		CatrobatDebug.info("Scene created");
+
 		return true;
 	}
 	
@@ -94,7 +94,7 @@ public class Scene {
 		
 		if(createScene()) {
 			setSceneMeasures(sceneWidth, sceneHeight);
-			System.out.println("Scene created with width: " + sceneWidth + " and height: " + sceneHeight);
+			CatrobatDebug.info("Scene created with width: " + sceneWidth + " and height: " + sceneHeight);
 			return true;
 		}
 		
@@ -122,7 +122,7 @@ public class Scene {
 			
 //			back.getContext2d().translate(sceneWidth/2, sceneHeight/2);
 			
-			System.out.println("Scene got measures - width: " + this.sceneWidth + " and height: " + this.sceneHeight);
+			CatrobatDebug.debug("Scene got measures - width: " + this.sceneWidth + " and height: " + this.sceneHeight);
 		}
 	}
 	
@@ -162,10 +162,7 @@ public class Scene {
 		context.restore();
 		
 		
-//		CatrobatDebug.on();
-		CatrobatDebug.console("drawImageElement-execution needed " + (System.currentTimeMillis() - start) + "ms");
-		CatrobatDebug.off();
-		
+		CatrobatDebug.debug("drawImageElement-execution took " + (System.currentTimeMillis() - start) + " ms");
 	}
 	
 	/**
@@ -189,9 +186,7 @@ public class Scene {
 		
 		drawImageElement(imageElement, translateX, translateY, x, y, width, height, degrees, xSize, ySize, alpha);
 		
-//		CatrobatDebug.on();
-		CatrobatDebug.console("drawImage-execution needed " + (System.currentTimeMillis() - start) + "ms");
-		CatrobatDebug.off();
+		CatrobatDebug.debug("drawImage-execution took " + (System.currentTimeMillis() - start) + " ms");
 	}
 	
 	/**
@@ -226,9 +221,7 @@ public class Scene {
 		
 		context.restore();
 		
-//		CatrobatDebug.on();
-		CatrobatDebug.console("drawImageElement-execution needed " + (System.currentTimeMillis() - start) + "ms");
-		CatrobatDebug.off();
+		CatrobatDebug.debug("drawImageElement-execution took " + (System.currentTimeMillis() - start) + " ms");
 	}
 	
 	//############################### TEXT #####################################
@@ -449,9 +442,7 @@ public class Scene {
 		context.fillRect(0, 0, this.sceneWidth, this.sceneHeight);
 		context.restore();
 		
-		CatrobatDebug.on();
-		CatrobatDebug.console("clearCanvas-execution needed " + (System.currentTimeMillis() - start) + "ms");
-		CatrobatDebug.off();
+		CatrobatDebug.debug("clearCanvas-execution took " + (System.currentTimeMillis() - start) + " ms");
 	}
 	
 	//##########################################################################

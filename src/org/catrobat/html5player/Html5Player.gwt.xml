@@ -15,6 +15,7 @@
   <inherits name ="com.google.gwt.xml.XML"/>
   <inherits name ="com.mouchel.gwt.xpath.xpath"/>
   <inherits name="com.google.gwt.user.Debug"/>
+  <inherits name="com.google.gwt.logging.Logging"/>
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='org.catrobat.html5player.client.Html5Player'/>

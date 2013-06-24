@@ -118,25 +118,20 @@ public class Stage {
 		{
 			return;
 		}
-		
-		CatrobatDebug.on();
-		
-		CatrobatDebug.console("XML got parsed");
-		CatrobatDebug.console("Parsing needed " + (System.currentTimeMillis() - start) + "ms");
+
+		CatrobatDebug.debug("XML got parsed");
+		CatrobatDebug.debug("Parsing took " + (System.currentTimeMillis() - start) + " ms");
 		
 		ImageHandler.get().loadImages();
 		
-		CatrobatDebug.console("actual number of attached images: " + ImageHandler.get().getNumberOfAttachedImages());
-		CatrobatDebug.off();
+		CatrobatDebug.debug("Actual number of attached images: " + ImageHandler.get().getNumberOfAttachedImages());
 		
 		 //add StartScripts to scheduler
 		spriteManager.playCatroid();
 		
 //		spriteManager.debugSpriteCostumes();
 		
-		CatrobatDebug.on();
-		CatrobatDebug.console("actual scripts waiting to run: " + CatScheduler.get().getThreadCount());
-		CatrobatDebug.off();
+		CatrobatDebug.debug("Actual scripts waiting to run: " + CatScheduler.get().getThreadCount());
 		
 		//wait for the images to load, then start the scheduler
 		Timer imagesLoadedTimer = new Timer() {
@@ -146,10 +141,8 @@ public class Stage {
 
 				if(ImageHandler.get().areImagesLoaded() || ImageHandler.get().hasNothingToDo()) {	
 					
-					CatrobatDebug.on();
-					CatrobatDebug.console(ImageHandler.get().getNumberImagesLoaded() + " images are loaded, now start scheduler...");
-					CatrobatDebug.off();
-					
+					CatrobatDebug.debug(ImageHandler.get().getNumberImagesLoaded() + " images are loaded, now starting scheduler...");
+
 					ImageHandler.get().reset();
 					
 					//revive scheduler, so it can run again
@@ -160,19 +153,15 @@ public class Stage {
 					this.cancel();
 				}
 				else {
-					CatrobatDebug.on();
-					CatrobatDebug.console("ImageHandler not finished loading...");
-					CatrobatDebug.console(ImageHandler.get().getStatus());
+					CatrobatDebug.debug("ImageHandler not finished loading...");
+					CatrobatDebug.debug(ImageHandler.get().getStatus());
 					if(ImageHandler.get().hasLoadingFailed()) {
-						CatrobatDebug.console("Error: ImageHandler couldn't load an image");
-						log("Error: ImageHandler couldn't load an image");
+						CatrobatDebug.error("ImageHandler couldn't load an image");
+						log("ImageHandler couldn't load an image");
 						this.cancel();
 						
 						loadingFailure();
 					}
-					System.out.println(ImageHandler.get().getStatus());
-					
-					CatrobatDebug.off();
 				}
 			}
 		};
@@ -184,11 +173,9 @@ public class Stage {
 	 * 
 	 */
 	public void displayLoadingImage() {
-		
-		CatrobatDebug.on();
-		CatrobatDebug.console("displayLoadingImage...");
-		CatrobatDebug.off();
-		
+
+		CatrobatDebug.debug("displayLoadingImage...");
+
 		//ImageHandler.get().addImage("loadgif", "images/ajax-loader.gif");
 		Image i = new Image( "images/ajax-loader.gif");
 		ImageHandler.get().newImage("loadgif", i);
@@ -202,9 +189,7 @@ public class Stage {
 
 				if(ImageHandler.get().areImagesLoaded()) {	
 					
-					CatrobatDebug.on();
-					CatrobatDebug.console("loading gif ready to display");
-					CatrobatDebug.off();
+					CatrobatDebug.debug("Loading gif ready to display");
 					
 					Image image = ImageHandler.get().getImage("loadgif");
 					
@@ -231,10 +216,10 @@ public class Stage {
 	    userVariables = new UserVariablesContainer();
 		defaultLogBoxSettings();
 		
-		CatrobatDebug.console("Spritemanager contains " + spriteManager.getSpriteList().size() + " sprites");
-		CatrobatDebug.console("MessageContainer holds " + messageContainer.getMessages().size() + " messages");
+		CatrobatDebug.debug("Spritemanager contains " + spriteManager.getSpriteList().size() + " sprites");
+		CatrobatDebug.debug("MessageContainer holds " + messageContainer.getMessages().size() + " messages");
 		
-		CatrobatDebug.console("Now clear stage...");
+		CatrobatDebug.info("Now clearing the stage...");
 		
 		//clear messageContainer
 		messageContainer.clear();
@@ -249,15 +234,13 @@ public class Stage {
 		ImageHandler.get().dumpAllImages();
 		ImageHandler.get().reset();
 		
-		CatrobatDebug.console("Spritemanager contains " + spriteManager.getSpriteList().size() + " sprites");
-		CatrobatDebug.console("MessageContainer holds " + messageContainer.getMessages().size() + " messages");
-		CatrobatDebug.console("Actually scheduled threads: " + CatScheduler.get().getThreadCount());
-		CatrobatDebug.console("Actually loaded images " + ImageHandler.get().getTotalNumberOfLoadedImages());
-		CatrobatDebug.console("Number of attached images " + ImageHandler.get().getNumberOfAttachedImages());
+		CatrobatDebug.debug("Spritemanager contains " + spriteManager.getSpriteList().size() + " sprites");
+		CatrobatDebug.debug("MessageContainer holds " + messageContainer.getMessages().size() + " messages");
+		CatrobatDebug.debug("Actually scheduled threads: " + CatScheduler.get().getThreadCount());
+		CatrobatDebug.debug("Actually loaded images " + ImageHandler.get().getTotalNumberOfLoadedImages());
+		CatrobatDebug.debug("Number of attached images " + ImageHandler.get().getNumberOfAttachedImages());
 		
-		CatrobatDebug.console("Stage got cleared...");
-		
-		CatrobatDebug.off();
+		CatrobatDebug.info("Stage got cleared...");
 	}
 	
 	/**
@@ -270,10 +253,8 @@ public class Stage {
 		Scene.get().clearCanvas();
 		Scene.get().setFont("12pt Calibri");
 		Scene.get().write(message, getStageMiddleX(), getStageMiddleY(), "center");
-		
-		CatrobatDebug.on();
-		CatrobatDebug.console("wirte error msg");
-		CatrobatDebug.off();
+
+		CatrobatDebug.info("Error message written to canvas");
 //		Scene.get().update();
 	}
 	

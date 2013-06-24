@@ -36,8 +36,6 @@ public class IfOnEdgeBounceBrick extends Brick {
 	@Override
 	protected boolean execute(Sprite sprite) {
 		
-		CatrobatDebug.off();
-		
 		int virtualScreenWidth = Stage.getInstance().getStageMiddleX();
 		int virtualScreenHeight = Stage.getInstance().getStageMiddleY();
 		
@@ -53,9 +51,9 @@ public class IfOnEdgeBounceBrick extends Brick {
 		double rotationResult = -look.getRotation() + 90.0;
 		
 		
-		CatrobatDebug.console("IOEB - x: " + xPosition + ", y: " + yPosition + ", rot: " + look.getRotation());
-		CatrobatDebug.console("IOEB - w: " + width + ", h: " + height);
-		CatrobatDebug.console("IOEB - vSW: " + virtualScreenWidth + ", vSH: " + virtualScreenHeight);
+		CatrobatDebug.debug("IOEB - x: " + xPosition + ", y: " + yPosition + ", rot: " + look.getRotation());
+		CatrobatDebug.debug("IOEB - w: " + width + ", h: " + height);
+		CatrobatDebug.debug("IOEB - vSW: " + virtualScreenWidth + ", vSH: " + virtualScreenHeight);
 		
 		//check x-coordinate
 		//
@@ -63,13 +61,13 @@ public class IfOnEdgeBounceBrick extends Brick {
 			rotationResult = Math.abs(rotationResult);
 			xPosition = -virtualScreenWidth + width/2;
 			
-			CatrobatDebug.console("sprite on left edge");
+			CatrobatDebug.debug("sprite on left edge");
 		}
 		else if(xPosition > virtualScreenWidth - width/2) { //right edge
 			rotationResult = -Math.abs(rotationResult);
 			xPosition = virtualScreenWidth - width/2;
 			
-			CatrobatDebug.console("sprite on right edge");
+			CatrobatDebug.debug("sprite on right edge");
 		}
 		
 		//check y-coordinate
@@ -86,7 +84,7 @@ public class IfOnEdgeBounceBrick extends Brick {
 			
 			yPosition = -virtualScreenHeight + height/2;
 			
-			CatrobatDebug.console("sprite on top edge");
+			CatrobatDebug.debug("sprite on top edge");
 		}
 		else if(yPosition > virtualScreenHeight - height/2) { //bottom edge
 			if(Math.abs(rotationResult) < 90) {
@@ -100,16 +98,14 @@ public class IfOnEdgeBounceBrick extends Brick {
 			
 			yPosition = virtualScreenHeight - height/2;
 			
-			CatrobatDebug.console("sprite on bottom edge");
+			CatrobatDebug.debug("sprite on bottom edge");
 		}
 		
 		
 		look.setRotation(-rotationResult + 90);
 		look.setXYPosition(xPosition + virtualScreenWidth, yPosition + virtualScreenHeight);
 		
-		CatrobatDebug.console("IOEB - x: " + look.getXPosition() + ", y: " + look.getYPosition() + ", rot: " + look.getRotation());
-		
-		CatrobatDebug.off();
+		CatrobatDebug.debug("IOEB - x: " + look.getXPosition() + ", y: " + look.getYPosition() + ", rot: " + look.getRotation());
 		
 		return true;
 	}

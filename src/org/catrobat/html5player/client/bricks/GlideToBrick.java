@@ -65,9 +65,7 @@ public class GlideToBrick extends Brick {
 		glideTimer = new Timer() {
 			public void run() {
 				
-				CatrobatDebug.on();
-				CatrobatDebug.console("GLIDETO: Timer run() - elapsed time = " + (System.currentTimeMillis() - startTime) + "ms");
-				CatrobatDebug.off();
+				CatrobatDebug.debug("GLIDETO: Timer run() - elapsed time = " + (System.currentTimeMillis() - startTime) + " ms");
 				
 				long currentTime = System.currentTimeMillis();
 				
@@ -93,10 +91,8 @@ public class GlideToBrick extends Brick {
 			
 			Look look = sprite.getLook();
 			
-			CatrobatDebug.on();
-			CatrobatDebug.console("GLIDETO: cancel timer, destination reached");
-			CatrobatDebug.console("GLIDETO: cancel timer, duration was " + durationInMilliSeconds);
-			CatrobatDebug.off();
+			CatrobatDebug.debug("GLIDETO: cancel timer, destination reached");
+			CatrobatDebug.debug("GLIDETO: cancel timer, duration was " + durationInMilliSeconds);
 			
 			glideTimer.cancel();
 			

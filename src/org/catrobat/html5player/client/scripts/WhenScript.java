@@ -23,6 +23,8 @@
 package org.catrobat.html5player.client.scripts;
 
 import java.util.List;
+
+import org.catrobat.html5player.client.CatrobatDebug;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.bricks.Brick;
 
@@ -46,7 +48,7 @@ public class WhenScript extends Script {
 	}
 	
 	public void resetWhenScript() {
-		System.out.println("<<< resetWhenScript - sprite: " + getSprite().getName() + " >>>");
+		CatrobatDebug.debug("<<< resetWhenScript - sprite: " + getSprite().getName() + " >>>");
 		this.currentBrick = 0;
 		this.resetWorkDone();
 		this.scriptFinished = false;
@@ -79,7 +81,7 @@ public class WhenScript extends Script {
 //	}
 //
 //	public void pause(int time) {
-//		System.out.println("pause for " + time + "ms");
+//		CatrobatDebug.debug("pause for " + time + "ms");
 //		
 //		CatScheduler.get().getThread(sprite.getName() + this.name).sleep();
 //		
