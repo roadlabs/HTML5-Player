@@ -89,7 +89,7 @@ public class ParserTest extends GWTTestCase {
 	public void gwtTearDown() {
 		stage.setCanvas(null);
 		stage.setLogBox(null);
-		
+		stage.clearStage();
 		spriteManager.reset();
 	}
 	
