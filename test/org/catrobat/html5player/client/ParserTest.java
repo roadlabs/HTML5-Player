@@ -2504,5 +2504,74 @@ public class ParserTest extends GWTTestCase {
       startScript.getBrick(0).execute();
       assertEquals(targetValue, stage.getUserVariables().getUserVariable("testname", null).getValue());
   }
+  
+  
+  public void testIfLogicBrick() {
+    String spriteName = "TestSprite";
+    String fileNamelook = "923QE849283_look";
+    String lookName = "look1";
+    
+    String xmlString = xmlStringRumpBegin +
+        "<objectList>"+
+        "<object>" +
+        "<lookList>" +
+        lookXMLString(fileNamelook, lookName) +
+        "</lookList>" +
+        "<name>" + spriteName + "</name>" +
+        "<scriptList>" +
+        "<startScript>" +
+        "<brickList>" +
+            "<ifLogicBeginBrick>" +
+            "<object reference=\"../../../../..\"/>" +
+            "<ifCondition>" +
+              "<formulaTree>" +
+               "<leftChild>" +
+                  "<type>NUMBER</type>" +
+                  "<value>1.0</value>" +
+                "</leftChild>" +
+                "<rightChild>" +
+                  "<type>NUMBER</type>" +
+                  "<value>1.0</value>" +
+                "</rightChild>" +
+                "<type>OPERATOR</type>" +
+                "<value>NOT_EQUAL</value>" +
+              "</formulaTree>" +
+            "</ifCondition>" +
+            "<ifElseBrick>" +
+              "<object reference=\"../../../../../..\"/>" +
+              "<ifBeginBrick reference=\"../..\"/>" +
+              "<ifEndBrick>" +
+                "<object reference=\"../../../../../../..\"/>" +
+                "<beginBrick reference=\"../../..\"/>" +
+                "<elseBrick reference=\"../..\"/>" +
+              "</ifEndBrick>" +
+            "</ifElseBrick>" +
+            "<ifEndBrick reference=\"../ifElseBrick/ifEndBrick\"/>" +
+          "</ifLogicBeginBrick>" +
+          "<ifLogicElseBrick reference=\"../ifLogicBeginBrick/ifElseBrick\"/>" +
+          "<ifLogicEndBrick reference=\"../ifLogicBeginBrick/ifElseBrick/ifEndBrick\"/>" +
+        "</brickList>" +
+        "<object reference=\"../../..\"/>" +
+        "</startScript>" +
+        "</scriptList>" +
+        "<soundList/>" +
+        "</object>" +
+        "</objectList>" +
+        "<variables>"+
+        "<objectVariableList/>" +
+        "<programVariableList/>" +
+
+      "</variables>" +
+        xmlStringRumpEnd;
+    
+    Parser parser = new Parser();
+    parser.parseXML(spriteManager, xmlString);
+    
+    Sprite sprite = spriteManager.getSprite(spriteName, false);
+    
+    StartScript startScript = (StartScript)sprite.getScript(0);
+    startScript.getBrick(0).execute();
+    assertTrue(startScript.getBrick(0) instanceof IfLogicBrick);
+}
 	
 }

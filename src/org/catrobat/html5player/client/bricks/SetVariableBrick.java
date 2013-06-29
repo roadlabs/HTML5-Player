@@ -23,7 +23,6 @@
 package org.catrobat.html5player.client.bricks;
 
 import org.catrobat.html5player.client.Sprite;
-import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.formulaeditor.Formula;
 import org.catrobat.html5player.client.formulaeditor.UserVariable;
 
@@ -44,12 +43,8 @@ public class SetVariableBrick extends Brick {
 		if (userVariable == null) {
 			return false;
 		}
-		System.out.println("initial VAR SET VALUE: "+ userVariable.getValue());
 		double value = changeVariable.interpretFloat(sprite);
 		userVariable.setValue(value);
-		System.out.println("after change SET VAR VALUE: "+ userVariable.getValue());
-		//Stage.getInstance().getUserVariables().printProjectVariables();
-		//System.out.println("after change SET VAR VALUE: "+ Stage.getInstance().getUserVariables().getUserVariable("testvar", null).getValue());
 		return true;
 	}
 
