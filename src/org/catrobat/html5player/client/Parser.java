@@ -359,6 +359,7 @@ public class Parser {
       if (brickListElement != null) {
         List<Element> brickElements = getChildElements(brickListElement);
 
+        List<IfLogicBrick> openIfLogicBricks = new ArrayList<IfLogicBrick>();
         for (Element brickElement : brickElements) {
           Brick brick;
           try {
@@ -369,7 +370,19 @@ public class Parser {
             return null;
           }
           if (brick != null && script != null) {
-            script.addBrick(brick);
+            if(openIfLogicBricks.size() > 0){
+//              if(brick instanceof IfLogicElseBrick){
+//                openIfLogicBricks.get(openIfLogicBricks.size()-1).setIfPartInitialized(true);
+//              }
+              //openIfLogicBricks.get(openIfLogicBricks.size()-1).addAction(brick, object.getName());
+            }
+            else{
+              script.addBrick(brick);
+              if(brick instanceof IfLogicBrick){
+                openIfLogicBricks.add((IfLogicBrick) brick);
+              }
+            }
+            
           } else {
             System.out.println(brickElement.toString() +"-"+ script.toString() +"-"+ object.toString());
             return null;
@@ -651,7 +664,17 @@ public class Parser {
       Formula formula = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "variableFormula"));
       //Formula formula = new Formula(parseformulaTree(getChildElementByTagName(brickNode, "variableFormula")));
       return new ChangeVariableBrick(objName,formula, userVar);
-    } else {
+    } else if(brickNode.getNodeName().equals("ifLogicBeginBrick")){
+      Formula formula = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "ifCondition"));
+
+    } else if(brickNode.getNodeName().equals("ifLogicElseBrick")){
+      
+    } else if(brickNode.getNodeName().equals("ifLogicEndBrick")){
+      
+    }
+    
+    
+    else {
       CatrobatDebug.warn("Brick: " + brickNode.getNodeName() + " not implemented");
       Stage.getInstance().log("Brick not implemented:" + brickNode.getNodeName());
     }
