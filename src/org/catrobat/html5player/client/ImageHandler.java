@@ -88,7 +88,6 @@ public class ImageHandler {
 	 * @return false if the name is already in use, true otherwise
 	 */
 	public boolean newImage(String name, final String url, int width, int height) {
-		
 		//Image with this name already exists
 		if(imagesMap.containsKey(name))
 			return false;
@@ -111,7 +110,7 @@ public class ImageHandler {
 				CatrobatDebug.info("ImageHandler successfully loaded an image");
 				numberImagesLoaded++;
 				
-				if(numberImagesLoaded == imagesToLoad) {
+				if(numberImagesLoaded >= imagesToLoad) {
 					imagesLoaded = true;
 				}
 			}
@@ -131,7 +130,7 @@ public class ImageHandler {
 		CatrobatDebug.debug("ImageHandler successfully loaded an image");
 		numberImagesLoaded++;
 		
-		if(numberImagesLoaded == imagesToLoad) {
+		if(numberImagesLoaded >= imagesToLoad) {
 			imagesLoaded = true;
 		}
 		return true;
