@@ -13,8 +13,9 @@ public class IfLogicBrick extends Brick {
   private boolean isInitialized = false;
   private boolean isIfPartInitialized = false;
 
-  public IfLogicBrick(String spriteName) {
+  public IfLogicBrick(String spriteName, Formula ifCondition) {
     super(spriteName);
+    this.ifCondition = ifCondition;
   }
 
   @Override

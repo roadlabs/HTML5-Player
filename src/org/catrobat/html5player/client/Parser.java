@@ -371,10 +371,13 @@ public class Parser {
           }
           if (brick != null && script != null) {
             if(openIfLogicBricks.size() > 0){
-//              if(brick instanceof IfLogicElseBrick){
-//                openIfLogicBricks.get(openIfLogicBricks.size()-1).setIfPartInitialized(true);
-//              }
-              //openIfLogicBricks.get(openIfLogicBricks.size()-1).addAction(brick, object.getName());
+              if(brick instanceof IfLogicElseBrick){
+                openIfLogicBricks.get(openIfLogicBricks.size()-1).setIfPartInitialized(true);
+              } else if(brick instanceof IfLogicEndBrick){
+                openIfLogicBricks.remove(openIfLogicBricks.size()-1);
+              }else{
+                openIfLogicBricks.get(openIfLogicBricks.size()-1).addAction(brick, object.getName());
+              }
             }
             else{
               script.addBrick(brick);
@@ -389,7 +392,6 @@ public class Parser {
           }
         }
       }
-
       object.addScript(script);
     }
 
@@ -666,11 +668,11 @@ public class Parser {
       return new ChangeVariableBrick(objName,formula, userVar);
     } else if(brickNode.getNodeName().equals("ifLogicBeginBrick")){
       Formula formula = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "ifCondition"));
-
+      return new IfLogicBrick(objName, formula);
     } else if(brickNode.getNodeName().equals("ifLogicElseBrick")){
-      
+      return new IfLogicElseBrick(objName);
     } else if(brickNode.getNodeName().equals("ifLogicEndBrick")){
-      
+      return new IfLogicEndBrick(objName);
     }
     
     
