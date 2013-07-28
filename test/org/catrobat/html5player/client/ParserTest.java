@@ -2510,7 +2510,6 @@ public class ParserTest extends GWTTestCase {
     String spriteName = "TestSprite";
     String fileNamelook = "923QE849283_look";
     String lookName = "look1";
-    
     String xmlString = xmlStringRumpBegin +
         "<objectList>"+
         "<object>" +
@@ -2560,7 +2559,96 @@ public class ParserTest extends GWTTestCase {
         "<variables>"+
         "<objectVariableList/>" +
         "<programVariableList/>" +
-
+      "</variables>" +
+        xmlStringRumpEnd;
+    
+    Parser parser = new Parser();
+    parser.parseXML(spriteManager, xmlString);
+    
+    Sprite sprite = spriteManager.getSprite(spriteName, false);
+    
+    StartScript startScript = (StartScript)sprite.getScript(0);
+    assertTrue(startScript.getBrick(0) instanceof IfLogicBrick);
+}
+  
+public void testIfLogicAction() {
+    String spriteName = "TestSprite";
+    String fileNamelook = "923QE849283_look";
+    String lookName = "look1";
+    double oldValue = 1.0;
+    double targetValue = 10.0;
+    String xmlString = xmlStringRumpBegin +
+        "<objectList>"+
+        "<object>" +
+        "<lookList>" +
+        lookXMLString(fileNamelook, lookName) +
+        "</lookList>" +
+        "<name>" + spriteName + "</name>" +
+        "<scriptList>" +
+        "<startScript>" +
+        "<brickList>" +
+          "<setVariableBrick>"+
+            "<object reference=\"../../../../..\"/>"+
+            "<userVariable>"+
+              "<name>testname</name>"+
+              "<value>"+oldValue+"</value>"+
+            "</userVariable>"+
+            "<variableFormula>"+
+              "<formulaTree>"+
+                "<type>NUMBER</type>"+
+               "<value>"+oldValue+"</value>"+
+              "</formulaTree>"+
+            "</variableFormula>"+
+          "</setVariableBrick>"+
+            "<ifLogicBeginBrick>" +
+            "<object reference=\"../../../../..\"/>" +
+            "<ifCondition>" +
+              "<formulaTree>" +
+               "<leftChild>" +
+                  "<type>NUMBER</type>" +
+                  "<value>1.0</value>" +
+                "</leftChild>" +
+                "<rightChild>" +
+                  "<type>NUMBER</type>" +
+                  "<value>42.0</value>" +
+                "</rightChild>" +
+                "<type>OPERATOR</type>" +
+                "<value>NOT_EQUAL</value>" +
+              "</formulaTree>" +
+            "</ifCondition>" +
+            "<ifElseBrick>" +
+              "<object reference=\"../../../../../..\"/>" +
+              "<ifBeginBrick reference=\"../..\"/>" +
+              "<ifEndBrick>" +
+                "<object reference=\"../../../../../../..\"/>" +
+                "<beginBrick reference=\"../../..\"/>" +
+                "<elseBrick reference=\"../..\"/>" +
+              "</ifEndBrick>" +
+            "</ifElseBrick>" +
+            "<ifEndBrick reference=\"../ifElseBrick/ifEndBrick\"/>" +
+          "</ifLogicBeginBrick>" +
+          "<changeVariableBrick>" +
+            "<object reference=\"../../../../..\"/>" +
+            "<userVariable reference=\"../../../../startScript/brickList/setVariableBrick/userVariable\"/>" +
+            "<variableFormula>" +
+              "<formulaTree>" +
+                "<type>NUMBER</type>" +
+                "<value>"+targetValue+"</value>" +
+             "</formulaTree>" +
+            "</variableFormula>" +
+          "</changeVariableBrick>" +
+          "<ifLogicElseBrick reference=\"../ifLogicBeginBrick/ifElseBrick\"/>" +
+          "<ifLogicEndBrick reference=\"../ifLogicBeginBrick/ifElseBrick/ifEndBrick\"/>" +
+        "</brickList>" +
+        "<object reference=\"../../..\"/>" +
+        "</startScript>" +
+        "</scriptList>" +
+        "<soundList/>" +
+        "</object>" +
+        "</objectList>" +
+        "<variables>"+
+        "<objectVariableList/>" +
+        "<programVariableList/>" +
       "</variables>" +
         xmlStringRumpEnd;
     
@@ -2571,7 +2659,7 @@ public class ParserTest extends GWTTestCase {
     
     StartScript startScript = (StartScript)sprite.getScript(0);
     startScript.getBrick(0).execute();
-    assertTrue(startScript.getBrick(0) instanceof IfLogicBrick);
+    assertEquals(targetValue, stage.getUserVariables().getUserVariable("testname", null).getValue());
 }
 	
 }
