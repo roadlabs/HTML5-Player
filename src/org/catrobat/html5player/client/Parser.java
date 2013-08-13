@@ -377,6 +377,9 @@ public class Parser {
                 openIfLogicBricks.remove(openIfLogicBricks.size()-1);
               }else{
                 openIfLogicBricks.get(openIfLogicBricks.size()-1).addAction(brick, object.getName());
+                if(brick instanceof IfLogicBrick){
+                  openIfLogicBricks.add((IfLogicBrick) brick);
+                }
               }
             }
             else{
@@ -384,8 +387,7 @@ public class Parser {
               if(brick instanceof IfLogicBrick){
                 openIfLogicBricks.add((IfLogicBrick) brick);
               }
-            }
-            
+            } 
           } else {
             System.out.println(brickElement.toString() +"-"+ script.toString() +"-"+ object.toString());
             return null;
@@ -674,8 +676,7 @@ public class Parser {
     } else if(brickNode.getNodeName().equals("ifLogicEndBrick")){
       return new IfLogicEndBrick(objName);
     }
-    
-    
+
     else {
       CatrobatDebug.warn("Brick: " + brickNode.getNodeName() + " not implemented");
       Stage.getInstance().log("Brick not implemented:" + brickNode.getNodeName());

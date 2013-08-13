@@ -2587,19 +2587,19 @@ public void testIfLogicAction() {
         "<scriptList>" +
         "<startScript>" +
         "<brickList>" +
-          "<setVariableBrick>"+
-            "<object reference=\"../../../../..\"/>"+
-            "<userVariable>"+
-              "<name>testname</name>"+
-              "<value>"+oldValue+"</value>"+
-            "</userVariable>"+
-            "<variableFormula>"+
-              "<formulaTree>"+
-                "<type>NUMBER</type>"+
-               "<value>"+oldValue+"</value>"+
-              "</formulaTree>"+
-            "</variableFormula>"+
-          "</setVariableBrick>"+
+//          "<setVariableBrick>"+
+//            "<object reference=\"../../../../..\"/>"+
+//            "<userVariable>"+
+//              "<name>testname</name>"+
+//              "<value>"+oldValue+"</value>"+
+//            "</userVariable>"+
+//            "<variableFormula>"+
+//              "<formulaTree>"+
+//                "<type>NUMBER</type>"+
+//               "<value>"+oldValue+"</value>"+
+//              "</formulaTree>"+
+//            "</variableFormula>"+
+//          "</setVariableBrick>"+
             "<ifLogicBeginBrick>" +
             "<object reference=\"../../../../..\"/>" +
             "<ifCondition>" +
@@ -2627,16 +2627,19 @@ public void testIfLogicAction() {
             "</ifElseBrick>" +
             "<ifEndBrick reference=\"../ifElseBrick/ifEndBrick\"/>" +
           "</ifLogicBeginBrick>" +
-          "<changeVariableBrick>" +
-            "<object reference=\"../../../../..\"/>" +
-            "<userVariable reference=\"../../../../startScript/brickList/setVariableBrick/userVariable\"/>" +
-            "<variableFormula>" +
-              "<formulaTree>" +
-                "<type>NUMBER</type>" +
-                "<value>"+targetValue+"</value>" +
-             "</formulaTree>" +
-            "</variableFormula>" +
-          "</changeVariableBrick>" +
+          "<setVariableBrick>"+
+          "<object reference=\"../../../../..\"/>"+
+          "<userVariable>"+
+          "<name>testname</name>"+
+          "<value>"+oldValue+"</value>"+
+          "</userVariable>"+
+          "<variableFormula>"+
+          "<formulaTree>"+
+            "<type>NUMBER</type>"+
+           "<value>"+targetValue+"</value>"+
+          "</formulaTree>"+
+          "</variableFormula>"+
+          "</setVariableBrick>"+
           "<ifLogicElseBrick reference=\"../ifLogicBeginBrick/ifElseBrick\"/>" +
           "<ifLogicEndBrick reference=\"../ifLogicBeginBrick/ifElseBrick/ifEndBrick\"/>" +
         "</brickList>" +
@@ -2648,7 +2651,13 @@ public void testIfLogicAction() {
         "</objectList>" +
         "<variables>"+
         "<objectVariableList/>" +
-        "<programVariableList/>" +
+        "<programVariableList>" +
+        "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick/userVariable\"/>" +
+        "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[2]/userVariable\"/>" +
+        "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[3]/userVariable\"/>" +
+        "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[4]/userVariable\"/>" +
+        "<userVariable reference=\"../../../objectList/object/scriptList/startScript/brickList/setVariableBrick[6]/userVariable\"/>" +
+      "</programVariableList>" +
       "</variables>" +
         xmlStringRumpEnd;
     
