@@ -1,18 +1,18 @@
 /**
  * Catroid: An on-device visual programming system for Android devices Copyright (C) 2010-2013 The
  * Catrobat Team (<http://developer.catrobat.org/credits>)
- * 
+ *
  * This program is free software: you can redistribute it and/or modify it under the terms of the
  * GNU Affero General Public License as published by the Free Software Foundation, either version 3
  * of the License, or (at your option) any later version.
- * 
+ *
  * An additional term exception under section 7 of the GNU Affero General Public License, version 3,
  * is available at http://developer.catrobat.org/license_additional_term
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without
  * even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License along with this program.
  * If not, see <http://www.gnu.org/licenses/>.
  */
@@ -64,9 +64,9 @@ public class Parser {
       if (hasDomDocumentPageNotFoundError(messageDom)) {
         return;
       }
-      if (!isVersionOK(messageDom)) {
+      /*if (!isVersionOK(messageDom)) {
         return;
-      }
+      }*/
       parseScreenResolution(messageDom);
       parseUserVariableList(getChildElementByTagName(messageDom.getDocumentElement(),"variables"));
       if (parseAndCreateObjects(messageDom)) {
@@ -188,7 +188,7 @@ public class Parser {
   /**
    * Checks if a reference has the correct syntax for XPath to evaluate. If a reference refers to
    * the first element of a set of elements, than there must be square brackets with a 1 in between
-   * 
+   *
    * @param reference
    * @param substring Element to check as a String
    * @return A reference with correct syntax
@@ -222,7 +222,7 @@ public class Parser {
     Element userVariables = getChildElementByTagName(tree,"programVariableList");
     if(userVariables == null)
       return;
-    
+
     for(int i = 0; i < getChildElements(userVariables).size();i++)
     {
       Element var = getChildElements(userVariables).get(i);
@@ -231,11 +231,11 @@ public class Parser {
         Element userVariable = XPath.evaluateSingle(var, objectReference, Element.class);
         if(userVariable == null){
           return;
-        }  
+        }
         String name = "";
         double value = 0.0;
         Element nameEl = getChildElementByTagName(userVariable,"name");
-        
+
         if(nameEl != null)
         {
           name = nameEl.getFirstChild().toString();
@@ -249,12 +249,12 @@ public class Parser {
       }
     }
   }
-  
+
   private void parseScreenResolution(Document messageDom) {
     Node header = getChildElementByTagName(messageDom.getDocumentElement(), "header");
     Node nodeScreenHeight = getChildElementByTagName(header, Const.SCREEN_HEIGHT);
     Node nodeScreenWidth = getChildElementByTagName(header, Const.SCREEN_WIDTH);
-    
+
     int dimX = 0;
     int dimY = 0;
 
@@ -387,7 +387,7 @@ public class Parser {
               if(brick instanceof IfLogicBrick){
                 openIfLogicBricks.add((IfLogicBrick) brick);
               }
-            } 
+            }
           } else {
             System.out.println(brickElement.toString() +"-"+ script.toString() +"-"+ object.toString());
             return null;
@@ -471,7 +471,7 @@ public class Parser {
       return new SetLookBrick(objName, lookName);
 
     } else if (brickNode.getNodeName().equals("waitBrick")) {
-      
+
       int waitTime = (int) (1000.0* parseformulaTree(getChildElementByTagName(brickNode, "timeToWaitInSeconds")));
       return new WaitBrick(objName, waitTime, script);
     } else if (brickNode.getNodeName().equals("playSoundBrick")) {
@@ -734,19 +734,19 @@ public class Parser {
     Element userVariable = getChildElementByTagName(tree,"userVariable");
     if(userVariable == null){
       return null;
-    }  
+    }
     Element nameEl = getChildElementByTagName(userVariable,"name");
     if(nameEl != null){
       String name = nameEl.getFirstChild().toString();
       return Stage.getInstance().getUserVariables().getUserVariable(name, null);
     }
-      
+
     if (userVariable.hasAttribute("reference")) {
       String objectReference = checkReference(userVariable.getAttribute("reference"), "userVariable");
       userVariable = XPath.evaluateSingle(userVariable, objectReference, Element.class);
       if(userVariable == null){
         return null;
-      }  
+      }
       nameEl = getChildElementByTagName(userVariable,"name");
       if(nameEl != null)
       {
@@ -756,7 +756,7 @@ public class Parser {
     }
       return null;
   }
-  
+
   // ##########################################################################
   public double parseformulaTree(Node tree) throws Exception {
     Element formula = getChildElementByTagName(tree,"formulaTree");
@@ -764,8 +764,8 @@ public class Parser {
       //System.out.println(tree.getFirstChild().toString());
       return Double.parseDouble(tree.getFirstChild().toString());
       //throw new Exception("formulaTree exception 1");
-    }   
-    
+    }
+
     Element type = getChildElementByTagName(formula,"type");
     if(type == null){
       throw new Exception("formulaTree exception 2");
@@ -801,8 +801,8 @@ public class Parser {
       throw new Exception("formulaTree exception 5");
     }
   }
-  
-  
+
+
   public boolean isParsingComplete() {
     return parsingComplete;
   }
