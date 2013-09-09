@@ -64,9 +64,10 @@ public class Parser {
       if (hasDomDocumentPageNotFoundError(messageDom)) {
         return;
       }
-      /*if (!isVersionOK(messageDom)) {
+      if (!isVersionOK(messageDom)) {
         return;
-      }*/
+      }
+      
       parseScreenResolution(messageDom);
       parseUserVariableList(getChildElementByTagName(messageDom.getDocumentElement(),"variables"));
       if (parseAndCreateObjects(messageDom)) {
@@ -102,7 +103,8 @@ public class Parser {
     if (header != null && header.getLength() != 0) {
       Element version = getChildElementByTagName(header.item(0),"catrobatLanguageVersion");
       if (version != null) {
-        if (version.toString().contains("0.6")) {
+        double v = Double.parseDouble(version.getFirstChild().toString());
+        if (v >= 0.6) {
           return true;
         }
       }
