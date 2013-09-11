@@ -12,6 +12,7 @@ public class FormulaParser {
   
   public static Formula parseFormula(Node n) throws Exception{
     Element formula = Parser.getChildElementByTagName(n,"formulaTree");
+    //TODO when formulaTree element is not found then parse only a number
     FormulaElement fe = parseRecursive(formula, null);
     return new Formula(fe);
   }

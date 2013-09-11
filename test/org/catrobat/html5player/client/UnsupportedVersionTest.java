@@ -35,8 +35,8 @@ public class UnsupportedVersionTest extends GWTTestCase {
 		String xmlString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
             "<program>" + 
             "<header>" + 
-            "<applicationVersion>0.9.0beta</applicationVersion>" +
-            "<catrobatLanguageVersion>0.9</catrobatLanguageVersion>" +
+            "<applicationVersion>0.1.0beta</applicationVersion>" +
+            "<catrobatLanguageVersion>0.1</catrobatLanguageVersion>" +
             "<deviceName>GT-S5830</deviceName>" +
             "<programName>test</programName>" +
             "<screenHeight>200</screenHeight>" +

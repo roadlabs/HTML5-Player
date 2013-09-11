@@ -368,7 +368,6 @@ public class Parser {
             brick = checkBrick(brickElement, object, script);
           } catch (Exception e) {
             System.out.println(e.getMessage());
-            System.out.println("exception"+brickElement.toString() +"-"+ script.toString() +"-"+ object.toString());
             return null;
           }
           if (brick != null && script != null) {
@@ -391,14 +390,13 @@ public class Parser {
               }
             }
           } else {
-            System.out.println(brickElement.toString() +"-"+ script.toString() +"-"+ object.toString());
+            CatrobatDebug.debug("Brick Parsing Problem: "+brickElement.toString() +"-"+ script.toString() +"-"+ object.toString());
             return null;
           }
         }
       }
       object.addScript(script);
     }
-
 
     // List<Element> sounds = getChildElementsByTagName(soundList,
     // "Common.SoundInfo");
@@ -473,8 +471,8 @@ public class Parser {
       return new SetLookBrick(objName, lookName);
 
     } else if (brickNode.getNodeName().equals("waitBrick")) {
-
-      int waitTime = (int) (1000.0* parseformulaTree(getChildElementByTagName(brickNode, "timeToWaitInSeconds")));
+      Formula waitTime = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "timeToWaitInSeconds"));
+      //int waitTime = (int) (1000.0* parseformulaTree(getChildElementByTagName(brickNode, "timeToWaitInSeconds")));
       return new WaitBrick(objName, waitTime, script);
     } else if (brickNode.getNodeName().equals("playSoundBrick")) {
 

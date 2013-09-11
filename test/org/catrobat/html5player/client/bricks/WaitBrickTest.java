@@ -27,6 +27,7 @@ import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.SpriteManager;
 import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.common.LookData;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 import org.catrobat.html5player.client.scripts.StartScript;
 import org.catrobat.html5player.client.threading.CatScheduler;
 import org.catrobat.html5player.client.threading.CatThread;
@@ -118,7 +119,7 @@ public class WaitBrickTest extends GWTTestCase{
 		String startScriptName = "broadcastScript";
 		StartScript startScript = new StartScript(sprite_, startScriptName);
 		
-		int time = 400; //ms
+		Formula time = new Formula(0.4); 
 		WaitBrick waitBrick = new WaitBrick(spriteName, time, startScript);
 		NextLookBrick nextLookBrick = new NextLookBrick(spriteName);
 		startScript.addBrick(waitBrick);
@@ -183,7 +184,8 @@ public class WaitBrickTest extends GWTTestCase{
 		String startScriptName = "broadcastScript";
 		StartScript startScript = new StartScript(sprite_, startScriptName);
 		
-		int time = 1000; //ms
+		//int time = 1000; //ms
+		Formula time = new Formula(1);
 		WaitBrick waitBrick = new WaitBrick(spriteName, time, startScript);
 		NextLookBrick nextLookBrick = new NextLookBrick(spriteName);
 		startScript.addBrick(waitBrick);

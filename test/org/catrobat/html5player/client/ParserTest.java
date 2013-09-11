@@ -671,7 +671,7 @@ public class ParserTest extends GWTTestCase {
 	 * 
 	 */
 	public void testParseXMLWaitBrick() {
-		int timeToWait = 1000;
+		double timeToWait = 1.0;
 		
 		String spriteName = "TestSprite";
 		String fileNamelook = "923QE849283_look";
@@ -688,7 +688,12 @@ public class ParserTest extends GWTTestCase {
 			"<brickList>" +
 			"<waitBrick>" +
 			"<object reference=\"../../../../..\"/>" +
-			"<timeToWaitInSeconds>" + timeToWait + "</timeToWaitInSeconds>" +
+			"<timeToWaitInSeconds>" + 
+              "<formulaTree>"+
+               "<type>NUMBER</type>"+
+               "<value>"+timeToWait+"</value>"+
+              "</formulaTree>"+
+			 "</timeToWaitInSeconds>" +
 			"</waitBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +

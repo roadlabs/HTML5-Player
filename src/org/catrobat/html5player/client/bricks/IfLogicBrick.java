@@ -1,11 +1,12 @@
 package org.catrobat.html5player.client.bricks;
 
+import org.catrobat.html5player.client.CatrobatDebug;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.formulaeditor.Formula;
 
 
 public class IfLogicBrick extends Brick {
-  
+
   private Brick ifAction = null;
   private Brick elseAction = null;
   private Formula ifCondition;
@@ -21,40 +22,39 @@ public class IfLogicBrick extends Brick {
   @Override
   protected boolean execute(Sprite sprite) {
     if (!isInitialized) {
-        begin(sprite);
-        isInitialized = true;
+      begin(sprite);
+      isInitialized = true;
     }
-    System.out.println("iflogic executed with conditionvalue: "+ ifConditionValue + " "+ ifAction.getClass());
+    CatrobatDebug.debug("iflogic executed with conditionvalue: " + ifConditionValue +" "+ ifAction.getClass());
     if (ifConditionValue) {
-      if(ifAction == null){
+      if (ifAction == null) {
         return true;
       }
       return ifAction.execute(sprite);
     } else {
-      if(elseAction == null){
+      if (elseAction == null) {
         return true;
       }
       return elseAction.execute(sprite);
     }
   }
-  
-  
+
   protected void begin(Sprite sprite) {
-      ifConditionValue = ifCondition.interpretBoolean(sprite);
+    ifConditionValue = ifCondition.interpretBoolean(sprite);
   }
-  
+
   public void setIfAction(Brick ifAction) {
-      this.ifAction = ifAction;
+    this.ifAction = ifAction;
   }
-  
+
   public void setElseAction(Brick elseAction) {
-      this.elseAction = elseAction;
+    this.elseAction = elseAction;
   }
-  
+
   public void setIfCondition(Formula ifCondition) {
-      this.ifCondition = ifCondition;
+    this.ifCondition = ifCondition;
   }
-  
+
   public void addAction(Brick b, String spriteName) {
     if (!this.isIfPartInitialized) {
       if (this.ifAction == null) {
