@@ -26,6 +26,7 @@ import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.SpriteManager;
 import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.bricks.SetVolumeToBrick;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -69,12 +70,12 @@ public class SetVolumeToBrickTest extends GWTTestCase{
 		String spriteName = "spriteName";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		double setVolumeTo = 50.0;
-		
+		//double setVolumeTo = 50.0;
+		Formula setVolumeTo = new Formula(50.0);
 		SetVolumeToBrick brick = new SetVolumeToBrick(spriteName, setVolumeTo);
 		brick.execute();
 		
-		assertEquals(setVolumeTo, sprite.getVolume());
+		assertEquals((int)setVolumeTo.interpretFloat(sprite), (int)sprite.getVolume());
 	}
 	
 	/**
@@ -84,8 +85,8 @@ public class SetVolumeToBrickTest extends GWTTestCase{
 		String spriteName = "spriteName";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		double setVolumeTo = 120.0;
-		
+		//double setVolumeTo = 120.0;
+		Formula setVolumeTo = new Formula(120.0);
 		SetVolumeToBrick brick = new SetVolumeToBrick(spriteName, setVolumeTo);
 		brick.execute();
 		
@@ -99,8 +100,8 @@ public class SetVolumeToBrickTest extends GWTTestCase{
 		String spriteName = "spriteName";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		double setVolumeTo = -10.0;
-		
+		//double setVolumeTo = -10.0;
+		Formula setVolumeTo = new Formula(-10.0);
 		SetVolumeToBrick brick = new SetVolumeToBrick(spriteName, setVolumeTo);
 		brick.execute();
 		

@@ -515,7 +515,6 @@ public class Parser {
         CatrobatDebug.debug("Title: "+ getText(getChildElementByTagName(soundInfoElement, "name")));
         soundId = fileName.split("_")[0];
         CatrobatDebug.debug("Sound ID: " + soundId);
-
         soundInfo.setId(soundId);
       }
 
@@ -527,10 +526,11 @@ public class Parser {
 
       return new PlaySoundBrick(objName, soundId);
     } else if (brickNode.getNodeName().equals("changeVolumeByNBrick")) {
-      double volume = parseformulaTree(getChildElementByTagName(brickNode, "volume"));
+      Formula volume = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "volume"));
       return new ChangeVolumeByBrick(objName, volume);
     } else if (brickNode.getNodeName().equals("setVolumeToBrick")) {
-      double volume = parseformulaTree(getChildElementByTagName(brickNode, "volume"));
+      Formula volume = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "volume"));
+      //double volume = parseformulaTree(getChildElementByTagName(brickNode, "volume"));
       return new SetVolumeToBrick(objName, volume);
     } else if (brickNode.getNodeName().equals("placeAtBrick")) {
       int xPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "xPosition"));

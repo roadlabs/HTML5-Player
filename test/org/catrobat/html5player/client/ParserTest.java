@@ -1373,7 +1373,12 @@ public class ParserTest extends GWTTestCase {
 			"<brickList>" +
 			"<setVolumeToBrick>" +
 			"<object reference=\"../../../../..\"/>" +
-			"<volume>" + volume + "</volume>" +
+			"<volume>"  +
+			  "<formulaTree>"+
+               "<type>NUMBER</type>"+
+               "<value>"+volume+"</value>"+
+              "</formulaTree>"+
+			"</volume>" +
 			"</setVolumeToBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +

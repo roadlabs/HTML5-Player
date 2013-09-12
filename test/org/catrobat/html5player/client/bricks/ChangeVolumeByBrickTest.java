@@ -26,6 +26,7 @@ import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.SpriteManager;
 import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.bricks.ChangeVolumeByBrick;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -73,12 +74,12 @@ public class ChangeVolumeByBrickTest extends GWTTestCase {
 		
 		sprite.setVolume(volume);
 		
-		double changeVolumeBy = 10.0;
-		
+		//double changeVolumeBy = 10.0;
+		Formula changeVolumeBy = new Formula(10.0);
 		ChangeVolumeByBrick brick = new ChangeVolumeByBrick(spriteName, changeVolumeBy);
 		brick.execute();
 		
-		assertEquals(volume + changeVolumeBy, sprite.getVolume());
+		assertEquals(volume + changeVolumeBy.interpretFloat(sprite), sprite.getVolume());
 	}
 	
 	/**
@@ -92,12 +93,12 @@ public class ChangeVolumeByBrickTest extends GWTTestCase {
 		
 		sprite.setVolume(volume);
 		
-		double changeVolumeBy = -10.0;
-		
+		//double changeVolumeBy = -10.0;
+		Formula changeVolumeBy = new Formula(-10.0);
 		ChangeVolumeByBrick brick = new ChangeVolumeByBrick(spriteName, changeVolumeBy);
 		brick.execute();
 		
-		assertEquals(volume + changeVolumeBy, sprite.getVolume());
+		assertEquals(volume + changeVolumeBy.interpretFloat(sprite), sprite.getVolume());
 	}
 	
 	/**
@@ -111,8 +112,8 @@ public class ChangeVolumeByBrickTest extends GWTTestCase {
 		
 		sprite.setVolume(volume);
 		
-		double changeVolumeBy = 30.0;
-		
+		//double changeVolumeBy = 30.0;
+		Formula changeVolumeBy = new Formula(30.0);
 		ChangeVolumeByBrick brick = new ChangeVolumeByBrick(spriteName, changeVolumeBy);
 		brick.execute();
 		
@@ -130,8 +131,8 @@ public class ChangeVolumeByBrickTest extends GWTTestCase {
 		
 		sprite.setVolume(volume);
 		
-		double changeVolumeBy = -40.0;
-		
+		//double changeVolumeBy = -40.0;
+		Formula changeVolumeBy = new Formula(-40.0);
 		ChangeVolumeByBrick brick = new ChangeVolumeByBrick(spriteName, changeVolumeBy);
 		brick.execute();
 		
