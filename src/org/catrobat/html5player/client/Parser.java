@@ -452,11 +452,9 @@ public class Parser {
     if (brickNode.getNodeName().equals("setLookBrick")) {
 
       Element lookReferenceElement = getChildElementByTagName(brickNode, "look");
-
       String lookReference =
           lookReferenceElement != null ? checkReference(
               lookReferenceElement.getAttribute("reference"), "look") : null;
-
       Element lookElement =
           lookReferenceElement != null && lookReference != null ? XPath.evaluateSingle(
               lookReferenceElement, lookReference, Element.class) : null;
@@ -523,7 +521,6 @@ public class Parser {
       } else {
         object.addSound(soundInfo);
       }
-
       return new PlaySoundBrick(objName, soundId);
     } else if (brickNode.getNodeName().equals("changeVolumeByNBrick")) {
       Formula volume = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "volume"));
@@ -533,17 +530,22 @@ public class Parser {
       //double volume = parseformulaTree(getChildElementByTagName(brickNode, "volume"));
       return new SetVolumeToBrick(objName, volume);
     } else if (brickNode.getNodeName().equals("placeAtBrick")) {
-      int xPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "xPosition"));
-      int yPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "yPosition"));
+      //int xPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "xPosition"));
+      Formula xPosition = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "xPosition"));
+      //int yPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "yPosition"));
+      Formula yPosition = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "yPosition"));
       return new PlaceAtBrick(objName, xPosition, yPosition);
     } else if (brickNode.getNodeName().equals("changeSizeByNBrick")) {
-      double size = parseformulaTree(getChildElementByTagName(brickNode, "size"));
+      //double size = parseformulaTree(getChildElementByTagName(brickNode, "size"));
+      Formula size = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "size"));
       return new ChangeSizeByNBrick(objName, size);
     } else if (brickNode.getNodeName().equals("setYBrick")) {
-      int yPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "yPosition"));
+      //int yPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "yPosition"));
+      Formula yPosition = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "yPosition"));
       return new SetYBrick(objName, yPosition);
     } else if (brickNode.getNodeName().equals("setXBrick")) {
-      int xPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "xPosition"));
+      //int xPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "xPosition"));
+      Formula xPosition = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "xPosition"));
       return new SetXBrick(objName, xPosition);
     } else if (brickNode.getNodeName().equals("changeXByNBrick")) {
       int deltaX = (int) parseformulaTree(getChildElementByTagName(brickNode, "xMovement"));

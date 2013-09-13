@@ -25,6 +25,7 @@ package org.catrobat.html5player.client.bricks;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.bricks.SetYBrick;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -36,7 +37,7 @@ public class SetYBrickTest extends GWTTestCase {
 		return "org.catrobat.html5player.html5player";
 	}
 	
-	private int yPosition = 100;
+	private Formula yPosition = new Formula(100);
 
 	public void testNormalBehavior() {
 		Stage stage = Stage.getInstance();
@@ -53,8 +54,7 @@ public class SetYBrickTest extends GWTTestCase {
 
 		SetYBrick setYBrick = new SetYBrick(spriteName, yPosition);
 		setYBrick.execute();
-
-		assertEquals("Incorrect sprite y position after SetYBrick executed", (double) yPosition,
+		assertEquals("Incorrect sprite y position after SetYBrick executed", (double) yPosition.interpretFloat(sprite),
 				-sprite.getLook().getYPosition()+50);
 	}
 
@@ -73,15 +73,14 @@ public class SetYBrickTest extends GWTTestCase {
 		Sprite sprite = new Sprite(spriteName);
 		stage.getSpriteManager().addSprite(sprite);
 
-		SetYBrick setYBrick = new SetYBrick(spriteName, Integer.MAX_VALUE);
+		SetYBrick setYBrick = new SetYBrick(spriteName, new Formula(Integer.MAX_VALUE));
 		setYBrick.execute();
 
 		assertEquals("SetYBrick failed to place Sprite at maximum y integer value", -(Integer.MAX_VALUE-50),
 				(int) sprite.getLook().getYPosition());
 
-		setYBrick = new SetYBrick(spriteName, Integer.MIN_VALUE);
+		setYBrick = new SetYBrick(spriteName, new Formula(Integer.MIN_VALUE));
 		setYBrick.execute();
-
 		assertEquals("SetYBrick failed to place Sprite at minimum y integer value", Integer.MAX_VALUE,
 				(int) sprite.getLook().getYPosition());
 	}
