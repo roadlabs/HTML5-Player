@@ -24,21 +24,23 @@ package org.catrobat.html5player.client.bricks;
 
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.common.Look;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 public class ChangeYByBrick extends Brick {
 
-	private int deltaY;
+	private Formula deltaY;
 
-	public ChangeYByBrick(String sprite, int deltaY) {
+	public ChangeYByBrick(String sprite, Formula deltaY) {
 		super(sprite);
-		this.deltaY = -deltaY;
+		this.deltaY = deltaY;//-deltaY; // calculation moved after interpretation of formula
 	}
 
 	@Override
 	public boolean execute(Sprite sprite) {
+	    int newDeltaY = -deltaY.interpretInteger(sprite) ;
 		Look look = sprite.getLook();
 
-		look.setMiddleY(look.getMiddleY() + deltaY);
+		look.setMiddleY(look.getMiddleY() + newDeltaY);
 		
 		int yPosition = (int) look.getYPosition();
 //		int tempDeltaY = deltaY;
@@ -59,7 +61,7 @@ public class ChangeYByBrick extends Brick {
 //			yPosition += tempDeltaY;
 //		}
 		
-		yPosition += deltaY;
+		yPosition += newDeltaY;
 		
 		look.setXYPosition(look.getXPosition(), yPosition);
 		

@@ -27,6 +27,7 @@ import org.catrobat.html5player.client.Scene;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.bricks.ChangeYByBrick;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 import org.catrobat.html5player.client.threading.CatScheduler;
 
 import com.google.gwt.canvas.client.Canvas;
@@ -76,13 +77,13 @@ public class ChangeYByBrickTest extends GWTTestCase {
 		
 		double costumeXPosition = sprite.getLook().getXPosition();
 		
-		int deltaY = -5;
+		Formula deltaY = new Formula(-5);
 		
 		ChangeYByBrick changeYBrick = new ChangeYByBrick(spriteName, deltaY);
 		
 		changeYBrick.execute();
 		
-		double expected = setYPosition - (double)deltaY;
+		double expected = setYPosition - (double)deltaY.interpretFloat(sprite);
 		assertEquals(expected, sprite.getLook().getYPosition());
 		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 	}
@@ -99,26 +100,26 @@ public class ChangeYByBrickTest extends GWTTestCase {
 		
 		double costumeXPosition = sprite.getLook().getXPosition();
 		
-		int deltaY = -5;
+		Formula deltaY = new Formula(-5);
 		
 		ChangeYByBrick changeYBrick = new ChangeYByBrick(spriteName, deltaY);
 		
-		double expected = sprite.getLook().getYPosition() - (double)deltaY;
+		double expected = sprite.getLook().getYPosition() - (double)deltaY.interpretFloat(sprite);
 		changeYBrick.execute();
 		assertEquals(expected, sprite.getLook().getYPosition());
 		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 		
-		expected = sprite.getLook().getYPosition() - (double)deltaY;
+		expected = sprite.getLook().getYPosition() - (double)deltaY.interpretFloat(sprite);
 		changeYBrick.execute();
 		assertEquals(expected, sprite.getLook().getYPosition());
 		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 		
-		expected = sprite.getLook().getYPosition() - (double)deltaY;
+		expected = sprite.getLook().getYPosition() - (double)deltaY.interpretFloat(sprite);
 		changeYBrick.execute();
 		assertEquals(expected, sprite.getLook().getYPosition());
 		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 		
-		expected = sprite.getLook().getYPosition() - (double)deltaY;
+		expected = sprite.getLook().getYPosition() - (double)deltaY.interpretFloat(sprite);
 		changeYBrick.execute();
 		assertEquals(expected, sprite.getLook().getYPosition());
 		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
@@ -136,20 +137,17 @@ public class ChangeYByBrickTest extends GWTTestCase {
 		
 		double costumeXPosition = sprite.getLook().getXPosition();
 		
-		int deltaY = 5;
+		Formula deltaY = new Formula(5);
 		
 		ChangeYByBrick changeYBrick = new ChangeYByBrick(spriteName, deltaY);
 		
 		changeYBrick.execute();
 		
-		double expected = setYPosition - (double)deltaY;
+		double expected = setYPosition - (double)deltaY.interpretFloat(sprite);
 		assertEquals(expected, sprite.getLook().getYPosition());
 		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 	}
 	
-	/**
-	 * 
-	 */
 	public void testMultipleExecutePositiveChange() {
 		String spriteName = "spriteName";
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
@@ -159,26 +157,26 @@ public class ChangeYByBrickTest extends GWTTestCase {
 		
 		double costumeXPosition = sprite.getLook().getXPosition();
 		
-		int deltaY = 5;
+		Formula deltaY = new Formula(5);
 		
 		ChangeYByBrick changeYBrick = new ChangeYByBrick(spriteName, deltaY);
 		
-		double expected = sprite.getLook().getYPosition() - (double)deltaY;
+		double expected = sprite.getLook().getYPosition() - (double)deltaY.interpretFloat(sprite);
 		changeYBrick.execute();
 		assertEquals(expected, sprite.getLook().getYPosition());
 		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 		
-		expected = sprite.getLook().getYPosition() - (double)deltaY;
+		expected = sprite.getLook().getYPosition() - (double)deltaY.interpretFloat(sprite);
 		changeYBrick.execute();
 		assertEquals(expected, sprite.getLook().getYPosition());
 		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 		
-		expected = sprite.getLook().getYPosition() - (double)deltaY;
+		expected = sprite.getLook().getYPosition() - (double)deltaY.interpretFloat(sprite);
 		changeYBrick.execute();
 		assertEquals(expected, sprite.getLook().getYPosition());
 		assertEquals(costumeXPosition, sprite.getLook().getXPosition());
 		
-		expected = sprite.getLook().getYPosition() - (double)deltaY;
+		expected = sprite.getLook().getYPosition() - (double)deltaY.interpretFloat(sprite);
 		changeYBrick.execute();
 		assertEquals(expected, sprite.getLook().getYPosition());
 		assertEquals(costumeXPosition, sprite.getLook().getXPosition());

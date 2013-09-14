@@ -26,6 +26,7 @@ package org.catrobat.html5player.client.bricks;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.bricks.PlaceAtBrick;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -38,8 +39,8 @@ public class PlaceAtBrickTest extends GWTTestCase {
 		return "org.catrobat.html5player.html5player";
 	}
 
-	private int xPosition = 100;
-	private int yPosition = 200;
+	private Formula xPosition = new Formula(100);
+	private Formula yPosition = new Formula(200);
 
 	public void testNormalBehavior() {
 		Stage stage = Stage.getInstance();
@@ -56,11 +57,10 @@ public class PlaceAtBrickTest extends GWTTestCase {
 
 		PlaceAtBrick brick = new PlaceAtBrick(spriteName, xPosition, yPosition);
 		brick.execute();
-
 		//TODO: refactor this
-		assertEquals("Incorrect sprite x position after PlaceAtBrick executed", xPosition,
+		assertEquals("Incorrect sprite x position after PlaceAtBrick executed", xPosition.interpretInteger(sprite),
 				(int) sprite.getLook().getXPosition()-50);
-		assertEquals("Incorrect sprite y position after PlaceAtBrick executed", yPosition,
+		assertEquals("Incorrect sprite y position after PlaceAtBrick executed", yPosition.interpretInteger(sprite),
 				(int) -(sprite.getLook().getYPosition()-50));
 	}
 
@@ -79,7 +79,7 @@ public class PlaceAtBrickTest extends GWTTestCase {
 		Sprite sprite = new Sprite(spriteName);
 		stage.getSpriteManager().addSprite(sprite);
 
-		PlaceAtBrick placeAtBrick = new PlaceAtBrick(spriteName, Integer.MAX_VALUE, Integer.MIN_VALUE);
+		PlaceAtBrick placeAtBrick = new PlaceAtBrick(spriteName, new Formula(Integer.MAX_VALUE), new Formula(Integer.MIN_VALUE));
 		placeAtBrick.execute();
 
 		assertEquals("PlaceAtBrick failed to place Sprite at maximum x integer value", Integer.MAX_VALUE,
@@ -87,7 +87,7 @@ public class PlaceAtBrickTest extends GWTTestCase {
 		assertEquals("PlaceAtBrick failed to place Sprite at maximum y integer value", Integer.MAX_VALUE,
 				(int) sprite.getLook().getYPosition());
 
-		placeAtBrick = new PlaceAtBrick(spriteName, Integer.MIN_VALUE, Integer.MIN_VALUE);
+		placeAtBrick = new PlaceAtBrick(spriteName, new Formula(Integer.MIN_VALUE), new Formula(Integer.MIN_VALUE));
 		placeAtBrick.execute();
 
 		assertEquals("PlaceAtBrick failed to place Sprite at minimum x integer value", Integer.MIN_VALUE+50,

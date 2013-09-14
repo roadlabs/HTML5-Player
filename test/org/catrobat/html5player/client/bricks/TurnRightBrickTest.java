@@ -27,6 +27,7 @@ import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.bricks.SetSizeToBrick;
 import org.catrobat.html5player.client.bricks.TurnLeftBrick;
 import org.catrobat.html5player.client.bricks.TurnRightBrick;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -48,7 +49,7 @@ public class TurnRightBrickTest extends GWTTestCase {
 		Sprite sprite = new Sprite(spriteName);
 		stage.getSpriteManager().addSprite(sprite);
 	
-		TurnRightBrick turnRightBrick = new TurnRightBrick(sprite.getName(), 10);
+		TurnRightBrick turnRightBrick = new TurnRightBrick(sprite.getName(), new Formula(10));
 
 		turnRightBrick.execute();
 		assertEquals("Wrong direction", -10d, sprite.getLook().getRotation(), 1e-3);
@@ -71,7 +72,7 @@ public class TurnRightBrickTest extends GWTTestCase {
 		Sprite sprite = new Sprite(spriteName);
 		stage.getSpriteManager().addSprite(sprite);
 
-		TurnRightBrick turnRightBrick = new TurnRightBrick(sprite.getName(), 10);
+		TurnRightBrick turnRightBrick = new TurnRightBrick(sprite.getName(), new Formula(10));
 		SetSizeToBrick setSizeToBrick = new SetSizeToBrick(sprite.getName(), 50);
 
 		turnRightBrick.execute();
@@ -92,7 +93,7 @@ public class TurnRightBrickTest extends GWTTestCase {
 		Sprite sprite = new Sprite(spriteName);
 		stage.getSpriteManager().addSprite(sprite);
 
-		TurnRightBrick turnRightBrick = new TurnRightBrick(sprite.getName(), 10);
+		TurnRightBrick turnRightBrick = new TurnRightBrick(sprite.getName(), new Formula(10));
 		SetSizeToBrick setSizeToBrick = new SetSizeToBrick(sprite.getName(), 50);
 
 		setSizeToBrick.execute();
@@ -113,7 +114,7 @@ public class TurnRightBrickTest extends GWTTestCase {
 		Sprite sprite = new Sprite(spriteName);
 		stage.getSpriteManager().addSprite(sprite);
 	
-		TurnRightBrick turnRightBrick = new TurnRightBrick(sprite.getName(), -10);
+		TurnRightBrick turnRightBrick = new TurnRightBrick(sprite.getName(), new Formula(-10));
 
 		turnRightBrick.execute();
 		assertEquals("Wrong direction", 10d, sprite.getLook().getRotation(), 1e-3);
@@ -132,7 +133,7 @@ public class TurnRightBrickTest extends GWTTestCase {
 		Sprite sprite = new Sprite(spriteName);
 		stage.getSpriteManager().addSprite(sprite);
 	
-		TurnRightBrick turnRightBrick = new TurnRightBrick(sprite.getName(), 370);
+		TurnRightBrick turnRightBrick = new TurnRightBrick(sprite.getName(), new Formula(370));
 
 		turnRightBrick.execute();
 		assertEquals("Wrong direction", -370d, sprite.getLook().getRotation(), 1e-3);
@@ -151,8 +152,8 @@ public class TurnRightBrickTest extends GWTTestCase {
 		Sprite sprite = new Sprite(spriteName);
 		stage.getSpriteManager().addSprite(sprite);
 	
-		TurnRightBrick turnRightBrick = new TurnRightBrick(sprite.getName(), 50);
-		TurnLeftBrick turnLeftBrick = new TurnLeftBrick(sprite.getName(), 20);
+		TurnRightBrick turnRightBrick = new TurnRightBrick(sprite.getName(), new Formula(50));
+		TurnLeftBrick turnLeftBrick = new TurnLeftBrick(sprite.getName(), new Formula(20));
 
 		turnRightBrick.execute();
 		turnLeftBrick.execute();

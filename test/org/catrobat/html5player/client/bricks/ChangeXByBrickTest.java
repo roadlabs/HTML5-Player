@@ -26,6 +26,7 @@ package org.catrobat.html5player.client.bricks;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.bricks.ChangeXByBrick;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -38,7 +39,7 @@ public class ChangeXByBrickTest extends GWTTestCase {
 		return "org.catrobat.html5player.html5player";
 	}
 	
-	private int xMovement = 100;
+	private Formula xMovement = new Formula(100);
 
 
 	public void testNormalBehavior() {
@@ -59,7 +60,7 @@ public class ChangeXByBrickTest extends GWTTestCase {
 		ChangeXByBrick changeXByBrick = new ChangeXByBrick(spriteName, xMovement);
 		changeXByBrick.execute();
 
-		xPosition += xMovement;
+		xPosition += xMovement.interpretInteger(sprite);
 		assertEquals("Incorrect sprite x position after ChangeXByBrick executed", (double) xPosition,
 				sprite.getLook().getXPosition());
 	}
@@ -81,7 +82,7 @@ public class ChangeXByBrickTest extends GWTTestCase {
 
 		int xPosition = 10;
 		sprite.getLook().setXYPosition(xPosition, sprite.getLook().getYPosition());
-		ChangeXByBrick changeXByBrick = new ChangeXByBrick(spriteName, Integer.MAX_VALUE);
+		ChangeXByBrick changeXByBrick = new ChangeXByBrick(spriteName, new Formula(Integer.MAX_VALUE));
 		changeXByBrick.execute();
 
 		assertEquals("ChangeXByBrick failed to place Sprite at maximum x integer value", Integer.MAX_VALUE,
@@ -89,7 +90,7 @@ public class ChangeXByBrickTest extends GWTTestCase {
 
 		xPosition = -10;
 		sprite.getLook().setXYPosition(xPosition, sprite.getLook().getYPosition());
-		changeXByBrick = new ChangeXByBrick(spriteName, Integer.MIN_VALUE);
+		changeXByBrick = new ChangeXByBrick(spriteName, new Formula(Integer.MIN_VALUE));
 		changeXByBrick.execute();
 
 		assertEquals("ChangeXByBrick failed to place Sprite at minimum x integer value", Integer.MIN_VALUE,

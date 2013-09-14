@@ -25,13 +25,14 @@ package org.catrobat.html5player.client.bricks;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.bricks.SetXBrick;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
 
 public class SetXBrickTest extends GWTTestCase {
 
-	private int xPosition = 100;
+	private Formula xPosition = new Formula(100);
 	
 	@Override
 	public String getModuleName() {
@@ -50,11 +51,10 @@ public class SetXBrickTest extends GWTTestCase {
 		
 		assertEquals("Unexpected initial sprite x position", 50d, sprite.getLook().getXPosition());
 		assertEquals("Unexpected initial sprite y position", 50d, sprite.getLook().getYPosition());
-
 		SetXBrick setXBrick = new SetXBrick(spriteName, xPosition);
 		setXBrick.execute();
 
-		assertEquals("Incorrect sprite x position after SetXBrick executed", (double) xPosition,
+		assertEquals("Incorrect sprite x position after SetXBrick executed", (double) xPosition.interpretFloat(sprite),
 				sprite.getLook().getXPosition()-50);
 	}
 
@@ -73,13 +73,13 @@ public class SetXBrickTest extends GWTTestCase {
 		Sprite sprite = new Sprite(spriteName);
 		stage.getSpriteManager().addSprite(sprite);
 
-		SetXBrick setXBrick = new SetXBrick(spriteName, Integer.MAX_VALUE);
+		SetXBrick setXBrick = new SetXBrick(spriteName, new Formula(Integer.MAX_VALUE));
 		setXBrick.execute();
 
 		assertEquals("SetXBrick failed to place Sprite at maximum x integer value", Integer.MAX_VALUE,
 				(int) sprite.getLook().getXPosition());
 
-		setXBrick = new SetXBrick(spriteName, Integer.MIN_VALUE);
+		setXBrick = new SetXBrick(spriteName, new Formula(Integer.MIN_VALUE));
 		setXBrick.execute();
 
 		assertEquals("SetXBrick failed to place Sprite at minimum x integer value", -(Integer.MIN_VALUE-50),

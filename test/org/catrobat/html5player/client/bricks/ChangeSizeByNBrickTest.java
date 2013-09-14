@@ -24,19 +24,18 @@ package org.catrobat.html5player.client.bricks;
 
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
 
-
-
 public class ChangeSizeByNBrickTest extends GWTTestCase{
 	
-	int bigger = 20;
-	int smaller = -30;
+	Formula bigger = new Formula(20);
+	Formula smaller = new Formula(-30);
 	
-	int veryBig = 20;
-	int negative = -230;
+	Formula veryBig = new Formula(20);
+	Formula negative = new Formula(-230);
 	
 	@Override
 	public String getModuleName() {
@@ -61,9 +60,6 @@ public class ChangeSizeByNBrickTest extends GWTTestCase{
 		
 		assertEquals("ChangeSizeByNBrick initial value wrong", 1.2,
 				 sprite.getLook().getSize());
-		
-		
-		
 	}
 	
 	public void testNullSprite() {
