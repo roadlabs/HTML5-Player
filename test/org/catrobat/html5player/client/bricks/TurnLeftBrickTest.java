@@ -70,7 +70,7 @@ public class TurnLeftBrickTest extends GWTTestCase {
 		stage.getSpriteManager().addSprite(sprite);
 
 		TurnLeftBrick turnLeftBrick = new TurnLeftBrick(spriteName, new Formula(10));
-		SetSizeToBrick brickScale = new SetSizeToBrick(spriteName, 50);
+		SetSizeToBrick brickScale = new SetSizeToBrick(spriteName, new Formula(50));
 
 		turnLeftBrick.execute();
 		brickScale.execute();
@@ -91,7 +91,7 @@ public class TurnLeftBrickTest extends GWTTestCase {
 		stage.getSpriteManager().addSprite(sprite);
 
 		TurnLeftBrick turnLeftBrick = new TurnLeftBrick(spriteName, new Formula(10));
-		SetSizeToBrick brickScale = new SetSizeToBrick(spriteName, 50);
+		SetSizeToBrick brickScale = new SetSizeToBrick(spriteName, new Formula(50));
 
 		brickScale.execute();
 		turnLeftBrick.execute();

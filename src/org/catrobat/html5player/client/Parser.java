@@ -465,7 +465,6 @@ public class Parser {
       } else {
         System.out.println("Look is null");
       }
-
       return new SetLookBrick(objName, lookName);
 
     } else if (brickNode.getNodeName().equals("waitBrick")) {
@@ -579,13 +578,17 @@ public class Parser {
     } else if (brickNode.getNodeName().equals("comeToFrontBrick")) {
       return new ComeToFrontBrick(objName);
     } else if (brickNode.getNodeName().equals("glideToBrick")) {
-      int duration = 1000 *(int)parseformulaTree(getChildElementByTagName(brickNode, "durationInSeconds"));
-      int xDestination  = (int) parseformulaTree(getChildElementByTagName(brickNode, "xDestination"));
-      int yDestination  = (int) parseformulaTree(getChildElementByTagName(brickNode, "yDestination"));
+      //int duration = 1000 *(int)parseformulaTree(getChildElementByTagName(brickNode, "durationInSeconds"));
+      Formula duration = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "durationInSeconds"));
+      //int xDestination  = (int) parseformulaTree(getChildElementByTagName(brickNode, "xDestination"));
+      Formula xDestination = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "xDestination"));
+      //int yDestination  = (int) parseformulaTree(getChildElementByTagName(brickNode, "yDestination"));
+      Formula yDestination = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "yDestination"));
       return new GlideToBrick(objName, duration, xDestination, yDestination, script);
     } else if (brickNode.getNodeName().equals("setSizeToBrick")) {
-      double size  = parseformulaTree(getChildElementByTagName(brickNode, "size"));
-      return new SetSizeToBrick(objName, (float) size);
+      //double size  = parseformulaTree(getChildElementByTagName(brickNode, "size"));
+      Formula size = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "size"));
+      return new SetSizeToBrick(objName, size);
     } else if (brickNode.getNodeName().equals("broadcastBrick")) {
       String message = getText(getChildElementByTagName(brickNode, "broadcastMessage"));
       return new BroadcastBrick(objName, message);
@@ -593,7 +596,8 @@ public class Parser {
       String message = getText(getChildElementByTagName(brickNode, "broadcastMessage"));
       return new BroadcastWaitBrick(objName, message, script);
     } else if (brickNode.getNodeName().equals("moveNStepsBrick")) {
-      double steps  = parseformulaTree(getChildElementByTagName(brickNode, "steps"));
+      //double steps  = parseformulaTree(getChildElementByTagName(brickNode, "steps"));
+      Formula steps = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "steps"));
       return new MoveNStepsBrick(objName, steps);
     } else if (brickNode.getNodeName().equals("nextLookBrick")) {
       return new NextLookBrick(objName);

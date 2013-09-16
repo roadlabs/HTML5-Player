@@ -27,32 +27,35 @@ import org.catrobat.html5player.client.Const;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.common.Look;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 import org.catrobat.html5player.client.scripts.Script;
 
 import com.google.gwt.user.client.Timer;
 
 public class GlideToBrick extends Brick {
 
-	private int xDestination;
-	private int yDestination;
+	private Formula xDestination;
+	private Formula yDestination;
 	
 	private long startTime;
 	private Timer glideTimer;
 
 	private Script script;
 	
-	private int durationInMilliSeconds;
+	private Formula durationInSeconds;
 	private int remainingDuration;
 
-	public GlideToBrick(String spriteName, int duration, int newXDestination, int newYDestination, Script newScript) {
+	public GlideToBrick(String spriteName, Formula duration, Formula newXDestination, Formula newYDestination, Script newScript) {
 		super(spriteName);
 
-		this.xDestination = newXDestination + Stage.getInstance().getStageMiddleX();
-		this.yDestination = -newYDestination + Stage.getInstance().getStageMiddleY();
+		//this.xDestination = newXDestination + Stage.getInstance().getStageMiddleX();
+		//this.yDestination = -newYDestination + Stage.getInstance().getStageMiddleY();
+		this.xDestination = newXDestination;
+		this.yDestination = newYDestination;
 		
 		this.script = newScript;
 
-		this.durationInMilliSeconds = (int) duration;
+		this.durationInSeconds = duration;
 		this.remainingDuration = 0;
 	}
 	
@@ -60,7 +63,7 @@ public class GlideToBrick extends Brick {
 		script.pause();
 		
 		startTime = System.currentTimeMillis();
-		this.remainingDuration = durationInMilliSeconds;
+		this.remainingDuration = (int) (1000.0 * durationInSeconds.interpretFloat(sprite));
 
 		glideTimer = new Timer() {
 			public void run() {
@@ -74,7 +77,6 @@ public class GlideToBrick extends Brick {
 				
 				updatePosition(sprite, timePassed, remainingDuration);
 				checkCancle(sprite);
-				
 				startTime = currentTime;
 			}
 		};
@@ -88,11 +90,12 @@ public class GlideToBrick extends Brick {
 	private void checkCancle(Sprite sprite) {
 		
 		if (remainingDuration <= 0 && glideTimer != null) { 
-			
+	        double xDestination = this.xDestination.interpretFloat(sprite) + Stage.getInstance().getStageMiddleX();
+	        double yDestination = -this.yDestination.interpretFloat(sprite) + Stage.getInstance().getStageMiddleY();
 			Look look = sprite.getLook();
 			
 			CatrobatDebug.debug("GLIDETO: cancel timer, destination reached");
-			CatrobatDebug.debug("GLIDETO: cancel timer, duration was " + durationInMilliSeconds);
+			CatrobatDebug.debug("GLIDETO: cancel timer, duration was " + durationInSeconds);
 			
 			glideTimer.cancel();
 			
@@ -121,7 +124,8 @@ public class GlideToBrick extends Brick {
 	private void updatePosition(Sprite sprite, int timePassed, int duration) {
 		
 		Look look = sprite.getLook();
-
+        double xDestination = this.xDestination.interpretFloat(sprite) + Stage.getInstance().getStageMiddleX();
+        double yDestination = -this.yDestination.interpretFloat(sprite) + Stage.getInstance().getStageMiddleY();
 		double xPosition = look.getXPosition();
 		double yPosition = look.getYPosition();
 			

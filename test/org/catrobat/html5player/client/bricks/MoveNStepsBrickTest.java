@@ -27,6 +27,7 @@ import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.SpriteManager;
 import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.bricks.MoveNStepsBrick;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -75,7 +76,7 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		String spriteName = "testMoveNStepsSprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, 10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, new Formula(10));
 
 		moveNStepsBrick.execute();
 		assertEquals("Wrong x-position", 60d, sprite.getLook().getXPosition());
@@ -94,7 +95,7 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		String spriteName = "testMoveNStepsSprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, -10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, new Formula(-10));
 
 		moveNStepsBrick.execute();
 		assertEquals("Wrong x-position", 40d, sprite.getLook().getXPosition());
@@ -113,7 +114,7 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		String spriteName = "testMoveNStepsSprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, 10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, new Formula(10));
 
 		sprite.getLook().setRotation(90);
 
@@ -134,7 +135,7 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		String spriteName = "testMoveNStepsSprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, 10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, new Formula(10));
 
 		sprite.getLook().setRotation(-90);
 
@@ -155,7 +156,7 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		String spriteName = "testMoveNStepsSprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, 10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, new Formula(10));
 
 		sprite.getLook().setRotation(45);
 
@@ -176,7 +177,7 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		String spriteName = "testMoveNStepsSprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, 10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, new Formula(10));
 
 		sprite.getLook().setRotation(135);
 
@@ -197,7 +198,7 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		String spriteName = "testMoveNStepsSprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, 10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, new Formula(10));
 
 		sprite.getLook().setRotation(-45);
 
@@ -218,7 +219,7 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		String spriteName = "testMoveNStepsSprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, 10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, new Formula(10));
 
 		sprite.getLook().setRotation(-135);
 		moveNStepsBrick.execute();
@@ -237,7 +238,7 @@ public class MoveNStepsBrickTest extends GWTTestCase {
 		String spriteName = "testMoveNStepsSprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, 10);
+		MoveNStepsBrick moveNStepsBrick = new MoveNStepsBrick(spriteName, new Formula(10));
 
 		sprite.getLook().setRotation(10);
 		moveNStepsBrick.execute();

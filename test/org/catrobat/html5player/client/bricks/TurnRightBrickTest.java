@@ -73,7 +73,7 @@ public class TurnRightBrickTest extends GWTTestCase {
 		stage.getSpriteManager().addSprite(sprite);
 
 		TurnRightBrick turnRightBrick = new TurnRightBrick(sprite.getName(), new Formula(10));
-		SetSizeToBrick setSizeToBrick = new SetSizeToBrick(sprite.getName(), 50);
+		SetSizeToBrick setSizeToBrick = new SetSizeToBrick(sprite.getName(), new Formula(50));
 
 		turnRightBrick.execute();
 		setSizeToBrick.execute();
@@ -94,7 +94,7 @@ public class TurnRightBrickTest extends GWTTestCase {
 		stage.getSpriteManager().addSprite(sprite);
 
 		TurnRightBrick turnRightBrick = new TurnRightBrick(sprite.getName(), new Formula(10));
-		SetSizeToBrick setSizeToBrick = new SetSizeToBrick(sprite.getName(), 50);
+		SetSizeToBrick setSizeToBrick = new SetSizeToBrick(sprite.getName(), new Formula(50));
 
 		setSizeToBrick.execute();
 		turnRightBrick.execute();
