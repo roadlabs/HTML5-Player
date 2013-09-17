@@ -25,6 +25,7 @@ package org.catrobat.html5player.client.bricks;
 import org.catrobat.html5player.client.Scene;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -66,8 +67,8 @@ public class ChangeGhostEffectByBrickTest extends GWTTestCase{
 		String spriteName = "spriteName";
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
 		
-		double ghostEffectValue = 5.0;
-		double newAlphaValue = sprite.getLook().getAlphaValue() - (ghostEffectValue / 100.);
+		Formula ghostEffectValue = new Formula(5.0);
+		double newAlphaValue = sprite.getLook().getAlphaValue() - (ghostEffectValue.interpretFloat(sprite) / 100.0);
 		
 		ChangeGhostEffectByBrick changeGhostEffectBrick = new ChangeGhostEffectByBrick(spriteName, ghostEffectValue);
 		
@@ -83,7 +84,7 @@ public class ChangeGhostEffectByBrickTest extends GWTTestCase{
 		String spriteName = "spriteName";
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
 		
-		double ghostEffectValue = 105.0;
+		Formula ghostEffectValue = new Formula(105.0);
 		
 		ChangeGhostEffectByBrick changeGhostEffectBrick = new ChangeGhostEffectByBrick(spriteName, ghostEffectValue);
 		
@@ -99,7 +100,7 @@ public class ChangeGhostEffectByBrickTest extends GWTTestCase{
 		String spriteName = "spriteName";
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
 		
-		double ghostEffectValue = -105.0;
+		Formula ghostEffectValue = new Formula(-105.0);
 		
 		ChangeGhostEffectByBrick changeGhostEffectBrick = new ChangeGhostEffectByBrick(spriteName, ghostEffectValue);
 		

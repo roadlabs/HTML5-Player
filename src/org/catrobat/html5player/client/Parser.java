@@ -602,7 +602,8 @@ public class Parser {
     } else if (brickNode.getNodeName().equals("nextLookBrick")) {
       return new NextLookBrick(objName);
     } else if (brickNode.getNodeName().equals("repeatBrick")) {
-      int timesToRepeat  = (int) parseformulaTree(getChildElementByTagName(brickNode, "timesToRepeat"));
+      //int timesToRepeat  = (int) parseformulaTree(getChildElementByTagName(brickNode, "timesToRepeat"));
+      Formula timesToRepeat = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "timesToRepeat"));
       return new RepeatBrick(objName, timesToRepeat);
     } else if (brickNode.getNodeName().equals("foreverBrick")) {
       return new ForeverBrick(objName);
@@ -631,10 +632,12 @@ public class Parser {
       else
         return new NoteBrick(objName, note);
     } else if (brickNode.getNodeName().equals("setGhostEffectBrick")) {
-      double ghostEffectValue = parseformulaTree(getChildElementByTagName(brickNode, "transparency"));
+      //double ghostEffectValue = parseformulaTree(getChildElementByTagName(brickNode, "transparency"));
+      Formula ghostEffectValue = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "transparency"));
       return new SetGhostEffectBrick(objName, ghostEffectValue);
     } else if (brickNode.getNodeName().equals("changeGhostEffectByNBrick")) {
-      double changeGhostEffect = parseformulaTree(getChildElementByTagName(brickNode, "changeGhostEffect"));
+      //double changeGhostEffect = parseformulaTree(getChildElementByTagName(brickNode, "changeGhostEffect"));
+      Formula changeGhostEffect = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "changeGhostEffect"));
       return new ChangeGhostEffectByBrick(objName, changeGhostEffect);
     } else if (brickNode.getNodeName().equals("ifOnEdgeBounceBrick")) {
       return new IfOnEdgeBounceBrick(objName);

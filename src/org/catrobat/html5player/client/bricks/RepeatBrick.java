@@ -23,13 +23,14 @@
 package org.catrobat.html5player.client.bricks;
 
 import org.catrobat.html5player.client.Sprite;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 import org.catrobat.html5player.client.scripts.Script;
 
 public class RepeatBrick extends LoopBeginBrick {
 
-	private int timesToRepeat;
+	private Formula timesToRepeat;
 	
-	public RepeatBrick(String spriteName, int timesToRepeat) {
+	public RepeatBrick(String spriteName, Formula timesToRepeat) {
 		super(spriteName);
 		
 		this.timesToRepeat = timesToRepeat;
@@ -37,7 +38,7 @@ public class RepeatBrick extends LoopBeginBrick {
 	
 	@Override
 	protected boolean execute(Sprite sprite) {
-		
+		int timesToRepeat = this.timesToRepeat.interpretInteger(sprite);
 		if(timesToRepeat <= 0) {
 			Script script = loopEndBrick.getScript();
 			script.setCurrentBrick(script.getBrickList().indexOf(loopEndBrick));
@@ -50,10 +51,10 @@ public class RepeatBrick extends LoopBeginBrick {
 	}
 
 	
-	/**
-	 * FOR UNIT TESTING
-	 */
-	public int getTimesToRepeat() {
-		return this.timesToRepeat;
-	}
+//	/**
+//	 * FOR UNIT TESTING
+//	 */
+//	public Formula getTimesToRepeat() {
+//		return this.timesToRepeat;
+//	}
 }

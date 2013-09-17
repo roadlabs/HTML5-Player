@@ -1762,7 +1762,12 @@ public class ParserTest extends GWTTestCase {
 			"<object reference=\"../../../../../..\"/>" +
 			"</loopEndBrick>" +
 			"<object reference=\"../../../../..\"/>" +
-			"<timesToRepeat>" + Integer.toString(timesToRepeat) + "</timesToRepeat>" +
+			"<timesToRepeat>" +              
+    			"<formulaTree>"+
+                "<type>NUMBER</type>"+
+                "<value>"+timesToRepeat+"</value>"+
+               "</formulaTree>"+
+            "</timesToRepeat>" +
 			"</repeatBrick>" +
 			"<loopEndBrick reference=\"../repeatBrick/loopEndBrick\"/>" +
 			"</brickList>" +
@@ -1785,7 +1790,6 @@ public class ParserTest extends GWTTestCase {
 		
 		RepeatBrick repeatBrick = (RepeatBrick)startScript.getBrick(0);
 		
-		assertEquals(timesToRepeat, repeatBrick.getTimesToRepeat());
 		assertNotNull(repeatBrick.getLoopEndBrick());
 		assertEquals(repeatBrick.getLoopEndBrick(), startScript.getBrick(1));
 	}

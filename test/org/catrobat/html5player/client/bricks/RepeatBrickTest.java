@@ -26,6 +26,7 @@ import org.catrobat.html5player.client.Scene;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.common.LookData;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 import org.catrobat.html5player.client.scripts.StartScript;
 import org.catrobat.html5player.client.threading.CatScheduler;
 
@@ -84,7 +85,7 @@ public class RepeatBrickTest extends GWTTestCase {
 	 * 
 	 */
 	public void testExecute() {
-		int timesToRepeat = 2;
+	  Formula timesToRepeat = new Formula(2);
 		
 		String spriteName = "spriteName";
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
@@ -110,7 +111,7 @@ public class RepeatBrickTest extends GWTTestCase {
 	 * 
 	 */
 	public void testTimesToRepeatEqualsZero() {
-		int timesToRepeat = 0;
+	  Formula timesToRepeat = new Formula(0);
 		
 		String spriteName = "spriteName";
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
@@ -136,7 +137,7 @@ public class RepeatBrickTest extends GWTTestCase {
 	 * 
 	 */
 	public void testTimesToRepeatLesserThanZero() {
-		int timesToRepeat = -1;
+	  Formula timesToRepeat = new Formula(-1);
 		
 		String spriteName = "spriteName";
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);

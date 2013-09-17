@@ -26,6 +26,7 @@ import org.catrobat.html5player.client.Scene;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.common.LookData;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 import org.catrobat.html5player.client.scripts.StartScript;
 import org.catrobat.html5player.client.threading.CatScheduler;
 
@@ -80,7 +81,7 @@ public class LoopEndBrickTest extends GWTTestCase {
 	 * 
 	 */
 	public void testExecuteWithRepeatBrick() {
-		int timesToRepeat = 2;
+		Formula timesToRepeat = new Formula(2);
 		
 		String spriteName = "spriteName";
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
@@ -141,7 +142,7 @@ public class LoopEndBrickTest extends GWTTestCase {
 	 * 
 	 */
 	public void testLoopTwoTimes() {
-		int timesToRepeat = 2;
+	  Formula timesToRepeat = new Formula(2);
 		
 		String spriteName = "spriteName";
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
@@ -245,7 +246,7 @@ public class LoopEndBrickTest extends GWTTestCase {
 	 * 
 	 */
 	public void testExecuteWithRepeatBrickGetTimesToRepeat() {
-		int timesToRepeat = 160;
+	    Formula timesToRepeat = new Formula(160);
 		
 		String spriteName = "spriteName";
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
@@ -263,8 +264,8 @@ public class LoopEndBrickTest extends GWTTestCase {
 		sprite.addScript(startScript);
 		
 		repeatBrick.execute();
-		
-		for(int i = 0; i < timesToRepeat; i++) {
+		int timesToRepeat2 = 160;
+		for(int i = 0; i < timesToRepeat2; i++) {
 			loopEndBrick.execute();
 		}
 		

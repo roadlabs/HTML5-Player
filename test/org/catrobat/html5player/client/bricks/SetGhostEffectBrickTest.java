@@ -25,6 +25,7 @@ package org.catrobat.html5player.client.bricks;
 import org.catrobat.html5player.client.Scene;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -68,13 +69,13 @@ public class SetGhostEffectBrickTest extends GWTTestCase{
 		String spriteName = "spriteName";
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
 		
-		double ghostEffectValue = 10.0;
+		Formula ghostEffectValue = new Formula(10.0);
 		
 		SetGhostEffectBrick setGhostEffectBrick = new SetGhostEffectBrick(spriteName, ghostEffectValue);
 		
 		setGhostEffectBrick.execute();
 		
-		double newAlphaValue = (100. - ghostEffectValue) / 100;
+		double newAlphaValue = (100.0 - ghostEffectValue.interpretFloat(sprite)) / 100.0;
 		
 		assertEquals(newAlphaValue, sprite.getLook().getAlphaValue());
 	}
