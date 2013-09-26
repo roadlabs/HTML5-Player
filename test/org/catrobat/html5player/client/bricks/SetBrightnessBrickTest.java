@@ -25,6 +25,7 @@ package org.catrobat.html5player.client.bricks;
 import org.catrobat.html5player.client.Scene;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -66,13 +67,13 @@ public class SetBrightnessBrickTest extends GWTTestCase{
 		String spriteName = "spriteName";
 		Sprite sprite = stage.getSpriteManager().getSprite(spriteName, true);
 		
-		double brightness = 120.0;
+		Formula brightness = new Formula(120.0);
 		
 		SetBrightnessBrick setBrightnessBrick = new SetBrightnessBrick(spriteName, brightness);
 		
 		setBrightnessBrick.execute();
 		
-		assertEquals(brightness / 100.0, sprite.getLook().getBrightnessValue());
+		assertEquals(brightness.interpretFloat(sprite) / 100.0, sprite.getLook().getBrightnessValue());
 	}
 
 }

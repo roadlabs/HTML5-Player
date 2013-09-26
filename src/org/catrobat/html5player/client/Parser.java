@@ -667,10 +667,12 @@ public class Parser {
     } else if (brickNode.getNodeName().equals("clearGraphicEffectBrick")) {
       return new ClearGraphicEffectBrick(objName);
     } else if (brickNode.getNodeName().equals("setBrightnessBrick")) {
-      double brightness = parseformulaTree(getChildElementByTagName(brickNode, "brightness"));
+      Formula brightness = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "brightness"));
+      //double brightness = parseformulaTree(getChildElementByTagName(brickNode, "brightness"));
       return new SetBrightnessBrick(objName, brightness);
     } else if (brickNode.getNodeName().equals("changeBrightnessByNBrick")) {
-      double changeBrightness = parseformulaTree(getChildElementByTagName(brickNode, "changeBrightness"));
+      Formula changeBrightness = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "changeBrightness"));
+      //double changeBrightness = parseformulaTree(getChildElementByTagName(brickNode, "changeBrightness"));
       return new ChangeBrightnessBrick(objName, changeBrightness);
     } else if(brickNode.getNodeName().equals("setVariableBrick")){
       UserVariable userVar  = parseUserVariable(brickNode);

@@ -2158,7 +2158,12 @@ public class ParserTest extends GWTTestCase {
 			"<brickList>" +
 			"<setBrightnessBrick>" +
 			"<object reference=\"../../../../..\"/>" +
-			"<brightness>" + brightness + "</brightness>" +
+			"<brightness>" + 
+              "<formulaTree>"+
+              "<type>NUMBER</type>"+
+             "<value>"+brightness+"</value>"+
+            "</formulaTree>"+
+			 "</brightness>" +
 			"</setBrightnessBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +
