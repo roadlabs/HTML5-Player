@@ -16,12 +16,11 @@ public class SequenceBrick extends Brick {
   public void setBrickList(List<Brick> brickList) {
     this.brickList = brickList;
   }
-
-  protected SequenceBrick(String spriteName, List<Brick> brickList) {
+  public SequenceBrick(String spriteName, List<Brick> brickList) {
     super(spriteName);
     this.brickList = brickList;
   }
-  protected SequenceBrick(String spriteName) {
+  public SequenceBrick(String spriteName) {
     super(spriteName);
     this.brickList = new ArrayList<Brick>();
   }

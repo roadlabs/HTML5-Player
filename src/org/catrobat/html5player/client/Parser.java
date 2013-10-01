@@ -50,6 +50,8 @@ public class Parser {
   private SpriteManager manager;
 
   private boolean parsingComplete = false;
+  
+  private boolean ignoreUnimplementedBricks = false;
 
   public Parser() {
 
@@ -569,9 +571,11 @@ public class Parser {
       Formula degrees = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "degrees"));
       return new TurnRightBrick(objName, degrees);
     } else if (brickNode.getNodeName().equals("pointInDirectionBrick")) {
-      double direction = parseformulaTree(getChildElementByTagName(brickNode, "degrees"));
-      //Formula degrees = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "degrees"));
-      return new PointInDirectionBrick(objName, 0, direction);
+      //double direction = parseformulaTree(getChildElementByTagName(brickNode, "degrees"));
+      Formula degrees = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "degrees"));
+      
+      
+      return new PointInDirectionBrick(objName, degrees);
     } else if (brickNode.getNodeName().equals("goNStepsBackBrick")) {
       int steps  = (int) parseformulaTree(getChildElementByTagName(brickNode, "steps"));
       return new GoNStepsBackBrick(objName, steps);
@@ -692,8 +696,11 @@ public class Parser {
     } else if(brickNode.getNodeName().equals("ifLogicEndBrick")){
       return new IfLogicEndBrick(objName);
     }
-
     else {
+      if(ignoreUnimplementedBricks){
+        return new SequenceBrick(objName);
+      } 
+      
       CatrobatDebug.warn("Brick: " + brickNode.getNodeName() + " not implemented");
       Stage.getInstance().log("Brick not implemented:" + brickNode.getNodeName());
     }

@@ -24,22 +24,13 @@ package org.catrobat.html5player.client.bricks;
 
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.common.Look;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 public class PointInDirectionBrick extends Brick {
 
-	public static final int DIRECTION_RIGHT = 0;
-	public static final int DIRECTION_LEFT = 1;
-	public static final int DIRECTION_UP = 2;
-	public static final int DIRECTION_DOWN = 3;
-
-	int direction;
-	
-	double degrees;
-
-	public PointInDirectionBrick(String sprite, int direction, double degrees) {
+	Formula degrees;
+	public PointInDirectionBrick(String sprite, Formula degrees) {
 		super(sprite);
-		this.direction = direction;
-		
 		this.degrees = degrees;
 	}
 
@@ -47,9 +38,8 @@ public class PointInDirectionBrick extends Brick {
 	public boolean execute(Sprite sprite) {
 		Look look = sprite.getLook();
 		
-		double rotation = -degrees + 90.0;
+		double rotation = - degrees.interpretFloat(sprite) + 90.0;
 		look.setRotation(rotation);
-		
 		return true;
 	}
 
