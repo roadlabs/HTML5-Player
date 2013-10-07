@@ -8,7 +8,6 @@ import com.google.gwt.xml.client.Element;
 import com.google.gwt.xml.client.Node;
 
 public class FormulaParser {
-
   
   public static Formula parseFormula(Node n) throws Exception{
     Element formula = Parser.getChildElementByTagName(n,"formulaTree");
@@ -47,7 +46,6 @@ public class FormulaParser {
     
   }
   public static ElementType parseElementType(Node node) throws Exception{
-
     return FormulaElement.ElementType.valueOf(node.getFirstChild().toString());
   }
   

@@ -1011,7 +1011,12 @@ public class ParserTest extends GWTTestCase {
 			"<brickList>" +
 			"<goNStepsBackBrick>" +
 			"<object reference=\"../../../../..\"/>" +
-			"<steps>" + steps + "</steps>" + 
+			"<steps>" + 
+             "<formulaTree>"+
+              "<type>NUMBER</type>"+
+              "<value>"+steps+"</value>"+
+             "</formulaTree>"+
+			"</steps>" + 
 			"</goNStepsBackBrick>" +
 			"</brickList>" +
 			"<object reference=\"../../..\"/>" +

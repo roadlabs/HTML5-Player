@@ -468,7 +468,6 @@ public class Parser {
         System.out.println("Look is null");
       }
       return new SetLookBrick(objName, lookName);
-
     } else if (brickNode.getNodeName().equals("waitBrick")) {
       Formula waitTime = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "timeToWaitInSeconds"));
       //int waitTime = (int) (1000.0* parseformulaTree(getChildElementByTagName(brickNode, "timeToWaitInSeconds")));
@@ -485,7 +484,6 @@ public class Parser {
       CatrobatDebug.debug("soundInfo: " + soundInfoElement);
 
       if (soundInfoElement != null) {
-
         if (soundInfoElement.hasAttribute("reference")) {
 
           String soundInfoReference =
@@ -573,11 +571,10 @@ public class Parser {
     } else if (brickNode.getNodeName().equals("pointInDirectionBrick")) {
       //double direction = parseformulaTree(getChildElementByTagName(brickNode, "degrees"));
       Formula degrees = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "degrees"));
-      
-      
       return new PointInDirectionBrick(objName, degrees);
     } else if (brickNode.getNodeName().equals("goNStepsBackBrick")) {
-      int steps  = (int) parseformulaTree(getChildElementByTagName(brickNode, "steps"));
+      //int steps  = (int) parseformulaTree(getChildElementByTagName(brickNode, "steps"));
+      Formula steps = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "steps"));
       return new GoNStepsBackBrick(objName, steps);
     } else if (brickNode.getNodeName().equals("comeToFrontBrick")) {
       return new ComeToFrontBrick(objName);
@@ -620,9 +617,7 @@ public class Parser {
         System.out.println("loopStartingBrick is null");
         return null;
       }
-
       LoopEndBrick loopEndBrick = new LoopEndBrick(objName, loopStartingBrick);
-
       loopStartingBrick.setLoopEndBrick(loopEndBrick);
       return loopEndBrick;
     } else if (brickNode.getNodeName().equals("noteBrick")) {
@@ -631,10 +626,11 @@ public class Parser {
 
       String note = getText(noteNode);
 
-      if (note == null)
+      if (note == null){
         return new NoteBrick(objName);
-      else
+      } else{
         return new NoteBrick(objName, note);
+      }
     } else if (brickNode.getNodeName().equals("setGhostEffectBrick")) {
       //double ghostEffectValue = parseformulaTree(getChildElementByTagName(brickNode, "transparency"));
       Formula ghostEffectValue = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "transparency"));
@@ -650,7 +646,6 @@ public class Parser {
       Element pointedSpriteNode = getChildElementByTagName(brickNode, "pointedObject");
       Element pointedSpriteNameNode = null;
       String pointedSpriteName = null;
-
       if (pointedSpriteNode.hasAttribute("reference")) {
         String pointedSpriteReference = pointedSpriteNode.getAttribute("reference");
         Element referencedSpriteNode =
@@ -663,7 +658,6 @@ public class Parser {
       if (pointedSpriteNameNode != null) {
         pointedSpriteName = getText(pointedSpriteNameNode);
       }
-
       CatrobatDebug.debug("Sprite " + objName + " has PointToBrick which points to Sprite "
           + pointedSpriteName);
 
@@ -700,7 +694,6 @@ public class Parser {
       if(ignoreUnimplementedBricks){
         return new SequenceBrick(objName);
       } 
-      
       CatrobatDebug.warn("Brick: " + brickNode.getNodeName() + " not implemented");
       Stage.getInstance().log("Brick not implemented:" + brickNode.getNodeName());
     }
@@ -777,53 +770,53 @@ public class Parser {
         return Stage.getInstance().getUserVariables().getUserVariable(name, null);
       }
     }
-      return null;
+    return null;
   }
 
   // ##########################################################################
-  public double parseformulaTree(Node tree) throws Exception {
-    Element formula = getChildElementByTagName(tree,"formulaTree");
-    if(formula == null){
-      //System.out.println(tree.getFirstChild().toString());
-      return Double.parseDouble(tree.getFirstChild().toString());
-      //throw new Exception("formulaTree exception 1");
-    }
-
-    Element type = getChildElementByTagName(formula,"type");
-    if(type == null){
-      throw new Exception("formulaTree exception 2");
-    }
-    if(type.getFirstChild().toString().equals("NUMBER")){
-      Element value = getChildElementByTagName(formula,"value");
-      //System.out.println(value.toString());
-      return Double.parseDouble(value.getFirstChild().toString());
-    }
-    else if(type.getFirstChild().toString().equals("OPERATOR")){
-      Element value = getChildElementByTagName(formula,"value");
-      double sign = 0.0;
-      if(value.getFirstChild().toString().equals("MINUS")){
-        sign = -1.0;
-      }
-      else if(value.getFirstChild().toString().equals("PLUS")){
-        sign = 1.0;
-      }
-      else{
-        throw new Exception("formulaTree exception 3");
-      }
-      Element rightChild = getChildElementByTagName(formula,"rightChild");
-      Element subType = getChildElementByTagName((Node)rightChild, "type");
-      if(subType == null || !subType.getFirstChild().toString().equals("NUMBER")){
-        throw new Exception("formulaTree exception 4");
-      }
-      Element subValue = getChildElementByTagName((Node)rightChild, "value");
-      //System.out.println(subValue.toString());
-      return Double.parseDouble(subValue.getFirstChild().toString()) * sign;
-    }
-    else
-    {
-      throw new Exception("formulaTree exception 5");
-    }
-  }
+//  private double parseformulaTree(Node tree) throws Exception {
+//    Element formula = getChildElementByTagName(tree,"formulaTree");
+//    if(formula == null){
+//      //System.out.println(tree.getFirstChild().toString());
+//      return Double.parseDouble(tree.getFirstChild().toString());
+//      //throw new Exception("formulaTree exception 1");
+//    }
+//
+//    Element type = getChildElementByTagName(formula,"type");
+//    if(type == null){
+//      throw new Exception("formulaTree exception 2");
+//    }
+//    if(type.getFirstChild().toString().equals("NUMBER")){
+//      Element value = getChildElementByTagName(formula,"value");
+//      //System.out.println(value.toString());
+//      return Double.parseDouble(value.getFirstChild().toString());
+//    }
+//    else if(type.getFirstChild().toString().equals("OPERATOR")){
+//      Element value = getChildElementByTagName(formula,"value");
+//      double sign = 0.0;
+//      if(value.getFirstChild().toString().equals("MINUS")){
+//        sign = -1.0;
+//      }
+//      else if(value.getFirstChild().toString().equals("PLUS")){
+//        sign = 1.0;
+//      }
+//      else{
+//        throw new Exception("formulaTree exception 3");
+//      }
+//      Element rightChild = getChildElementByTagName(formula,"rightChild");
+//      Element subType = getChildElementByTagName((Node)rightChild, "type");
+//      if(subType == null || !subType.getFirstChild().toString().equals("NUMBER")){
+//        throw new Exception("formulaTree exception 4");
+//      }
+//      Element subValue = getChildElementByTagName((Node)rightChild, "value");
+//      //System.out.println(subValue.toString());
+//      return Double.parseDouble(subValue.getFirstChild().toString()) * sign;
+//    }
+//    else
+//    {
+//      throw new Exception("formulaTree exception 5");
+//    }
+//  }
 
 
   public boolean isParsingComplete() {

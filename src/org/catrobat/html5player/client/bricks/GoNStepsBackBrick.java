@@ -24,12 +24,13 @@ package org.catrobat.html5player.client.bricks;
 
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.common.Look;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 public class GoNStepsBackBrick extends Brick {
 
-	private int steps;
+	Formula steps;
 
-	public GoNStepsBackBrick(String sprite, int steps) {
+	public GoNStepsBackBrick(String sprite, Formula steps) {
 		super(sprite);
 		this.steps = steps;
 	}
@@ -37,14 +38,13 @@ public class GoNStepsBackBrick extends Brick {
 	@Override
 	public boolean execute(Sprite sprite) {
 		Look look = sprite.getLook();
-
+		int steps = this.steps.interpretInteger(sprite);
 		if(steps < 0)
 			return false;
 		
 		if(look.getZPosition() != Integer.MIN_VALUE) {
 			look.setZPosition(look.getZPosition() - steps);
 		}
-		
 		return true;
 	}
 
