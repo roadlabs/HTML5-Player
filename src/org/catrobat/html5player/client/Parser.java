@@ -399,31 +399,6 @@ public class Parser {
       }
       object.addScript(script);
     }
-
-    // List<Element> sounds = getChildElementsByTagName(soundList,
-    // "Common.SoundInfo");
-    // for (Element soundInfoElement : sounds) {
-    // SoundInfo soundInfo = new SoundInfo();
-    // String id = getText(getChildElementByTagName(soundInfoElement,
-    // "id"));
-    // soundInfo.setId(id);
-    // String title = getText(getChildElementByTagName(soundInfoElement,
-    // "title"));
-    // soundInfo.setTitle(title);
-    // String filename = getText(getChildElementByTagName(soundInfoElement,
-    // "fileName"));
-    // soundInfo.setFileName(filename);
-    // String paused = getText(getChildElementByTagName(soundInfoElement,
-    // "isPaused"));
-    // soundInfo.setPaused(Boolean.valueOf(paused));
-    // String playing = getText(getChildElementByTagName(soundInfoElement,
-    // "isPlaying"));
-    // soundInfo.setPlaying(Boolean.valueOf(playing));
-    // sprite.addSound(soundInfo);
-    // CatrobatDebug.console("Sound Name: " + soundInfo.getFileName());
-    //
-    // }
-
     return object;
   }
 
@@ -450,7 +425,6 @@ public class Parser {
     } else {
       CatrobatDebug.debug("INVALID - checkBrick - objectElement: " + referencedObject);
     }
-
     if (brickNode.getNodeName().equals("setLookBrick")) {
 
       Element lookReferenceElement = getChildElementByTagName(brickNode, "look");
@@ -470,7 +444,6 @@ public class Parser {
       return new SetLookBrick(objName, lookName);
     } else if (brickNode.getNodeName().equals("waitBrick")) {
       Formula waitTime = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "timeToWaitInSeconds"));
-      //int waitTime = (int) (1000.0* parseformulaTree(getChildElementByTagName(brickNode, "timeToWaitInSeconds")));
       return new WaitBrick(objName, waitTime, script);
     } else if (brickNode.getNodeName().equals("playSoundBrick")) {
 
@@ -485,7 +458,6 @@ public class Parser {
 
       if (soundInfoElement != null) {
         if (soundInfoElement.hasAttribute("reference")) {
-
           String soundInfoReference =
               checkReference(soundInfoElement.getAttribute("reference"), "PlaySoundBrick");
           Element referencedSoundInfoElement =
@@ -505,10 +477,8 @@ public class Parser {
 
         fileName = getText(getChildElementByTagName(soundInfoElement, "fileName"));
         CatrobatDebug.debug("Filename: " + fileName);
-
         soundInfo.setFileName(fileName);
         soundInfo.setTitle(getText(getChildElementByTagName(soundInfoElement, "name")));
-
         CatrobatDebug.debug("Title: "+ getText(getChildElementByTagName(soundInfoElement, "name")));
         soundId = fileName.split("_")[0];
         CatrobatDebug.debug("Sound ID: " + soundId);
@@ -526,32 +496,24 @@ public class Parser {
       return new ChangeVolumeByBrick(objName, volume);
     } else if (brickNode.getNodeName().equals("setVolumeToBrick")) {
       Formula volume = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "volume"));
-      //double volume = parseformulaTree(getChildElementByTagName(brickNode, "volume"));
       return new SetVolumeToBrick(objName, volume);
     } else if (brickNode.getNodeName().equals("placeAtBrick")) {
-      //int xPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "xPosition"));
       Formula xPosition = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "xPosition"));
-      //int yPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "yPosition"));
       Formula yPosition = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "yPosition"));
       return new PlaceAtBrick(objName, xPosition, yPosition);
     } else if (brickNode.getNodeName().equals("changeSizeByNBrick")) {
-      //double size = parseformulaTree(getChildElementByTagName(brickNode, "size"));
       Formula size = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "size"));
       return new ChangeSizeByNBrick(objName, size);
     } else if (brickNode.getNodeName().equals("setYBrick")) {
-      //int yPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "yPosition"));
       Formula yPosition = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "yPosition"));
       return new SetYBrick(objName, yPosition);
     } else if (brickNode.getNodeName().equals("setXBrick")) {
-      //int xPosition = (int) parseformulaTree(getChildElementByTagName(brickNode, "xPosition"));
       Formula xPosition = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "xPosition"));
       return new SetXBrick(objName, xPosition);
     } else if (brickNode.getNodeName().equals("changeXByNBrick")) {
-      //int deltaX = (int) parseformulaTree(getChildElementByTagName(brickNode, "xMovement"));
       Formula deltaX = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "xMovement"));
       return new ChangeXByBrick(objName, deltaX);
     } else if (brickNode.getNodeName().equals("changeYByNBrick")) {
-      //int deltaY = (int) parseformulaTree(getChildElementByTagName(brickNode, "yMovement"));
       Formula deltaY = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "yMovement"));
       return new ChangeYByBrick(objName, deltaY);
     } else if (brickNode.getNodeName().equals("hideBrick")) {
@@ -561,33 +523,25 @@ public class Parser {
     } else if (brickNode.getNodeName().equals("stopAllSoundsBrick")) {
       return new StopAllSoundsBrick(objName);
     } else if (brickNode.getNodeName().equals("turnLeftBrick")) {
-      //int degrees = (int) parseformulaTree(getChildElementByTagName(brickNode, "degrees"));
       Formula degrees = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "degrees"));
       return new TurnLeftBrick(objName, degrees);
     } else if (brickNode.getNodeName().equals("turnRightBrick")) {
-      //int degrees = (int) parseformulaTree(getChildElementByTagName(brickNode, "degrees"));
       Formula degrees = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "degrees"));
       return new TurnRightBrick(objName, degrees);
     } else if (brickNode.getNodeName().equals("pointInDirectionBrick")) {
-      //double direction = parseformulaTree(getChildElementByTagName(brickNode, "degrees"));
       Formula degrees = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "degrees"));
       return new PointInDirectionBrick(objName, degrees);
     } else if (brickNode.getNodeName().equals("goNStepsBackBrick")) {
-      //int steps  = (int) parseformulaTree(getChildElementByTagName(brickNode, "steps"));
       Formula steps = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "steps"));
       return new GoNStepsBackBrick(objName, steps);
     } else if (brickNode.getNodeName().equals("comeToFrontBrick")) {
       return new ComeToFrontBrick(objName);
     } else if (brickNode.getNodeName().equals("glideToBrick")) {
-      //int duration = 1000 *(int)parseformulaTree(getChildElementByTagName(brickNode, "durationInSeconds"));
       Formula duration = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "durationInSeconds"));
-      //int xDestination  = (int) parseformulaTree(getChildElementByTagName(brickNode, "xDestination"));
       Formula xDestination = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "xDestination"));
-      //int yDestination  = (int) parseformulaTree(getChildElementByTagName(brickNode, "yDestination"));
       Formula yDestination = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "yDestination"));
       return new GlideToBrick(objName, duration, xDestination, yDestination, script);
     } else if (brickNode.getNodeName().equals("setSizeToBrick")) {
-      //double size  = parseformulaTree(getChildElementByTagName(brickNode, "size"));
       Formula size = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "size"));
       return new SetSizeToBrick(objName, size);
     } else if (brickNode.getNodeName().equals("broadcastBrick")) {
@@ -597,13 +551,11 @@ public class Parser {
       String message = getText(getChildElementByTagName(brickNode, "broadcastMessage"));
       return new BroadcastWaitBrick(objName, message, script);
     } else if (brickNode.getNodeName().equals("moveNStepsBrick")) {
-      //double steps  = parseformulaTree(getChildElementByTagName(brickNode, "steps"));
       Formula steps = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "steps"));
       return new MoveNStepsBrick(objName, steps);
     } else if (brickNode.getNodeName().equals("nextLookBrick")) {
       return new NextLookBrick(objName);
     } else if (brickNode.getNodeName().equals("repeatBrick")) {
-      //int timesToRepeat  = (int) parseformulaTree(getChildElementByTagName(brickNode, "timesToRepeat"));
       Formula timesToRepeat = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "timesToRepeat"));
       return new RepeatBrick(objName, timesToRepeat);
     } else if (brickNode.getNodeName().equals("foreverBrick")) {
@@ -632,11 +584,9 @@ public class Parser {
         return new NoteBrick(objName, note);
       }
     } else if (brickNode.getNodeName().equals("setGhostEffectBrick")) {
-      //double ghostEffectValue = parseformulaTree(getChildElementByTagName(brickNode, "transparency"));
       Formula ghostEffectValue = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "transparency"));
       return new SetGhostEffectBrick(objName, ghostEffectValue);
     } else if (brickNode.getNodeName().equals("changeGhostEffectByNBrick")) {
-      //double changeGhostEffect = parseformulaTree(getChildElementByTagName(brickNode, "changeGhostEffect"));
       Formula changeGhostEffect = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "changeGhostEffect"));
       return new ChangeGhostEffectByBrick(objName, changeGhostEffect);
     } else if (brickNode.getNodeName().equals("ifOnEdgeBounceBrick")) {
@@ -666,21 +616,17 @@ public class Parser {
       return new ClearGraphicEffectBrick(objName);
     } else if (brickNode.getNodeName().equals("setBrightnessBrick")) {
       Formula brightness = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "brightness"));
-      //double brightness = parseformulaTree(getChildElementByTagName(brickNode, "brightness"));
       return new SetBrightnessBrick(objName, brightness);
     } else if (brickNode.getNodeName().equals("changeBrightnessByNBrick")) {
       Formula changeBrightness = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "changeBrightness"));
-      //double changeBrightness = parseformulaTree(getChildElementByTagName(brickNode, "changeBrightness"));
       return new ChangeBrightnessBrick(objName, changeBrightness);
     } else if(brickNode.getNodeName().equals("setVariableBrick")){
       UserVariable userVar  = parseUserVariable(brickNode);
       Formula formula = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "variableFormula"));
-      //Formula formula = new Formula(parseformulaTree(getChildElementByTagName(brickNode, "variableFormula")));
       return new SetVariableBrick(objName,formula, userVar);
     } else if(brickNode.getNodeName().equals("changeVariableBrick")){
       UserVariable userVar  = parseUserVariable(brickNode);
       Formula formula = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "variableFormula"));
-      //Formula formula = new Formula(parseformulaTree(getChildElementByTagName(brickNode, "variableFormula")));
       return new ChangeVariableBrick(objName,formula, userVar);
     } else if(brickNode.getNodeName().equals("ifLogicBeginBrick")){
       Formula formula = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "ifCondition"));
@@ -699,7 +645,7 @@ public class Parser {
     }
     return null;
   }
-  //TODO: check what to do when object reference is null!
+  
   private Script checkScript(Element scriptElement, Sprite object) {
 
     Element objectElement = getChildElementByTagName(scriptElement, "object");
@@ -712,23 +658,18 @@ public class Parser {
     Sprite scriptObject = object;
 
     if (referencedObject != null && referencedObject.getNodeName().equals("object")) {
-
       String name = getText(getChildElementByTagName(referencedObject, "name"));
-
       if (name == null || name.trim().length() == 0) {
-
         Stage.getInstance().log(
             "Invalid sprite reference: " + referencedObject.getNodeName() + " for " + objectReference);
       } else if (!object.getName().equals(name)) {
         scriptObject = manager.getSprite(name, true);
       }
     } else {
-
+      //TODO: check what to do when object reference is null!
     }
     if (scriptElement.getNodeName().equals("startScript")) {
-
       return new StartScript(scriptObject, "startScript");
-
     } else if (scriptElement.getNodeName().equals("whenScript")) {
       return new WhenScript(scriptObject, "whenScript");
     } else if (scriptElement.getNodeName().equals("broadcastScript")) {
@@ -739,8 +680,6 @@ public class Parser {
       return null;
     }
   }
-
-  // ##########################################################################
 
   private void setRootCanvasSize(int width, int height) {
     Scene.get().setSceneMeasures(width, height);
@@ -772,53 +711,6 @@ public class Parser {
     }
     return null;
   }
-
-  // ##########################################################################
-//  private double parseformulaTree(Node tree) throws Exception {
-//    Element formula = getChildElementByTagName(tree,"formulaTree");
-//    if(formula == null){
-//      //System.out.println(tree.getFirstChild().toString());
-//      return Double.parseDouble(tree.getFirstChild().toString());
-//      //throw new Exception("formulaTree exception 1");
-//    }
-//
-//    Element type = getChildElementByTagName(formula,"type");
-//    if(type == null){
-//      throw new Exception("formulaTree exception 2");
-//    }
-//    if(type.getFirstChild().toString().equals("NUMBER")){
-//      Element value = getChildElementByTagName(formula,"value");
-//      //System.out.println(value.toString());
-//      return Double.parseDouble(value.getFirstChild().toString());
-//    }
-//    else if(type.getFirstChild().toString().equals("OPERATOR")){
-//      Element value = getChildElementByTagName(formula,"value");
-//      double sign = 0.0;
-//      if(value.getFirstChild().toString().equals("MINUS")){
-//        sign = -1.0;
-//      }
-//      else if(value.getFirstChild().toString().equals("PLUS")){
-//        sign = 1.0;
-//      }
-//      else{
-//        throw new Exception("formulaTree exception 3");
-//      }
-//      Element rightChild = getChildElementByTagName(formula,"rightChild");
-//      Element subType = getChildElementByTagName((Node)rightChild, "type");
-//      if(subType == null || !subType.getFirstChild().toString().equals("NUMBER")){
-//        throw new Exception("formulaTree exception 4");
-//      }
-//      Element subValue = getChildElementByTagName((Node)rightChild, "value");
-//      //System.out.println(subValue.toString());
-//      return Double.parseDouble(subValue.getFirstChild().toString()) * sign;
-//    }
-//    else
-//    {
-//      throw new Exception("formulaTree exception 5");
-//    }
-//  }
-
-
   public boolean isParsingComplete() {
     return parsingComplete;
   }
