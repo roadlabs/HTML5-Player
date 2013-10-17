@@ -26,10 +26,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Scanner;
-import java.util.zip.ZipInputStream;
+//import java.util.zip.ZipInputStream;
 
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
 import org.catrobat.html5player.client.CatrobatDebug;
 import org.catrobat.html5player.client.Const;
 import org.catrobat.html5player.client.ServerConnectionService;
@@ -50,8 +51,10 @@ public class ServerConnectionServiceImpl extends RemoteServiceServlet implements
 	public String getXML(){
 		HttpSession session = this.getThreadLocalRequest().getSession();
 		ProjectData pd = (ProjectData) session.getAttribute("projectdata");
-		
-		CatrobatDebug.debug("xml from projectdata:"+pd.getXml());
+		if(pd == null)
+		{
+		  CatrobatDebug.debug("Project Data object is null!!!!");
+		}	
 		return pd.getXml();
 	}
 	@Override
@@ -72,8 +75,8 @@ public class ServerConnectionServiceImpl extends RemoteServiceServlet implements
 	{
 		URL tmpurl = new URL(url);
 		InputStream stream = tmpurl.openStream();
-		ZipInputStream zip = new ZipInputStream(stream);
-		ProjectData pd = LoadUtils.loadDatafromZipStream(zip);
+		//ZipInputStream zip = new ZipInputStream(stream);
+		ProjectData pd = LoadUtils.loadDatafromZipStream(new ZipArchiveInputStream(stream));
 		HttpSession session = this.getThreadLocalRequest().getSession();
 		session.setAttribute("projectdata", pd);
 		if(pd == null)
