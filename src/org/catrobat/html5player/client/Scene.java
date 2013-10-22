@@ -2,21 +2,21 @@
  *  Catroid: An on-device visual programming system for Android devices
  *  Copyright (C) 2010-2013 The Catrobat Team
  *  (<http://developer.catrobat.org/credits>)
- *  
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as
  *  published by the Free Software Foundation, either version 3 of the
  *  License, or (at your option) any later version.
- *  
+ *
  *  An additional term exception under section 7 of the GNU Affero
  *  General Public License, version 3, is available at
  *  http://developer.catrobat.org/license_additional_term
- *  
+ *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU Affero General Public License for more details.
- *  
+ *
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -34,20 +34,20 @@ import com.google.gwt.user.client.ui.Image;
 public class Scene {
 
 	private static Scene instance = null;
-	
+
 	private Canvas sceneCanvas;
 	private boolean isSceneCreated;
 	private CssColor fillColor;
-	
+
 	private int sceneWidth = 0;
 	private int sceneHeight = 0;
-	
+
 	//##########################################################################
-	
+
 	private Scene() {
 		isSceneCreated = false;
 	}
-	
+
 	/**
 	 *
 	 */
@@ -55,25 +55,25 @@ public class Scene {
 		if(instance == null) {
 			instance = new Scene();
 		}
-		
+
 		return instance;
 	}
-	
+
 	//##########################################################################
-	
+
 	/**
 	 * Create a canvas
 	 * @return true if scene is created or was already created, false if canvas
 	 * is not supported
 	 */
 	public boolean createScene() {
-		
+
 		if(!isSceneCreated) {
 			sceneCanvas = Canvas.createIfSupported();
-			
+
 			if(sceneCanvas == null)
 				return false;
-			
+
 			isSceneCreated = true;
 			fillColor = CssColor.make("rgb(255,255,255)");
 		}
@@ -82,7 +82,7 @@ public class Scene {
 
 		return true;
 	}
-	
+
 	/**
 	 * Create a canvas with the given measures
 	 * @param sceneWidth
@@ -91,46 +91,56 @@ public class Scene {
 	 * is not supported
 	 */
 	public boolean createScene(int sceneWidth, int sceneHeight) {
-		
+
 		if(createScene()) {
 			setSceneMeasures(sceneWidth, sceneHeight);
 			CatrobatDebug.info("Scene created with width: " + sceneWidth + " and height: " + sceneHeight);
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
 	 * Sets the given measures for front and back canvas
 	 * @param sceneWidth
 	 * @param sceneHeight
 	 */
 	public void setSceneMeasures(int sceneWidth, int sceneHeight) {
-		
+
 		if(isSceneCreated) {
 			clearCanvas();
-			
+
 			this.sceneWidth = sceneWidth;
 			this.sceneHeight = sceneHeight;
-			
+
 			sceneCanvas.setWidth(sceneWidth + "px");
 			sceneCanvas.setHeight(sceneHeight + "px");
-			
+
 			sceneCanvas.setCoordinateSpaceWidth(this.sceneWidth);
 			sceneCanvas.setCoordinateSpaceHeight(this.sceneHeight);
-			
+
 //			back.getContext2d().translate(sceneWidth/2, sceneHeight/2);
-			
+
 			CatrobatDebug.debug("Scene got measures - width: " + this.sceneWidth + " and height: " + this.sceneHeight);
 		}
 	}
-	
-	
+
+	public void zoomScene(double zoomValue){
+
+		this.sceneWidth = (int) (this.sceneWidth * zoomValue);
+		this.sceneHeight = (int) (this.sceneHeight * zoomValue);
+
+		sceneCanvas.setWidth(this.sceneWidth + "px");
+		sceneCanvas.setHeight(this.sceneHeight + "px");
+
+	}
+
+
 	//############################ DRAW IMAGE ##################################
-	
+
 	/**
-	 * 
+	 *
 	 * @param image
 	 * @param x
 	 * @param y
@@ -139,12 +149,12 @@ public class Scene {
 	 */
 	public void drawImage(Image image, double x, double y, double width, double height, double alpha) {
 		ImageElement imageElement = (ImageElement)image.getElement().cast();
-		
+
 		drawImageElement(imageElement, x, y, width, height, alpha);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param imageElement
 	 * @param x
 	 * @param y
@@ -152,21 +162,21 @@ public class Scene {
 	 * @param height
 	 */
 	public void drawImageElement(ImageElement imageElement, double x, double y, double width, double height, double alpha) {
-		
+
 		long start = System.currentTimeMillis();
-		
+
 		Context2d context = sceneCanvas.getContext2d();
 		context.save();
 		context.setGlobalAlpha(alpha);
 		context.drawImage(imageElement, x, y, width, height);
 		context.restore();
-		
-		
+
+
 		CatrobatDebug.debug("drawImageElement-execution took " + (System.currentTimeMillis() - start) + " ms");
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param image
 	 * @param translateX
 	 * @param translateY
@@ -179,18 +189,18 @@ public class Scene {
 	 * @param ySize
 	 */
 	public void drawImage(Image image, double translateX, double translateY, double x, double y, double width, double height, double degrees, double xSize, double ySize, double alpha) {
-		
+
 		long start = System.currentTimeMillis();
-		
+
 		ImageElement imageElement = (ImageElement)image.getElement().cast();
-		
+
 		drawImageElement(imageElement, translateX, translateY, x, y, width, height, degrees, xSize, ySize, alpha);
-		
+
 		CatrobatDebug.debug("drawImage-execution took " + (System.currentTimeMillis() - start) + " ms");
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param imageElement
 	 * @param translateX
 	 * @param translateY
@@ -203,39 +213,39 @@ public class Scene {
 	 * @param ySize
 	 */
 	public void drawImageElement(ImageElement imageElement, double translateX, double translateY, double x, double y, double width, double height, double degrees, double xSize, double ySize, double alpha) {
-		
+
 		long start = System.currentTimeMillis();
-		
+
 		Context2d context = sceneCanvas.getContext2d();
-		
+
 		context.save();
 		context.setGlobalAlpha(alpha);
 		context.translate(translateX, translateY);
 		context.rotate(Math.toRadians(degrees));
 		context.scale(xSize, ySize);
 		context.drawImage(imageElement, x, y, width, height);
-		
+
 		//for testing - draws a rectangular around the sprite
 //		context.strokeRect(x, y, width, height);
 		//
-		
+
 		context.restore();
-		
+
 		CatrobatDebug.debug("drawImageElement-execution took " + (System.currentTimeMillis() - start) + " ms");
 	}
-	
+
 	//############################### TEXT #####################################
 
 	/**
-	 * 
+	 *
 	 * @param fontSetting
 	 */
 	public void setFont(String fontSetting) {
 		sceneCanvas.getContext2d().setFont(fontSetting);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param text
 	 * @param x
 	 * @param y
@@ -244,9 +254,9 @@ public class Scene {
 		Context2d context = sceneCanvas.getContext2d();
 		context.fillText(text, x, y);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param text
 	 * @param x
 	 * @param y
@@ -257,11 +267,11 @@ public class Scene {
 		context.setTextAlign(align);
 		context.fillText(text, x, y);
 	}
-	
+
 	//############################### BRIGHTNESS ###############################
-	
+
 	/**
-	 * 
+	 *
 	 * @param image
 	 * @param translateX
 	 * @param translateY
@@ -275,7 +285,7 @@ public class Scene {
 	 */
 	public void drawImageBrightness(Image image, double translateX, double translateY, double x, double y, double width, double height, double degrees, double xSize, double ySize, double alpha, double brightness) throws JavaScriptException {
 		ImageElement imageElement = (ImageElement)image.getElement().cast();
-		
+
 		try {
 			drawImageElementBrightness(imageElement, translateX, translateY, x, y, width, height, degrees, xSize, ySize, alpha, brightness);
 		}
@@ -283,9 +293,9 @@ public class Scene {
 			throw exception;
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param imageElement
 	 * @param translateX
 	 * @param translateY
@@ -304,7 +314,7 @@ public class Scene {
 		context.translate(translateX, translateY);
 		context.rotate(Math.toRadians(degrees));
 		context.scale(xSize, ySize);
-		
+
 		try {
 			Canvas adjustedImage = adjustImageBrightness(imageElement, brightness);
 			context.drawImage(adjustedImage.getCanvasElement(), x, y, width, height);
@@ -315,53 +325,53 @@ public class Scene {
 			throw exception;
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param imageElement
 	 * @param brightness
 	 * @return Canvas canvas with the adjusted image
 	 */
 	private Canvas adjustImageBrightness(ImageElement imageElement, double brightness) {
-		
+
 		int width = imageElement.getWidth();
 		int height = imageElement.getHeight();
-		
+
 		Canvas temp = Canvas.createIfSupported();
 		temp.setCoordinateSpaceWidth(width);
 		temp.setCoordinateSpaceHeight(height);
 
 		Context2d context = temp.getContext2d();
-		
+
 		context.drawImage(imageElement, 0, 0);
-		
+
 		ImageData imageData = context.getImageData(0, 0, width, height);
-		
+
 		CanvasPixelArray pixelsData = imageData.getData();
-		
+
 		for(int y = 0; y < height; y++) {
 			for(int x = 0; x < width; x++) {
-				
+
 				int index = (y * width + x) * 4; //'pixel'-index (red-channel of pixel)
-				
+
 				int r = checkColorRange((int)((double)pixelsData.get(index) * brightness)); //red channel
 				pixelsData.set(index, r);
-				
+
 				int g = checkColorRange((int)((double)pixelsData.get(++index) * brightness)); //green channel
 				pixelsData.set(index, g);
-				
+
 				int b = checkColorRange((int)((double)pixelsData.get(++index) * brightness)); //blue channel
 				pixelsData.set(index, b);
-				
+
 				//++index -> alpha channel
 			}
 		}
 
 		context.putImageData(imageData, 0, 0);
-		
+
 		return temp;
 	}
-	
+
 	/**
 	 * Checks if the given color value is within the range 0...255
 	 * @param colorValue
@@ -379,11 +389,11 @@ public class Scene {
 			return colorValue;
 		}
 	}
-	
+
 	//############################### JSNI #####################################
-	
+
 	/**
-	 * 
+	 *
 	 * @param image
 	 * @param translateX
 	 * @param translateY
@@ -399,12 +409,12 @@ public class Scene {
 	public void drawImageJSNI(Image image, double translateX, double translateY, double x, double y, double width, double height, double degrees, double alpha) {
 		ImageElement imageElement = (ImageElement)image.getElement().cast();
 		Context2d context = sceneCanvas.getContext2d();
-		
+
 		this.drawImageJSNI(imageElement, translateX, translateY, x, y, width, height, degrees, alpha, context);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param image
 	 * @param translateX
 	 * @param translateY
@@ -426,77 +436,77 @@ public class Scene {
 		context.drawImage(image, x, y, width, height);
 		context.restore();
 	}-*/;
-	
+
 	//##########################################################################
-	
+
 	/**
-	 * 
+	 *
 	 */
 	public void clearCanvas() {
-		
+
 		long start = System.currentTimeMillis();
-		
+
 		Context2d context = sceneCanvas.getContext2d();
 		context.save();
 		context.setFillStyle(fillColor);
 		context.fillRect(0, 0, this.sceneWidth, this.sceneHeight);
 		context.restore();
-		
+
 		CatrobatDebug.debug("clearCanvas-execution took " + (System.currentTimeMillis() - start) + " ms");
 	}
-	
+
 	//##########################################################################
-	
+
 	/**
-	 * 
+	 *
 	 * @return Canvas canvas
 	 */
 	public Canvas getCanvas() {
 		return sceneCanvas;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	public boolean isSceneCreated() {
 		return isSceneCreated;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	public int getSceneWidth() {
 		return this.sceneWidth;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	public int getSceneHeight() {
 		return this.sceneHeight;
 	}
-	
+
 	//##########################################################################
-	
+
 	/**
 	 * FOR UNIT-TESING
 	 */
 	public void reset() {
 		instance = null;
 	}
-	
+
 	/**
 	 * FOR TESING
 	 */
 	public void drawAxis() {
 		Context2d ctx = sceneCanvas.getContext2d();
-		
+
 		ctx.beginPath();
 		ctx.moveTo(getSceneWidth()/2, 0);
 		ctx.lineTo(getSceneWidth()/2, getSceneHeight());
 		ctx.stroke();
 		ctx.closePath();
-		
+
 		ctx.beginPath();
 		ctx.moveTo(0, getSceneHeight()/2);
 		ctx.lineTo(getSceneWidth(), getSceneHeight()/2);
