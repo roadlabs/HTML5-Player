@@ -44,5 +44,8 @@ public class ProjectData implements Serializable {
 		return sounds.get(name);
 	}
 	
+	public String toTestString(){
+	  return "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!images in ProjectData: "+this.images.size();
+	}
    
 }

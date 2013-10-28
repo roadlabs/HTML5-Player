@@ -27,6 +27,7 @@ import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.SpriteManager;
 import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.bricks.PointInDirectionBrick;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -48,7 +49,6 @@ public class PointInDirectionBrickTest extends GWTTestCase {
 		scene = Scene.get();
 		spriteManager = stage.getSpriteManager();
 	}
-	
 	@Override
 	public String getModuleName() {
 		return "org.catrobat.html5player.html5player";
@@ -74,12 +74,12 @@ public class PointInDirectionBrickTest extends GWTTestCase {
 		String spriteName = "testPointInDirectionSprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		double degrees = 90.0;
-		PointInDirectionBrick pointInDirectionBrick = new PointInDirectionBrick(spriteName, 0, degrees);
+		Formula degrees = new Formula(90.0);
+		PointInDirectionBrick pointInDirectionBrick = new PointInDirectionBrick(spriteName, degrees);
 
 		pointInDirectionBrick.execute();
 		
-		double expectation = -degrees + 90.0;
+		double expectation = -degrees.interpretFloat(sprite) + 90.0;
 		
 		assertEquals(expectation, sprite.getLook().getRotation());
 	}
@@ -91,12 +91,12 @@ public class PointInDirectionBrickTest extends GWTTestCase {
 		String spriteName = "testPointInDirectionSprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		double degrees = -90.0;
-		PointInDirectionBrick pointInDirectionBrick = new PointInDirectionBrick(spriteName, 0, degrees);
+		Formula degrees = new Formula(-90.0);
+		PointInDirectionBrick pointInDirectionBrick = new PointInDirectionBrick(spriteName, degrees);
 
 		pointInDirectionBrick.execute();
 		
-		double expectation = -degrees + 90.0;
+		double expectation = -degrees.interpretFloat(sprite) + 90.0;
 		
 		assertEquals(expectation, sprite.getLook().getRotation());
 	}
@@ -108,12 +108,12 @@ public class PointInDirectionBrickTest extends GWTTestCase {
 		String spriteName = "testPointInDirectionSprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		double degrees = 0.0;
-		PointInDirectionBrick pointInDirectionBrick = new PointInDirectionBrick(spriteName, 0, degrees);
+		Formula degrees = new Formula(0.0);
+		PointInDirectionBrick pointInDirectionBrick = new PointInDirectionBrick(spriteName, degrees);
 
 		pointInDirectionBrick.execute();
 		
-		double expectation = -degrees + 90.0;
+		double expectation = -degrees.interpretFloat(sprite) + 90.0;
 		
 		assertEquals(expectation, sprite.getLook().getRotation());
 	}
@@ -125,12 +125,12 @@ public class PointInDirectionBrickTest extends GWTTestCase {
 		String spriteName = "testPointInDirectionSprite";
 		Sprite sprite = spriteManager.getSprite(spriteName, true);
 		
-		double degrees = 180.0;
-		PointInDirectionBrick pointInDirectionBrick = new PointInDirectionBrick(spriteName, 0, degrees);
+		Formula degrees = new Formula(180.0);
+		PointInDirectionBrick pointInDirectionBrick = new PointInDirectionBrick(spriteName, degrees);
 
 		pointInDirectionBrick.execute();
 		
-		double expectation = -degrees + 90.0;
+		double expectation = -degrees.interpretFloat(sprite) + 90.0;
 		
 		assertEquals(expectation, sprite.getLook().getRotation());
 	}
@@ -146,12 +146,12 @@ public class PointInDirectionBrickTest extends GWTTestCase {
 		double rotation = 42.0;
 		sprite.getLook().setRotation(rotation);
 		
-		double degrees = 180.0;
-		PointInDirectionBrick pointInDirectionBrick = new PointInDirectionBrick(spriteName, 0, degrees);
+		Formula degrees = new Formula(180.0);
+		PointInDirectionBrick pointInDirectionBrick = new PointInDirectionBrick(spriteName, degrees);
 
 		pointInDirectionBrick.execute();
 		
-		double expectation = -degrees + 90.0;
+		double expectation = -degrees.interpretFloat(sprite) + 90.0;
 		
 		assertEquals(expectation, sprite.getLook().getRotation());
 	}

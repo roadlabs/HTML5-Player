@@ -24,25 +24,34 @@ package org.catrobat.html5player.client.bricks;
 
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.common.Look;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 public class ChangeXByBrick extends Brick {
 
-	private float deltaX;
+	private Formula deltaX;
 
-	public ChangeXByBrick(String spriteName, float newDeltaX) {
+	public ChangeXByBrick(String spriteName, Formula newDeltaX) {
 		super(spriteName);
 		this.deltaX = newDeltaX;
 	}
 
 	@Override
 	public boolean execute(Sprite sprite) {
+	    float newDeltaX = deltaX.interpretFloat(sprite);
 		Look look = sprite.getLook();
-		look.setXPosition(look.getXPosition() + deltaX);
+		System.out.println("beforeMove: " +look.getXPosition() + " " + look.getMiddleX());
+		look.setXPosition(look.getXPosition() + newDeltaX);
 		
 		
-		look.setMiddleX(look.getMiddleX() + deltaX);
-		
+		look.setMiddleX(look.getMiddleX() + newDeltaX);
+		System.out.println("afterMove: " +look.getXPosition() + " " + look.getMiddleX());
 		return true;
+	}
+	@Override
+    public String toString(){
+	  //TODO: check output for formula object
+	  return this.getClass() + " deltaX: " + deltaX.toString();
+	  
 	}
 
 }

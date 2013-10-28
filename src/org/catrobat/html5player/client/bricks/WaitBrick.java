@@ -23,23 +23,24 @@
 package org.catrobat.html5player.client.bricks;
 
 import org.catrobat.html5player.client.Sprite;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 import org.catrobat.html5player.client.scripts.Script;
 
 public class WaitBrick extends Brick {
 
-	private int time;
+	private Formula time;
 
 	// TODO: better solution for this easy quick hack
 	private Script script;
 
-	public WaitBrick(String sprite, int time, Script script) {
+	public WaitBrick(String sprite, Formula time, Script script) {
 		super(sprite);
 		this.time = time;
 		this.script = script;
 	}
 
 	public boolean execute(Sprite sprite) {
-		script.pause(time);
+		script.pause((int)(1000.0*time.interpretFloat(sprite)));
 		return true;
 	}
 }

@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.zip.ZipEntry;
-import java.util.zip.ZipInputStream;
+import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
+//import java.util.zip.ZipInputStream;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.StringUtils;
@@ -25,25 +26,26 @@ public class LoadUtils {
 		return extension;
 	}
 
-	public static ProjectData loadDatafromZipStream(ZipInputStream zip) throws IOException
+	public static ProjectData loadDatafromZipStream(ZipArchiveInputStream zip) throws IOException
 	{
 		String xml = "";
 		Map<String,String> images = new HashMap<String,String>();
 		Map<String,String> sounds = new HashMap<String,String>();
         ZipEntry zipEntry;
         StringBuilder s = new StringBuilder();
-        while((zipEntry = zip.getNextEntry())!=null)
-        {
+        while((zipEntry = zip.getNextZipEntry())!=null)
+        {         
         	ByteArrayOutputStream baos = new ByteArrayOutputStream();
             byte[] buffer = new byte[1024];
             int read = 0;
         	CatrobatDebug.debug(zipEntry.getName() + " " + zipEntry.isDirectory()+ " "+ zipEntry.toString() );
         	if(zipEntry.getName().endsWith(".xml"))
         	{
-        	      while ((read = zip.read(buffer, 0, 1024)) >= 0) {
-        	           s.append(new String(buffer, 0, read));
-        	      }
+      	      while ((read = zip.read(buffer, 0, 1024)) >= 0) {
+      	           s.append(new String(buffer, 0, read));
+      	      }
         		xml = s.toString();
+        		xml = xml.replaceAll("<url>(.*?)</url>", "<url></url>");
         	}
         	else if(!zipEntry.getName().endsWith(".nomedia"))
         	{

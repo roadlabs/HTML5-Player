@@ -23,20 +23,21 @@
 package org.catrobat.html5player.client.bricks;
 
 import org.catrobat.html5player.client.Sprite;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 public class ChangeBrightnessBrick extends Brick {
 	
-	private double brightness;
+	private Formula brightness;
 
-	public ChangeBrightnessBrick(String spriteName, double brightness) {
+	public ChangeBrightnessBrick(String spriteName, Formula brightness) {
 		super(spriteName);
-		this.brightness = brightness / 100.0;
+		this.brightness = brightness;// / 100.0;
 	}
 
 	@Override
 	protected boolean execute(Sprite sprite) {
 		
-		sprite.getLook().changeBrightnessValueBy(this.brightness);
+		sprite.getLook().changeBrightnessValueBy(this.brightness.interpretFloat(sprite) / 100.0);
 		
 		return true;
 	}

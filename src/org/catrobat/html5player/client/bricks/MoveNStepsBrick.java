@@ -24,18 +24,20 @@ package org.catrobat.html5player.client.bricks;
 
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.common.Look;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 public class MoveNStepsBrick extends Brick {
 
-	private double steps;
+	private Formula steps;
 
-	public MoveNStepsBrick(String sprite, double steps) {
+	public MoveNStepsBrick(String sprite, Formula steps) {
 		super(sprite);
 		this.steps = steps;
 	}
 
 	@Override
 	public boolean execute(Sprite sprite) {
+	    double steps = this.steps.interpretFloat(sprite);
 		Look look = sprite.getLook();
 		
 		// the MINUS is important because canvas positive rotation is clockwise

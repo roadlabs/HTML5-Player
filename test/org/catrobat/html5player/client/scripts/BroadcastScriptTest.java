@@ -30,6 +30,7 @@ import org.catrobat.html5player.client.bricks.NextLookBrick;
 import org.catrobat.html5player.client.bricks.RepeatBrick;
 import org.catrobat.html5player.client.bricks.SetLookBrick;
 import org.catrobat.html5player.client.common.LookData;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 //import org.catrobat.html5player.client.threading.CatScheduler;
 //import org.catrobat.html5player.client.threading.CatThread;
 
@@ -512,10 +513,10 @@ public class BroadcastScriptTest extends GWTTestCase {
 		
 		sprite.addScript(broadcastScript);
 		
-		int timesToRepeatOuter = 3;
+		Formula timesToRepeatOuter = new Formula(3);
 		RepeatBrick repeatBrickOuter = new RepeatBrick(spriteName, timesToRepeatOuter);
 		
-		int timesToRepeatInner = 1;
+		Formula  timesToRepeatInner = new Formula(1);
 		RepeatBrick repeatBrickInner = new RepeatBrick(spriteName, timesToRepeatInner);
 		
 		broadcastScript.addBrick(repeatBrickOuter);

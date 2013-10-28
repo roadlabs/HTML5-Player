@@ -23,12 +23,13 @@
 package org.catrobat.html5player.client.bricks;
 
 import org.catrobat.html5player.client.Sprite;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 public class SetGhostEffectBrick extends Brick {
 
-	private double ghostEffectValue;
+	private Formula ghostEffectValue;
 	
-	public SetGhostEffectBrick(String spriteName, double ghostEffectValue) {
+	public SetGhostEffectBrick(String spriteName, Formula ghostEffectValue) {
 		super(spriteName);
 		this.ghostEffectValue = ghostEffectValue;
 	}
@@ -36,7 +37,7 @@ public class SetGhostEffectBrick extends Brick {
 	@Override
 	protected boolean execute(Sprite sprite) {
 		
-		double newAlphaValue = (100. - ghostEffectValue) / 100;
+		double newAlphaValue = (100.0 - ghostEffectValue.interpretFloat(sprite)) / 100.0;
 		
 		sprite.getLook().setAlphaValue(newAlphaValue);
 		return true;

@@ -26,6 +26,7 @@ import org.catrobat.html5player.client.Scene;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.bricks.GoNStepsBackBrick;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 import org.catrobat.html5player.client.threading.CatScheduler;
 
 import com.google.gwt.canvas.client.Canvas;
@@ -71,13 +72,13 @@ public class GoNStepsBackBrickTest extends GWTTestCase {
 		
 		int startingZPosition = sprite.getLook().getZPosition();
 		
-		int steps = 1;
+		Formula steps = new Formula(1);
 		
 		GoNStepsBackBrick goNStepsBack = new GoNStepsBackBrick(spriteName, steps);
 		
 		goNStepsBack.execute();
 		
-		int newZPosition = startingZPosition - steps;
+		int newZPosition = startingZPosition - steps.interpretInteger(sprite);
 		assertEquals(newZPosition, sprite.getLook().getZPosition());
 	}
 	
@@ -90,7 +91,7 @@ public class GoNStepsBackBrickTest extends GWTTestCase {
 		
 		sprite.getLook().setZPosition(Integer.MIN_VALUE);
 		
-		int steps = 1;
+		Formula steps = new Formula(1);
 		
 		GoNStepsBackBrick goNStepsBack = new GoNStepsBackBrick(spriteName, steps);
 		
@@ -108,12 +109,11 @@ public class GoNStepsBackBrickTest extends GWTTestCase {
 		
 		int startingZPosition = sprite.getLook().getZPosition();
 		
-		int steps = -2;
+		Formula steps = new Formula(-2);
 		
 		GoNStepsBackBrick goNStepsBack = new GoNStepsBackBrick(spriteName, steps);
 		
 		assertFalse(goNStepsBack.execute());
-		
 		assertEquals(startingZPosition, sprite.getLook().getZPosition());
 	}
 

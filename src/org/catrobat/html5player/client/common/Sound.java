@@ -72,8 +72,9 @@ public class Sound {
 			audio = Audio.createIfSupported();
 			
 			if(audio != null) {
+				//audio.addSource(getSoundBasePath() + soundInfo.getFileName());
+				//audio.load();
 				server.getSound(soundInfo.getFileName(), audio);
-				
 				CatrobatDebug.debug("updateAudio - getError: " + audio.getError() + "...");
 			}
 			

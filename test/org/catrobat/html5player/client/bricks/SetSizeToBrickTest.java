@@ -25,6 +25,7 @@ package org.catrobat.html5player.client.bricks;
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
 import org.catrobat.html5player.client.bricks.SetSizeToBrick;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.junit.client.GWTTestCase;
@@ -36,7 +37,7 @@ public class SetSizeToBrickTest extends GWTTestCase {
 		return "org.catrobat.html5player.html5player";
 	}
 	
-	private float size = 70;
+	private Formula size = new Formula(70);
 
 
 	public void testSize() {
@@ -53,7 +54,7 @@ public class SetSizeToBrickTest extends GWTTestCase {
 	
 		SetSizeToBrick setSizeToBrick = new SetSizeToBrick(spriteName, size);
 		setSizeToBrick.execute();
-		assertEquals("Incorrect sprite size value after SetSizeToBrick executed", (double) size / 100,
+		assertEquals("Incorrect sprite size value after SetSizeToBrick executed", (double) size.interpretFloat(sprite) / 100,
 				sprite.getLook().getSize());
 	}
 

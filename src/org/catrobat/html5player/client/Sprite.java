@@ -170,6 +170,21 @@ public class Sprite {
 		else
 			return null;
 	}
+	
+	
+	   public int getScriptIndex(Script script){
+	        ArrayList<Script> scriptsList = new ArrayList<Script>(scripts);
+	        int index = 0;
+	        for(Script s : scriptsList)
+	        {
+	          if(s.getId() == script.getId())
+	          {
+	            return index;
+	          }
+	          index++;
+	        }
+	        return -1;
+	    }
 
 	public void addSound(SoundInfo soundInfo) {
 		if (soundInfo != null && !sounds.containsKey(soundInfo.getId())) {
@@ -242,7 +257,7 @@ public class Sprite {
 		List<Script> scriptList = new ArrayList<Script>();
 		scriptList.addAll(scripts);
 		Collections.sort(scriptList);
-		
+		Stage.getInstance().setCurrentSprite(this);
 		for (Script script : scriptList) {
 
 			//only add StartScripts to the scheduler
@@ -264,7 +279,8 @@ public class Sprite {
 	public void startTapScripts() {
 		
 		CatrobatDebug.debug("<<< Sprite: " + this.name + " startTapScripts() >>>");
-		
+		Stage.getInstance().setCurrentSprite(this);
+
 		for (Script script : scripts) {
 			if (script.getType().equals(WhenScript.SCRIPT_TYPE)) {
 				WhenScript touchScript = (WhenScript) script;

@@ -51,6 +51,7 @@ public class AllTestsSuitTest extends GWTTestSuite{
 	    suite.addTestSuite(ShowBrickTest.class);
 	    suite.addTestSuite(TurnLeftBrickTest.class);
 	    suite.addTestSuite(TurnRightBrickTest.class);
+	    suite.addTestSuite(SetVariableBrickTest.class);
 	    
 	    suite.addTestSuite(RepeatBrickTest.class);
 	    suite.addTestSuite(ForeverBrickTest.class);

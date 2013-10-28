@@ -13,14 +13,16 @@ public class UnsupportedVersionTest extends GWTTestCase {
 	
 	public void testXmlWithNoVersionIdentifier(){
 		String xmlString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-				"<Content.Project>" + 
+				"<program>" + 
+				"<header>" + 
 				"<androidVersion>10</androidVersion>" +
 				"<catroidVersionCode>820</catroidVersionCode>" +
 				"<deviceName>GT-S5830</deviceName>" +
-				"<projectName>test</projectName>" +
+				"<programName>test</programName>" +
 				"<screenHeight>200</screenHeight>" +
 				"<screenWidth>100</screenWidth>"+
-				"</Content.Project>";
+				"</header>"+
+				"</program>";
 		Parser parser = new Parser();
 		Stage stage = Stage.getInstance();
 		SpriteManager spriteManager = stage.getSpriteManager();
@@ -31,15 +33,16 @@ public class UnsupportedVersionTest extends GWTTestCase {
 	public void testXmlWithWrongVersion()
 	{
 		String xmlString = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" +
-				"<Content.Project>" + 
-				"<androidVersion>10</androidVersion>" +
-				"<catroidVersionCode>820</catroidVersionCode>" +
-				"<catroidVersionName>0.9.0beta-820-debug</catroidVersionName>" +
-				"<deviceName>GT-S5830</deviceName>" +
-				"<projectName>test</projectName>" +
-				"<screenHeight>200</screenHeight>" +
-				"<screenWidth>100</screenWidth>"+
-				"</Content.Project>";
+            "<program>" + 
+            "<header>" + 
+            "<applicationVersion>0.1.0beta</applicationVersion>" +
+            "<catrobatLanguageVersion>0.1</catrobatLanguageVersion>" +
+            "<deviceName>GT-S5830</deviceName>" +
+            "<programName>test</programName>" +
+            "<screenHeight>200</screenHeight>" +
+            "<screenWidth>100</screenWidth>"+
+            "</header>"+
+            "</program>";
 		Parser parser = new Parser();
 		Stage stage = Stage.getInstance();
 		SpriteManager spriteManager = stage.getSpriteManager();

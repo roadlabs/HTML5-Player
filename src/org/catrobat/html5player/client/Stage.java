@@ -36,6 +36,8 @@
  */
  package org.catrobat.html5player.client;
 
+import org.catrobat.html5player.client.formulaeditor.UserVariablesContainer;
+import org.catrobat.html5player.client.scripts.Script;
 import org.catrobat.html5player.client.threading.CatScheduler;
 
 import com.google.gwt.canvas.client.Canvas;
@@ -56,10 +58,37 @@ public class Stage {
 	private String projectNumber;
 	private Canvas rootCanvas;
 	private TextArea logBox;
+	private Script currentScript = null;
+	private Sprite currentSprite = null;
+	private UserVariablesContainer userVariables;
+	   public UserVariablesContainer getUserVariables() {
+	        return userVariables;
+	    }
+	
+	   public Sprite getCurrentSprite() {
+	        return currentSprite;
+	    }
+
+	    public void setCurrentSprite(Sprite sprite) {
+	        currentSprite = sprite;
+	    }
+
+	    public Script getCurrentScript() {
+	        return currentScript;
+	    }
+
+	    public void setCurrentScript(Script script) {
+	        if (script == null) {
+	            currentScript = null;
+	        } else if (currentSprite.getScriptIndex(script) != -1) {
+	            currentScript = script;
+	        }
+	    }
 
 	private Stage() {
 		spriteManager = new SpriteManager();
 		messageContainer = new MessageContainer();
+		userVariables = new UserVariablesContainer();
 	}
 
 	public static Stage getInstance() {
@@ -89,7 +118,7 @@ public class Stage {
 		{
 			return;
 		}
-		
+
 		CatrobatDebug.debug("XML got parsed");
 		CatrobatDebug.debug("Parsing took " + (System.currentTimeMillis() - start) + " ms");
 		
@@ -112,8 +141,8 @@ public class Stage {
 
 				if(ImageHandler.get().areImagesLoaded() || ImageHandler.get().hasNothingToDo()) {	
 					
-					CatrobatDebug.debug(ImageHandler.get().getNumberImagesLoaded() + " images are loaded, now start scheduler...");
-					
+					CatrobatDebug.debug(ImageHandler.get().getNumberImagesLoaded() + " images are loaded, now starting scheduler...");
+
 					ImageHandler.get().reset();
 					
 					//revive scheduler, so it can run again
@@ -125,10 +154,10 @@ public class Stage {
 				}
 				else {
 					CatrobatDebug.debug("ImageHandler not finished loading...");
-					
+					CatrobatDebug.debug(ImageHandler.get().getStatus());
 					if(ImageHandler.get().hasLoadingFailed()) {
-						CatrobatDebug.error("Error: ImageHandler couldn't load an image");
-						log("Error: ImageHandler couldn't load an image");
+						CatrobatDebug.error("ImageHandler couldn't load an image");
+						log("ImageHandler couldn't load an image");
 						this.cancel();
 						
 						loadingFailure();
@@ -144,9 +173,9 @@ public class Stage {
 	 * 
 	 */
 	public void displayLoadingImage() {
-		
+
 		CatrobatDebug.debug("displayLoadingImage...");
-		
+
 		//ImageHandler.get().addImage("loadgif", "images/ajax-loader.gif");
 		Image i = new Image( "images/ajax-loader.gif");
 		ImageHandler.get().newImage("loadgif", i);
@@ -160,7 +189,7 @@ public class Stage {
 
 				if(ImageHandler.get().areImagesLoaded()) {	
 					
-					CatrobatDebug.debug("loading gif ready to display");
+					CatrobatDebug.debug("Loading gif ready to display");
 					
 					Image image = ImageHandler.get().getImage("loadgif");
 					
@@ -184,12 +213,13 @@ public class Stage {
 	 * 
 	 */
 	public void clearStage() {
+	    userVariables = new UserVariablesContainer();
 		defaultLogBoxSettings();
 		
 		CatrobatDebug.debug("Spritemanager contains " + spriteManager.getSpriteList().size() + " sprites");
 		CatrobatDebug.debug("MessageContainer holds " + messageContainer.getMessages().size() + " messages");
 		
-		CatrobatDebug.info("Now clear stage...");
+		CatrobatDebug.info("Now clearing the stage...");
 		
 		//clear messageContainer
 		messageContainer.clear();
@@ -223,7 +253,7 @@ public class Stage {
 		Scene.get().clearCanvas();
 		Scene.get().setFont("12pt Calibri");
 		Scene.get().write(message, getStageMiddleX(), getStageMiddleY(), "center");
-		
+
 		CatrobatDebug.info("Error message written to canvas");
 //		Scene.get().update();
 	}

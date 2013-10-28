@@ -24,12 +24,13 @@ package org.catrobat.html5player.client.bricks;
 
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.common.Look;
+import org.catrobat.html5player.client.formulaeditor.Formula;
 
 public class TurnLeftBrick extends Brick {
 
-	private int degrees;
+	private Formula degrees;
 
-	public TurnLeftBrick(String sprite, int degrees) {
+	public TurnLeftBrick(String sprite, Formula degrees) {
 		super(sprite);
 		this.degrees = degrees;
 	}
@@ -37,7 +38,7 @@ public class TurnLeftBrick extends Brick {
 	@Override
 	public boolean execute(Sprite sprite) {
 		Look look = sprite.getLook();
-		look.setRotation( (look.getRotation() % 360) + (double) degrees);
+		look.setRotation( (look.getRotation() % 360) + (double) degrees.interpretFloat(sprite));
 		return false;
 	}
 
