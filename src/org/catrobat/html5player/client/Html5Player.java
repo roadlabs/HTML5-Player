@@ -50,6 +50,7 @@ public class Html5Player implements EntryPoint {
 	private Button rePlayButton = new Button("RePlay");
 	private Button zoomInButton = new Button("+");
 	private Button zoomOutButton = new Button("-");
+	private Button perfectSizeButton = new Button("<^v>");
 	private TextArea logBox = new TextArea();
 	private VerticalPanel screenPanel = new VerticalPanel();
 	private Label uploadLabel = new Label("Upload a project file:");
@@ -74,6 +75,7 @@ public class Html5Player implements EntryPoint {
 			mainPanel.add(rePlayButton);
 			mainPanel.add(zoomInButton);
 			mainPanel.add(zoomOutButton);
+			mainPanel.add(perfectSizeButton);
 			mainPanel.add(screenPanel);
 		}
 		else
@@ -106,6 +108,7 @@ public class Html5Player implements EntryPoint {
 				mainPanel.add(rePlayButton);
 				mainPanel.add(zoomInButton);
 				mainPanel.add(zoomOutButton);
+				mainPanel.add(perfectSizeButton);
 				VerticalPanel panel = new VerticalPanel();
 
 			      //create a file upload widget
@@ -146,6 +149,7 @@ public class Html5Player implements EntryPoint {
 				mainPanel.add(rePlayButton);
 				mainPanel.add(zoomInButton);
 				mainPanel.add(zoomOutButton);
+				mainPanel.add(perfectSizeButton);
 				mainPanel.add(screenPanel);
 			}
 		}
@@ -274,6 +278,15 @@ public class Html5Player implements EntryPoint {
 			Scene.get().zoomScene(half);
 			}
 		});
+
+		//handle click on the perfectsizeButton
+		//
+		perfectSizeButton.addClickHandler(new ClickHandler() {
+		public void onClick(ClickEvent event) {
+
+			Scene.get().toPerfectSize(Window.getClientHeight());
+					}
+				});
 
 		//handle click on the canvas
 		//

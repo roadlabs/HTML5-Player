@@ -136,6 +136,15 @@ public class Scene {
 
 	}
 
+	public void toPerfectSize(int windowHeight){
+
+		this.sceneHeight = windowHeight;
+		sceneCanvas.setHeight(windowHeight + "px");
+
+		//to do: calculate ratio for width!
+
+	}
+
 
 	//############################ DRAW IMAGE ##################################
 
