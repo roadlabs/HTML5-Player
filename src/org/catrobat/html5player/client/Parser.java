@@ -296,6 +296,11 @@ public class Parser {
       scriptList = getChildElementByTagName(objectNode, "scriptList");
       soundList = getChildElementByTagName(objectNode, "soundList");
 
+//      if(objectNode == null)
+//      {
+//        System.out.println("obj creation problem "+ objectNode);
+//        continue;
+//      }
       Sprite object = createObject(name, lookList, scriptList, soundList);
       if (object == null) {
         Window.alert("Could not parse XML document. There are unsupported elements!");
@@ -309,13 +314,16 @@ public class Parser {
   public Sprite createObject(String name, Node lookList, Node scriptList, Node soundList) {
 
     Sprite object = manager.getSprite(name, true);
+    if(object == null){
+      System.out.println("object creation of "+name+" failed");
+    }
 
     if (name.equals(Const.BACK_GROUND_GER) || name.equals(Const.BACK_GROUND_ENG)) {
       object.setBackground(true);
     }
     List<Element> looks = getChildElementsByTagName(lookList, "look");
     if (looks == null || looks.isEmpty()) {
-      System.out.println("look not found!");
+      System.out.println("look not found for object "+name +"!");
       looks = getChildElementsByTagName(lookList, "look");
     }
 
@@ -365,11 +373,12 @@ public class Parser {
 
         List<IfLogicBrick> openIfLogicBricks = new ArrayList<IfLogicBrick>();
         for (Element brickElement : brickElements) {
-          Brick brick;
+          Brick brick = null;
           try {
             brick = checkBrick(brickElement, object, script);
           } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println(brickElement);
+            System.out.println("Brick Creation Exception: "+e.toString());
             return null;
           }
           if (brick != null && script != null) {
@@ -621,7 +630,7 @@ public class Parser {
       Formula changeBrightness = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "changeBrightness"));
       return new ChangeBrightnessBrick(objName, changeBrightness);
     } else if(brickNode.getNodeName().equals("setVariableBrick")){
-      UserVariable userVar  = parseUserVariable(brickNode);
+      UserVariable userVar  = parseUserVariable(brickNode);     
       Formula formula = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "variableFormula"));
       return new SetVariableBrick(objName,formula, userVar);
     } else if(brickNode.getNodeName().equals("changeVariableBrick")){
@@ -629,7 +638,17 @@ public class Parser {
       Formula formula = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "variableFormula"));
       return new ChangeVariableBrick(objName,formula, userVar);
     } else if(brickNode.getNodeName().equals("ifLogicBeginBrick")){
-      Formula formula = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "ifCondition"));
+      Formula formula;
+      if(brickNode.hasAttribute("reference")){
+        String r = checkReference(brickNode.getAttribute("reference"), "ifLogicBeginBrick");
+        Element n = XPath.evaluateSingle(brickNode, r, Element.class);
+        //System.out.println(n);
+        //return new SequenceBrick(objName);
+        formula = FormulaParser.parseFormula(getChildElementByTagName(n, "ifCondition"));
+      }
+      else{
+        formula = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "ifCondition"));
+      }
       return new IfLogicBrick(objName, formula);
     } else if(brickNode.getNodeName().equals("ifLogicElseBrick")){
       return new IfLogicElseBrick(objName);
