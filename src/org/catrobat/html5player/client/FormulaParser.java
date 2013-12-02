@@ -22,17 +22,27 @@ public class FormulaParser {
     if(element == null){
       throw new Exception("formulaTree exception no root element");
     }
-    Element value = Parser.getChildElementByTagName(element,"value");
-    if(value == null){
-      throw new Exception("formulaTree exception no value");
-    }
-    String valueStr = value.getFirstChild().toString();
+
     Element typeEl = Parser.getChildElementByTagName(element,"type");
     if(typeEl == null){
       throw new Exception("formulaTree exception no type");
     }
-    
     ElementType type = parseElementType(typeEl);
+    
+    Element value = Parser.getChildElementByTagName(element,"value");
+    String valueStr = "";
+    if(value == null){
+      if(type != ElementType.BRACKET){
+         throw new Exception("formulaTree exception no value");
+      }
+    }
+    else
+    {
+      valueStr = value.getFirstChild().toString();
+    }
+    
+    
+    
     FormulaElement formulaElement = new FormulaElement(type,valueStr,parent);
     Element rightChild = Parser.getChildElementByTagName(element,"rightChild");
     if(rightChild != null){
