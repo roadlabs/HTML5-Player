@@ -289,7 +289,7 @@ public class Parser {
         String objectReference = checkReference(objectNode.getAttribute("reference"), "object");
         Element referencedObjectNode = XPath.evaluateSingle(objectNode, objectReference, Element.class);
         if(referencedObjectNode == null){
-          List<Element> refs = XPath.evaluate(objectNode, objectReference+"[1]", Element.class);
+          List<Element> refs = XPath.evaluate(objectNode, objectReference, Element.class);
           referencedObjectNode = refs.get(0);
         }
         objectNode = referencedObjectNode;
