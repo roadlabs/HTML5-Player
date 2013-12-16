@@ -279,7 +279,6 @@ public class Parser {
   private boolean parseAndCreateObjects(Document messageDom) {
     Element objectListNode = getChildElementByTagName(messageDom.getDocumentElement(), "objectList");
     List<Element> objectNodes = getChildElementsByTagName(objectListNode, "object");
-
     for (Element objectNode : objectNodes) {
       String name;
       Node lookList;
@@ -289,6 +288,10 @@ public class Parser {
       if (objectNode.hasAttribute("reference")) {
         String objectReference = checkReference(objectNode.getAttribute("reference"), "object");
         Element referencedObjectNode = XPath.evaluateSingle(objectNode, objectReference, Element.class);
+        if(referencedObjectNode == null){
+          List<Element> refs = XPath.evaluate(objectNode, objectReference+"[1]", Element.class);
+          referencedObjectNode = refs.get(0);
+        }
         objectNode = referencedObjectNode;
       }
       name = getText(getChildElementByTagName(objectNode, "name"));
@@ -296,11 +299,6 @@ public class Parser {
       scriptList = getChildElementByTagName(objectNode, "scriptList");
       soundList = getChildElementByTagName(objectNode, "soundList");
 
-//      if(objectNode == null)
-//      {
-//        System.out.println("obj creation problem "+ objectNode);
-//        continue;
-//      }
       Sprite object = createObject(name, lookList, scriptList, soundList);
       if (object == null) {
         Window.alert("Could not parse XML document. There are unsupported elements!");
