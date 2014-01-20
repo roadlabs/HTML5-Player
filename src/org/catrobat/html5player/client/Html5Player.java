@@ -22,11 +22,14 @@
  */
 package org.catrobat.html5player.client;
 
+
 import com.google.gwt.canvas.client.Canvas;
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.logical.shared.ResizeEvent;
+import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.user.client.Window;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FileUpload;
@@ -45,8 +48,9 @@ public class Html5Player implements EntryPoint {
 	private FlowPanel mainPanel = new FlowPanel();
 	private Button playButton = new Button("Play");
 	private Button showLogButton = new Button("ShowLogBox");
-	private Button rotateLeftButton = new Button("rotateLeft");
-	private Button rotateRightButton = new Button("rotateRight");
+	private Button rotateLeftButton = new Button("<image src='images/icon_undo.png' id='undo'/>");//<image src='https://raw.github.com/Catrobat/Catroid/master/catroid/res/drawable-hdpi/icon_undo.png' />");
+	private Button rotateRightButton = new Button("<image src='images/icon_redo.png' id='redo' />");//<image src='https://raw.github.com/Catrobat/Catroid/master/catroid/res/drawable-hdpi/icon_redo.png' />");
+
 	private Button rePlayButton = new Button("RePlay");
 	private Button zoomInButton = new Button("+");
 	private Button zoomOutButton = new Button("-");
@@ -66,16 +70,17 @@ public class Html5Player implements EntryPoint {
 	//##########################################################################
 
 	public void onModuleLoad() {
+		//CatrobatDebug.on();
 		mainPanel.add(rotateLeftButton);
 		mainPanel.add(rotateRightButton);
 		final String projectFileUrl = Window.Location.getParameter("projectfileurl");
 		final String projectNumber = Window.Location.getParameter("projectnumber");
 		if(projectFileUrl != null)
 		{
-			mainPanel.add(rePlayButton);
-			mainPanel.add(zoomInButton);
-			mainPanel.add(zoomOutButton);
-			mainPanel.add(perfectSizeButton);
+			//mainPanel.add(rePlayButton);
+			//mainPanel.add(zoomInButton);
+			//mainPanel.add(zoomOutButton);
+			//mainPanel.add(perfectSizeButton);
 			mainPanel.add(screenPanel);
 		}
 		else
@@ -105,10 +110,11 @@ public class Html5Player implements EntryPoint {
 	//
 	//			mainPanel.add(screenPanel);
 	//			screenPanel.add(logBox);
-				mainPanel.add(rePlayButton);
-				mainPanel.add(zoomInButton);
-				mainPanel.add(zoomOutButton);
-				mainPanel.add(perfectSizeButton);
+				//mainPanel.add(rePlayButton);
+				//mainPanel.add(zoomInButton);
+				//mainPanel.add(zoomOutButton);
+				//mainPanel.add(perfectSizeButton);
+
 				VerticalPanel panel = new VerticalPanel();
 
 			      //create a file upload widget
@@ -146,10 +152,10 @@ public class Html5Player implements EntryPoint {
 			}
 			else
 			{
-				mainPanel.add(rePlayButton);
-				mainPanel.add(zoomInButton);
-				mainPanel.add(zoomOutButton);
-				mainPanel.add(perfectSizeButton);
+				//mainPanel.add(rePlayButton);
+				//mainPanel.add(zoomInButton);
+				//mainPanel.add(zoomOutButton);
+				//mainPanel.add(perfectSizeButton);
 				mainPanel.add(screenPanel);
 			}
 		}
@@ -279,12 +285,55 @@ public class Html5Player implements EntryPoint {
 			}
 		});
 
+		//Window Resize Handler
+		Window.addResizeHandler(new ResizeHandler(){
+
+			public void onResize(ResizeEvent event){
+
+				int menuHeight = 0;
+				//Window.enableScrolling(false);
+				Window.setMargin("0");
+
+				if(projectFileUrl != null)
+				{
+					menuHeight = rotateLeftButton.getOffsetHeight();
+				}
+				else
+				{
+					menuHeight = rotateLeftButton.getOffsetHeight() + uploadLabel.getOffsetHeight() + form.getOffsetHeight();// + uploadButton.getOffsetHeight();
+				}
+
+				int toSize = (Window.getClientHeight() - menuHeight);
+
+				float Ratio = Scene.get().calcRatio(toSize);
+
+				Scene.get().resizeCanvas(toSize);
+
+				for (Sprite sprite : stage.getSpriteManager().getSpriteList())
+				{
+					sprite.getLook().getLookData().setHeight((int) (sprite.getLook().getLookData().getHeight()*Ratio));
+					sprite.getLook().getLookData().setWidth((int) (sprite.getLook().getLookData().getWidth()*Ratio));
+					sprite.getLook().setMiddleX(sprite.getLook().getMiddleX()*Ratio);
+					sprite.getLook().setMiddleY(sprite.getLook().getMiddleY()*Ratio);
+				}
+
+				//clikhandler funzt aber manche elemente im canvas werden nicht translated
+
+			}
+
+		});
+
 		//handle click on the perfectsizeButton
 		//
 		perfectSizeButton.addClickHandler(new ClickHandler() {
 		public void onClick(ClickEvent event) {
 
-			Scene.get().toPerfectSize(Window.getClientHeight());
+			screenPanel.getElement().getStyle().setProperty("transform", "scale(0.5)");
+			screenPanel.getElement().getStyle().setProperty("WebkitTransform", "scale(0.5)");
+			screenPanel.getElement().getStyle().setProperty("MsTransform", "scale(0.5)");
+			screenPanel.getElement().getStyle().setProperty("OTransform", "scale(0.5)");
+			screenPanel.getElement().getStyle().setProperty("MozTransform", "scale(0.5)");
+
 					}
 				});
 

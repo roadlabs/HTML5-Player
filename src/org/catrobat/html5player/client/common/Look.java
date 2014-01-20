@@ -2,21 +2,21 @@
  *  Catroid: An on-device visual programming system for Android devices
  *  Copyright (C) 2010-2013 The Catrobat Team
  *  (<http://developer.catrobat.org/credits>)
- *  
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as
  *  published by the Free Software Foundation, either version 3 of the
  *  License, or (at your option) any later version.
- *  
+ *
  *  An additional term exception under section 7 of the GNU Affero
  *  General Public License, version 3, is available at
  *  http://developer.catrobat.org/license_additional_term
- *  
+ *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU Affero General Public License for more details.
- *  
+ *
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -37,15 +37,15 @@ public class Look {
 	private boolean show;
 	private double rotation = 0;
 	private double size = 1;
-	
+
 	private double alphaValue = 1.0;
 	private double brightnessValue = 1.0;
-	
-	
+
+
 	private double middleX;
 	private double middleY;
 
-	
+
 	private Image image;
 
 	public Look(float xPosition, float yPosition, boolean show) {
@@ -66,6 +66,13 @@ public class Look {
 	public void setXYPosition(double setXPosition, double setYPosition) {
 		this.xPostition = setXPosition;
 		this.yPosition = setYPosition;
+	}
+
+	public void scale (float ratio)
+	{
+		this.xPostition = this.xPostition * ratio;
+		this.yPosition = this.yPosition * ratio;
+
 	}
 
 	public double getXPosition() {
@@ -119,18 +126,18 @@ public class Look {
 	public void setSize(double size) {
 		this.size = size;
 	}
-	
+
 	public double getAlphaValue() {
 		return this.alphaValue;
 	}
-	
+
 	public void setAlphaValue(double newAlphaValue) {
 		this.alphaValue = newAlphaValue;
 	}
-	
+
 	public void changeAlphaValueBy(double value) {
 		this.alphaValue += value;
-		
+
 		if(this.alphaValue < 0.0) {
 			this.alphaValue = 0.0;
 		}
@@ -142,22 +149,22 @@ public class Look {
 	public double getBrightnessValue() {
 		return this.brightnessValue;
 	}
-	
+
 	public void setBrightnessValue(double newBrightnessValue) {
 		this.brightnessValue = newBrightnessValue;
 	}
-	
+
 	public void changeBrightnessValueBy(double value) {
 		this.brightnessValue += value;
-		
+
 		if(this.brightnessValue < 0.0) {
 			this.brightnessValue = 0.0;
 		}
 	}
-	
-	
-	
-	
+
+
+
+
 	public Image getImage() {
 		return image;
 	}
@@ -171,11 +178,11 @@ public class Look {
 //		image.setPixelSize(this.lookData.getWidth(),	this.lookData.getHeight());
 //		image.setVisible(false);
 //	}
-	
+
 	public double getMiddleX() {
 		return this.middleX;
 	}
-	
+
 	public double getMiddleY() {
 		return this.middleY;
 	}
@@ -183,51 +190,51 @@ public class Look {
 	public void setMiddleX(double newMiddleX) {
 		this.middleX = newMiddleX;
 	}
-	
+
 	public void setMiddleY(double newMiddleY) {
 		this.middleY = newMiddleY;
 	}
-	
-	
-	
-	
-	
-	
+
+
+
+
+
+
 //	public void setX(double newX) {
 //		this.x = newX;
 //	}
-//	
+//
 //	public void setY(double newY) {
 //		this.y = newY;
 //	}
-//	
+//
 //	public double getX() {
 //		return this.x;
 //	}
-//	
+//
 //	public double getY() {
 //		return this.y;
 //	}
-	
-	
-	
+
+
+
 	public String debug() {
-		
+
 		String string = "";
-		
+
 		if(lookData != null) {
 			string += "name: " + lookData.getName() +
 					  ", width: " + lookData.getWidth() + ", height: " + lookData.getHeight() +
 					  ", ";
 		}
-		
+
 		string += "xPos: " + xPostition + ", yPos: " + yPosition + ", zPos: " + zPosition;
 		string += ", rot: " + rotation + ", size: " + size + ", show: " + show;
-		
-		
+
+
 		string += ", middleX: " + middleX + ", middleY: " + middleY;
-		
+
 		return string;
 	}
-	
+
 }

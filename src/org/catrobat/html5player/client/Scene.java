@@ -29,6 +29,7 @@ import com.google.gwt.canvas.dom.client.CssColor;
 import com.google.gwt.canvas.dom.client.ImageData;
 import com.google.gwt.core.client.JavaScriptException;
 import com.google.gwt.dom.client.ImageElement;
+import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Image;
 
 public class Scene {
@@ -120,8 +121,6 @@ public class Scene {
 			sceneCanvas.setCoordinateSpaceWidth(this.sceneWidth);
 			sceneCanvas.setCoordinateSpaceHeight(this.sceneHeight);
 
-//			back.getContext2d().translate(sceneWidth/2, sceneHeight/2);
-
 			CatrobatDebug.debug("Scene got measures - width: " + this.sceneWidth + " and height: " + this.sceneHeight);
 		}
 	}
@@ -136,12 +135,31 @@ public class Scene {
 
 	}
 
-	public void toPerfectSize(int windowHeight){
+	public float calcRatio(int windowHeight){
 
-		this.sceneHeight = windowHeight;
-		sceneCanvas.setHeight(windowHeight + "px");
+		float oldHeight = (float) this.sceneHeight;
+		float newHeight = (float) windowHeight;
 
-		//to do: calculate ratio for width!
+		float heightRatio = newHeight/oldHeight;
+
+		return heightRatio;
+
+	}
+
+	public void resizeCanvas(int windowHeight)
+	{
+
+		float oldWidth = (float) this.sceneWidth;
+		float newWidth = oldWidth * calcRatio(windowHeight);
+
+		this.sceneWidth = (int) newWidth;
+		sceneCanvas.setWidth((int) newWidth + "px");
+
+		this.sceneHeight = (int) windowHeight;
+		sceneCanvas.setHeight((int) windowHeight + "px");
+
+		DOM.getElementById("gwt-debug-rootCanvas").setPropertyInt("width", (int) newWidth);
+		DOM.getElementById("gwt-debug-rootCanvas").setPropertyInt("height", (int) windowHeight);
 
 	}
 

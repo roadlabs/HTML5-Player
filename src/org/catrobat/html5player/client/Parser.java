@@ -50,7 +50,7 @@ public class Parser {
   private SpriteManager manager;
 
   private boolean parsingComplete = false;
-  
+
   private boolean ignoreUnimplementedBricks = false;
 
   public Parser() {
@@ -69,7 +69,7 @@ public class Parser {
       if (!isVersionOK(messageDom)) {
         return;
       }
-      
+
       parseScreenResolution(messageDom);
       parseUserVariableList(getChildElementByTagName(messageDom.getDocumentElement(),"variables"));
       if (parseAndCreateObjects(messageDom)) {
@@ -273,6 +273,7 @@ public class Parser {
     } else {
       CatrobatDebug.warn("Method parseScreenResolution: nodeScreenHeight is null");
     }
+
     setRootCanvasSize(dimX, dimY);
   }
 
@@ -639,13 +640,13 @@ public class Parser {
     else {
       if(ignoreUnimplementedBricks){
         return new SequenceBrick(objName);
-      } 
+      }
       CatrobatDebug.warn("Brick: " + brickNode.getNodeName() + " not implemented");
       Stage.getInstance().log("Brick not implemented:" + brickNode.getNodeName());
     }
     return null;
   }
-  
+
   private Script checkScript(Element scriptElement, Sprite object) {
 
     Element objectElement = getChildElementByTagName(scriptElement, "object");
