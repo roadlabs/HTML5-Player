@@ -161,6 +161,7 @@ public class Scene {
 		DOM.getElementById("gwt-debug-rootCanvas").setPropertyInt("width", (int) newWidth);
 		DOM.getElementById("gwt-debug-rootCanvas").setPropertyInt("height", (int) windowHeight);
 
+
 	}
 
 
