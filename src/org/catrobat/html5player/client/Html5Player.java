@@ -54,7 +54,7 @@ public class Html5Player implements EntryPoint {
 	private Button rePlayButton = new Button("RePlay");
 	private Button zoomInButton = new Button("+");
 	private Button zoomOutButton = new Button("-");
-	private Button perfectSizeButton = new Button("<^v>");
+	private Button perfectSizeButton = new Button("<image src='images/icon_redo.png' id='redo' />");
 	private TextArea logBox = new TextArea();
 	private VerticalPanel screenPanel = new VerticalPanel();
 	private Label uploadLabel = new Label("Upload a project file:");
@@ -73,6 +73,7 @@ public class Html5Player implements EntryPoint {
 		//CatrobatDebug.on();
 		mainPanel.add(rotateLeftButton);
 		mainPanel.add(rotateRightButton);
+//		mainPanel.add(perfectSizeButton);
 		final String projectFileUrl = Window.Location.getParameter("projectfileurl");
 		final String projectNumber = Window.Location.getParameter("projectnumber");
 		if(projectFileUrl != null)
@@ -313,8 +314,8 @@ public class Html5Player implements EntryPoint {
 				{
 					sprite.getLook().getLookData().setHeight((int) (sprite.getLook().getLookData().getHeight()*Ratio));
 					sprite.getLook().getLookData().setWidth((int) (sprite.getLook().getLookData().getWidth()*Ratio));
-					sprite.getLook().setMiddleX(sprite.getLook().getMiddleX()*Ratio);
-					sprite.getLook().setMiddleY(sprite.getLook().getMiddleY()*Ratio);
+					sprite.getLook().setXPosition(sprite.getLook().getXPosition()*Ratio);
+					sprite.getLook().setYPosition(sprite.getLook().getYPosition()*Ratio);
 				}
 
 				//clikhandler funzt aber manche elemente im canvas werden nicht translated

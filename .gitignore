@@ -32,3 +32,4 @@ war/WEB-INF/classes/
 .settings/com.google.gdt.eclipse.core.prefs
 
 /org.catrobat.html5player.html5player.JUnit
+/test-classes
