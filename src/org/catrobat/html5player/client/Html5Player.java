@@ -306,20 +306,23 @@ public class Html5Player implements EntryPoint {
 
 				int toSize = (Window.getClientHeight() - menuHeight);
 
+				if (toSize > 100) {
+					
 				float Ratio = Scene.get().calcRatio(toSize);
 
-				Scene.get().resizeCanvas(toSize);
+				Scene.get().resizeCanvas(Ratio);
 
 				for (Sprite sprite : stage.getSpriteManager().getSpriteList())
 				{
-					sprite.getLook().getLookData().setHeight((int) (sprite.getLook().getLookData().getHeight()*Ratio));
-					sprite.getLook().getLookData().setWidth((int) (sprite.getLook().getLookData().getWidth()*Ratio));
+					sprite.getLook().getLookData().resize((sprite.getLook().getLookData().getHeight()*Ratio));
+//					sprite.getLook().getLookData().setHeight((sprite.getLook().getLookData().getHeight()*Ratio));
+//					sprite.getLook().getLookData().setWidth((sprite.getLook().getLookData().getWidth()*Ratio));
 					sprite.getLook().setXPosition(sprite.getLook().getXPosition()*Ratio);
 					sprite.getLook().setYPosition(sprite.getLook().getYPosition()*Ratio);
 				}
 
 				//clikhandler funzt aber manche elemente im canvas werden nicht translated
-
+				}
 			}
 
 		});

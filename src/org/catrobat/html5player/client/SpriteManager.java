@@ -97,7 +97,7 @@ public class SpriteManager {
 
 //				CatrobatDebug.on();
 				CatrobatDebug.debug("zPos of sprite: " + sprite.getName() + ": " + sprite.getLook().getZPosition());
-				System.out.println("XPos of sprite: " + sprite.getName() + ": " + sprite.getLook().getXPosition());
+//				System.out.println("XPos of sprite: " + sprite.getName() + ": " + sprite.getLook().getXPosition());
 			}
 		}
 

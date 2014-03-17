@@ -28,10 +28,20 @@ public class LookData implements Comparable<LookData> {
 
 	private String filename;
 
-	private int width;
+	private float width;
 
-	private int height;
+	private float height;
 
+	private double originalRatio;
+	
+	public void resize(float height){
+//		if (height > 100) {
+			this.height = height;
+			this.width = (float) (height/originalRatio);
+			System.out.println(name + " " + originalRatio);
+//		}
+	}
+	
 	public String getName() {
 		return name;
 	}
@@ -48,20 +58,26 @@ public class LookData implements Comparable<LookData> {
 		this.filename = filename;
 	}
 
-	public int getWidth() {
+	public float getWidth() {
 		return width;
 	}
 
-	public void setWidth(int width) {
+	public void setWidth(float width) {
 		this.width = width;
+		if(height!=0 && originalRatio == 0){
+			originalRatio = height/width;
+		}
 	}
 
-	public int getHeight() {
+	public float getHeight() {
 		return height;
 	}
 
-	public void setHeight(int height) {
+	public void setHeight(float height) {
 		this.height = height;
+		if(width!=0 && originalRatio == 0){
+			originalRatio = height/width;
+		}
 	}
 
 	@Override
