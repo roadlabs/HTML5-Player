@@ -45,7 +45,22 @@ public class ServerConnectionServiceImpl extends RemoteServiceServlet implements
 	public String getXML(String number) throws IOException {
 		URL url = new URL(Const.PROJECT_PATH + number +"/"+ Const.PROJECT_FILE);
 		CatrobatDebug.info("ProjectURL: " + url);
-		return new Scanner(url.openStream()).useDelimiter("//Z").next();
+		java.io.InputStream urlStream = null;
+		String returnString = "";
+		try {
+		 	urlStream =  url.openStream();
+		 	returnString = new Scanner(urlStream).useDelimiter("//Z").next();
+
+		} catch (Exception e) {
+
+			System.out.print("Can't open URL: " + url.getPath());
+		}
+		if(urlStream != null) {
+			urlStream.close();
+		}
+
+		return returnString;
+
 	}
 	@Override
 	public String getXML(){
@@ -55,7 +70,7 @@ public class ServerConnectionServiceImpl extends RemoteServiceServlet implements
 		if(pd == null)
 		{
 		  CatrobatDebug.debug("Project Data object is null!!!!");
-		}	
+		}
 		return pd.getXml();
 	}
 	@Override
@@ -70,7 +85,7 @@ public class ServerConnectionServiceImpl extends RemoteServiceServlet implements
 		ProjectData pd = (ProjectData) session.getAttribute("projectdata");
 		return pd.getSound(name);
 	}
-	
+
 	@Override
 	public String getXMLFromProjectFileUrl(String url) throws IOException
 	{
@@ -86,6 +101,6 @@ public class ServerConnectionServiceImpl extends RemoteServiceServlet implements
 		}
 		return pd.getXml();
 	}
-	
+
 
 }
