@@ -310,7 +310,7 @@ public class Html5Player implements EntryPoint {
 					
 				float Ratio = Scene.get().calcRatio(toSize);
 
-				Scene.get().resizeCanvas(Ratio);
+				Scene.get().resizeCanvas(toSize);
 
 				for (Sprite sprite : stage.getSpriteManager().getSpriteList())
 				{
