@@ -62,8 +62,6 @@ public class SensorController implements SensorNotifyingInterface {
 	@Override
 	public void Notify(Sensor sensor) {
 		Object result = sensor.GetResultObject();
-		if(sensor instanceof OrientationSensor)
-			org.catrobat.html5player.client.Html5Player.HandleRotation(result);
 	}
 	
 }
