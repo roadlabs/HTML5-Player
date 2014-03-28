@@ -7,25 +7,16 @@ public class OrientationSensor extends Sensor {
 
 	public OrientationSensor(SensorNotifyingInterface controller)
 	{
-		super(controller);
+		super(controller, -1);
 
 	}
 
-	public void onOrientationChanged() {
-		/*
-		// TODO Auto-generated method stub
-		switch (event.getOrientation()) {
-        case LANDSCAPE:
-           _result = event.getOrientation();
-            break;
-        case PORTRAIT:
-           _result = event.getOrientation();
-            break;
-
-            
-    }
-		**/
+	@Override
+	protected void InitAlgorithms()
+	{
+		
 	}
+	
 
 	@Override
 	public Object GetResultObject() {

@@ -52,6 +52,8 @@ public class SensorController implements SensorNotifyingInterface {
 		case LOOK_ROTATION:
 			concrete = new OrientationSensor(this);
 			break;
+		case COMPASS_DIRECTION:
+			concrete = new CompassSensor(this);
 		default:
 			break;
 		}

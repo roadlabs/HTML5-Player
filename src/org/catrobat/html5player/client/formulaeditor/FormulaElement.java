@@ -23,8 +23,11 @@
 package org.catrobat.html5player.client.formulaeditor;
 
 import java.io.Serializable;
+
 import org.catrobat.html5player.client.Sprite;
 import org.catrobat.html5player.client.Stage;
+
+import com.google.appengine.labs.repackaged.com.google.common.base.Converter;
 
 
 public class FormulaElement implements Serializable {
@@ -131,7 +134,8 @@ public class FormulaElement implements Serializable {
 			
 			switch (sensor) {
 			case COMPASS_DIRECTION:
-				result = interpretCompass(sensor, sprite);
+				result =  (Float)SensorController.GetController().GetSensor(sensor).GetResultObject();
+				//result = interpretCompass(sensor, sprite);
 				break;
 			default:
 				break;
@@ -143,7 +147,6 @@ public class FormulaElement implements Serializable {
 
 	private double interpretCompass(Sensors sensor,Sprite sprite)
 	{
-		
 		return 0.0F;
 	}
 	
