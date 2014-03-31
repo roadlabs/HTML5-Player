@@ -50,7 +50,7 @@ public class Parser {
   private SpriteManager manager;
 
   private boolean parsingComplete = false;
-  
+
   private boolean ignoreUnimplementedBricks = false;
 
   public Parser() {
@@ -69,7 +69,7 @@ public class Parser {
       if (!isVersionOK(messageDom)) {
         return;
       }
-      
+
       parseScreenResolution(messageDom);
       parseUserVariableList(getChildElementByTagName(messageDom.getDocumentElement(),"variables"));
       if (parseAndCreateObjects(messageDom)) {
@@ -362,7 +362,7 @@ public class Parser {
         System.out.println("error parsing script: "+scriptElement.toString());
         return null;
       }
-
+      script.addBrick(new SetLookBrick(object.getName(), object.getLookData().get(0).getName())); //Version 9.0 statt whitescreen
       Element brickListElement = getChildElementByTagName(scriptElement, "brickList");
 
 
@@ -628,7 +628,7 @@ public class Parser {
       Formula changeBrightness = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "changeBrightness"));
       return new ChangeBrightnessBrick(objName, changeBrightness);
     } else if(brickNode.getNodeName().equals("setVariableBrick")){
-      UserVariable userVar  = parseUserVariable(brickNode);     
+      UserVariable userVar  = parseUserVariable(brickNode);
       Formula formula = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "variableFormula"));
       return new SetVariableBrick(objName,formula, userVar);
     } else if(brickNode.getNodeName().equals("changeVariableBrick")){
@@ -656,13 +656,13 @@ public class Parser {
     else {
       if(ignoreUnimplementedBricks){
         return new SequenceBrick(objName);
-      } 
+      }
       CatrobatDebug.warn("Brick: " + brickNode.getNodeName() + " not implemented");
       Stage.getInstance().log("Brick not implemented:" + brickNode.getNodeName());
     }
     return null;
   }
-  
+
   private Script checkScript(Element scriptElement, Sprite object) {
 
     Element objectElement = getChildElementByTagName(scriptElement, "object");
