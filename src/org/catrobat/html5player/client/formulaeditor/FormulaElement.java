@@ -98,12 +98,9 @@ public class FormulaElement implements Serializable {
 				returnValue = interpretFunction(function, sprite);
 				break;
 			case SENSOR:
-				Sensors sensor = Sensors.getSensorByValue(value);
-				if (sensor.isLookSensor) {
-					returnValue = interpretLookSensor(sensor, sprite);
-				} else {
-					returnValue = 0.0;//SensorHandler.getSensorValue(sensor);
-				}
+				
+				returnValue = GetResultFromSensor(value, sprite);
+				
 				break;
 			case USER_VARIABLE:
 				UserVariablesContainer userVariables = Stage.getInstance().getUserVariables();
@@ -122,7 +119,34 @@ public class FormulaElement implements Serializable {
 		return returnValue;
 
 	}
+	
+	private double GetResultFromSensor(String sensorValue, Sprite sprite){
+		
+		double result = 0.0F;
+		Sensors sensor = Sensors.getSensorByValue(value);
+		if (sensor.isLookSensor) {
+			result = interpretLookSensor(sensor, sprite); 
+		}
+		else{
+			
+			switch (sensor) {
+			case COMPASS_DIRECTION:
+				result = interpretCompass(sensor, sprite);
+				break;
+			default:
+				break;
+			}
+		}
+		
+		return result;
+	}
 
+	private double interpretCompass(Sensors sensor,Sprite sprite)
+	{
+		
+		return 0.0F;
+	}
+	
 	private Double interpretFunction(Functions function, Sprite sprite) {
 		Double left = null;
 
@@ -246,7 +270,7 @@ public class FormulaElement implements Serializable {
 
 	private Double interpretLookSensor(Sensors sensor, Sprite sprite) {
 		Double returnValue = 0d;
-//		switch (sensor) {
+		switch (sensor) {
 //			case LOOK_BRIGHTNESS:
 //				returnValue = (double) sprite.look.getBrightnessInUserInterfaceDimensionUnit();
 //				break;
@@ -256,9 +280,11 @@ public class FormulaElement implements Serializable {
 //			case LOOK_LAYER:
 //				returnValue = (double) sprite.look.getZIndex();
 //				break;
-//			case LOOK_ROTATION:
-//				returnValue = (double) sprite.look.getRotationInUserInterfaceDimensionUnit();
-//				break;
+			case LOOK_ROTATION:
+				SensorController.GetController().ActivateSensor(sensor);
+				
+				//returnValue = (double) sprite.look.getRotationInUserInterfaceDimensionUnit();
+				break;
 //			case LOOK_SIZE:
 //				returnValue = (double) sprite.look.getSizeInUserInterfaceDimensionUnit();
 //				break;
@@ -268,7 +294,7 @@ public class FormulaElement implements Serializable {
 //			case LOOK_Y:
 //				returnValue = (double) sprite.look.getYInUserInterfaceDimensionUnit();
 //				break;
-//		}
+		}
 		return returnValue;
 	}
 
