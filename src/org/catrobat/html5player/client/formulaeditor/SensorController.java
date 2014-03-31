@@ -54,6 +54,17 @@ public class SensorController implements SensorNotifyingInterface {
 			break;
 		case COMPASS_DIRECTION:
 			concrete = new CompassSensor(this);
+			break;
+		case X_ACCELERATION:
+			break;
+		case Y_ACCELERATION:
+			break;
+		case X_INCLINATION:
+			break;
+		case Y_INCLINATION:
+			break;
+		case Z_ACCELERATION:
+			break;
 		default:
 			break;
 		}

@@ -17,15 +17,6 @@ public class OrientationSensor extends Sensor {
 		
 	}
 	
-
-	@Override
-	public Object GetResultObject() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	
-
 	
 	
 }
