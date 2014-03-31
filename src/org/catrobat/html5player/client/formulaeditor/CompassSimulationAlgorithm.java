@@ -17,6 +17,6 @@ public class CompassSimulationAlgorithm implements ISimulationAlgortihm {
 	}
 	public Object GetResult()
 	{
-		return _direction += 10.0F;
+		return _direction += 0.0F;
 	}
 }

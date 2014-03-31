@@ -7,10 +7,6 @@ public class CompassSensor extends Sensor {
 		super(controller,-1);
 	}
 	
-	public CompassSensor(SensorNotifyingInterface controller, int algorithm) {
-		super(controller, algorithm);
-	}
-	
 	@Override
 	protected void InitAlgorithms()
 	{
