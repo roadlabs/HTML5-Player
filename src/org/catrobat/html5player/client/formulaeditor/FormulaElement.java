@@ -2,21 +2,21 @@
  *  Catroid: An on-device visual programming system for Android devices
  *  Copyright (C) 2010-2013 The Catrobat Team
  *  (<http://developer.catrobat.org/credits>)
- *  
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as
  *  published by the Free Software Foundation, either version 3 of the
  *  License, or (at your option) any later version.
- *  
+ *
  *  An additional term exception under section 7 of the GNU Affero
  *  General Public License, version 3, is available at
  *  http://developer.catrobat.org/license_additional_term
- *  
+ *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU Affero General Public License for more details.
- *  
+ *
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -98,9 +98,9 @@ public class FormulaElement implements Serializable {
 				returnValue = interpretFunction(function, sprite);
 				break;
 			case SENSOR:
-				
+
 				returnValue = GetResultFromSensor(value, sprite);
-				
+
 				break;
 			case USER_VARIABLE:
 				UserVariablesContainer userVariables = Stage.getInstance().getUserVariables();
@@ -119,16 +119,16 @@ public class FormulaElement implements Serializable {
 		return returnValue;
 
 	}
-	
+
 	private double GetResultFromSensor(String sensorValue, Sprite sprite){
-		
+
 		double result = 0.0F;
 		Sensors sensor = Sensors.getSensorByValue(value);
 		if (sensor.isLookSensor) {
-			result = interpretLookSensor(sensor, sprite); 
+			result = interpretLookSensor(sensor, sprite);
 		}
 		else{
-			
+
 			switch (sensor) {
 			case COMPASS_DIRECTION:
 				result = interpretCompass(sensor, sprite);
@@ -137,16 +137,16 @@ public class FormulaElement implements Serializable {
 				break;
 			}
 		}
-		
+
 		return result;
 	}
 
 	private double interpretCompass(Sensors sensor,Sprite sprite)
 	{
-		
+
 		return 0.0F;
 	}
-	
+
 	private Double interpretFunction(Functions function, Sprite sprite) {
 		Double left = null;
 
@@ -282,7 +282,7 @@ public class FormulaElement implements Serializable {
 //				break;
 			case LOOK_ROTATION:
 				SensorController.GetController().ActivateSensor(sensor);
-				
+
 				//returnValue = (double) sprite.look.getRotationInUserInterfaceDimensionUnit();
 				break;
 //			case LOOK_SIZE:
@@ -294,6 +294,8 @@ public class FormulaElement implements Serializable {
 //			case LOOK_Y:
 //				returnValue = (double) sprite.look.getYInUserInterfaceDimensionUnit();
 //				break;
+		default:
+			break;
 		}
 		return returnValue;
 	}

@@ -1,7 +1,5 @@
 package org.catrobat.html5player.client.formulaeditor;
 
-import com.google.gwt.user.client.Event;
-
 
 public class OrientationSensor extends Sensor {
 
@@ -22,7 +20,7 @@ public class OrientationSensor extends Sensor {
            _result = event.getOrientation();
             break;
 
-            
+
     }
 		**/
 	}
@@ -33,8 +31,8 @@ public class OrientationSensor extends Sensor {
 		return null;
 	}
 
-	
 
-	
-	
+
+
+
 }
