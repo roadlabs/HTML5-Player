@@ -40,6 +40,7 @@ public class ComeToFrontBrickTest extends GWTTestCase {
 	public void testComeToFront() {
 		
 		Stage stage = Stage.getInstance();
+		stage.getSpriteManager().clearSprites();
 		Canvas canvas = Canvas.createIfSupported();
 		canvas.setCoordinateSpaceHeight(100);
 		canvas.setCoordinateSpaceWidth(100);
@@ -63,7 +64,7 @@ public class ComeToFrontBrickTest extends GWTTestCase {
 	
 		ComeToFrontBrick comeToFrontBrick = new ComeToFrontBrick(bottomSpriteName);
 		comeToFrontBrick.execute();
-		assertEquals("bottomSprite z position should now be 3", bottomSprite.getLook().getZPosition(), 3);
+		assertEquals("bottomSprite z position should now be 3", 3, bottomSprite.getLook().getZPosition());
 	}
 
 	public void testNullSprite() {
