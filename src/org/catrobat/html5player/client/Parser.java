@@ -362,7 +362,7 @@ public class Parser {
         System.out.println("error parsing script: "+scriptElement.toString());
         return null;
       }
-      //script.addBrick(new SetLookBrick(object.getName(), object.getLookData().get(0).getName())); //Version 9.0 statt whitescreen
+      script.addBrick(new SetLookBrick(object.getName(), object.getLookData().get(0).getName())); //Version 9.0 statt whitescreen
       Element brickListElement = getChildElementByTagName(scriptElement, "brickList");
 
 
