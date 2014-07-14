@@ -16,6 +16,11 @@
   <inherits name ="com.mouchel.gwt.xpath.xpath"/>
   <inherits name="com.google.gwt.user.Debug"/>
   <inherits name="com.google.gwt.logging.Logging"/>
+  
+  <!-- SuperDev Mode                                              -->
+  <add-linker name="xsiframe"/>
+  <set-configuration-property name='xsiframe.failIfScriptTag' value='FALSE'/>
+  <set-configuration-property name="devModeRedirectEnabled" value="true"/>
 
   <!-- Specify the app entry point class.                         -->
   <entry-point class='org.catrobat.html5player.client.Html5Player'/>

@@ -17,6 +17,7 @@ war/WEB-INF/lib/
 !war/WEB-INF/lib/commons-fileupload-1.2.jar
 !war/WEB-INF/lib/commons-io-2.4.jar
 !war/WEB-INF/lib/commons-compress-1.5.jar
+!war/WEB-INF/lib/gwt-codeserver-2.6.0.jar
 
 # boilerplate generated classes #
 .apt_generated/
@@ -32,3 +33,4 @@ war/WEB-INF/classes/
 .settings/com.google.gdt.eclipse.core.prefs
 
 /org.catrobat.html5player.html5player.JUnit
+/test-classes
