@@ -57,7 +57,7 @@ public class Html5Player implements EntryPoint {
 	private Canvas rootCanvas;
 
 	private ServerConnectionCalls server;
-	private ListBox projectListBox = new ListBox();
+	//private ListBox projectListBox = new ListBox();
 	private static int rotationAngle = 0;
 	Button uploadButton = new Button("Upload File");
 	final FormPanel form = new FormPanel();
@@ -161,7 +161,7 @@ public class Html5Player implements EntryPoint {
 		screenPanel.add(rootCanvas);
 		rootCanvas.ensureDebugId("rootCanvas");
 
-		populateProjectsListBox();
+		//populateProjectsListBox();
 
 		RootPanel.get("firstWindow").add(mainPanel);
 
@@ -177,8 +177,6 @@ public class Html5Player implements EntryPoint {
 			public void onClick(ClickEvent event) {
 				rotationAngle = 0;
 				rotateDirection(0, screenPanel);
-				int selectedIndex = projectListBox.getSelectedIndex();
-				String projectNumber = projectListBox.getValue(selectedIndex);
 
 				CatrobatDebug.info("Play button was clicked, project: " + projectNumber + " is selected");
 
@@ -200,8 +198,8 @@ public class Html5Player implements EntryPoint {
 				//Window.alert(event.getResults());
 				rotationAngle = 0;
 				rotateDirection(0, screenPanel);
-				int selectedIndex = projectListBox.getSelectedIndex();
-				String projectNumber = projectListBox.getValue(selectedIndex);
+				//int selectedIndex = projectListBox.getSelectedIndex();
+				//String projectNumber = projectListBox.getValue(selectedIndex);
 
 				stage.clearStage();
 				stage.displayLoadingImage();
@@ -404,80 +402,5 @@ public class Html5Player implements EntryPoint {
 	{
 		return rotationAngle;
 	}
-
-	//##########################################################################
-
-	/**
-	 *
-	 */
-	public void populateProjectsListBox() {
-
-//		projectListBox.addItem("Asteroids 2 - 316", "316");
-
-		projectListBox.addItem("fruit catcher 2 - 297", "297");
-
-		projectListBox.addItem("Fishy - 515", "515");
-
-		projectListBox.addItem("Pacman - 579", "579");
-		projectListBox.addItem("Aquarium3 - 581", "581");
-
-		projectListBox.addItem("Hannah Montana - 299", "299");
-		projectListBox.addItem("Nintendo Hunter - 305", "305");
-		projectListBox.addItem("ShufflingGoose - 317", "317");
-		projectListBox.addItem("Rainbow lama - 311", "311");
-
-		projectListBox.addItem("batmobile v1.1 - 313", "313");
-		projectListBox.addItem("batmobile - 309", "309");
-
-		projectListBox.addItem("Bouncing Balls - 339", "339");
-		projectListBox.addItem("Cartoon Dance - 363", "363");
-		projectListBox.addItem("Gear - 332", "332");
-		projectListBox.addItem("Wood saw Cutter - 328", "328");
-
-		projectListBox.addItem("mole with sounds - 357", "357");
-		projectListBox.addItem("Bubble shoot - 327", "327");
-
-		projectListBox.addItem("neu - 558", "558");
-		projectListBox.addItem("Ballontest - 547", "547");
-
-
-		projectListBox.addItem("Nyan Cat - 298", "298");
-		projectListBox.addItem("POC Moorhuhn - 296", "296");
-
-		projectListBox.addItem("Puppet- 333", "333");
-
-		projectListBox.addItem("Darts - 315", "315");
-		projectListBox.addItem("Skyrim Hunter - 314", "314");
-
-		projectListBox.addItem("Asteroids - 320", "320");
-
-		projectListBox.addItem("ShakingHeads - 323", "323");
-		projectListBox.addItem("Tuned Simple Piano - 324", "324");
-
-		projectListBox.addItem("eggdroid - 337", "337");
-		projectListBox.addItem("Fruit Eater - 336", "336");
-
-		projectListBox.addItem("Swat - 346", "346");
-		projectListBox.addItem("Tester - 347", "347");
-
-		projectListBox.addItem("maxb-other - 342", "342");
-		projectListBox.addItem("cogs - 340", "340");
-
-		projectListBox.addItem("Simple eyes - 352", "352");
-		projectListBox.addItem("Lightningrohan13 - 368", "368");
-
-		projectListBox.addItem("Basic Movement Program - 510", "510");
-		projectListBox.addItem("moving baseball remix - 364", "364");
-
-		projectListBox.addItem("passion13 - 367", "367");
-
-		projectListBox.addItem("IQ Test - 398", "398");
-		projectListBox.addItem("Biene Maja - 334", "334");
-		projectListBox.addItem("sound test - 393", "393");
-		projectListBox.addItem("cat go up and down - 409", "409");
-		projectListBox.addItem("cat hide - 410", "410");
-		projectListBox.addItem("insectcat - 411", "411");
-		projectListBox.addItem("monster - 412", "412");
-		projectListBox.addItem("simple project - 560", "560");
-	}
+	
 }
