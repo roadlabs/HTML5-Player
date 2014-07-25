@@ -22,12 +22,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.catrobat.html5player.client.bricks.*;
-
 import org.catrobat.html5player.client.common.LookData;
 import org.catrobat.html5player.client.common.SoundInfo;
 import org.catrobat.html5player.client.formulaeditor.Formula;
 import org.catrobat.html5player.client.formulaeditor.UserVariable;
-
 import org.catrobat.html5player.client.scripts.BroadcastScript;
 import org.catrobat.html5player.client.scripts.Script;
 import org.catrobat.html5player.client.scripts.StartScript;
@@ -82,7 +80,17 @@ public class Parser {
   }
 
   // ##########################################################################
-
+  
+  // for fixing the problem with xpathEvaluateFirst witch returns null if there are multiple entries
+  private Element xpathEvaluateFirst(Element objectNode, String objectReference, Class<Element> type){
+      List<Element> refs = XPath.evaluate(objectNode, objectReference, type);
+      if(refs == null || refs.size() == 0){
+    	  return null;
+      }
+      return refs.get(0);
+  }
+  
+  
   private boolean hasDomDocumentPageNotFoundError(Document messageDom) {
     NodeList errornodes = ((Element) messageDom.getFirstChild()).getElementsByTagName("error");
     if (errornodes != null && errornodes.getLength() != 0) {
@@ -232,20 +240,21 @@ public class Parser {
       Element var = getChildElements(userVariables).get(i);
       if (var.hasAttribute("reference")) {
         String objectReference = checkReference(var.getAttribute("reference"), "userVariable");
-        Element userVariable = XPath.evaluateSingle(var, objectReference, Element.class);
+        Element userVariable = xpathEvaluateFirst(var, objectReference, Element.class);
         if(userVariable == null){
           return;
         }
         String name = "";
         double value = 0.0;
+        
         Element nameEl = getChildElementByTagName(userVariable,"name");
-
         if(nameEl != null)
         {
           name = nameEl.getFirstChild().toString();
         }
+        
         Element valueEl = getChildElementByTagName(userVariable,"value");
-        if(nameEl != null)
+        if(valueEl != null)
         {
           value = Double.parseDouble(valueEl.getFirstChild().toString());
         }
@@ -287,11 +296,7 @@ public class Parser {
 
       if (objectNode.hasAttribute("reference")) {
         String objectReference = checkReference(objectNode.getAttribute("reference"), "object");
-        Element referencedObjectNode = XPath.evaluateSingle(objectNode, objectReference, Element.class);
-        if(referencedObjectNode == null){
-          List<Element> refs = XPath.evaluate(objectNode, objectReference, Element.class);
-          referencedObjectNode = refs.get(0);
-        }
+        Element referencedObjectNode = xpathEvaluateFirst(objectNode, objectReference, Element.class);
         objectNode = referencedObjectNode;
       }
       name = getText(getChildElementByTagName(objectNode, "name"));
@@ -417,7 +422,7 @@ public class Parser {
         objectReference != null ? objectReference.getAttribute("reference") : null;
 
     Element referencedObject =
-        (objectReference != null && reference != null) ? XPath.evaluateSingle(
+        (objectReference != null && reference != null) ? xpathEvaluateFirst(
             objectReference, reference, Element.class) : null;
 
     String objName = object.getName();
@@ -439,7 +444,7 @@ public class Parser {
           lookReferenceElement != null ? checkReference(
               lookReferenceElement.getAttribute("reference"), "look") : null;
       Element lookElement =
-          lookReferenceElement != null && lookReference != null ? XPath.evaluateSingle(
+          lookReferenceElement != null && lookReference != null ? xpathEvaluateFirst(
               lookReferenceElement, lookReference, Element.class) : null;
 
       String lookName = null;
@@ -468,7 +473,7 @@ public class Parser {
           String soundInfoReference =
               checkReference(soundInfoElement.getAttribute("reference"), "PlaySoundBrick");
           Element referencedSoundInfoElement =
-              XPath.evaluateSingle(soundInfoElement, soundInfoReference, Element.class);
+              xpathEvaluateFirst(soundInfoElement, soundInfoReference, Element.class);
 
           CatrobatDebug.debug("PlaySoundBrick has a reference-attribute: " + soundInfoReference);
           CatrobatDebug.debug("referenced soundInfo: " + referencedSoundInfoElement);
@@ -606,7 +611,7 @@ public class Parser {
       if (pointedSpriteNode.hasAttribute("reference")) {
         String pointedSpriteReference = pointedSpriteNode.getAttribute("reference");
         Element referencedSpriteNode =
-            XPath.evaluateSingle(pointedSpriteNode, pointedSpriteReference, Element.class);
+            xpathEvaluateFirst(pointedSpriteNode, pointedSpriteReference, Element.class);
         pointedSpriteNameNode = getChildElementByTagName(referencedSpriteNode, "name");
       } else {
         pointedSpriteNameNode = getChildElementByTagName(pointedSpriteNode, "name");
@@ -639,7 +644,7 @@ public class Parser {
       Formula formula;
       if(brickNode.hasAttribute("reference")){
         String r = checkReference(brickNode.getAttribute("reference"), "ifLogicBeginBrick");
-        Element n = XPath.evaluateSingle(brickNode, r, Element.class);
+        Element n = xpathEvaluateFirst(brickNode, r, Element.class);
         //System.out.println(n);
         //return new SequenceBrick(objName);
         formula = FormulaParser.parseFormula(getChildElementByTagName(n, "ifCondition"));
@@ -669,7 +674,7 @@ public class Parser {
     String objectReference =
         objectElement != null ? objectElement.getAttribute("reference") : null;
     Element referencedObject =
-        (objectElement != null && objectReference != null) ? XPath.evaluateSingle(
+        (objectElement != null && objectReference != null) ? xpathEvaluateFirst(
             objectElement, objectReference, Element.class) : null;
 
     Sprite scriptObject = object;
@@ -715,7 +720,7 @@ public class Parser {
 
     if (userVariable.hasAttribute("reference")) {
       String objectReference = checkReference(userVariable.getAttribute("reference"), "userVariable");
-      userVariable = XPath.evaluateSingle(userVariable, objectReference, Element.class);
+      userVariable = xpathEvaluateFirst(userVariable, objectReference, Element.class);
       if(userVariable == null){
         return null;
       }
