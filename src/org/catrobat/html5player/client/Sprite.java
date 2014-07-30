@@ -2,21 +2,21 @@
  *  Catroid: An on-device visual programming system for Android devices
  *  Copyright (C) 2010-2014 The Catrobat Team
  *  (<http://developer.catrobat.org/credits>)
- *  
+ *
  *  This program is free software: you can redistribute it and/or modify
  *  it under the terms of the GNU Affero General Public License as
  *  published by the Free Software Foundation, either version 3 of the
  *  License, or (at your option) any later version.
- *  
+ *
  *  An additional term exception under section 7 of the GNU Affero
  *  General Public License, version 3, is available at
  *  http://developer.catrobat.org/license_additional_term
- *  
+ *
  *  This program is distributed in the hope that it will be useful,
  *  but WITHOUT ANY WARRANTY; without even the implied warranty of
  *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  *  GNU Affero General Public License for more details.
- *  
+ *
  *  You should have received a copy of the GNU Affero General Public License
  *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.catrobat.html5player.client.bricks.SetLookBrick;
+import org.catrobat.html5player.client.bricks.ShowBrick;
 import org.catrobat.html5player.client.common.Look;
 import org.catrobat.html5player.client.common.LookData;
 import org.catrobat.html5player.client.common.Sound;
@@ -50,7 +52,7 @@ public class Sprite {
 
 	private final String name;
 	private boolean isBackground = false;
-	
+
 	private double volume;
 
 	private Look look;
@@ -83,7 +85,7 @@ public class Sprite {
 	public void setBackground(boolean background) {
 		isBackground = background;
 	}
-	
+
 	public Look getLook() {
 		return look;
 	}
@@ -92,6 +94,7 @@ public class Sprite {
 		if (lookData != null && !looks.containsKey(lookData.getName())) {
 			Look look = new Look(0.0f, 0.0f, true);
 			look.setLookData(lookData);
+
 			looks.put(lookData.getName(), look);
 		}
 
@@ -106,38 +109,38 @@ public class Sprite {
 		looks.addAll(this.looks.values());
 		return looks;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	public ArrayList<String> getLookDataNames() {
 		return new ArrayList<String>(looks.keySet());
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	public ArrayList<LookData> getLookData() {
 		ArrayList <Look> looksList = new ArrayList<Look>(looks.values());
 		ArrayList<LookData> lookDataList = new ArrayList<LookData>();
-		
+
 		for(Look look : looksList) {
-			LookData lookData = look.getLookData(); 
+			LookData lookData = look.getLookData();
 			lookDataList.add(lookData);
 		}
-		
+
 		return lookDataList;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	public LookData getLookDataByName(String lookName) {
-		
+
 		if(looks.containsKey(lookName)) {
 			return looks.get(lookName).getLookData();
 		}
-		
+
 		return null;
 	}
 
@@ -158,20 +161,20 @@ public class Sprite {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param position
 	 * @return script
 	 */
 	public Script getScript(int position){
 		ArrayList<Script> scriptsList = new ArrayList<Script>(scripts);
-		
+
 		if(position < getNumberOfScripts())
 			return scriptsList.get(position);
 		else
 			return null;
 	}
-	
-	
+
+
 	   public int getScriptIndex(Script script){
 	        ArrayList<Script> scriptsList = new ArrayList<Script>(scripts);
 	        int index = 0;
@@ -197,67 +200,81 @@ public class Sprite {
 	public Sound getSound(String id) {
 		return sounds.get(id);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	public void showLook() {
 		if (look == null)
+		{
+			CatrobatDebug.info("Look NULLLL");
 			return;
-		
+		}
+
 		LookData lookData = look.getLookData();
-		
+
 		if(lookData == null)
+		{
+			CatrobatDebug.info("LookDATA NULLLL: ");
 			return;
-		
+		}
+
 		currentLook = ImageHandler.get().getImage(lookData.getFilename());
-		
+
 		if(currentLook == null)
 			return;
-		
+
 		lookData.setWidth(currentLook.getWidth());
 		lookData.setHeight(currentLook.getHeight());
 	}
 
 	public void drawSprite() {
-		
+
 		if(currentLook == null || !look.isVisible()) {
+			CatrobatDebug.info("current look = " + currentLook + "| visible = " + look.isVisible());
 			return;
 		}
-		
+
 		long start = System.currentTimeMillis();
 
+
 		CatrobatDebug.debug("drawSprite: " + this.name + " - customename: " + look.getLookData().getFilename());
-		
+
 		LookData lookData = look.getLookData();
 		double size = look.getSize();
 		double width = (double)lookData.getWidth() * size;
 		double height = (double)lookData.getHeight() * size;
-				
-		
-		Scene.get().drawImageJSNI(currentLook, 
-				look.getXPosition(), 
-				look.getYPosition(), 
+
+
+		Scene.get().drawImageJSNI(currentLook,
+				look.getXPosition(),
+				look.getYPosition(),
 				-width / 2,
 				-height / 2,
-				width, 
+				width,
 				height,
 				-look.getRotation(), // the MINUS is important because canvas positive rotation is clockwise
 				look.getAlphaValue());
-		
+
 		CatrobatDebug.debug("drawSprite-execution took " + (System.currentTimeMillis() - start + " ms"));
 		CatrobatDebug.debug("z-Pos: " + look.getZPosition() + " : name: " + this.name);
 	}
 
+	//TESTEN!!!!!
 	public void run() {
-		
+
 		CatrobatDebug.debug("Sprite: " + this.name + ".run() - add startscripts");
 		CatrobatDebug.debug("Number of scripts: " + this.getNumberOfScripts());
-		
+
 		List<Script> scriptList = new ArrayList<Script>();
 		scriptList.addAll(scripts);
 		Collections.sort(scriptList);
 		Stage.getInstance().setCurrentSprite(this);
+
+		//AAA
+
+		int startScriptCounter = 0;
+
 		for (Script script : scriptList) {
 
 			//only add StartScripts to the scheduler
@@ -265,26 +282,56 @@ public class Sprite {
 
 //				CatrobatDebug.debug("script is no WhenScript or BroadcastScript, Sprite: " + this.name);
 
+				if(this.getLookData().get(0).getName() != null)
+				{
+					script.addBrick(new SetLookBrick(this.getName(), this.getLookData().get(0).getName()),0); //Version 9.0 statt whitescreen
+					script.addBrick(new ShowBrick(this.getName())); //evt weglassen geht
+				}
+
+				CatThread thread = new CatThread(this.getName() + script.getName(), script);
+				CatScheduler.get().schedule(thread);
+
+				startScriptCounter++;
+			}
+			else if (script instanceof WhenScript) {
+
+
+				CatrobatDebug.info("Whenscript exists");
+				//CatrobatDebug.debug("script '" + script.getName() + "' is a WhenScript or a BroadcastScript, Sprite: " + this.name);
+			}
+
+//			script.run();
+		}
+
+		if (startScriptCounter == 0 && this.isBackground() == false)
+		{
+			CatrobatDebug.info("no startscript defined!!!");
+
+			if(this.getLookData().get(0).getName() != null)
+			{
+				StartScript script = new StartScript(this, this.getName());
+				script.addBrick(new SetLookBrick(this.getName(), this.getLookData().get(0).getName()));
+				//script.addBrick(new ShowBrick(this.getName()));
+				this.addScript(script);
+
 				CatThread thread = new CatThread(this.getName() + script.getName(), script);
 				CatScheduler.get().schedule(thread);
 			}
-			else {
-//				CatrobatDebug.debug("script '" + script.getName() + "' is a WhenScript or a BroadcastScript, Sprite: " + this.name);
-			}
-			
-//			script.run();
+
 		}
+
+
 	}
 
 	public void startTapScripts() {
-		
+
 		CatrobatDebug.debug("<<< Sprite: " + this.name + " startTapScripts() >>>");
 		Stage.getInstance().setCurrentSprite(this);
 
 		for (Script script : scripts) {
 			if (script.getType().equals(WhenScript.SCRIPT_TYPE)) {
 				WhenScript touchScript = (WhenScript) script;
-				
+
 				if(CatScheduler.get().getThread(script.getExecutor()) != null) {
 					CatrobatDebug.debug("Already existing Thread with WhenScript: " + script.getName());
 					continue;
@@ -292,35 +339,35 @@ public class Sprite {
 				else {
 					CatrobatDebug.info("Add WhenScript to Scheduler");
 				}
-				
+
 				if(touchScript.hasScriptFinished()) {
 					touchScript.resetWhenScript();
 				}
-				
+
 				CatThread thread = new CatThread(this.getName() + script.getName(), touchScript);
-				
+
 				CatScheduler.get().schedule(thread);
-				
+
 				CatrobatDebug.info("script added to scheduler");
 			}
 		}
 	}
-	
+
 	public void startScriptBroadcast(BroadcastScript script) {
 		CatThread thread = new CatThread(this.getName() + script.getName(), script);
 		CatScheduler.get().schedule(thread);
 	}
-	
+
 	public void startScriptBroadcastWait(BroadcastScript script, WaitCount signaler) {
 		CatThread thread = new CatThread(this.getName() + script.getName(), script);
-		
+
 		thread.signalFinishedExecution(signaler);
-		
+
 		CatScheduler.get().schedule(thread);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @return number of scripts
 	 */
 	public int getNumberOfScripts() {
@@ -328,74 +375,74 @@ public class Sprite {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param relativeX
 	 * @param relativeY
 	 * @return
 	 */
 	public boolean processOnTouch(int relativeX, int relativeY) {
-		
+
 		//15.08.12: added || !look.isVisible())  --Andi
-		
+
 		//28.08.12 removed isBackground ||  --Andi
 //		if (isBackground || currentLook == null || !look.isVisible())
 //			return false;
-		
+
 		if (currentLook == null || !look.isVisible())
 			return false;
-		
+
 		double xPosition = look.getXPosition();
 		double yPosition = look.getYPosition();
 		double size = look.getSize();
-		
+
 		LookData lookData = look.getLookData();
-		
+
 		double widthHalf = ((double)lookData.getWidth() * size) / 2;
 		double heightHalf = ((double)lookData.getHeight() * size) / 2;
-		
+
 		if( xPosition + widthHalf  > relativeX &&
 			xPosition - widthHalf  < relativeX &&
 		    yPosition + heightHalf > relativeY &&
 		    yPosition - heightHalf < relativeY) {
-		
+
 			CatrobatDebug.info("Sprite " + this.name + " got touched");
-			
+
 			return true;
 		}
-		
-		
+
+
 //		double relXTrans = relativeX - Stage.getInstance().getStageMiddleX();
 //		double relYTrans = relativeY - Stage.getInstance().getStageMiddleY();
-//		
+//
 //		double costumeWidthHalf = currentLook.getWidth()*look.getSize() / 2;
 //		double costumeHeightHalf = currentLook.getHeight()*look.getSize() / 2;
-//		
+//
 //		double leftXBorder = look.getMiddleX() - costumeWidthHalf;
 //		double rightXBorder = look.getMiddleX() + costumeWidthHalf;
-//		
+//
 //		double topYBorder = look.getMiddleY() + costumeHeightHalf;
 //		double bottomYBorder = look.getMiddleY() - costumeHeightHalf;
-//		
+//
 //		String debugMessage = "Click(" + relativeX + "," + relativeY + ")" +
 //							  " - transform to (" + relXTrans + "," + relYTrans + ")";
-//		
+//
 //		debugMessage += "; Borders: left: " + leftXBorder + ", right: " + rightXBorder + ", top: " + topYBorder + ", bottom:" + bottomYBorder +
 //					    " of sprite: " + this.name + " with middleX: " + look.getMiddleX() + " and middleY: " + look.getMiddleY();
-//		
+//
 //		CatrobatDebug.on();
 //		CatrobatDebug.console(debugMessage);
 //		CatrobatDebug.off();
-//		
+//
 //		if((relXTrans > leftXBorder && relXTrans < rightXBorder) &&
 //			relYTrans > bottomYBorder && relYTrans < topYBorder) {
 //
 //			CatrobatDebug.on();
 //			CatrobatDebug.console("sprite " + this.name + " got touched");
 //			CatrobatDebug.off();
-//			
+//
 //			return true;
 //		}
-		
+
 		return false;
 	}
 
@@ -413,7 +460,7 @@ public class Sprite {
 		if (audio != null) {
 			audio.setVolume((double) volume / 100);
 			audio.play();
-			
+
 			CatrobatDebug.debug("playSound - getError: " + audio.getError() + "...");
 		}
 		else {
@@ -426,18 +473,18 @@ public class Sprite {
 			Audio audio = sound.getAudio();
 			if (audio != null) {
 				audio.pause();
-				
+
 				try {
 					//reset
 					double initialTime = audio.getInitialTime();
-					audio.setCurrentTime(initialTime); 
+					audio.setCurrentTime(initialTime);
 				}
 				catch(JavaScriptException e) {
 					CatrobatDebug.debug("JavaScriptException in stopSound of sprite: " + this.name);
 					CatrobatDebug.debug("initialTime: " + audio.getInitialTime());
 					CatrobatDebug.debug(e.getMessage());
 				}
-				
+
 			}
 		}
 	}
