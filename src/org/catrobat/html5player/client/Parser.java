@@ -80,7 +80,7 @@ public class Parser {
   }
 
   // ##########################################################################
-  
+
   // for fixing the problem with xpathEvaluateFirst witch returns null if there are multiple entries
   private Element xpathEvaluateFirst(Element objectNode, String objectReference, Class<Element> type){
       List<Element> refs = XPath.evaluate(objectNode, objectReference, type);
@@ -89,8 +89,8 @@ public class Parser {
       }
       return refs.get(0);
   }
-  
-  
+
+
   private boolean hasDomDocumentPageNotFoundError(Document messageDom) {
     NodeList errornodes = ((Element) messageDom.getFirstChild()).getElementsByTagName("error");
     if (errornodes != null && errornodes.getLength() != 0) {
@@ -246,13 +246,13 @@ public class Parser {
         }
         String name = "";
         double value = 0.0;
-        
+
         Element nameEl = getChildElementByTagName(userVariable,"name");
         if(nameEl != null)
         {
           name = nameEl.getFirstChild().toString();
         }
-        
+
         Element valueEl = getChildElementByTagName(userVariable,"value");
         if(valueEl != null)
         {
@@ -360,6 +360,8 @@ public class Parser {
 
     List<Element> scripts = getChildElements(scriptList);
 
+    int startScriptCounter = 0; //to check if Sprite only has WhenScript
+
     for (Element scriptElement : scripts) {
       Script script = checkScript(scriptElement, object);
       if(script == null)
@@ -367,7 +369,7 @@ public class Parser {
         System.out.println("error parsing script: "+scriptElement.toString());
         return null;
       }
-      script.addBrick(new SetLookBrick(object.getName(), object.getLookData().get(0).getName())); //Version 9.0 statt whitescreen
+
       Element brickListElement = getChildElementByTagName(scriptElement, "brickList");
 
 
@@ -399,6 +401,7 @@ public class Parser {
             }
             else{
               script.addBrick(brick);
+
               if(brick instanceof IfLogicBrick){
                 openIfLogicBricks.add((IfLogicBrick) brick);
               }
@@ -408,9 +411,33 @@ public class Parser {
             return null;
           }
         }
+
+        if (script instanceof StartScript)
+        {
+        	if(object.getLookData().get(0).getName() != null)
+			{
+				script.addBrick(new SetLookBrick(object.getName(), object.getLookData().get(0).getName()),0); //show sprite when not explicitly hidden
+				//script.addBrick(new ShowBrick(object.getName()));
+			}
+
+        	startScriptCounter++;
+        }
+
       }
+
       object.addScript(script);
+
     }
+
+    //if Sprite has no StartScript add simple startscript to show sprite by default when not explicitly hidden
+    if(startScriptCounter == 0 && object.isBackground() == false)
+    {
+  	  StartScript script_start = new StartScript(object, object.getName());
+  	  script_start.addBrick(new SetLookBrick(object.getName(), object.getLookData().get(0).getName()));
+  	  //script_start.addBrick(new ShowBrick(object.getName()));
+  	  object.addScript(script_start);
+    }
+
     return object;
   }
 

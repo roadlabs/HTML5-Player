@@ -30,8 +30,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.catrobat.html5player.client.bricks.SetLookBrick;
-import org.catrobat.html5player.client.bricks.ShowBrick;
 import org.catrobat.html5player.client.common.Look;
 import org.catrobat.html5player.client.common.LookData;
 import org.catrobat.html5player.client.common.Sound;
@@ -260,7 +258,6 @@ public class Sprite {
 		CatrobatDebug.debug("z-Pos: " + look.getZPosition() + " : name: " + this.name);
 	}
 
-	//TESTEN!!!!!
 	public void run() {
 
 		CatrobatDebug.debug("Sprite: " + this.name + ".run() - add startscripts");
@@ -271,9 +268,6 @@ public class Sprite {
 		Collections.sort(scriptList);
 		Stage.getInstance().setCurrentSprite(this);
 
-		//AAA
-
-		int startScriptCounter = 0;
 
 		for (Script script : scriptList) {
 
@@ -282,42 +276,16 @@ public class Sprite {
 
 //				CatrobatDebug.debug("script is no WhenScript or BroadcastScript, Sprite: " + this.name);
 
-				if(this.getLookData().get(0).getName() != null)
-				{
-					script.addBrick(new SetLookBrick(this.getName(), this.getLookData().get(0).getName()),0); //Version 9.0 statt whitescreen
-					script.addBrick(new ShowBrick(this.getName())); //evt weglassen geht
-				}
-
 				CatThread thread = new CatThread(this.getName() + script.getName(), script);
 				CatScheduler.get().schedule(thread);
 
-				startScriptCounter++;
 			}
 			else if (script instanceof WhenScript) {
 
-
-				CatrobatDebug.info("Whenscript exists");
 				//CatrobatDebug.debug("script '" + script.getName() + "' is a WhenScript or a BroadcastScript, Sprite: " + this.name);
 			}
 
 //			script.run();
-		}
-
-		if (startScriptCounter == 0 && this.isBackground() == false)
-		{
-			CatrobatDebug.info("no startscript defined!!!");
-
-			if(this.getLookData().get(0).getName() != null)
-			{
-				StartScript script = new StartScript(this, this.getName());
-				script.addBrick(new SetLookBrick(this.getName(), this.getLookData().get(0).getName()));
-				//script.addBrick(new ShowBrick(this.getName()));
-				this.addScript(script);
-
-				CatThread thread = new CatThread(this.getName() + script.getName(), script);
-				CatScheduler.get().schedule(thread);
-			}
-
 		}
 
 
