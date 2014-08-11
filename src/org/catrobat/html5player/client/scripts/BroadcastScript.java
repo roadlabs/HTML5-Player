@@ -31,9 +31,6 @@ import org.catrobat.html5player.client.threading.WaitCount;
 public class BroadcastScript extends Script {
 
 	public static final String SCRIPT_TYPE = "BroadcastScript";
-
-//	private int currentBrick = 0;
-//	private boolean stop = false;
 	
 	private String selectedMessage = "";
 	
@@ -54,45 +51,6 @@ public class BroadcastScript extends Script {
 		sprite.startScriptBroadcastWait(this, signaler);
 	}
 	
-//	public void pause(int time) {
-//		CatrobatDebug.debug("pause for " + time + "ms");
-//		
-//		CatScheduler.get().getThread(sprite.getName() + this.name).sleep();
-//		
-////		stop = true;
-//		
-//		if (time > 0) {
-//			Timer t = new Timer() {
-//				public void run() {
-////					currentBrick++;
-//					resume();
-//				}
-//			};
-//			t.schedule(time);
-//		}
-////		} else {
-////			currentBrick++;
-////		}
-//	}
-//
-//	public void resume() {
-////		stop = false;
-//		
-//		CatScheduler.get().getThread(sprite.getName() + this.name).wake();
-//		
-////		if (sprite == null) {
-////			Window.alert("Run error this sprite has never been initialized");
-////		}
-////		for (int i = currentBrick; i < brickList.size(); i++) {
-////			if (!stop)
-////				brickList.get(i).execute();
-////			else
-////				return;
-////			currentBrick = i;
-////			Stage.getInstance().getSpriteManager().redrawScreen();
-////		}
-//	}
-
 	public void setBroadcastMessage(String selectedMessage) {
 		MessageContainer messageContainer = Stage.getInstance()
 				.getMessageContainer();
@@ -110,38 +68,6 @@ public class BroadcastScript extends Script {
 		this.currentBrick = 0;
 		this.resetWorkDone();
 		this.scriptFinished = false;
-	}
-
-//	public void run() {
-////		for (int i = 0; i < brickList.size(); i++) {
-////			if (!stop)
-////				brickList.get(i).execute();
-////			else
-////				return;
-////			currentBrick = i;
-////			Stage.getInstance().getSpriteManager().redrawScreen();
-////		}
-//		
-//		brickList.get(currentBrick).execute();
-//		Stage.getInstance().getSpriteManager().redrawScreen();
-//		
-//		if(currentBrick < (brickList.size() - 1))
-//			currentBrick++;
-//		else
-//			setWorkDone();
-//	}
-
-	public void runWait(int wait) {
-//		for (int i = 0; i < brickList.size(); i++) {
-//			if (!stop)
-//				brickList.get(i).execute();
-//			else
-//				return;
-//			currentBrick = i;
-//			Stage.getInstance().getSpriteManager().redrawScreen();
-//		}
-		
-		run();
 	}
 
 }

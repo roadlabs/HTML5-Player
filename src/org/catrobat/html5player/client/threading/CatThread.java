@@ -65,14 +65,6 @@ public class CatThread {
 		
 		
 //      CatrobatDebug.debug("Thread '" + this.name + "' running...");
-//      // check if task should pause
-//      if(task.pause()) {
-//          CatrobatDebug.debug("Callable wants to pause work");
-//          return;
-//      } // task shall resume
-//      else { 
-//          CatrobatDebug.debug("Callable wants to resume work");
-//      }
 		
 		//work
 		task.run();

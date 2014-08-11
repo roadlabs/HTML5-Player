@@ -32,9 +32,6 @@ public class StartScript extends Script {
 
 	public static final String SCRIPT_TYPE = "StartScript";
 
-//	private int currentBrick = 0;
-//	private boolean stop = false;
-
 	public StartScript(Sprite sprite, String name) {
 		super(sprite, SCRIPT_TYPE, name);
 	}
@@ -45,79 +42,5 @@ public class StartScript extends Script {
 			this.brickList.addAll(list);
 		}
 	}
-
-//	public void run() {
-////		for (int i = 0; i < brickList.size(); i++) {
-////			if (!stop)
-////				brickList.get(i).execute();
-////			else
-////				return;
-////			currentBrick = i;
-////			Stage.getInstance().getSpriteManager().redrawScreen();
-////		}
-//		
-//		CatrobatDebug.info("Start running the script");
-//		CatrobatDebug.debug("execute brick");
-//		
-//		brickList.get(currentBrick).execute();
-//		
-//		CatrobatDebug.debug("redraw screen");
-//
-//		Stage.getInstance().getSpriteManager().redrawScreen();
-//		
-//		if(currentBrick < (brickList.size() - 1)) {
-//			currentBrick++;
-//			CatrobatDebug.debug("incremented currentBrick");
-//		}
-//		else {
-//			setWorkDone();
-//			CatrobatDebug.debug("Script finished");
-//		}
-//	}
-//
-//	public void pause(int time) {
-//		CatrobatDebug.debug("pause for " + time + " ms");
-//		
-////		CatScheduler.get().getThread(sprite.getName() + this.name).sleep();
-//		pauseWork();
-//		
-////		stop = true;
-//		
-//		if (time > 0) {
-//			Timer t = new Timer() {
-//				public void run() {
-////					currentBrick++;
-//					CatrobatDebug.debug("pause is over, resume()");
-//					resume();
-//				}
-//			};
-//			t.schedule(time);
-//		}
-////		} else {
-////			currentBrick++;
-////		}
-//	}
-//
-//	public void resume() {
-////		stop = false;
-//		
-////		CatScheduler.get().getThread(sprite.getName() + this.name).wake();
-//		CatrobatDebug.debug("resumeWork()");
-//		resumeWork();
-//		
-//		
-//		
-////		if (sprite == null) {
-////			Window.alert("Run error this sprite has never been initialized");
-////		}
-////		for (int i = currentBrick; i < brickList.size(); i++) {
-////			if (!stop)
-////				brickList.get(i).execute();
-////			else
-////				return;
-////			currentBrick = i;
-////			Stage.getInstance().getSpriteManager().redrawScreen();
-////		}
-//	}
 
 }
