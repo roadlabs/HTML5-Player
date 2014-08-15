@@ -84,6 +84,7 @@ public class Parser {
   // for fixing the problem with xpathEvaluateFirst witch returns null if there are multiple entries
   private Element xpathEvaluateFirst(Element objectNode, String objectReference, Class<Element> type){
       List<Element> refs = XPath.evaluate(objectNode, objectReference, type);
+
       if(refs == null || refs.size() == 0){
     	  return null;
       }
@@ -307,6 +308,10 @@ public class Parser {
       Sprite object = createObject(name, lookList, scriptList, soundList);
       if (object == null) {
         Window.alert("Could not parse XML document. There are unsupported elements!");
+        //Window.alert(name+"");
+        //Window.alert(lookList+"");
+        //Window.alert(scriptList+"");
+        //Window.alert(soundList+"");
         return false;
       }
       manager.addSprite(object);
@@ -357,6 +362,7 @@ public class Parser {
           "http://" + Window.Location.getHost() + "/Html5Player/fileupload?name=" + filename;
       ImageHandler.get().addImage(filename, url);
     }
+
 
     List<Element> scripts = getChildElements(scriptList);
 
@@ -429,6 +435,8 @@ public class Parser {
 
     }
 
+    //nicht
+
     //if Sprite has no StartScript add simple startscript to show sprite by default when not explicitly hidden
     if(startScriptCounter == 0 && object.isBackground() == false)
     {
@@ -437,6 +445,8 @@ public class Parser {
   	  //script_start.addBrick(new ShowBrick(object.getName()));
   	  object.addScript(script_start);
     }
+
+    //soundlist
 
     return object;
   }
@@ -515,6 +525,7 @@ public class Parser {
         }
 
         fileName = getText(getChildElementByTagName(soundInfoElement, "fileName"));
+
         CatrobatDebug.debug("Filename: " + fileName);
         soundInfo.setFileName(fileName);
         soundInfo.setTitle(getText(getChildElementByTagName(soundInfoElement, "name")));
@@ -530,6 +541,9 @@ public class Parser {
         object.addSound(soundInfo);
       }
       return new PlaySoundBrick(objName, soundId);
+    } else if (brickNode.getNodeName().equals("speakBrick")) {
+    	String text = getChildElementByTagName(brickNode, "text").getFirstChild().getNodeValue();
+    	return new SpeakBrick(objName, text);
     } else if (brickNode.getNodeName().equals("changeVolumeByNBrick")) {
       Formula volume = FormulaParser.parseFormula(getChildElementByTagName(brickNode, "volume"));
       return new ChangeVolumeByBrick(objName, volume);

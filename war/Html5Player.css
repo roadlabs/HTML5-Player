@@ -32,3 +32,9 @@ h1 {
 #closeButton {
   margin: 15px 6px 6px;
 }
+
+#messageLayer {
+	font-size: 30px;
+	text-align: center;
+	vertical-align: center;
+}

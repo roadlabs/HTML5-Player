@@ -35,7 +35,7 @@ import com.google.gwt.junit.tools.GWTTestSuite;
 public class AllTestsSuitTest extends GWTTestSuite{
 	public static Test suite() {
 	    TestSuite suite = new TestSuite("Test all TestCases");
-	    suite.addTestSuite(ChangeVolumeByBrickTest.class); 
+	    suite.addTestSuite(ChangeVolumeByBrickTest.class);
 	    suite.addTestSuite(ChangeXByBrickTest.class);
 	    suite.addTestSuite(ChangeYByBrickTest.class);
 	    suite.addTestSuite(ComeToFrontBrickTest.class);
@@ -52,7 +52,8 @@ public class AllTestsSuitTest extends GWTTestSuite{
 	    suite.addTestSuite(TurnLeftBrickTest.class);
 	    suite.addTestSuite(TurnRightBrickTest.class);
 	    suite.addTestSuite(SetVariableBrickTest.class);
-	    
+	    suite.addTestSuite(ChangeSizeByNBrickTest.class);
+
 	    suite.addTestSuite(RepeatBrickTest.class);
 	    suite.addTestSuite(ForeverBrickTest.class);
 	    suite.addTestSuite(LoopEndBrickTest.class);
@@ -61,19 +62,20 @@ public class AllTestsSuitTest extends GWTTestSuite{
 	    suite.addTestSuite(BroadcastBrickTest.class);
 	    suite.addTestSuite(BroadcastWaitBrickTest.class);
 	    suite.addTestSuite(WaitBrickTest.class);
-	    
+	    suite.addTestSuite(SpeakBrickTest.class);
+
 	    suite.addTestSuite(NoteBrickTest.class);
 	    suite.addTestSuite(PointToBrickTest.class);
 	    suite.addTestSuite(ClearGraphicEffectBrickTest.class);
-	    
+
 	    suite.addTestSuite(SetGhostEffectBrickTest.class);
 	    suite.addTestSuite(ChangeGhostEffectByBrickTest.class);
-	    
+
 	    suite.addTestSuite(SetBrightnessBrickTest.class);
 	    suite.addTestSuite(ChangeBrightnessBrickTest.class);
-	    
+
 	    suite.addTestSuite(IfOnEdgeBounceBrickTest.class);
-	    
+
 	    suite.addTestSuite(ParserTest.class);
 	    suite.addTestSuite(SpriteTest.class);
 	    suite.addTestSuite(MessageContainerTest.class);
@@ -82,18 +84,20 @@ public class AllTestsSuitTest extends GWTTestSuite{
 	    suite.addTestSuite(WhenScriptTest.class);
 	    suite.addTestSuite(StageTest.class);
 	    suite.addTestSuite(SpriteManagerTest.class);
-	    
+
 	    suite.addTestSuite(CatThreadTest.class);
 	    suite.addTestSuite(CatSchedulerTest.class);
 	    suite.addTestSuite(WaitCountTest.class);
-	    
+
 	    suite.addTestSuite(ImageHandlerTest.class);
 	    suite.addTestSuite(SceneTest.class);
-	    
+
 	    suite.addTestSuite(InvalidProjectIdTest.class);
 	    suite.addTestSuite(RotationTest.class);
 	    suite.addTestSuite(UnsupportedVersionTest.class);
-	    
+
+	    suite.addTestSuite(ConstTest.class);
+
 	    return suite;
 	  }
 
